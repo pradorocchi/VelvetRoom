@@ -19,6 +19,7 @@
 		DA7C744021C3DE9800B1F931 /* SFMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743521C3DE9800B1F931 /* SFMono-Regular.otf */; };
 		DA7C744121C3DE9800B1F931 /* SFMono-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743621C3DE9800B1F931 /* SFMono-BoldItalic.otf */; };
 		DA7C744221C3DE9800B1F931 /* SFMono-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743621C3DE9800B1F931 /* SFMono-BoldItalic.otf */; };
+		DA7C744421C3E1C000B1F931 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C744321C3E1C000B1F931 /* View.swift */; };
 		DAB2708421C3CA7C008F184E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAB2707E21C3CA7C008F184E /* Localizable.strings */; };
 		DAB2708521C3CA7C008F184E /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708021C3CA7C008F184E /* iOS.storyboard */; };
 		DAB2708621C3CA7C008F184E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708121C3CA7C008F184E /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 		DA7C743421C3DE9800B1F931 /* SFMono-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-RegularItalic.otf"; sourceTree = "<group>"; };
 		DA7C743521C3DE9800B1F931 /* SFMono-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-Regular.otf"; sourceTree = "<group>"; };
 		DA7C743621C3DE9800B1F931 /* SFMono-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-BoldItalic.otf"; sourceTree = "<group>"; };
+		DA7C744321C3E1C000B1F931 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		DAB2707F21C3CA7C008F184E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DAB2708021C3CA7C008F184E /* iOS.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iOS.storyboard; sourceTree = "<group>"; };
 		DAB2708121C3CA7C008F184E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				DAB2709021C3CA87008F184E /* Application.swift */,
+				DA7C744321C3E1C000B1F931 /* View.swift */,
 				DAB2708A21C3CA87008F184E /* Localizable.strings */,
 				DAB2708D21C3CA87008F184E /* MacOS.storyboard */,
 				DAB2708E21C3CA87008F184E /* MacOS.entitlements */,
@@ -432,6 +435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB2709521C3CA87008F184E /* Application.swift in Sources */,
+				DA7C744421C3E1C000B1F931 /* View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
