@@ -7,7 +7,7 @@ class TestBoard:XCTestCase {
 {
 "id":"lorem ipsum",
 "created": 123.0,
-"synchstamp": 345.0,
+"updated": 345.0,
 "name": "hello world",
 "columns": [],
 "cards": []
@@ -21,7 +21,9 @@ class TestBoard:XCTestCase {
         let board = try! JSONDecoder().decode(Board.self, from:data)
         XCTAssertEqual("lorem ipsum", board.id)
         XCTAssertEqual(123, board.created)
-        XCTAssertEqual(345, board.synchstamp)
+        XCTAssertEqual(345, board.updated)
         XCTAssertEqual("hello world", board.name)
+        XCTAssertTrue(board.columns.isEmpty)
+        XCTAssertTrue(board.cards.isEmpty)
     }
 }

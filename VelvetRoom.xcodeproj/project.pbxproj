@@ -31,7 +31,6 @@
 		DAB2709221C3CA87008F184E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708C21C3CA87008F184E /* Assets.xcassets */; };
 		DAB2709321C3CA87008F184E /* MacOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708D21C3CA87008F184E /* MacOS.storyboard */; };
 		DAB2709521C3CA87008F184E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709021C3CA87008F184E /* Application.swift */; };
-		DAB2709A21C3CA90008F184E /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709821C3CA90008F184E /* Tests.swift */; };
 		DAB2709D21C3CA99008F184E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709C21C3CA99008F184E /* Repository.swift */; };
 		DAB2709F21C3CA99008F184E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709C21C3CA99008F184E /* Repository.swift */; };
 		DAB270A821C3CD7A008F184E /* libiOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A621C3CD5E008F184E /* libiOSengine.a */; };
@@ -46,6 +45,12 @@
 		DAD0C1D721C5090200E6D1C7 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1D521C5090200E6D1C7 /* Card.swift */; };
 		DAD0C1D921C5092400E6D1C7 /* TestColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1D821C5092400E6D1C7 /* TestColumn.swift */; };
 		DAD0C1DB21C509D700E6D1C7 /* TestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1DA21C509D700E6D1C7 /* TestCard.swift */; };
+		DAD0C1DD21C50B8100E6D1C7 /* TestPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1DC21C50B8100E6D1C7 /* TestPosition.swift */; };
+		DAD0C1DF21C50BF700E6D1C7 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1DE21C50BF700E6D1C7 /* Position.swift */; };
+		DAD0C1E021C50BF700E6D1C7 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1DE21C50BF700E6D1C7 /* Position.swift */; };
+		DAD0C1E221C50C7300E6D1C7 /* TestContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1E121C50C7300E6D1C7 /* TestContent.swift */; };
+		DAD0C1E421C50CB600E6D1C7 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1E321C50CB600E6D1C7 /* Content.swift */; };
+		DAD0C1E521C50CB600E6D1C7 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1E321C50CB600E6D1C7 /* Content.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,7 +98,6 @@
 		DAB2708F21C3CA87008F184E /* MacOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MacOS.plist; sourceTree = "<group>"; };
 		DAB2709021C3CA87008F184E /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		DAB2709721C3CA90008F184E /* Tests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Tests.plist; sourceTree = "<group>"; };
-		DAB2709821C3CA90008F184E /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		DAB2709C21C3CA99008F184E /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		DAB2709E21C3CA99008F184E /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270A021C3CAA5008F184E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -110,6 +114,10 @@
 		DAD0C1D521C5090200E6D1C7 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		DAD0C1D821C5092400E6D1C7 /* TestColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestColumn.swift; sourceTree = "<group>"; };
 		DAD0C1DA21C509D700E6D1C7 /* TestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCard.swift; sourceTree = "<group>"; };
+		DAD0C1DC21C50B8100E6D1C7 /* TestPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPosition.swift; sourceTree = "<group>"; };
+		DAD0C1DE21C50BF700E6D1C7 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
+		DAD0C1E121C50C7300E6D1C7 /* TestContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestContent.swift; sourceTree = "<group>"; };
+		DAD0C1E321C50CB600E6D1C7 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,10 +228,11 @@
 		DAB2709621C3CA90008F184E /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				DAB2709821C3CA90008F184E /* Tests.swift */,
 				DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */,
 				DAD0C1D821C5092400E6D1C7 /* TestColumn.swift */,
 				DAD0C1DA21C509D700E6D1C7 /* TestCard.swift */,
+				DAD0C1DC21C50B8100E6D1C7 /* TestPosition.swift */,
+				DAD0C1E121C50C7300E6D1C7 /* TestContent.swift */,
 				DAB2709721C3CA90008F184E /* Tests.plist */,
 			);
 			path = Tests;
@@ -236,6 +245,8 @@
 				DAD0C1CF21C5056B00E6D1C7 /* Board.swift */,
 				DAD0C1D221C508D800E6D1C7 /* Column.swift */,
 				DAD0C1D521C5090200E6D1C7 /* Card.swift */,
+				DAD0C1DE21C50BF700E6D1C7 /* Position.swift */,
+				DAD0C1E321C50CB600E6D1C7 /* Content.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -443,7 +454,9 @@
 				DAD0C1D021C5056B00E6D1C7 /* Board.swift in Sources */,
 				DAB2709D21C3CA99008F184E /* Repository.swift in Sources */,
 				DAD0C1D321C508D800E6D1C7 /* Column.swift in Sources */,
+				DAD0C1DF21C50BF700E6D1C7 /* Position.swift in Sources */,
 				DAD0C1D621C5090200E6D1C7 /* Card.swift in Sources */,
+				DAD0C1E421C50CB600E6D1C7 /* Content.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,7 +467,9 @@
 				DAD0C1D121C5056B00E6D1C7 /* Board.swift in Sources */,
 				DAB2709F21C3CA99008F184E /* Repository.swift in Sources */,
 				DAD0C1D421C508D800E6D1C7 /* Column.swift in Sources */,
+				DAD0C1E021C50BF700E6D1C7 /* Position.swift in Sources */,
 				DAD0C1D721C5090200E6D1C7 /* Card.swift in Sources */,
+				DAD0C1E521C50CB600E6D1C7 /* Content.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,7 +479,8 @@
 			files = (
 				DAD0C1D921C5092400E6D1C7 /* TestColumn.swift in Sources */,
 				DAD0C1CE21C5036200E6D1C7 /* TestBoard.swift in Sources */,
-				DAB2709A21C3CA90008F184E /* Tests.swift in Sources */,
+				DAD0C1DD21C50B8100E6D1C7 /* TestPosition.swift in Sources */,
+				DAD0C1E221C50C7300E6D1C7 /* TestContent.swift in Sources */,
 				DAD0C1DB21C509D700E6D1C7 /* TestCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
