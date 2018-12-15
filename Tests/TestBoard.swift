@@ -5,7 +5,7 @@ class TestBoard:XCTestCase {
     private var data:Data!
     private let json = """
 {
-"id":"lorem ipsum",
+"id": "lorem ipsum",
 "created": 123.0,
 "updated": 345.0,
 "name": "hello world",
