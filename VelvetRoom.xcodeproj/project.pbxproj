@@ -65,6 +65,10 @@
 		DAD0C1F821C528C400E6D1C7 /* CloudSynch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1F621C528C400E6D1C7 /* CloudSynch.swift */; };
 		DAD0C1FA21C52A3200E6D1C7 /* MockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1F921C52A3200E6D1C7 /* MockStorage.swift */; };
 		DAD0C1FC21C52A9D00E6D1C7 /* MockSynch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1FB21C52A9D00E6D1C7 /* MockSynch.swift */; };
+		DAD0C1FE21C52C6600E6D1C7 /* TestSynch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1FD21C52C6600E6D1C7 /* TestSynch.swift */; };
+		DAD0C20021C52C8500E6D1C7 /* TestStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1FF21C52C8500E6D1C7 /* TestStorage.swift */; };
+		DAD0C20221C5310D00E6D1C7 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C20121C5310D00E6D1C7 /* Exception.swift */; };
+		DAD0C20321C5310D00E6D1C7 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C20121C5310D00E6D1C7 /* Exception.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +145,9 @@
 		DAD0C1F621C528C400E6D1C7 /* CloudSynch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSynch.swift; sourceTree = "<group>"; };
 		DAD0C1F921C52A3200E6D1C7 /* MockStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorage.swift; sourceTree = "<group>"; };
 		DAD0C1FB21C52A9D00E6D1C7 /* MockSynch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSynch.swift; sourceTree = "<group>"; };
+		DAD0C1FD21C52C6600E6D1C7 /* TestSynch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSynch.swift; sourceTree = "<group>"; };
+		DAD0C1FF21C52C8500E6D1C7 /* TestStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStorage.swift; sourceTree = "<group>"; };
+		DAD0C20121C5310D00E6D1C7 /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +265,8 @@
 				DAD0C1DA21C509D700E6D1C7 /* TestCard.swift */,
 				DAD0C1DC21C50B8100E6D1C7 /* TestPosition.swift */,
 				DAD0C1E121C50C7300E6D1C7 /* TestContent.swift */,
+				DAD0C1FF21C52C8500E6D1C7 /* TestStorage.swift */,
+				DAD0C1FD21C52C6600E6D1C7 /* TestSynch.swift */,
 				DAD0C1F921C52A3200E6D1C7 /* MockStorage.swift */,
 				DAD0C1FB21C52A9D00E6D1C7 /* MockSynch.swift */,
 				DAB2709721C3CA90008F184E /* Tests.plist */,
@@ -279,6 +288,7 @@
 				DAD0C1D521C5090200E6D1C7 /* Card.swift */,
 				DAD0C1DE21C50BF700E6D1C7 /* Position.swift */,
 				DAD0C1E321C50CB600E6D1C7 /* Content.swift */,
+				DAD0C20121C5310D00E6D1C7 /* Exception.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -492,6 +502,7 @@
 				DAD0C1D621C5090200E6D1C7 /* Card.swift in Sources */,
 				DAD0C1EE21C521D600E6D1C7 /* Storage.swift in Sources */,
 				DAD0C1E421C50CB600E6D1C7 /* Content.swift in Sources */,
+				DAD0C20221C5310D00E6D1C7 /* Exception.swift in Sources */,
 				DAD0C1E921C515AC00E6D1C7 /* Account.swift in Sources */,
 				DAD0C1F721C528C400E6D1C7 /* CloudSynch.swift in Sources */,
 			);
@@ -510,6 +521,7 @@
 				DAD0C1D721C5090200E6D1C7 /* Card.swift in Sources */,
 				DAD0C1EF21C521D600E6D1C7 /* Storage.swift in Sources */,
 				DAD0C1E521C50CB600E6D1C7 /* Content.swift in Sources */,
+				DAD0C20321C5310D00E6D1C7 /* Exception.swift in Sources */,
 				DAD0C1EA21C515AC00E6D1C7 /* Account.swift in Sources */,
 				DAD0C1F821C528C400E6D1C7 /* CloudSynch.swift in Sources */,
 			);
@@ -520,8 +532,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD0C1D921C5092400E6D1C7 /* TestColumn.swift in Sources */,
+				DAD0C20021C52C8500E6D1C7 /* TestStorage.swift in Sources */,
 				DAD0C1CE21C5036200E6D1C7 /* TestBoard.swift in Sources */,
 				DAD0C1DD21C50B8100E6D1C7 /* TestPosition.swift in Sources */,
+				DAD0C1FE21C52C6600E6D1C7 /* TestSynch.swift in Sources */,
 				DAD0C1FC21C52A9D00E6D1C7 /* MockSynch.swift in Sources */,
 				DAD0C1FA21C52A3200E6D1C7 /* MockStorage.swift in Sources */,
 				DAD0C1E221C50C7300E6D1C7 /* TestContent.swift in Sources */,

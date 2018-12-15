@@ -6,6 +6,8 @@ class TestRepository:XCTestCase {
 
     override func setUp() {
         repository = Repository()
+        repository.storage = MockStorage()
+        repository.synch = MockSynch()
     }
     
     func testNewBoard() {

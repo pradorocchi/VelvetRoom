@@ -4,6 +4,7 @@ import Foundation
 class MockSynch:Synch {
     var notification:(([String:TimeInterval]) -> Void)!
     var loaded:((Board) -> Void)!
+    var onStart:(() -> Void)?
     var onLoad:((String) -> Void)?
     var onSaveAccount:(([String:TimeInterval]) -> Void)?
     var onSaveBoard:((Board) -> Void)?
@@ -14,6 +15,7 @@ class MockSynch:Synch {
         if let items = self.items {
             notification(items)
         }
+        onStart?()
     }
     
     func load(_ id:String) {
