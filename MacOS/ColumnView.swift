@@ -1,28 +1,27 @@
 import AppKit
 
 class ColumnView:NSControl {
-    private weak var field:NSTextField!
-    override var intrinsicContentSize:NSSize { return NSSize(width:200, height:200) }
+    private weak var name:NSTextField!
+    override var intrinsicContentSize:NSSize { return NSSize(width:150, height:50) }
     
-    init(_ name:String) {
+    init(_ text:String) {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         
-        let field = NSTextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
-        field.backgroundColor = .clear
-        field.isBezeled = false
-        field.isEditable = false
-        field.font = NSFont(name:"SFMono-Bold", size:30)
-        field.stringValue = name
-        field.alphaValue = 0.2
-        addSubview(field)
-        self.field = field
+        let name = NSTextField()
+        name.translatesAutoresizingMaskIntoConstraints = false
+        name.backgroundColor = .clear
+        name.isBezeled = false
+        name.isEditable = false
+        name.font = .bold(22)
+        name.stringValue = text
+        name.alphaValue = 0.4
+        name.maximumNumberOfLines = 1
+        addSubview(name)
+        self.name = name
         
-        field.topAnchor.constraint(equalTo:topAnchor, constant:12).isActive = true
-        field.leftAnchor.constraint(equalTo:leftAnchor, constant:24).isActive = true
-        field.widthAnchor.constraint(equalToConstant:195).isActive = true
-        field.heightAnchor.constraint(equalToConstant:100).isActive = true
+        name.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
+        name.leftAnchor.constraint(equalTo:leftAnchor, constant:10).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }
