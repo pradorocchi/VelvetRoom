@@ -37,6 +37,15 @@
 		DAB270A821C3CD7A008F184E /* libiOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A621C3CD5E008F184E /* libiOSengine.a */; };
 		DAB270A921C3CD83008F184E /* libMacOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A521C3CD50008F184E /* libMacOSengine.a */; };
 		DAB270AE21C3CE09008F184E /* libMacOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A521C3CD50008F184E /* libMacOSengine.a */; };
+		DAD0C1CE21C5036200E6D1C7 /* TestBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */; };
+		DAD0C1D021C5056B00E6D1C7 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CF21C5056B00E6D1C7 /* Board.swift */; };
+		DAD0C1D121C5056B00E6D1C7 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CF21C5056B00E6D1C7 /* Board.swift */; };
+		DAD0C1D321C508D800E6D1C7 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1D221C508D800E6D1C7 /* Column.swift */; };
+		DAD0C1D421C508D800E6D1C7 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1D221C508D800E6D1C7 /* Column.swift */; };
+		DAD0C1D621C5090200E6D1C7 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1D521C5090200E6D1C7 /* Card.swift */; };
+		DAD0C1D721C5090200E6D1C7 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1D521C5090200E6D1C7 /* Card.swift */; };
+		DAD0C1D921C5092400E6D1C7 /* TestColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1D821C5092400E6D1C7 /* TestColumn.swift */; };
+		DAD0C1DB21C509D700E6D1C7 /* TestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1DA21C509D700E6D1C7 /* TestCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +104,12 @@
 		DAB270A521C3CD50008F184E /* libMacOSengine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMacOSengine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270A621C3CD5E008F184E /* libiOSengine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiOSengine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270AF21C3D421008F184E /* VelvetRoom.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = VelvetRoom.sketch; sourceTree = "<group>"; };
+		DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBoard.swift; sourceTree = "<group>"; };
+		DAD0C1CF21C5056B00E6D1C7 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		DAD0C1D221C508D800E6D1C7 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
+		DAD0C1D521C5090200E6D1C7 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		DAD0C1D821C5092400E6D1C7 /* TestColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestColumn.swift; sourceTree = "<group>"; };
+		DAD0C1DA21C509D700E6D1C7 /* TestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +221,9 @@
 			isa = PBXGroup;
 			children = (
 				DAB2709821C3CA90008F184E /* Tests.swift */,
+				DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */,
+				DAD0C1D821C5092400E6D1C7 /* TestColumn.swift */,
+				DAD0C1DA21C509D700E6D1C7 /* TestCard.swift */,
 				DAB2709721C3CA90008F184E /* Tests.plist */,
 			);
 			path = Tests;
@@ -215,6 +233,9 @@
 			isa = PBXGroup;
 			children = (
 				DAB2709C21C3CA99008F184E /* Repository.swift */,
+				DAD0C1CF21C5056B00E6D1C7 /* Board.swift */,
+				DAD0C1D221C508D800E6D1C7 /* Column.swift */,
+				DAD0C1D521C5090200E6D1C7 /* Card.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -419,7 +440,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAD0C1D021C5056B00E6D1C7 /* Board.swift in Sources */,
 				DAB2709D21C3CA99008F184E /* Repository.swift in Sources */,
+				DAD0C1D321C508D800E6D1C7 /* Column.swift in Sources */,
+				DAD0C1D621C5090200E6D1C7 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,7 +451,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAD0C1D121C5056B00E6D1C7 /* Board.swift in Sources */,
 				DAB2709F21C3CA99008F184E /* Repository.swift in Sources */,
+				DAD0C1D421C508D800E6D1C7 /* Column.swift in Sources */,
+				DAD0C1D721C5090200E6D1C7 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,7 +462,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAD0C1D921C5092400E6D1C7 /* TestColumn.swift in Sources */,
+				DAD0C1CE21C5036200E6D1C7 /* TestBoard.swift in Sources */,
 				DAB2709A21C3CA90008F184E /* Tests.swift in Sources */,
+				DAD0C1DB21C509D700E6D1C7 /* TestCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -808,7 +838,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = Tests/Tests.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -874,7 +904,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = Tests/Tests.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
