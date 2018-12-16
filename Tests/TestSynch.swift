@@ -10,6 +10,8 @@ class TestSynch:XCTestCase {
         repository = Repository()
         repository.storage = MockStorage()
         repository.synch = synch
+        repository.list = { _ in }
+        repository.select = { _ in }
     }
     
     func testLoad() {
@@ -20,6 +22,27 @@ class TestSynch:XCTestCase {
             expect.fulfill()
         }
         repository.load()
+        waitForExpectations(timeout:1)
+    }
+    
+    func testNewBoardSynchsBoard() {
+        let expect = expectation(description:String())
+        synch.onSaveBoard = { item in
+            XCTAssertEqual(self.repository.boards.first!.id, item.id)
+            expect.fulfill()
+        }
+        repository.newBoard(String())
+        waitForExpectations(timeout:1)
+    }
+    
+    func testNewBoardSynchsAccount() {
+        let expect = expectation(description:String())
+        synch.onSaveAccount = { items in
+            XCTAssertEqual(self.repository.boards.first!.id, items.first!.key)
+            XCTAssertEqual(self.repository.boards.first!.updated, items.first!.value)
+            expect.fulfill()
+        }
+        repository.newBoard(String())
         waitForExpectations(timeout:1)
     }
 }

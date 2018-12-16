@@ -10,6 +10,8 @@ class TestStorage:XCTestCase {
         repository = Repository()
         repository.synch = MockSynch()
         repository.storage = storage
+        repository.list = { _ in }
+        repository.select = { _ in }
     }
     
     func testLoadsAccount() {
@@ -27,6 +29,20 @@ class TestStorage:XCTestCase {
             expect.fulfill()
         }
         repository.load()
+        waitForExpectations(timeout:1)
+    }
+    
+    func testNewBoardSavesBoard() {
+        let expect = expectation(description:String())
+        storage.onSaveBoard = { expect.fulfill() }
+        repository.newBoard(String())
+        waitForExpectations(timeout:1)
+    }
+    
+    func testNewBoardSavesAccount() {
+        let expect = expectation(description:String())
+        storage.onSaveAccount = { expect.fulfill() }
+        repository.newBoard(String())
         waitForExpectations(timeout:1)
     }
 }

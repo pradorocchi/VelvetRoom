@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA7B2AE721C67982003B7333 /* TestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B2AE621C67982003B7333 /* TestList.swift */; };
+		DA7B2AE921C67C3E003B7333 /* TestSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B2AE821C67C3E003B7333 /* TestSelect.swift */; };
 		DA7C743721C3DE9800B1F931 /* SFMono-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743121C3DE9800B1F931 /* SFMono-Light.otf */; };
 		DA7C743821C3DE9800B1F931 /* SFMono-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743121C3DE9800B1F931 /* SFMono-Light.otf */; };
 		DA7C743921C3DE9800B1F931 /* SFMono-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743221C3DE9800B1F931 /* SFMono-Bold.otf */; };
@@ -94,6 +96,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA7B2AE621C67982003B7333 /* TestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestList.swift; sourceTree = "<group>"; };
+		DA7B2AE821C67C3E003B7333 /* TestSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSelect.swift; sourceTree = "<group>"; };
 		DA7C743121C3DE9800B1F931 /* SFMono-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-Light.otf"; sourceTree = "<group>"; };
 		DA7C743221C3DE9800B1F931 /* SFMono-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-Bold.otf"; sourceTree = "<group>"; };
 		DA7C743321C3DE9800B1F931 /* SFMono-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-LightItalic.otf"; sourceTree = "<group>"; };
@@ -259,14 +263,16 @@
 			isa = PBXGroup;
 			children = (
 				DAD0C1E621C50F0900E6D1C7 /* TestRepository.swift */,
+				DAD0C1FF21C52C8500E6D1C7 /* TestStorage.swift */,
+				DAD0C1FD21C52C6600E6D1C7 /* TestSynch.swift */,
+				DA7B2AE621C67982003B7333 /* TestList.swift */,
+				DA7B2AE821C67C3E003B7333 /* TestSelect.swift */,
 				DAD0C1EB21C51B1400E6D1C7 /* TestAccount.swift */,
 				DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */,
 				DAD0C1D821C5092400E6D1C7 /* TestColumn.swift */,
 				DAD0C1DA21C509D700E6D1C7 /* TestCard.swift */,
 				DAD0C1DC21C50B8100E6D1C7 /* TestPosition.swift */,
 				DAD0C1E121C50C7300E6D1C7 /* TestContent.swift */,
-				DAD0C1FF21C52C8500E6D1C7 /* TestStorage.swift */,
-				DAD0C1FD21C52C6600E6D1C7 /* TestSynch.swift */,
 				DAD0C1F921C52A3200E6D1C7 /* MockStorage.swift */,
 				DAD0C1FB21C52A9D00E6D1C7 /* MockSynch.swift */,
 				DAB2709721C3CA90008F184E /* Tests.plist */,
@@ -531,6 +537,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA7B2AE921C67C3E003B7333 /* TestSelect.swift in Sources */,
 				DAD0C1D921C5092400E6D1C7 /* TestColumn.swift in Sources */,
 				DAD0C20021C52C8500E6D1C7 /* TestStorage.swift in Sources */,
 				DAD0C1CE21C5036200E6D1C7 /* TestBoard.swift in Sources */,
@@ -540,6 +547,7 @@
 				DAD0C1FA21C52A3200E6D1C7 /* MockStorage.swift in Sources */,
 				DAD0C1E221C50C7300E6D1C7 /* TestContent.swift in Sources */,
 				DAD0C1DB21C509D700E6D1C7 /* TestCard.swift in Sources */,
+				DA7B2AE721C67982003B7333 /* TestList.swift in Sources */,
 				DAD0C1EC21C51B1400E6D1C7 /* TestAccount.swift in Sources */,
 				DAD0C1E721C50F0900E6D1C7 /* TestRepository.swift in Sources */,
 			);

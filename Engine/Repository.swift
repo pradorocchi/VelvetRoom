@@ -1,6 +1,8 @@
 import Foundation
 
 public class Repository {
+    public var list:(([Board]) -> Void)!
+    public var select:((Board) -> Void)!
     var boards = [Board]()
     var account = Account()
     var storage:Storage = LocalStorage()
@@ -9,19 +11,40 @@ public class Repository {
     public init() { }
     
     public func load() {
-        synch.notification = synchNotification
-        synch.loaded = synchLoaded
         account = (try? storage.account()) ?? account
         loadBoards()
-        synch.start()
+        synchBoards()
+        list(boards)
+    }
+    
+    public func newBoard(_ name:String) {
+        var board = Board()
+        board.id = UUID().uuidString
+        board.name = name
+        board.created = Date().timeIntervalSince1970
+        board.updated = board.created
+        
+        boards.append(board)
+        sortBoards()
+        account.boards.append(board.id)
+        storage.save(board)
+        storage.save(account)
+        synch.save(board)
+        synchUpdates()
+        
+        list(boards)
+        select(board)
     }
     
     private func loadBoards() {
-        var boards = [Board]()
-        account.boards.forEach { id in
-            boards.append(storage.board(id))
-        }
-        self.boards = boards.sorted { $0.name.compare($1.name, options:.caseInsensitive) == .orderedAscending }
+        account.boards.forEach { id in boards.append(storage.board(id)) }
+        sortBoards()
+    }
+    
+    private func synchBoards() {
+        synch.notification = synchNotification
+        synch.loaded = synchLoaded
+        synch.start()
     }
     
     private func synchNotification(_ items:[String:TimeInterval]) {
@@ -30,5 +53,13 @@ public class Repository {
     
     private func synchLoaded(_ board:Board) {
         
+    }
+    
+    private func sortBoards() {
+        boards.sort { $0.name.compare($1.name, options:.caseInsensitive) == .orderedAscending }
+    }
+    
+    private func synchUpdates() {
+        synch.save(boards.reduce(into:[:], { result, board in result[board.id] = board.updated } ))
     }
 }
