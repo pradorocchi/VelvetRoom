@@ -17,7 +17,7 @@ class TestSelect:XCTestCase {
             XCTAssertEqual("lorem ipsum", board.name)
             expect.fulfill()
         }
-        repository.newBoard("lorem ipsum")
+        repository.newBoard("lorem ipsum", template:.none)
         waitForExpectations(timeout:1)
     }
 }

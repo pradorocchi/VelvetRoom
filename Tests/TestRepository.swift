@@ -14,7 +14,7 @@ class TestRepository:XCTestCase {
     
     func testNewBoard() {
         let time = Date().timeIntervalSince1970
-        repository.newBoard("test")
+        repository.newBoard("test", template:.none)
         XCTAssertFalse(repository.boards.first!.id.isEmpty)
         XCTAssertEqual("test", repository.boards.first!.name)
         XCTAssertLessThanOrEqual(time, repository.boards.first!.created)
@@ -28,7 +28,7 @@ class TestRepository:XCTestCase {
         var boardC = Board()
         boardC.name = "C"
         repository.boards = [boardA, boardC]
-        repository.newBoard("B")
+        repository.newBoard("B", template:.none)
         XCTAssertEqual("B", repository.boards[1].name)
     }
 }

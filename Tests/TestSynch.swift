@@ -31,7 +31,7 @@ class TestSynch:XCTestCase {
             XCTAssertEqual(self.repository.boards.first!.id, item.id)
             expect.fulfill()
         }
-        repository.newBoard(String())
+        repository.newBoard(String(), template:.none)
         waitForExpectations(timeout:1)
     }
     
@@ -42,7 +42,7 @@ class TestSynch:XCTestCase {
             XCTAssertEqual(self.repository.boards.first!.updated, items.first!.value)
             expect.fulfill()
         }
-        repository.newBoard(String())
+        repository.newBoard(String(), template:.none)
         waitForExpectations(timeout:1)
     }
 }

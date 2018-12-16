@@ -17,12 +17,19 @@ public class Repository {
         list(boards)
     }
     
-    public func newBoard(_ name:String) {
+    public func newBoard(_ name:String, template:Template) {
         var board = Board()
         board.id = UUID().uuidString
         board.name = name
         board.created = Date().timeIntervalSince1970
         board.updated = board.created
+        
+        switch template {
+        case .triple: board.columns = [column("Backlog"), column("Active"), column("Done")]
+        case .double: board.columns = [column("Backlog"), column("Done")]
+        case .single: board.columns = [column("List")]
+        default: break
+        }
         
         boards.append(board)
         sortBoards()
@@ -61,5 +68,12 @@ public class Repository {
     
     private func synchUpdates() {
         synch.save(boards.reduce(into:[:], { result, board in result[board.id] = board.updated } ))
+    }
+    
+    private func column(_ name:String) -> Column {
+        var column = Column()
+        column.name = name
+        column.created = Date().timeIntervalSince1970
+        return column
     }
 }

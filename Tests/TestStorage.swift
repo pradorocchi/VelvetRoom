@@ -35,14 +35,14 @@ class TestStorage:XCTestCase {
     func testNewBoardSavesBoard() {
         let expect = expectation(description:String())
         storage.onSaveBoard = { expect.fulfill() }
-        repository.newBoard(String())
+        repository.newBoard(String(), template:.none)
         waitForExpectations(timeout:1)
     }
     
     func testNewBoardSavesAccount() {
         let expect = expectation(description:String())
         storage.onSaveAccount = { expect.fulfill() }
-        repository.newBoard(String())
+        repository.newBoard(String(), template:.none)
         waitForExpectations(timeout:1)
     }
 }
