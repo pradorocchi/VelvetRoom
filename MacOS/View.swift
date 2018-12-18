@@ -23,6 +23,6 @@ class View:NSWindow {
     }
     
     @IBAction private func newBoard(_ sender:NSButton) {
-        presenter.newBoard()
+        Application.view.beginSheet(NewBoardView(presenter))
     }
 }

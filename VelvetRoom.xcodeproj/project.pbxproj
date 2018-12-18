@@ -42,6 +42,7 @@
 		DAB270A821C3CD7A008F184E /* libiOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A621C3CD5E008F184E /* libiOSengine.a */; };
 		DAB270A921C3CD83008F184E /* libMacOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A521C3CD50008F184E /* libMacOSengine.a */; };
 		DAB270AE21C3CE09008F184E /* libMacOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A521C3CD50008F184E /* libMacOSengine.a */; };
+		DAC2CDC021C8E2F000AD927B /* NewBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDBF21C8E2F000AD927B /* NewBoardView.swift */; };
 		DAD0C1CE21C5036200E6D1C7 /* TestBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */; };
 		DAD0C1D021C5056B00E6D1C7 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CF21C5056B00E6D1C7 /* Board.swift */; };
 		DAD0C1D121C5056B00E6D1C7 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CF21C5056B00E6D1C7 /* Board.swift */; };
@@ -137,6 +138,7 @@
 		DAB270A521C3CD50008F184E /* libMacOSengine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMacOSengine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270A621C3CD5E008F184E /* libiOSengine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiOSengine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270AF21C3D421008F184E /* VelvetRoom.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = VelvetRoom.sketch; sourceTree = "<group>"; };
+		DAC2CDBF21C8E2F000AD927B /* NewBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBoardView.swift; sourceTree = "<group>"; };
 		DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBoard.swift; sourceTree = "<group>"; };
 		DAD0C1CF21C5056B00E6D1C7 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		DAD0C1D221C508D800E6D1C7 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				DA7C744321C3E1C000B1F931 /* View.swift */,
 				DA86474421C3FDE500E4957B /* ColumnView.swift */,
 				DA7FD2CF21C40AB500F366B9 /* BoardView.swift */,
+				DAC2CDBF21C8E2F000AD927B /* NewBoardView.swift */,
 				DA86474621C401DF00E4957B /* NSFont.swift */,
 				DAB2708A21C3CA87008F184E /* Localizable.strings */,
 				DAB2708D21C3CA87008F184E /* MacOS.storyboard */,
@@ -576,6 +579,7 @@
 				DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */,
 				DA7C744421C3E1C000B1F931 /* View.swift in Sources */,
 				DA86474721C401DF00E4957B /* NSFont.swift in Sources */,
+				DAC2CDC021C8E2F000AD927B /* NewBoardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
