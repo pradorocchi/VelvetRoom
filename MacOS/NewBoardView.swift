@@ -6,6 +6,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
     private weak var single:NSButton!
     private weak var double:NSButton!
     private weak var triple:NSButton!
+    private weak var columns:NSTextField!
     private weak var selectorLeft:NSLayoutConstraint!
     private let presenter:Presenter!
     override var canBecomeKey:Bool { return true }
@@ -28,6 +29,16 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         title.font = .systemFont(ofSize:18, weight:.bold)
         title.stringValue = .local("NewBoardView.title")
         contentView!.addSubview(title)
+        
+        let columns = NSTextField()
+        columns.translatesAutoresizingMaskIntoConstraints = false
+        columns.backgroundColor = .clear
+        columns.isBezeled = false
+        columns.isEditable = false
+        columns.font = .systemFont(ofSize:12, weight:.light)
+        columns.alphaValue = 0.4
+        contentView!.addSubview(columns)
+        self.columns = columns
         
         let name = NSTextField()
         name.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +107,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         
         let triple = NSButton()
         triple.translatesAutoresizingMaskIntoConstraints = false
-        triple.image = NSImage(named:"tripleOn")
+        triple.image = NSImage(named:"tripleOff")
         triple.target = self
         triple.action = #selector(selectTriple)
         triple.isBordered = false
@@ -119,7 +130,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         selector.widthAnchor.constraint(equalToConstant:44).isActive = true
         selector.heightAnchor.constraint(equalToConstant:44).isActive = true
         selector.centerYAnchor.constraint(equalTo:contentView!.centerYAnchor).isActive = true
-        selectorLeft = selector.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:140)
+        selectorLeft = selector.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor)
         selectorLeft.isActive = true
         
         none.centerYAnchor.constraint(equalTo:contentView!.centerYAnchor).isActive = true
@@ -142,8 +153,13 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         triple.widthAnchor.constraint(equalToConstant:80).isActive = true
         triple.heightAnchor.constraint(equalToConstant:50).isActive = true
         
+        columns.leftAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:-160).isActive = true
+        columns.topAnchor.constraint(equalTo:contentView!.centerYAnchor, constant:35).isActive = true
+        
         cancel.leftAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:-160).isActive = true
         cancel.topAnchor.constraint(equalTo:contentView!.centerYAnchor, constant:120).isActive = true
+        
+        selectTriple()
     }
     
     func control(_:NSControl, textView:NSTextView, doCommandBy selector:Selector) -> Bool {
@@ -171,6 +187,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         double.image = NSImage(named:"doubleOff")
         triple.image = NSImage(named:"tripleOff")
         moveSelector(-140)
+        columns.stringValue = .local("NewBoardView.none")
     }
     
     @objc private func selectSingle() {
@@ -179,6 +196,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         double.image = NSImage(named:"doubleOff")
         triple.image = NSImage(named:"tripleOff")
         moveSelector(-40)
+        columns.stringValue = .local("NewBoardView.single")
     }
     
     @objc private func selectDouble() {
@@ -187,6 +205,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         double.image = NSImage(named:"doubleOn")
         triple.image = NSImage(named:"tripleOff")
         moveSelector(40)
+        columns.stringValue = .local("NewBoardView.double")
     }
     
     @objc private func selectTriple() {
@@ -195,6 +214,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         double.image = NSImage(named:"doubleOff")
         triple.image = NSImage(named:"tripleOn")
         moveSelector(140)
+        columns.stringValue = .local("NewBoardView.triple")
     }
     
     @objc private func cancel() {

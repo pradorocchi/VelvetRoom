@@ -1,3 +1,7 @@
 NewBoardView.title="New board";
 NewBoardView.cancel="Cancel";
 NewBoardView.name="Name";
+NewBoardView.none="No columns";
+NewBoardView.single="1 column";
+NewBoardView.double="2 columns";
+NewBoardView.triple="3 columns";
