@@ -1,4 +1,5 @@
 import AppKit
+import VelvetRoom
 
 class NewBoardView:NSWindow, NSTextFieldDelegate {
     private weak var name:NSTextField!
@@ -8,6 +9,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
     private weak var triple:NSButton!
     private weak var columns:NSTextField!
     private weak var selectorLeft:NSLayoutConstraint!
+    private var template:Template!
     private let presenter:Presenter!
     override var canBecomeKey:Bool { return true }
     
@@ -47,7 +49,6 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         name.placeholderString = .local("NewBoardView.name")
         name.focusRingType = .none
         name.drawsBackground = false
-        name.refusesFirstResponder = true
         name.delegate = self
         contentView!.addSubview(name)
         self.name = name
@@ -64,9 +65,21 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         cancel.action = #selector(self.cancel)
         cancel.translatesAutoresizingMaskIntoConstraints = false
         cancel.isBordered = false
-        cancel.font = .systemFont(ofSize:18, weight:.regular)
+        cancel.font = .systemFont(ofSize:15, weight:.regular)
         cancel.keyEquivalent = "\u{1b}"
         contentView!.addSubview(cancel)
+        
+        let create = NSButton()
+        create.image = NSImage(named:"button")
+        create.target = self
+        create.action = #selector(self.create)
+        create.imageScaling = .scaleNone
+        create.translatesAutoresizingMaskIntoConstraints = false
+        create.isBordered = false
+        create.attributedTitle = NSAttributedString(string:.local("NewBoardView.create"), attributes:
+            [.font:NSFont.systemFont(ofSize:15, weight:.medium), .foregroundColor:NSColor.black])
+        create.keyEquivalent = "\r"
+        contentView!.addSubview(create)
         
         let selector = NSView()
         selector.translatesAutoresizingMaskIntoConstraints = false
@@ -156,8 +169,15 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         columns.leftAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:-160).isActive = true
         columns.topAnchor.constraint(equalTo:contentView!.centerYAnchor, constant:35).isActive = true
         
-        cancel.leftAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:-160).isActive = true
-        cancel.topAnchor.constraint(equalTo:contentView!.centerYAnchor, constant:120).isActive = true
+        cancel.leftAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:-185).isActive = true
+        cancel.centerYAnchor.constraint(equalTo:create.centerYAnchor).isActive = true
+        cancel.widthAnchor.constraint(equalToConstant:92).isActive = true
+        cancel.heightAnchor.constraint(equalToConstant:34).isActive = true
+        
+        create.rightAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:160).isActive = true
+        create.centerYAnchor.constraint(equalTo:contentView!.centerYAnchor, constant:135).isActive = true
+        create.widthAnchor.constraint(equalToConstant:92).isActive = true
+        create.heightAnchor.constraint(equalToConstant:34).isActive = true
         
         selectTriple()
     }
@@ -182,6 +202,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
     }
     
     @objc private func selectNone() {
+        template = .none
         none.image = NSImage(named:"noneOn")
         single.image = NSImage(named:"singleOff")
         double.image = NSImage(named:"doubleOff")
@@ -191,6 +212,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
     }
     
     @objc private func selectSingle() {
+        template = .single
         none.image = NSImage(named:"noneOff")
         single.image = NSImage(named:"singleOn")
         double.image = NSImage(named:"doubleOff")
@@ -200,6 +222,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
     }
     
     @objc private func selectDouble() {
+        template = .double
         none.image = NSImage(named:"noneOff")
         single.image = NSImage(named:"singleOff")
         double.image = NSImage(named:"doubleOn")
@@ -209,6 +232,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
     }
     
     @objc private func selectTriple() {
+        template = .triple
         none.image = NSImage(named:"noneOff")
         single.image = NSImage(named:"singleOff")
         double.image = NSImage(named:"doubleOff")
@@ -221,7 +245,8 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         Application.view.endSheet(self)
     }
     
-    @objc private func delete() {
+    @objc private func create() {
         Application.view.endSheet(self)
+        presenter.newBoard(name.stringValue, template:template)
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA1ABDA921C9AFD500CE1462 /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1ABDA821C9AFD500CE1462 /* DocumentView.swift */; };
 		DA2B491721C9187B00BABE86 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B491621C9187B00BABE86 /* NSColor.swift */; };
 		DA7B2AE721C67982003B7333 /* TestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B2AE621C67982003B7333 /* TestList.swift */; };
 		DA7B2AE921C67C3E003B7333 /* TestSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B2AE821C67C3E003B7333 /* TestSelect.swift */; };
@@ -104,6 +105,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA1ABDA821C9AFD500CE1462 /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
 		DA2B491621C9187B00BABE86 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
 		DA7B2AE621C67982003B7333 /* TestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestList.swift; sourceTree = "<group>"; };
 		DA7B2AE821C67C3E003B7333 /* TestSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSelect.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				DA86474421C3FDE500E4957B /* ColumnView.swift */,
 				DA7FD2CF21C40AB500F366B9 /* BoardView.swift */,
 				DAC2CDBF21C8E2F000AD927B /* NewBoardView.swift */,
+				DA1ABDA821C9AFD500CE1462 /* DocumentView.swift */,
 				DA86474621C401DF00E4957B /* NSFont.swift */,
 				DA2B491621C9187B00BABE86 /* NSColor.swift */,
 				DAB2708A21C3CA87008F184E /* Localizable.strings */,
@@ -597,6 +600,7 @@
 				DA86474721C401DF00E4957B /* NSFont.swift in Sources */,
 				DAC2CDC321C8EDA700AD927B /* String.swift in Sources */,
 				DAC2CDC021C8E2F000AD927B /* NewBoardView.swift in Sources */,
+				DA1ABDA921C9AFD500CE1462 /* DocumentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

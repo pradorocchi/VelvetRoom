@@ -1,4 +1,5 @@
 NewBoardView.title="New board";
+NewBoardView.create="Create";
 NewBoardView.cancel="Cancel";
 NewBoardView.name="Name";
 NewBoardView.none="No columns";
