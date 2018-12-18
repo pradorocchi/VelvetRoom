@@ -1,1 +1,3 @@
-
+NewBoardView.title="New board";
+NewBoardView.cancel="Cancel";
+NewBoardView.name="Name";

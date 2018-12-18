@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "filename" : "noneOn.pdf"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
