@@ -59,8 +59,6 @@ class View:NSWindow {
             let view = BoardView(board, presenter:presenter)
             view.target = self
             view.action = #selector(select(view:))
-            view.edit.target = self
-            view.edit.action = #selector(editBoard(_:))
             self.boards.documentView!.addSubview(view)
             
             view.topAnchor.constraint(equalTo:top).isActive = true
@@ -100,6 +98,8 @@ class View:NSWindow {
                 newCard.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
                 newCard.widthAnchor.constraint(equalToConstant:30).isActive = true
                 newCard.heightAnchor.constraint(equalToConstant:30).isActive = true
+                
+                view.rightAnchor.constraint(greaterThanOrEqualTo:newCard.rightAnchor).isActive = true
             } else {
                 self.columns.documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:view.bottomAnchor)
             }
@@ -147,11 +147,6 @@ class View:NSWindow {
     
     @objc private func newCard() {
         print("new card")
-    }
-    
-    @objc private func editBoard(_ button:NSButton) {
-        let board = button.superview as! BoardView
-        board.editName()
     }
     
     @IBAction private func newDocument(_ sender:Any) {

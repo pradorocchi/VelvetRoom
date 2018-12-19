@@ -4,7 +4,6 @@ import VelvetRoom
 class BoardView:NSControl, NSTextFieldDelegate {
     var selected = false { didSet { update() } }
     private(set) var board:Board!
-    private(set) weak var edit:NSButton!
     private weak var presenter:Presenter!
     private weak var name:NSTextField!
     override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:50) }
@@ -32,12 +31,13 @@ class BoardView:NSControl, NSTextFieldDelegate {
         
         let edit = NSButton()
         edit.isBordered = false
+        edit.target = self
+        edit.action = #selector(editName)
         edit.image = NSImage(named:"edit")
         edit.imageScaling = .scaleNone
         edit.translatesAutoresizingMaskIntoConstraints = false
         edit.setButtonType(.momentaryChange)
         addSubview(edit)
-        self.edit = edit
         
         name.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         name.leftAnchor.constraint(equalTo:leftAnchor, constant:12).isActive = true
@@ -46,7 +46,7 @@ class BoardView:NSControl, NSTextFieldDelegate {
         edit.topAnchor.constraint(equalTo:topAnchor).isActive = true
         edit.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
         edit.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
-        edit.widthAnchor.constraint(equalToConstant:24).isActive = true
+        edit.widthAnchor.constraint(equalToConstant:30).isActive = true
         
         update()
     }
@@ -73,12 +73,6 @@ class BoardView:NSControl, NSTextFieldDelegate {
         return false
     }
     
-    func editName() {
-        name.isEditable = true
-        Application.view.makeFirstResponder(name)
-        name.currentEditor()!.selectedRange = NSMakeRange(name.stringValue.count, 0)
-    }
-    
     private func update() {
         if selected {
             layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
@@ -87,5 +81,11 @@ class BoardView:NSControl, NSTextFieldDelegate {
             layer!.backgroundColor = NSColor.clear.cgColor
             name.alphaValue = 0.4
         }
+    }
+    
+    @objc private func editName() {
+        name.isEditable = true
+        Application.view.makeFirstResponder(name)
+        name.currentEditor()!.selectedRange = NSMakeRange(name.stringValue.count, 0)
     }
 }
