@@ -43,6 +43,16 @@ public class Repository {
         select(board)
     }
     
+    public func rename(_ board:Board, name:String) {
+        var board = board
+        board.name = name
+        board.updated = Date().timeIntervalSince1970
+        boards[boards.firstIndex(where: { $0.id == board.id } )!] = board
+        storage.save(board)
+        synch.save(board)
+        synchUpdates()
+    }
+    
     private func loadBoards() {
         account.boards.forEach { id in boards.append(storage.board(id)) }
         sortBoards()

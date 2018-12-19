@@ -14,9 +14,9 @@ class ColumnView:NSControl {
         
         let name = NSTextField()
         name.translatesAutoresizingMaskIntoConstraints = false
-        name.backgroundColor = .clear
+        name.drawsBackground = false
         name.isBezeled = false
-        name.isEditable = false
+        name.focusRingType = .none
         name.font = .bold(18)
         name.stringValue = column.name
         name.alphaValue = 0.4
@@ -24,10 +24,10 @@ class ColumnView:NSControl {
         addSubview(name)
         self.name = name
         
-        name.topAnchor.constraint(equalTo:topAnchor, constant:30).isActive = true
-        name.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-30).isActive = true
-        name.leftAnchor.constraint(equalTo:leftAnchor, constant:30).isActive = true
-        name.rightAnchor.constraint(equalTo:rightAnchor, constant:-30).isActive = true
+        name.topAnchor.constraint(equalTo:topAnchor).isActive = true
+        name.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
+        name.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
+        name.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }

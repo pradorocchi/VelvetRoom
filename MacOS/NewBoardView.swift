@@ -73,6 +73,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         create.image = NSImage(named:"button")
         create.target = self
         create.action = #selector(self.create)
+        create.setButtonType(.momentaryChange)
         create.imageScaling = .scaleNone
         create.translatesAutoresizingMaskIntoConstraints = false
         create.isBordered = false

@@ -39,7 +39,7 @@ class View:NSWindow {
         boards.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:36).isActive = true
         boards.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
         boards.rightAnchor.constraint(equalTo:border.leftAnchor).isActive = true
-        boards.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-2).isActive = true
+        boards.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
         
         border.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:1).isActive = true
         border.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:1).isActive = true
@@ -56,13 +56,15 @@ class View:NSWindow {
         self.boards.removeSubviews()
         var top = self.boards.documentView!.topAnchor
         boards.forEach { board in
-            let view = BoardView(board)
+            let view = BoardView(board, presenter:presenter)
             view.target = self
             view.action = #selector(select(view:))
+            view.edit.target = self
+            view.edit.action = #selector(editBoard(_:))
             self.boards.documentView!.addSubview(view)
             
             view.topAnchor.constraint(equalTo:top).isActive = true
-            view.leftAnchor.constraint(equalTo:self.boards.leftAnchor, constant:1).isActive = true
+            view.leftAnchor.constraint(equalTo:self.boards.leftAnchor).isActive = true
             view.rightAnchor.constraint(equalTo:self.boards.rightAnchor).isActive = true
             top = view.bottomAnchor
         }
@@ -78,11 +80,48 @@ class View:NSWindow {
             self.columns.documentView!.addSubview(view)
             
             view.topAnchor.constraint(equalTo:self.columns.documentView!.topAnchor).isActive = true
-            view.leftAnchor.constraint(equalTo:left).isActive = true
+            view.leftAnchor.constraint(equalTo:left, constant:40).isActive = true
             left = view.rightAnchor
-            self.columns.documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:view.bottomAnchor)
+            
+            var top = view.bottomAnchor
+            
+            if index == 0 {
+                let newCard = NSButton()
+                newCard.isBordered = false
+                newCard.image = NSImage(named:"newItem")
+                newCard.target = self
+                newCard.action = #selector(self.newCard)
+                newCard.imageScaling = .scaleNone
+                newCard.translatesAutoresizingMaskIntoConstraints = false
+                newCard.setButtonType(.momentaryChange)
+                self.columns.documentView!.addSubview(newCard)
+                
+                newCard.topAnchor.constraint(equalTo:top, constant:40).isActive = true
+                newCard.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+                newCard.widthAnchor.constraint(equalToConstant:30).isActive = true
+                newCard.heightAnchor.constraint(equalToConstant:30).isActive = true
+            } else {
+                self.columns.documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:view.bottomAnchor)
+            }
         }
-        self.columns.right = self.columns.documentView!.rightAnchor.constraint(equalTo:left)
+        
+        let newColumn = NSButton()
+        newColumn.isBordered = false
+        newColumn.image = NSImage(named:"newItem")
+        newColumn.target = self
+        newColumn.action = #selector(self.newColumn)
+        newColumn.imageScaling = .scaleNone
+        newColumn.translatesAutoresizingMaskIntoConstraints = false
+        newColumn.setButtonType(.momentaryChange)
+        self.columns.documentView!.addSubview(newColumn)
+        
+        newColumn.topAnchor.constraint(equalTo:self.columns.documentView!.topAnchor).isActive = true
+        newColumn.leftAnchor.constraint(equalTo:left, constant:40).isActive = true
+        newColumn.widthAnchor.constraint(equalToConstant:30).isActive = true
+        newColumn.heightAnchor.constraint(equalToConstant:30).isActive = true
+        self.columns.documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:newColumn.bottomAnchor, constant:40)
+        self.columns.right = self.columns.documentView!.rightAnchor.constraint(
+            greaterThanOrEqualTo:newColumn.rightAnchor, constant:40)
     }
     
     private func select(_ board:Board) {
@@ -100,6 +139,19 @@ class View:NSWindow {
     @objc private func select(view:BoardView) {
         presenter.selected = view
         render(view.board.columns)
+    }
+    
+    @objc private func newColumn() {
+        print("new column")
+    }
+    
+    @objc private func newCard() {
+        print("new card")
+    }
+    
+    @objc private func editBoard(_ button:NSButton) {
+        let board = button.superview as! BoardView
+        board.editName()
     }
     
     @IBAction private func newDocument(_ sender:Any) {

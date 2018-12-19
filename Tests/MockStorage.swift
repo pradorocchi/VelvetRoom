@@ -5,7 +5,7 @@ class MockStorage:Storage {
     var onAccount:(() -> Void)?
     var onBoard:((String) -> Void)?
     var onSaveAccount:(() -> Void)?
-    var onSaveBoard:(() -> Void)?
+    var onSaveBoard:((Board) -> Void)?
     var onDeleteBoard:(() -> Void)?
     var returnAccount = Account()
     var returnBoard = Board()
@@ -32,7 +32,7 @@ class MockStorage:Storage {
     }
     
     func save(_ board:Board) {
-        onSaveBoard?()
+        onSaveBoard?(board)
     }
     
     func delete(_ board:Board) {

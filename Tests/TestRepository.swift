@@ -31,4 +31,17 @@ class TestRepository:XCTestCase {
         repository.newBoard("B", template:.none)
         XCTAssertEqual("B", repository.boards[1].name)
     }
+    
+    func testRenameBoard() {
+        let time = Date().timeIntervalSince1970
+        var board = Board()
+        board.id = "some"
+        board.name = "hello world"
+        repository.boards = [board]
+        repository.rename(board, name:"lorem ipsum")
+        XCTAssertEqual(1, repository.boards.count)
+        XCTAssertEqual("some", repository.boards[0].id)
+        XCTAssertEqual("lorem ipsum", repository.boards[0].name)
+        XCTAssertLessThanOrEqual(time, repository.boards[0].updated)
+    }
 }

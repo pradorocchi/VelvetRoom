@@ -30,4 +30,8 @@ class Presenter {
     func newBoard(_ name:String, template:Template) {
         DispatchQueue.global(qos:.background).async { self.repository.newBoard(name, template:template) }
     }
+    
+    func rename(_ board:Board, name:String) {
+        DispatchQueue.global(qos:.background).async { self.repository.rename(board, name:name) }
+    }
 }
