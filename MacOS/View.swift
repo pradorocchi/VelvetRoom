@@ -2,7 +2,8 @@ import AppKit
 import VelvetRoom
 
 class View:NSWindow {
-    private weak var boards:NSScrollView!
+    private weak var boards:ScrollView!
+    private weak var columns:ScrollView!
     private let presenter = Presenter()
     
     override func awakeFromNib() {
@@ -15,15 +16,19 @@ class View:NSWindow {
     }
     
     private func makeOutlets() {
-        let boards = NSScrollView()
-        boards.drawsBackground = false
-        boards.translatesAutoresizingMaskIntoConstraints = false
+        let boards = ScrollView()
         boards.hasVerticalScroller = true
         boards.verticalScroller!.controlSize = .mini
-        boards.documentView = DocumentView()
-        (boards.documentView! as! DocumentView).autoLayout()
         contentView!.addSubview(boards)
         self.boards = boards
+        
+        let columns = ScrollView()
+        columns.hasVerticalScroller = true
+        columns.hasHorizontalScroller = true
+        columns.verticalScroller!.controlSize = .mini
+        columns.horizontalScroller!.controlSize = .mini
+        contentView!.addSubview(columns)
+        self.columns = columns
         
         let border = NSView()
         border.translatesAutoresizingMaskIntoConstraints = false
@@ -40,15 +45,20 @@ class View:NSWindow {
         border.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:1).isActive = true
         border.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:200).isActive = true
         border.widthAnchor.constraint(equalToConstant:1).isActive = true
+        
+        columns.topAnchor.constraint(equalTo:boards.topAnchor).isActive = true
+        columns.leftAnchor.constraint(equalTo:border.rightAnchor).isActive = true
+        columns.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
+        columns.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-2).isActive = true
     }
     
     private func list(_ boards:[Board]) {
-        self.boards.documentView!.subviews.forEach { $0.removeFromSuperview() }
+        self.boards.removeSubviews()
         var top = self.boards.documentView!.topAnchor
         boards.forEach { board in
             let view = BoardView(board)
             view.target = self
-            view.action = #selector(select(board:))
+            view.action = #selector(select(view:))
             self.boards.documentView!.addSubview(view)
             
             view.topAnchor.constraint(equalTo:top).isActive = true
@@ -56,15 +66,40 @@ class View:NSWindow {
             view.rightAnchor.constraint(equalTo:self.boards.rightAnchor).isActive = true
             top = view.bottomAnchor
         }
-        self.boards.documentView!.bottomAnchor.constraint(equalTo:top).isActive = true
+        self.boards.bottom = self.boards.documentView!.bottomAnchor.constraint(equalTo:top)
+    }
+    
+    private func render(_ columns:[Column]) {
+        self.columns.removeSubviews()
+        self.columns.bottom = nil
+        var left = self.columns.documentView!.leftAnchor
+        for (index, column) in columns.enumerated() {
+            let view = ColumnView(column, index:index)
+            self.columns.documentView!.addSubview(view)
+            
+            view.topAnchor.constraint(equalTo:self.columns.documentView!.topAnchor).isActive = true
+            view.leftAnchor.constraint(equalTo:left).isActive = true
+            left = view.rightAnchor
+            self.columns.documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:view.bottomAnchor)
+        }
+        self.columns.right = self.columns.documentView!.rightAnchor.constraint(equalTo:left)
     }
     
     private func select(_ board:Board) {
-        print("select: \(board)")
+        let view = boards.documentView!.subviews.first { ($0 as! BoardView).board.id == board.id } as! BoardView
+        select(view:view)
+        if #available(OSX 10.12, *) {
+            NSAnimationContext.runAnimationGroup { context in
+                context.duration = 0.3
+                context.allowsImplicitAnimation = true
+                self.boards.contentView.scrollToVisible(view.frame)
+            }
+        }
     }
     
-    @objc private func select(board:BoardView) {
-        presenter.selected = board
+    @objc private func select(view:BoardView) {
+        presenter.selected = view
+        render(view.board.columns)
     }
     
     @IBAction private func newDocument(_ sender:Any) {

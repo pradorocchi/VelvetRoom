@@ -1,6 +1,6 @@
 import Foundation
 
-public class Board:Codable {
+public struct Board:Codable {
     public internal(set) var id = String()
     public internal(set) var created = 0.0
     public internal(set) var updated = 0.0

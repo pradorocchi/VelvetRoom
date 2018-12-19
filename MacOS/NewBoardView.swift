@@ -185,6 +185,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
     func control(_:NSControl, textView:NSTextView, doCommandBy selector:Selector) -> Bool {
         if (selector == #selector(NSResponder.insertNewline(_:))) {
             makeFirstResponder(nil)
+            create()
             return true
         }
         return false
@@ -202,13 +203,14 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
     }
     
     @objc private func selectNone() {
-        template = .none
+        template = Template.none
         none.image = NSImage(named:"noneOn")
         single.image = NSImage(named:"singleOff")
         double.image = NSImage(named:"doubleOff")
         triple.image = NSImage(named:"tripleOff")
         moveSelector(-140)
         columns.stringValue = .local("NewBoardView.none")
+        makeFirstResponder(nil)
     }
     
     @objc private func selectSingle() {
@@ -219,6 +221,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         triple.image = NSImage(named:"tripleOff")
         moveSelector(-40)
         columns.stringValue = .local("NewBoardView.single")
+        makeFirstResponder(nil)
     }
     
     @objc private func selectDouble() {
@@ -229,6 +232,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         triple.image = NSImage(named:"tripleOff")
         moveSelector(40)
         columns.stringValue = .local("NewBoardView.double")
+        makeFirstResponder(nil)
     }
     
     @objc private func selectTriple() {
@@ -239,14 +243,17 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         triple.image = NSImage(named:"tripleOn")
         moveSelector(140)
         columns.stringValue = .local("NewBoardView.triple")
+        makeFirstResponder(nil)
     }
     
     @objc private func cancel() {
+        makeFirstResponder(nil)
         Application.view.endSheet(self)
     }
     
     @objc private func create() {
-        Application.view.endSheet(self)
+        makeFirstResponder(nil)
         presenter.newBoard(name.stringValue, template:template)
+        Application.view.endSheet(self)
     }
 }
