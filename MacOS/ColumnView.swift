@@ -1,19 +1,19 @@
 import AppKit
 import VelvetRoom
 
-class ColumnView:NSControl, NSTextFieldDelegate {
+class ColumnView:ItemView, NSTextFieldDelegate {
     private(set) weak var column:Column!
     private weak var name:NSTextField!
     private weak var nameWidth:NSLayoutConstraint!
-    private weak var presenter:Presenter!
+    private weak var view:View!
     private let index:Int
     
-    init(_ column:Column, index:Int, presenter:Presenter) {
+    init(_ column:Column, index:Int, view:View) {
         self.column = column
         self.index = index
-        super.init(frame:.zero)
+        super.init()
         translatesAutoresizingMaskIntoConstraints = false
-        self.presenter = presenter
+        self.view = view
         
         let name = NSTextField()
         name.translatesAutoresizingMaskIntoConstraints = false
@@ -21,9 +21,9 @@ class ColumnView:NSControl, NSTextFieldDelegate {
         name.isBezeled = false
         name.isEditable = false
         name.focusRingType = .none
-        name.font = .bold(16)
+        name.font = .bold(14)
         name.stringValue = column.name
-        name.alphaValue = 0.6
+        name.alphaValue = 0.4
         name.maximumNumberOfLines = 1
         name.lineBreakMode = .byTruncatingTail
         name.delegate = self
@@ -54,8 +54,8 @@ class ColumnView:NSControl, NSTextFieldDelegate {
     func controlTextDidEndEditing(_:Notification) {
         name.isEditable = false
         column.name = name.stringValue
-        presenter.scheduleUpdate()
         updateWidth()
+        view.contentChanged()
     }
     
     func control(_:NSControl, textView:NSTextView, doCommandBy selector:Selector) -> Bool {

@@ -45,7 +45,9 @@ class BoardView:NSControl, NSTextFieldDelegate {
             Application.view.makeFirstResponder(name)
             name.currentEditor()!.selectedRange = NSMakeRange(name.stringValue.count, 0)
         } else if !selected {
-            sendAction(action, to:target)
+            DispatchQueue.main.async {
+                self.sendAction(self.action, to:self.target)
+            }
         }
     }
     

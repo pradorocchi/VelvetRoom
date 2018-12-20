@@ -3,8 +3,9 @@ import VelvetRoom
 
 class View:NSWindow {
     let presenter = Presenter()
-    private weak var boards:ScrollView!
-    private weak var columns:ScrollView!
+    private weak var list:ScrollView!
+    private weak var canvas:ScrollView!
+    private weak var root:ItemView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -15,20 +16,26 @@ class View:NSWindow {
         presenter.load()
     }
     
+    func contentChanged() {
+        canvas.documentView!.layoutSubtreeIfNeeded()
+        align()
+        presenter.scheduleUpdate()
+    }
+    
     private func makeOutlets() {
-        let boards = ScrollView()
-        boards.hasVerticalScroller = true
-        boards.verticalScroller!.controlSize = .mini
-        contentView!.addSubview(boards)
-        self.boards = boards
+        let list = ScrollView()
+        list.hasVerticalScroller = true
+        list.verticalScroller!.controlSize = .mini
+        contentView!.addSubview(list)
+        self.list = list
         
-        let columns = ScrollView()
-        columns.hasVerticalScroller = true
-        columns.hasHorizontalScroller = true
-        columns.verticalScroller!.controlSize = .mini
-        columns.horizontalScroller!.controlSize = .mini
-        contentView!.addSubview(columns)
-        self.columns = columns
+        let canvas = ScrollView()
+        canvas.hasVerticalScroller = true
+        canvas.hasHorizontalScroller = true
+        canvas.verticalScroller!.controlSize = .mini
+        canvas.horizontalScroller!.controlSize = .mini
+        contentView!.addSubview(canvas)
+        self.canvas = canvas
         
         let border = NSView()
         border.translatesAutoresizingMaskIntoConstraints = false
@@ -36,102 +43,119 @@ class View:NSWindow {
         border.layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
         contentView!.addSubview(border)
         
-        boards.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:36).isActive = true
-        boards.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
-        boards.rightAnchor.constraint(equalTo:border.leftAnchor).isActive = true
-        boards.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
+        list.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:36).isActive = true
+        list.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
+        list.rightAnchor.constraint(equalTo:border.leftAnchor).isActive = true
+        list.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
         
         border.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:1).isActive = true
         border.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:1).isActive = true
         border.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:148).isActive = true
         border.widthAnchor.constraint(equalToConstant:1).isActive = true
         
-        columns.topAnchor.constraint(equalTo:boards.topAnchor).isActive = true
-        columns.leftAnchor.constraint(equalTo:border.rightAnchor).isActive = true
-        columns.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
-        columns.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-2).isActive = true
+        canvas.topAnchor.constraint(equalTo:list.topAnchor).isActive = true
+        canvas.leftAnchor.constraint(equalTo:border.rightAnchor).isActive = true
+        canvas.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
+        canvas.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-2).isActive = true
     }
     
     private func list(_ boards:[Board]) {
-        self.boards.removeSubviews()
-        var top = self.boards.documentView!.topAnchor
+        list.removeSubviews()
+        var top = list.documentView!.topAnchor
         boards.forEach { board in
             let view = BoardView(board, presenter:presenter)
             view.target = self
             view.action = #selector(select(view:))
-            self.boards.documentView!.addSubview(view)
+            list.documentView!.addSubview(view)
             
             view.topAnchor.constraint(equalTo:top).isActive = true
-            view.leftAnchor.constraint(equalTo:self.boards.leftAnchor).isActive = true
-            view.rightAnchor.constraint(equalTo:self.boards.rightAnchor).isActive = true
+            view.leftAnchor.constraint(equalTo:list.leftAnchor).isActive = true
+            view.rightAnchor.constraint(equalTo:list.rightAnchor).isActive = true
             top = view.bottomAnchor
         }
-        self.boards.bottom = self.boards.documentView!.bottomAnchor.constraint(equalTo:top)
+        list.bottom = list.documentView!.bottomAnchor.constraint(equalTo:top)
     }
     
-    private func render(_ columns:[Column]) {
-        self.columns.removeSubviews()
-        self.columns.bottom = nil
-        var left = self.columns.documentView!.leftAnchor
-        for (index, column) in columns.enumerated() {
-            let view = ColumnView(column, index:index, presenter:presenter)
-            self.columns.documentView!.addSubview(view)
-            
-            view.topAnchor.constraint(equalTo:self.columns.documentView!.topAnchor).isActive = true
-            view.leftAnchor.constraint(equalTo:left, constant:40).isActive = true
-            left = view.rightAnchor
-            
-            var top = view.bottomAnchor
-            
-            if index == 0 {
-                let newCard = NSButton()
-                newCard.isBordered = false
-                newCard.image = NSImage(named:"newItem")
-                newCard.target = self
-                newCard.action = #selector(self.newCard)
-                newCard.imageScaling = .scaleNone
-                newCard.translatesAutoresizingMaskIntoConstraints = false
-                newCard.setButtonType(.momentaryChange)
-                self.columns.documentView!.addSubview(newCard)
-                
-                newCard.topAnchor.constraint(equalTo:top, constant:40).isActive = true
-                newCard.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-                newCard.widthAnchor.constraint(equalToConstant:30).isActive = true
-                newCard.heightAnchor.constraint(equalToConstant:30).isActive = true
-                
-                view.rightAnchor.constraint(greaterThanOrEqualTo:newCard.rightAnchor).isActive = true
+    private func render(_ board:Board) {
+        canvas.removeSubviews()
+        root = nil
+        var sibling:ItemView?
+        board.columns.enumerated().forEach {
+            let column = ColumnView($0.element, index:$0.offset, view:self)
+            if sibling == nil {
+                root = column
             } else {
-                self.columns.documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:view.bottomAnchor)
+                sibling!.sibling = column
             }
+            canvas.documentView!.addSubview(column)
+            var child:ItemView = column
+            
+            if $0.offset == 0 {
+                let buttonCard = NewItemView(self, selector:#selector(newCard))
+                canvas.documentView!.addSubview(buttonCard)
+                child.child = buttonCard
+            }
+            sibling = column
         }
         
-        let newColumn = NSButton()
-        newColumn.isBordered = false
-        newColumn.image = NSImage(named:"newItem")
-        newColumn.target = self
-        newColumn.action = #selector(self.newColumn)
-        newColumn.imageScaling = .scaleNone
-        newColumn.translatesAutoresizingMaskIntoConstraints = false
-        newColumn.setButtonType(.momentaryChange)
-        self.columns.documentView!.addSubview(newColumn)
+        let buttonColumn = NewItemView(self, selector:#selector(newColumn))
+        canvas.documentView!.addSubview(buttonColumn)
         
-        newColumn.topAnchor.constraint(equalTo:self.columns.documentView!.topAnchor).isActive = true
-        newColumn.leftAnchor.constraint(equalTo:left, constant:40).isActive = true
-        newColumn.widthAnchor.constraint(equalToConstant:30).isActive = true
-        newColumn.heightAnchor.constraint(equalToConstant:30).isActive = true
-        self.columns.documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:newColumn.bottomAnchor, constant:40)
-        self.columns.right = self.columns.documentView!.rightAnchor.constraint(
-            greaterThanOrEqualTo:newColumn.rightAnchor, constant:40)
+        if root == nil {
+            root = buttonColumn
+        } else {
+            sibling!.sibling = buttonColumn
+        }
+    }
+    
+    private func align() {
+        var maxRight = CGFloat(40)
+        var maxBottom = CGFloat()
+        var sibling = root
+        while sibling != nil {
+            let right = maxRight
+            var bottom = CGFloat()
+            
+            var child = sibling
+            while child != nil {
+                child!.left.constant = right
+                child!.top.constant = bottom
+                
+                bottom += child!.bounds.height + 40
+                maxRight = max(maxRight, right + child!.bounds.width + 40)
+                
+                child = child!.child
+            }
+            
+            maxBottom = max(bottom, maxBottom)
+            sibling = sibling!.sibling
+        }
+        canvas.bottom = canvas.documentView!.heightAnchor.constraint(equalToConstant:maxBottom)
+        canvas.right = canvas.documentView!.widthAnchor.constraint(equalToConstant:maxRight)
+    }
+    
+    private func buttonNew(_ selector:Selector) -> NSButton {
+        let button = NSButton()
+        button.isBordered = false
+        button.image = NSImage(named:"new")
+        button.target = self
+        button.action = selector
+        button.imageScaling = .scaleNone
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setButtonType(.momentaryChange)
+        button.widthAnchor.constraint(equalToConstant:24).isActive = true
+        button.heightAnchor.constraint(equalToConstant:18).isActive = true
+        return button
     }
     
     private func select(_ board:Board) {
-        let view = boards.documentView!.subviews.first { ($0 as! BoardView).board.id == board.id } as! BoardView
+        let view = list.documentView!.subviews.first { ($0 as! BoardView).board.id == board.id } as! BoardView
         select(view:view)
         if #available(OSX 10.12, *) {
             NSAnimationContext.runAnimationGroup { context in
                 context.duration = 0.3
                 context.allowsImplicitAnimation = true
-                self.boards.contentView.scrollToVisible(view.frame)
+                list.contentView.scrollToVisible(view.frame)
             }
         }
     }
@@ -139,7 +163,9 @@ class View:NSWindow {
     @objc private func select(view:BoardView) {
         Application.view.makeFirstResponder(nil)
         presenter.selected = view
-        render(view.board.columns)
+        render(view.board)
+        canvas.documentView!.layoutSubtreeIfNeeded()
+        align()
     }
     
     @objc private func newColumn() {
