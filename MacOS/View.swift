@@ -2,9 +2,9 @@ import AppKit
 import VelvetRoom
 
 class View:NSWindow {
+    let presenter = Presenter()
     private weak var boards:ScrollView!
     private weak var columns:ScrollView!
-    private let presenter = Presenter()
     
     override func awakeFromNib() {
         super.awakeFromNib()

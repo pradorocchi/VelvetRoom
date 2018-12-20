@@ -38,16 +38,18 @@ public class Repository {
     }
     
     public func update(_ board:Board) {
-        timer.setEventHandler {
-            board.updated = Date().timeIntervalSince1970
-            self.storage.save(board)
-            self.synch.save(board)
-            self.synchUpdates()
-        }
+        board.updated = Date().timeIntervalSince1970
+        storage.save(board)
+        synch.save(board)
+        synchUpdates()
+    }
+    
+    public func scheduleUpdate(_ board:Board) {
+        timer.setEventHandler { self.update(board) }
         timer.schedule(deadline:.now() + wait)
     }
     
-    public func fireUpdate() {
+    public func fireSchedule() {
         timer.schedule(deadline:.now())
     }
     

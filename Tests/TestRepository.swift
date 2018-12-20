@@ -37,12 +37,20 @@ class TestRepository:XCTestCase {
     }
     
     func testUpdateBoard() {
+        let time = Date().timeIntervalSince1970
+        let board = Board()
+        repository.boards = [board]
+        repository.update(board)
+        XCTAssertLessThanOrEqual(time, self.repository.boards[0].updated)
+    }
+    
+    func testScheduleUpdateBoard() {
         let expect = expectation(description:String())
         let time = Date().timeIntervalSince1970
         let board = Board()
         repository.boards = [board]
         repository.wait = 0
-        repository.update(board)
+        repository.scheduleUpdate(board)
         DispatchQueue.global(qos:.background).asyncAfter(deadline:.now() + 0.01) {
             XCTAssertLessThanOrEqual(time, self.repository.boards[0].updated)
             expect.fulfill()
@@ -50,14 +58,14 @@ class TestRepository:XCTestCase {
         waitForExpectations(timeout:1)
     }
     
-    func testFiresUpdate() {
+    func testFiresSchedule() {
         let expect = expectation(description:String())
         let time = Date().timeIntervalSince1970
         let board = Board()
         repository.boards = [board]
         repository.wait = 100
-        repository.update(board)
-        repository.fireUpdate()
+        repository.scheduleUpdate(board)
+        repository.fireSchedule()
         DispatchQueue.global(qos:.background).asyncAfter(deadline:.now() + 0.01) {
             XCTAssertLessThanOrEqual(time, self.repository.boards[0].updated)
             expect.fulfill()

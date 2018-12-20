@@ -35,7 +35,6 @@ class TestStorage:XCTestCase {
     func testNewBoardSavesBoard() {
         let expect = expectation(description:String())
         storage.onSaveBoard = { _ in expect.fulfill() }
-        repository.wait = 0
         repository.newBoard(String(), template:.none)
         waitForExpectations(timeout:1)
     }
@@ -57,7 +56,7 @@ class TestStorage:XCTestCase {
         }
         repository.wait = 0
         board.name = "lorem ipsum"
-        repository.update(board)
+        repository.scheduleUpdate(board)
         waitForExpectations(timeout:1)
     }
     
@@ -71,9 +70,9 @@ class TestStorage:XCTestCase {
         }
         repository.wait = 0
         board.name = "some"
-        repository.update(board)
+        repository.scheduleUpdate(board)
         board.name = "lorem ipsum"
-        repository.update(board)
+        repository.scheduleUpdate(board)
         waitForExpectations(timeout:1)
     }
 }

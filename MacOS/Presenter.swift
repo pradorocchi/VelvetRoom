@@ -34,4 +34,12 @@ class Presenter {
     func update(_ board:Board) {
         DispatchQueue.global(qos:.background).async { self.repository.update(board) }
     }
+    
+    func scheduleUpdate(_ board:Board) {
+        DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(board) }
+    }
+    
+    func fireSchedule() {
+        repository.fireSchedule()
+    }
 }
