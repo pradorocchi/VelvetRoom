@@ -43,7 +43,7 @@ class View:NSWindow {
         
         border.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:1).isActive = true
         border.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:1).isActive = true
-        border.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:200).isActive = true
+        border.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:148).isActive = true
         border.widthAnchor.constraint(equalToConstant:1).isActive = true
         
         columns.topAnchor.constraint(equalTo:boards.topAnchor).isActive = true
@@ -74,7 +74,7 @@ class View:NSWindow {
         self.columns.bottom = nil
         var left = self.columns.documentView!.leftAnchor
         for (index, column) in columns.enumerated() {
-            let view = ColumnView(column, index:index)
+            let view = ColumnView(column, index:index, presenter:presenter)
             self.columns.documentView!.addSubview(view)
             
             view.topAnchor.constraint(equalTo:self.columns.documentView!.topAnchor).isActive = true

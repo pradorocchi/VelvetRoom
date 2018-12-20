@@ -37,13 +37,6 @@ public class Repository {
         select(board)
     }
     
-    public func update(_ board:Board) {
-        board.updated = Date().timeIntervalSince1970
-        storage.save(board)
-        synch.save(board)
-        synchUpdates()
-    }
-    
     public func scheduleUpdate(_ board:Board) {
         timer.setEventHandler { self.update(board) }
         timer.schedule(deadline:.now() + wait)
@@ -51,6 +44,13 @@ public class Repository {
     
     public func fireSchedule() {
         timer.schedule(deadline:.now())
+    }
+    
+    private func update(_ board:Board) {
+        board.updated = Date().timeIntervalSince1970
+        storage.save(board)
+        synch.save(board)
+        synchUpdates()
     }
     
     private func listBoards() {

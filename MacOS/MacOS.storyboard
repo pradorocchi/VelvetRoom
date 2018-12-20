@@ -354,11 +354,10 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Ppb-bW-tbl"/>
+                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="FJH-eW-wzJ"/>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
-                                <toolbarItem reference="Ppb-bW-tbl"/>
-                                <toolbarItem reference="Ppb-bW-tbl"/>
+                                <toolbarItem reference="FJH-eW-wzJ"/>
                                 <toolbarItem reference="0K5-pA-w2U"/>
                             </defaultToolbarItems>
                         </toolbar>

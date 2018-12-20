@@ -36,14 +36,6 @@ class TestRepository:XCTestCase {
         waitForExpectations(timeout:1)
     }
     
-    func testUpdateBoard() {
-        let time = Date().timeIntervalSince1970
-        let board = Board()
-        repository.boards = [board]
-        repository.update(board)
-        XCTAssertLessThanOrEqual(time, self.repository.boards[0].updated)
-    }
-    
     func testScheduleUpdateBoard() {
         let expect = expectation(description:String())
         let time = Date().timeIntervalSince1970

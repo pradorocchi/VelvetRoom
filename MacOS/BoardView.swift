@@ -21,7 +21,7 @@ class BoardView:NSControl, NSTextFieldDelegate {
         name.isBezeled = false
         name.isEditable = false
         name.focusRingType = .none
-        name.font = .systemFont(ofSize:14, weight:.regular)
+        name.font = .systemFont(ofSize:12, weight:.regular)
         name.stringValue = board.name
         name.delegate = self
         name.lineBreakMode = .byTruncatingTail
@@ -29,24 +29,9 @@ class BoardView:NSControl, NSTextFieldDelegate {
         addSubview(name)
         self.name = name
         
-        let edit = NSButton()
-        edit.isBordered = false
-        edit.target = self
-        edit.action = #selector(editName)
-        edit.image = NSImage(named:"edit")
-        edit.imageScaling = .scaleNone
-        edit.translatesAutoresizingMaskIntoConstraints = false
-        edit.setButtonType(.momentaryChange)
-        addSubview(edit)
-        
         name.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         name.leftAnchor.constraint(equalTo:leftAnchor, constant:12).isActive = true
-        name.rightAnchor.constraint(equalTo:edit.leftAnchor).isActive = true
-        
-        edit.topAnchor.constraint(equalTo:topAnchor).isActive = true
-        edit.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
-        edit.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
-        edit.widthAnchor.constraint(equalToConstant:30).isActive = true
+        name.rightAnchor.constraint(equalTo:rightAnchor, constant:-6).isActive = true
         
         update()
     }
@@ -54,8 +39,12 @@ class BoardView:NSControl, NSTextFieldDelegate {
     required init?(coder:NSCoder) { return nil }
     override func cancelOperation(_:Any?) { Application.view.makeFirstResponder(nil) }
     
-    override func mouseDown(with:NSEvent) {
-        if !selected {
+    override func mouseDown(with event:NSEvent) {
+        if event.clickCount == 2 {
+            name.isEditable = true
+            Application.view.makeFirstResponder(name)
+            name.currentEditor()!.selectedRange = NSMakeRange(name.stringValue.count, 0)
+        } else if !selected {
             sendAction(action, to:target)
         }
     }
@@ -63,7 +52,7 @@ class BoardView:NSControl, NSTextFieldDelegate {
     func controlTextDidEndEditing(_:Notification) {
         name.isEditable = false
         board.name = name.stringValue
-        presenter.update(board)
+        presenter.scheduleUpdate()
     }
     
     func control(_:NSControl, textView:NSTextView, doCommandBy selector:Selector) -> Bool {
@@ -82,11 +71,5 @@ class BoardView:NSControl, NSTextFieldDelegate {
             layer!.backgroundColor = NSColor.clear.cgColor
             name.alphaValue = 0.5
         }
-    }
-    
-    @objc private func editName() {
-        name.isEditable = true
-        Application.view.makeFirstResponder(name)
-        name.currentEditor()!.selectedRange = NSMakeRange(name.stringValue.count, 0)
     }
 }

@@ -2,16 +2,18 @@ import AppKit
 import VelvetRoom
 
 class ColumnView:NSControl, NSTextFieldDelegate {
-    let index:Int
     private(set) weak var column:Column!
     private weak var name:NSTextField!
     private weak var nameWidth:NSLayoutConstraint!
+    private weak var presenter:Presenter!
+    private let index:Int
     
-    init(_ column:Column, index:Int) {
+    init(_ column:Column, index:Int, presenter:Presenter) {
         self.column = column
         self.index = index
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
+        self.presenter = presenter
         
         let name = NSTextField()
         name.translatesAutoresizingMaskIntoConstraints = false
@@ -28,27 +30,12 @@ class ColumnView:NSControl, NSTextFieldDelegate {
         addSubview(name)
         self.name = name
         
-        let edit = NSButton()
-        edit.isBordered = false
-        edit.target = self
-        edit.action = #selector(editName)
-        edit.image = NSImage(named:"edit")
-        edit.imageScaling = .scaleNone
-        edit.translatesAutoresizingMaskIntoConstraints = false
-        edit.setButtonType(.momentaryChange)
-        addSubview(edit)
-        
         name.topAnchor.constraint(equalTo:topAnchor).isActive = true
         name.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
         name.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
-        name.rightAnchor.constraint(equalTo:edit.leftAnchor).isActive = true
+        name.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
         nameWidth = name.widthAnchor.constraint(greaterThanOrEqualToConstant:0)
         nameWidth.isActive = true
-        
-        edit.topAnchor.constraint(equalTo:topAnchor).isActive = true
-        edit.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
-        edit.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
-        edit.widthAnchor.constraint(equalToConstant:30).isActive = true
         
         updateWidth()
     }
@@ -56,9 +43,18 @@ class ColumnView:NSControl, NSTextFieldDelegate {
     required init?(coder:NSCoder) { return nil }
     override func cancelOperation(_:Any?) { Application.view.makeFirstResponder(nil) }
     
+    override func mouseDown(with event:NSEvent) {
+        if event.clickCount == 2 {
+            name.isEditable = true
+            Application.view.makeFirstResponder(name)
+            name.currentEditor()!.selectedRange = NSMakeRange(name.stringValue.count, 0)
+        }
+    }
+    
     func controlTextDidEndEditing(_:Notification) {
         name.isEditable = false
-//        presenter.rename(board, name:name.stringValue)
+        column.name = name.stringValue
+        presenter.scheduleUpdate()
         updateWidth()
     }
     
@@ -72,11 +68,5 @@ class ColumnView:NSControl, NSTextFieldDelegate {
     
     private func updateWidth() {
         nameWidth.constant = name.sizeThatFits(NSSize(width:900, height:30)).width
-    }
-    
-    @objc private func editName() {
-        name.isEditable = true
-        Application.view.makeFirstResponder(name)
-        name.currentEditor()!.selectedRange = NSMakeRange(name.stringValue.count, 0)
     }
 }
