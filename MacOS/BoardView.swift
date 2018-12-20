@@ -3,7 +3,7 @@ import VelvetRoom
 
 class BoardView:NSControl, NSTextFieldDelegate {
     var selected = false { didSet { update() } }
-    private(set) var board:Board!
+    private(set) weak var board:Board!
     private weak var presenter:Presenter!
     private weak var name:NSTextField!
     override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:50) }
@@ -62,7 +62,8 @@ class BoardView:NSControl, NSTextFieldDelegate {
     
     func controlTextDidEndEditing(_:Notification) {
         name.isEditable = false
-        presenter.rename(board, name:name.stringValue)
+        board.name = name.stringValue
+        presenter.update(board)
     }
     
     func control(_:NSControl, textView:NSTextView, doCommandBy selector:Selector) -> Bool {

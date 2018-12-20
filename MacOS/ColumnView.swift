@@ -3,7 +3,7 @@ import VelvetRoom
 
 class ColumnView:NSControl, NSTextFieldDelegate {
     let index:Int
-    private(set) var column:Column!
+    private(set) weak var column:Column!
     private weak var name:NSTextField!
     private weak var nameWidth:NSLayoutConstraint!
     

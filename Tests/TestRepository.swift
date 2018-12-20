@@ -18,30 +18,50 @@ class TestRepository:XCTestCase {
         XCTAssertFalse(repository.boards.first!.id.isEmpty)
         XCTAssertEqual("test", repository.boards.first!.name)
         XCTAssertLessThanOrEqual(time, repository.boards.first!.created)
-        XCTAssertLessThanOrEqual(time, repository.boards.first!.updated)
         XCTAssertEqual(repository.boards.first!.id, repository.account.boards.first!)
     }
     
     func testNewBoardIsSorted() {
-        var boardA = Board()
+        let expect = expectation(description:String())
+        repository.list = { boards in
+            XCTAssertEqual("B", boards[1].name)
+            expect.fulfill()
+        }
+        let boardA = Board()
         boardA.name = "A"
-        var boardC = Board()
+        let boardC = Board()
         boardC.name = "C"
         repository.boards = [boardA, boardC]
         repository.newBoard("B", template:.none)
-        XCTAssertEqual("B", repository.boards[1].name)
+        waitForExpectations(timeout:1)
     }
     
-    func testRenameBoard() {
+    func testUpdateBoard() {
+        let expect = expectation(description:String())
         let time = Date().timeIntervalSince1970
-        var board = Board()
-        board.id = "some"
-        board.name = "hello world"
+        let board = Board()
         repository.boards = [board]
-        repository.rename(board, name:"lorem ipsum")
-        XCTAssertEqual(1, repository.boards.count)
-        XCTAssertEqual("some", repository.boards[0].id)
-        XCTAssertEqual("lorem ipsum", repository.boards[0].name)
-        XCTAssertLessThanOrEqual(time, repository.boards[0].updated)
+        repository.wait = 0
+        repository.update(board)
+        DispatchQueue.global(qos:.background).asyncAfter(deadline:.now() + 0.01) {
+            XCTAssertLessThanOrEqual(time, self.repository.boards[0].updated)
+            expect.fulfill()
+        }
+        waitForExpectations(timeout:1)
+    }
+    
+    func testFiresUpdate() {
+        let expect = expectation(description:String())
+        let time = Date().timeIntervalSince1970
+        let board = Board()
+        repository.boards = [board]
+        repository.wait = 100
+        repository.update(board)
+        repository.fireUpdate()
+        DispatchQueue.global(qos:.background).asyncAfter(deadline:.now() + 0.01) {
+            XCTAssertLessThanOrEqual(time, self.repository.boards[0].updated)
+            expect.fulfill()
+        }
+        waitForExpectations(timeout:1)
     }
 }

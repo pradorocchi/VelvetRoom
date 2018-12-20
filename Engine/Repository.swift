@@ -7,55 +7,61 @@ public class Repository {
     var account = Account()
     var storage:Storage = LocalStorage()
     var synch:Synch = CloudSynch()
+    var wait = 10.0
+    private let timer = DispatchSource.makeTimerSource(queue:.global(qos:.background))
     
-    public init() { }
+    public init() {
+        timer.resume()
+    }
     
     public func load() {
         account = (try? storage.account()) ?? account
-        loadBoards()
+        account.boards.forEach { id in boards.append(storage.board(id)) }
         synchBoards()
-        list(boards)
+        listBoards()
     }
     
     public func newBoard(_ name:String, template:Template) {
-        var board = Board()
+        let board = Board()
         board.id = UUID().uuidString
         board.name = name
         board.created = Date().timeIntervalSince1970
-        board.updated = board.created
+        add(template, board:board)
         
+        boards.append(board)
+        account.boards.append(board.id)
+        storage.save(account)
+        update(board)
+        
+        listBoards()
+        select(board)
+    }
+    
+    public func update(_ board:Board) {
+        timer.setEventHandler {
+            board.updated = Date().timeIntervalSince1970
+            self.storage.save(board)
+            self.synch.save(board)
+            self.synchUpdates()
+        }
+        timer.schedule(deadline:.now() + wait)
+    }
+    
+    public func fireUpdate() {
+        timer.schedule(deadline:.now())
+    }
+    
+    private func listBoards() {
+        list(boards.sorted { $0.name.compare($1.name, options:.caseInsensitive) == .orderedAscending })
+    }
+    
+    private func add(_ template:Template, board:Board) {
         switch template {
         case .triple: board.columns = [column("Backlog"), column("Active"), column("Done")]
         case .double: board.columns = [column("Backlog"), column("Done")]
         case .single: board.columns = [column("List")]
         default: break
         }
-        
-        boards.append(board)
-        sortBoards()
-        account.boards.append(board.id)
-        storage.save(board)
-        storage.save(account)
-        synch.save(board)
-        synchUpdates()
-        
-        list(boards)
-        select(board)
-    }
-    
-    public func rename(_ board:Board, name:String) {
-        var board = board
-        board.name = name
-        board.updated = Date().timeIntervalSince1970
-        boards[boards.firstIndex(where: { $0.id == board.id } )!] = board
-        storage.save(board)
-        synch.save(board)
-        synchUpdates()
-    }
-    
-    private func loadBoards() {
-        account.boards.forEach { id in boards.append(storage.board(id)) }
-        sortBoards()
     }
     
     private func synchBoards() {
@@ -72,16 +78,12 @@ public class Repository {
         
     }
     
-    private func sortBoards() {
-        boards.sort { $0.name.compare($1.name, options:.caseInsensitive) == .orderedAscending }
-    }
-    
     private func synchUpdates() {
         synch.save(boards.reduce(into:[:], { result, board in result[board.id] = board.updated } ))
     }
     
     private func column(_ name:String) -> Column {
-        var column = Column()
+        let column = Column()
         column.name = name
         column.created = Date().timeIntervalSince1970
         return column

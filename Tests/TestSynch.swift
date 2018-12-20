@@ -31,6 +31,7 @@ class TestSynch:XCTestCase {
             XCTAssertEqual(self.repository.boards.first!.id, item.id)
             expect.fulfill()
         }
+        repository.wait = 0
         repository.newBoard(String(), template:.none)
         waitForExpectations(timeout:1)
     }
@@ -42,24 +43,26 @@ class TestSynch:XCTestCase {
             XCTAssertEqual(self.repository.boards.first!.updated, items.first!.value)
             expect.fulfill()
         }
+        repository.wait = 0
         repository.newBoard(String(), template:.none)
         waitForExpectations(timeout:1)
     }
     
-    func testRenameBoardSynchsBoard() {
+    func testUpdateBoardSynchsBoard() {
         let expect = expectation(description:String())
-        var board = Board()
-        board.name = "hello world"
-        repository.boards = [board]
         synch.onSaveBoard = { item in
             XCTAssertEqual("lorem ipsum", item.name)
             expect.fulfill()
         }
-        repository.rename(board, name:"lorem ipsum")
+        let board = Board()
+        board.name = "hello world"
+        repository.wait = 0
+        board.name = "lorem ipsum"
+        repository.update(board)
         waitForExpectations(timeout:1)
     }
     
-    func testRenameBoardSynchsAccount() {
+    func testUpdateBoardSynchsAccount() {
         let expect = expectation(description:String())
         let time = Date().timeIntervalSince1970
         synch.onSaveAccount = { items in
@@ -67,11 +70,11 @@ class TestSynch:XCTestCase {
             XCTAssertLessThanOrEqual(time, items.first!.value)
             expect.fulfill()
         }
-        var board = Board()
+        let board = Board()
         board.id = "some"
-        board.name = "hello world"
+        repository.wait = 0
         repository.boards = [board]
-        repository.rename(board, name:"lorem ipsum")
+        repository.update(board)
         waitForExpectations(timeout:1)
     }
 }
