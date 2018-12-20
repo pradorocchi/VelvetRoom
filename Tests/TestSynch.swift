@@ -75,4 +75,34 @@ class TestSynch:XCTestCase {
         repository.scheduleUpdate(board)
         waitForExpectations(timeout:1)
     }
+    
+    func testNewCardSynchsBoard() {
+        let expect = expectation(description:String())
+        synch.onSaveBoard = { item in
+            XCTAssertFalse(item.cards.isEmpty)
+            expect.fulfill()
+        }
+        let board = Board()
+        board.columns = [Column()]
+        repository.wait = 0
+        _ = try! repository.newCard(board)
+        waitForExpectations(timeout:1)
+    }
+    
+    func testNewCardSynchsAccount() {
+        let expect = expectation(description:String())
+        let time = Date().timeIntervalSince1970
+        synch.onSaveAccount = { items in
+            XCTAssertEqual("some", items.first!.key)
+            XCTAssertLessThanOrEqual(time, items.first!.value)
+            expect.fulfill()
+        }
+        let board = Board()
+        board.id = "some"
+        board.columns = [Column()]
+        repository.wait = 0
+        repository.boards = [board]
+        _ = try! repository.newCard(board)
+        waitForExpectations(timeout:1)
+    }
 }

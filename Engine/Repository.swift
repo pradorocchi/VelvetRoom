@@ -37,6 +37,19 @@ public class Repository {
         select(board)
     }
     
+    public func newCard(_ board:Board) throws -> Card {
+        if board.columns.isEmpty {
+            throw Exception.noColumns
+        }
+        let card = Card()
+        var position = Position()
+        position.time = Date().timeIntervalSince1970
+        card.position.append(position)
+        board.cards.append(card)
+        scheduleUpdate(board)
+        return card
+    }
+    
     public func scheduleUpdate(_ board:Board) {
         timer.setEventHandler { self.update(board) }
         timer.schedule(deadline:.now() + wait)

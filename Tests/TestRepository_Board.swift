@@ -1,7 +1,7 @@
 import XCTest
 @testable import VelvetRoom
 
-class TestRepository:XCTestCase {
+class TestRepository_Board:XCTestCase {
     private var repository:Repository!
 
     override func setUp() {
