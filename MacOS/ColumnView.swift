@@ -19,9 +19,9 @@ class ColumnView:NSControl, NSTextFieldDelegate {
         name.isBezeled = false
         name.isEditable = false
         name.focusRingType = .none
-        name.font = .bold(18)
+        name.font = .bold(16)
         name.stringValue = column.name
-        name.alphaValue = 0.4
+        name.alphaValue = 0.6
         name.maximumNumberOfLines = 1
         name.lineBreakMode = .byTruncatingTail
         name.delegate = self

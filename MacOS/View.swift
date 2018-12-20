@@ -137,6 +137,7 @@ class View:NSWindow {
     }
     
     @objc private func select(view:BoardView) {
+        Application.view.makeFirstResponder(nil)
         presenter.selected = view
         render(view.board.columns)
     }
@@ -150,6 +151,7 @@ class View:NSWindow {
     }
     
     @IBAction private func newDocument(_ sender:Any) {
+        Application.view.makeFirstResponder(nil)
         Application.view.beginSheet(NewBoardView(presenter))
     }
 }

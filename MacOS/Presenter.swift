@@ -10,7 +10,7 @@ class Presenter {
         }
         didSet {
             selected.selected = true
-//            saveIfNeeded()
+            fireSchedule()
         }
     }
     

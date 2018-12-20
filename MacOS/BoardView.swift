@@ -21,7 +21,7 @@ class BoardView:NSControl, NSTextFieldDelegate {
         name.isBezeled = false
         name.isEditable = false
         name.focusRingType = .none
-        name.font = .systemFont(ofSize:16, weight:.medium)
+        name.font = .systemFont(ofSize:14, weight:.regular)
         name.stringValue = board.name
         name.delegate = self
         name.lineBreakMode = .byTruncatingTail
@@ -77,10 +77,10 @@ class BoardView:NSControl, NSTextFieldDelegate {
     private func update() {
         if selected {
             layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
-            name.alphaValue = 0.7
+            name.alphaValue = 0.9
         } else {
             layer!.backgroundColor = NSColor.clear.cgColor
-            name.alphaValue = 0.4
+            name.alphaValue = 0.5
         }
     }
     

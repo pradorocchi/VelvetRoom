@@ -38,7 +38,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         columns.isBezeled = false
         columns.isEditable = false
         columns.font = .systemFont(ofSize:12, weight:.light)
-        columns.alphaValue = 0.4
+        columns.alphaValue = 0.5
         contentView!.addSubview(columns)
         self.columns = columns
         
