@@ -37,6 +37,11 @@ class Presenter {
         DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(self.selected.board) }
     }
     
+    func changed(_ card:Card, content:String) {
+        DispatchQueue.global(qos:.background).async {
+            self.repository.update(self.selected.board, card:card, content:content) }
+    }
+    
     func fireSchedule() {
         repository.fireSchedule()
     }

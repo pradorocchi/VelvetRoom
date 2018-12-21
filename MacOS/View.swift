@@ -16,9 +16,14 @@ class View:NSWindow {
         presenter.load()
     }
     
-    func contentChanged() {
+    func canvasChanged() {
         animateAlign()
         presenter.scheduleUpdate()
+    }
+    
+    func changed(_ card:Card, content:String) {
+        animateAlign()
+        presenter.changed(card, content:content)
     }
     
     private func makeOutlets() {

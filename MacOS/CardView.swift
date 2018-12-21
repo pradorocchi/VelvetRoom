@@ -24,7 +24,7 @@ class CardView:ItemView, NSTextViewDelegate {
         content.insertionPointColor = .velvetBlue
         content.font = .regular(14)
         content.delegate = self
-        content.string = "hello world"
+        content.string = card.content.last?.value ?? String()
         content.textContainer!.lineFragmentPadding = 0
         addSubview(content)
         self.content = content
@@ -65,7 +65,7 @@ class CardView:ItemView, NSTextViewDelegate {
     
     func textDidChange(_:Notification) {
         updateSize()
-        view.contentChanged()
+        view.changed(card, content:content.string)
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -83,7 +83,7 @@ class CardView:ItemView, NSTextViewDelegate {
 //        name.isEditable = false
 //        column.name = name.stringValue
 //        updateWidth()
-        view.contentChanged()
+        view.canvasChanged()
     }
     
     func control(_:NSControl, textView:NSTextView, doCommandBy selector:Selector) -> Bool {

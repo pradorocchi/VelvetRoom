@@ -55,7 +55,7 @@ class ColumnView:ItemView, NSTextFieldDelegate {
         name.isEditable = false
         column.name = name.stringValue
         updateWidth()
-        view.contentChanged()
+        view.canvasChanged()
     }
     
     func control(_:NSControl, textView:NSTextView, doCommandBy selector:Selector) -> Bool {
