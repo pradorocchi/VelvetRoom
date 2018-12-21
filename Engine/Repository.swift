@@ -50,6 +50,14 @@ public class Repository {
         return card
     }
     
+    public func update(_ board:Board, card:Card, content:String) {
+        var item = Content()
+        item.value = content
+        item.time = Date().timeIntervalSince1970
+        card.content.append(item)
+        scheduleUpdate(board)
+    }
+    
     public func scheduleUpdate(_ board:Board) {
         timer.setEventHandler { self.update(board) }
         timer.schedule(deadline:.now() + wait)

@@ -65,7 +65,7 @@ class TestSynch:XCTestCase {
         let time = Date().timeIntervalSince1970
         synch.onSaveAccount = { items in
             XCTAssertEqual("some", items.first!.key)
-            XCTAssertLessThanOrEqual(time, items.first!.value)
+            XCTAssertLessThan(time, items.first!.value)
             expect.fulfill()
         }
         let board = Board()
@@ -94,7 +94,7 @@ class TestSynch:XCTestCase {
         let time = Date().timeIntervalSince1970
         synch.onSaveAccount = { items in
             XCTAssertEqual("some", items.first!.key)
-            XCTAssertLessThanOrEqual(time, items.first!.value)
+            XCTAssertLessThan(time, items.first!.value)
             expect.fulfill()
         }
         let board = Board()
@@ -103,6 +103,36 @@ class TestSynch:XCTestCase {
         repository.wait = 0
         repository.boards = [board]
         _ = try! repository.newCard(board)
+        waitForExpectations(timeout:1)
+    }
+    
+    func testUpdateCardContentSynchsBoard() {
+        let expect = expectation(description:String())
+        synch.onSaveBoard = { item in
+            XCTAssertEqual("hello world", item.cards.first!.content.first!.value)
+            expect.fulfill()
+        }
+        let board = Board()
+        let card = Card()
+        board.cards = [card]
+        repository.wait = 0
+        repository.update(board, card:card, content:"hello world")
+        waitForExpectations(timeout:1)
+    }
+    
+    func testUpdateCardContentSynchsAccount() {
+        let expect = expectation(description:String())
+        let time = Date().timeIntervalSince1970
+        synch.onSaveAccount = { items in
+            XCTAssertEqual("some", items.first!.key)
+            XCTAssertLessThan(time, items.first!.value)
+            expect.fulfill()
+        }
+        let board = Board()
+        board.id = "some"
+        repository.wait = 0
+        repository.boards = [board]
+        repository.update(board, card:Card(), content:String())
         waitForExpectations(timeout:1)
     }
 }

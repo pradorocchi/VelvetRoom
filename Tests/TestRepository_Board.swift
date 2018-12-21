@@ -17,7 +17,7 @@ class TestRepository_Board:XCTestCase {
         repository.newBoard("test", template:.none)
         XCTAssertFalse(repository.boards.first!.id.isEmpty)
         XCTAssertEqual("test", repository.boards.first!.name)
-        XCTAssertLessThanOrEqual(time, repository.boards.first!.created)
+        XCTAssertLessThan(time, repository.boards.first!.created)
         XCTAssertEqual(repository.boards.first!.id, repository.account.boards.first!)
     }
     
@@ -44,7 +44,7 @@ class TestRepository_Board:XCTestCase {
         repository.wait = 0
         repository.scheduleUpdate(board)
         DispatchQueue.global(qos:.background).asyncAfter(deadline:.now() + 0.01) {
-            XCTAssertLessThanOrEqual(time, self.repository.boards[0].updated)
+            XCTAssertLessThan(time, self.repository.boards[0].updated)
             expect.fulfill()
         }
         waitForExpectations(timeout:1)
@@ -59,7 +59,7 @@ class TestRepository_Board:XCTestCase {
         repository.scheduleUpdate(board)
         repository.fireSchedule()
         DispatchQueue.global(qos:.background).asyncAfter(deadline:.now() + 0.01) {
-            XCTAssertLessThanOrEqual(time, self.repository.boards[0].updated)
+            XCTAssertLessThan(time, self.repository.boards[0].updated)
             expect.fulfill()
         }
         waitForExpectations(timeout:1)

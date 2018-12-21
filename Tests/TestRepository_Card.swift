@@ -24,8 +24,19 @@ class TestRepository_Card:XCTestCase {
         var card:Card!
         XCTAssertNoThrow(try card = repository.newCard(board))
         XCTAssertTrue(card === repository.boards.first!.cards.first!)
-        XCTAssertLessThanOrEqual(time, card.position.first!.time)
+        XCTAssertLessThan(time, card.position.first!.time)
         XCTAssertEqual(0, card.position.first!.index)
         XCTAssertEqual(0, card.position.first!.column)
+    }
+    
+    func testUpdateContent() {
+        let time = Date().timeIntervalSince1970
+        let card = Card()
+        repository.update(Board(), card:card, content:"hello world")
+        XCTAssertEqual("hello world", card.content.last!.value)
+        XCTAssertLessThan(time, card.content.last!.time)
+        repository.update(Board(), card:card, content:"lorem ipsum")
+        XCTAssertEqual("lorem ipsum", card.content.last!.value)
+        XCTAssertLessThan(card.content.first!.time, card.content.last!.time)
     }
 }
