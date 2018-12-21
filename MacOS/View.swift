@@ -17,16 +17,8 @@ class View:NSWindow {
     }
     
     func contentChanged() {
-        canvas.documentView!.layoutSubtreeIfNeeded()
-        align()
+        animateAlign()
         presenter.scheduleUpdate()
-        if #available(OSX 10.12, *) {
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = 0.5
-                context.allowsImplicitAnimation = true
-                canvas.documentView!.layoutSubtreeIfNeeded()
-            }
-        }
     }
     
     private func makeOutlets() {
@@ -87,8 +79,8 @@ class View:NSWindow {
         canvas.removeSubviews()
         root = nil
         var sibling:ItemView?
-        board.columns.enumerated().forEach {
-            let column = ColumnView($0.element, index:$0.offset, view:self)
+        board.columns.enumerated().forEach { (index, item) in
+            let column = ColumnView(item, index:index, view:self)
             if sibling == nil {
                 root = column
             } else {
@@ -96,8 +88,14 @@ class View:NSWindow {
             }
             canvas.documentView!.addSubview(column)
             var child:ItemView = column
+            board.cards.filter({ $0.position.last!.column == index }).forEach { item in
+                let card = CardView(item, view:self)
+                canvas.documentView!.addSubview(card)
+                child.child = card
+                child = card
+            }
             
-            if $0.offset == 0 {
+            if index == 0 {
                 let buttonCard = NewItemView(self, selector:#selector(newCard))
                 canvas.documentView!.addSubview(buttonCard)
                 child.child = buttonCard
@@ -112,6 +110,18 @@ class View:NSWindow {
             root = buttonColumn
         } else {
             sibling!.sibling = buttonColumn
+        }
+    }
+    
+    private func animateAlign() {
+        canvas.documentView!.layoutSubtreeIfNeeded()
+        align()
+        if #available(OSX 10.12, *) {
+            NSAnimationContext.runAnimationGroup { context in
+                context.duration = 0.5
+                context.allowsImplicitAnimation = true
+                canvas.documentView!.layoutSubtreeIfNeeded()
+            }
         }
     }
     
@@ -141,20 +151,6 @@ class View:NSWindow {
         canvas.right = canvas.documentView!.widthAnchor.constraint(equalToConstant:maxRight)
     }
     
-    private func buttonNew(_ selector:Selector) -> NSButton {
-        let button = NSButton()
-        button.isBordered = false
-        button.image = NSImage(named:"new")
-        button.target = self
-        button.action = selector
-        button.imageScaling = .scaleNone
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setButtonType(.momentaryChange)
-        button.widthAnchor.constraint(equalToConstant:24).isActive = true
-        button.heightAnchor.constraint(equalToConstant:18).isActive = true
-        return button
-    }
-    
     private func select(_ board:Board) {
         let view = list.documentView!.subviews.first { ($0 as! BoardView).board.id == board.id } as! BoardView
         select(view:view)
@@ -171,8 +167,7 @@ class View:NSWindow {
         Application.view.makeFirstResponder(nil)
         presenter.selected = view
         render(view.board)
-        canvas.documentView!.layoutSubtreeIfNeeded()
-        align()
+        animateAlign()
     }
     
     @objc private func newColumn() {
@@ -180,7 +175,11 @@ class View:NSWindow {
     }
     
     @objc private func newCard() {
-        print("new card")
+        let card = CardView(presenter.newCard(), view:self)
+        card.child = root?.child
+        root?.child = card
+        canvas.documentView!.addSubview(card)
+        animateAlign()
     }
     
     @IBAction private func newDocument(_ sender:Any) {

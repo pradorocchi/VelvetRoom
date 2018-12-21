@@ -21,9 +21,9 @@ class ColumnView:ItemView, NSTextFieldDelegate {
         name.isBezeled = false
         name.isEditable = false
         name.focusRingType = .none
-        name.font = .bold(14)
+        name.font = .bold(18)
         name.stringValue = column.name
-        name.textColor = NSColor.textColor.withAlphaComponent(0.6)
+        name.textColor = NSColor.textColor.withAlphaComponent(0.4)
         name.maximumNumberOfLines = 1
         name.lineBreakMode = .byTruncatingTail
         name.delegate = self
@@ -47,7 +47,7 @@ class ColumnView:ItemView, NSTextFieldDelegate {
         if event.clickCount == 2 {
             name.isEditable = true
             Application.view.makeFirstResponder(name)
-            name.currentEditor()!.selectedRange = NSMakeRange(name.stringValue.count, 0)
+            name.currentEditor()?.selectedRange = NSMakeRange(name.stringValue.count, 0)
         }
     }
     

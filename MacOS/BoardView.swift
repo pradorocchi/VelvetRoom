@@ -43,7 +43,7 @@ class BoardView:NSControl, NSTextFieldDelegate {
         if event.clickCount == 2 {
             name.isEditable = true
             Application.view.makeFirstResponder(name)
-            name.currentEditor()!.selectedRange = NSMakeRange(name.stringValue.count, 0)
+            name.currentEditor()?.selectedRange = NSMakeRange(name.stringValue.count, 0)
         } else if !selected {
             DispatchQueue.main.async {
                 self.sendAction(self.action, to:self.target)
@@ -68,10 +68,10 @@ class BoardView:NSControl, NSTextFieldDelegate {
     private func update() {
         if selected {
             layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
-            name.textColor = NSColor.textColor.withAlphaComponent(0.8)
+            name.textColor = NSColor.textColor.withAlphaComponent(0.7)
         } else {
             layer!.backgroundColor = NSColor.clear.cgColor
-            name.textColor = NSColor.textColor.withAlphaComponent(0.5)
+            name.textColor = NSColor.textColor.withAlphaComponent(0.4)
         }
     }
 }

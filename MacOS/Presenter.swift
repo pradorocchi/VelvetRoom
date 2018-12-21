@@ -31,6 +31,8 @@ class Presenter {
         DispatchQueue.global(qos:.background).async { self.repository.newBoard(name, template:template) }
     }
     
+    func newCard() -> Card { return try! repository.newCard(selected.board) }
+    
     func scheduleUpdate() {
         DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(self.selected.board) }
     }
