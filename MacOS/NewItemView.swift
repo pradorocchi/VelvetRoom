@@ -4,8 +4,8 @@ class NewItemView:ItemView {
     init(_ target:AnyObject, selector:Selector) {
         super.init()
         translatesAutoresizingMaskIntoConstraints = false
-        widthAnchor.constraint(equalToConstant:24).isActive = true
-        heightAnchor.constraint(equalToConstant:18).isActive = true
+        widthAnchor.constraint(equalToConstant:30).isActive = true
+        heightAnchor.constraint(equalToConstant:38).isActive = true
         action = selector
         self.target = target
         

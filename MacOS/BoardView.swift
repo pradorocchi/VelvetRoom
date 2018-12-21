@@ -68,10 +68,10 @@ class BoardView:NSControl, NSTextFieldDelegate {
     private func update() {
         if selected {
             layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
-            name.alphaValue = 0.9
+            name.textColor = NSColor.textColor.withAlphaComponent(0.8)
         } else {
             layer!.backgroundColor = NSColor.clear.cgColor
-            name.alphaValue = 0.5
+            name.textColor = NSColor.textColor.withAlphaComponent(0.5)
         }
     }
 }

@@ -20,6 +20,13 @@ class View:NSWindow {
         canvas.documentView!.layoutSubtreeIfNeeded()
         align()
         presenter.scheduleUpdate()
+        if #available(OSX 10.12, *) {
+            NSAnimationContext.runAnimationGroup { context in
+                context.duration = 0.5
+                context.allowsImplicitAnimation = true
+                canvas.documentView!.layoutSubtreeIfNeeded()
+            }
+        }
     }
     
     private func makeOutlets() {

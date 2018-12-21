@@ -23,17 +23,17 @@ class ColumnView:ItemView, NSTextFieldDelegate {
         name.focusRingType = .none
         name.font = .bold(14)
         name.stringValue = column.name
-        name.alphaValue = 0.4
+        name.textColor = NSColor.textColor.withAlphaComponent(0.6)
         name.maximumNumberOfLines = 1
         name.lineBreakMode = .byTruncatingTail
         name.delegate = self
         addSubview(name)
         self.name = name
         
-        name.topAnchor.constraint(equalTo:topAnchor).isActive = true
-        name.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
+        name.topAnchor.constraint(equalTo:topAnchor, constant:10).isActive = true
+        name.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-10).isActive = true
         name.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
-        name.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
+        name.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
         nameWidth = name.widthAnchor.constraint(greaterThanOrEqualToConstant:0)
         nameWidth.isActive = true
         
