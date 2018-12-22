@@ -14,43 +14,21 @@ class CardView:ItemView, NSTextViewDelegate {
         self.card = card
         self.view = view
         
-        let content = NSTextView()
+        let content = TextView()
         content.translatesAutoresizingMaskIntoConstraints = false
         content.isContinuousSpellCheckingEnabled = true
         content.allowsUndo = true
         content.drawsBackground = false
         content.isIncrementalSearchingEnabled = true
         content.isRichText = false
+        content.isEditable = false
         content.insertionPointColor = .velvetBlue
         content.font = .regular(14)
-        content.delegate = self
         content.string = card.content
         content.textContainer!.lineFragmentPadding = 0
+        content.delegate = self
         addSubview(content)
         self.content = content
-        /*
-        let name = NSTextField()
-        name.translatesAutoresizingMaskIntoConstraints = false
-        name.drawsBackground = false
-        name.isBezeled = false
-        name.isEditable = false
-        name.focusRingType = .none
-        name.font = .regular(14)
-        name.stringValue = "hello world"//;card.content.last?.value ?? String()
-        name.maximumNumberOfLines = 1
-        name.lineBreakMode = .byTruncatingTail
-        name.delegate = self
-        addSubview(name)
-        self.name = name
-        
-        name.topAnchor.constraint(equalTo:topAnchor, constant:10).isActive = true
-        name.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-10).isActive = true
-        name.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
-        name.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
-        nameWidth = name.widthAnchor.constraint(greaterThanOrEqualToConstant:0)
-        nameWidth.isActive = true
-        
-        updateWidth()*/
         
         content.topAnchor.constraint(equalTo:topAnchor, constant:10).isActive = true
         content.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-10).isActive = true
@@ -74,8 +52,8 @@ class CardView:ItemView, NSTextViewDelegate {
     
     override func mouseDown(with event:NSEvent) {
         if event.clickCount == 2 {
-//            name.isEditable = true
-//            Application.view.makeFirstResponder(name)
+            content.isEditable = true
+            Application.view.makeFirstResponder(content)
 //            name.currentEditor()?.selectedRange = NSMakeRange(name.stringValue.count, 0)
         }
     }
