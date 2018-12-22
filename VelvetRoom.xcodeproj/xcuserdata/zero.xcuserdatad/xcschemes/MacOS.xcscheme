@@ -27,15 +27,6 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <PostActions>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "Run Script"
-               scriptText = "if [[ $? == 0 ]] ; then&#10;  osascript -e &apos;display notification &quot;Passed&quot; with title &quot;TCR&quot;&apos;&#10;else&#10;  osascript -e &apos;display notification &quot;Failed&quot; with title &quot;TCR&quot;&apos;&#10;fi&#10;">
-            </ActionContent>
-         </ExecutionAction>
-      </PostActions>
       <Testables>
          <TestableReference
             skipped = "NO"

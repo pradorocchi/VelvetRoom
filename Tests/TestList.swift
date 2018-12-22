@@ -21,7 +21,7 @@ class TestList:XCTestCase {
     func testNewBoardLists() {
         let expect = expectation(description:String())
         repository.list = { boards in
-            XCTAssertEqual("lorem ipsum", boards.first!.name)
+            XCTAssertEqual("lorem ipsum a", boards.first!.name)
             expect.fulfill()
         }
         repository.newBoard("lorem ipsum", template:.none)
