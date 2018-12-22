@@ -88,18 +88,4 @@ class TestStorage:XCTestCase {
         _ = try! repository.newCard(board)
         waitForExpectations(timeout:1)
     }
-    
-    func testUpdateCardContentSavesBoard() {
-        let expect = expectation(description:String())
-        let board = Board()
-        let card = Card()
-        board.cards = [card]
-        storage.onSaveBoard = { item in
-            XCTAssertEqual("hello world", item.cards.first!.content.first!.value)
-            expect.fulfill()
-        }
-        repository.wait = 0
-        repository.update(board, card:card, content:"hello world")
-        waitForExpectations(timeout:1)
-    }
 }

@@ -21,11 +21,6 @@ class View:NSWindow {
         presenter.scheduleUpdate()
     }
     
-    func changed(_ card:Card, content:String) {
-        animateAlign()
-        presenter.changed(card, content:content)
-    }
-    
     private func makeOutlets() {
         let list = ScrollView()
         list.hasVerticalScroller = true
@@ -93,7 +88,7 @@ class View:NSWindow {
             }
             canvas.documentView!.addSubview(column)
             var child:ItemView = column
-            board.cards.filter({ $0.position.last!.column == index }).forEach { item in
+            board.cards.filter({ $0.position.0 == index }).forEach { item in
                 let card = CardView(item, view:self)
                 canvas.documentView!.addSubview(card)
                 child.child = card

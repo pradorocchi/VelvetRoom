@@ -5,8 +5,8 @@ class TestCard:XCTestCase {
     private var data:Data!
     private let json = """
 {
-"position": [],
-"content": []
+"positions": [],
+"contents": []
 }
 """
     override func setUp() {
@@ -15,7 +15,7 @@ class TestCard:XCTestCase {
     
     func testParsing() {
         let card = try! JSONDecoder().decode(Card.self, from:data)
-        XCTAssertTrue(card.position.isEmpty)
-        XCTAssertTrue(card.content.isEmpty)
+        XCTAssertTrue(card.positions.isEmpty)
+        XCTAssertTrue(card.contents.isEmpty)
     }
 }

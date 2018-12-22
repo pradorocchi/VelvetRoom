@@ -42,20 +42,10 @@ public class Repository {
             throw Exception.noColumns
         }
         let card = Card()
-        var position = Position()
-        position.time = Date().timeIntervalSince1970
-        card.position.append(position)
+        card.position = (0, 0)
         board.cards.append(card)
         scheduleUpdate(board)
         return card
-    }
-    
-    public func update(_ board:Board, card:Card, content:String) {
-        var item = Content()
-        item.value = content
-        item.time = Date().timeIntervalSince1970
-        card.content.append(item)
-        scheduleUpdate(board)
     }
     
     public func scheduleUpdate(_ board:Board) {
