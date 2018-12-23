@@ -7,6 +7,8 @@ class View:NSWindow {
     private weak var canvas:ScrollView!
     private weak var root:ItemView?
     
+    override func mouseDown(with:NSEvent) { Application.view.makeFirstResponder(nil) }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = .textBackgroundColor
@@ -88,19 +90,21 @@ class View:NSWindow {
             }
             canvas.documentView!.addSubview(column)
             var child:ItemView = column
+            sibling = column
+            
+            if index == 0 {
+                let buttonCard = NewItemView(self, selector:#selector(newCard(_:)))
+                canvas.documentView!.addSubview(buttonCard)
+                child.child = buttonCard
+                child = buttonCard
+            }
+            
             board.cards.filter({ $0.position.0 == index }).forEach { item in
                 let card = CardView(item, view:self)
                 canvas.documentView!.addSubview(card)
                 child.child = card
                 child = card
             }
-            
-            if index == 0 {
-                let buttonCard = NewItemView(self, selector:#selector(newCard))
-                canvas.documentView!.addSubview(buttonCard)
-                child.child = buttonCard
-            }
-            sibling = column
         }
         
         let buttonColumn = NewItemView(self, selector:#selector(newColumn))
@@ -134,6 +138,7 @@ class View:NSWindow {
             var bottom = CGFloat()
             
             var child = sibling
+            sibling = sibling!.sibling
             while child != nil {
                 child!.left.constant = right
                 child!.top.constant = bottom
@@ -145,7 +150,6 @@ class View:NSWindow {
             }
             
             maxBottom = max(bottom, maxBottom)
-            sibling = sibling!.sibling
         }
         canvas.bottom = canvas.documentView!.heightAnchor.constraint(equalToConstant:maxBottom)
         canvas.right = canvas.documentView!.widthAnchor.constraint(equalToConstant:maxRight)
@@ -174,12 +178,13 @@ class View:NSWindow {
         print("new column")
     }
     
-    @objc private func newCard() {
+    @objc private func newCard(_ view:NewItemView) {
         let card = CardView(presenter.newCard(), view:self)
-        card.child = root?.child
-        root?.child = card
+        card.child = view.child
+        view.child = card
         canvas.documentView!.addSubview(card)
         animateAlign()
+        card.beginEditing()
     }
     
     @IBAction private func newDocument(_ sender:Any) {

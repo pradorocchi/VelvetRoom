@@ -1,15 +1,15 @@
 import AppKit
 
 class TextView:NSTextView {
-    static let lineHeight:CGFloat = 22
     private weak var width:NSLayoutConstraint!
     private weak var height:NSLayoutConstraint!
+    override var font:NSFont? { didSet { didChangeText() } }
     
-    init(_ string:String) {
+    init(_ string:String, maxWidth:CGFloat, maxHeight:CGFloat) {
         let container = NSTextContainer()
         let storage = NSTextStorage()
         let layout = TextLayout()
-        container.size = NSSize(width:220, height:100000)
+        container.size = NSSize(width:maxWidth, height:maxHeight)
         storage.addLayoutManager(layout)
         layout.addTextContainer(container)
         super.init(frame:.zero, textContainer:container)
@@ -20,15 +20,12 @@ class TextView:NSTextView {
         isRichText = false
         isEditable = false
         insertionPointColor = .velvetBlue
-        font = .regular(14)
         self.string = string
         
         width = widthAnchor.constraint(equalToConstant:0)
         height = heightAnchor.constraint(equalToConstant:0)
         width.isActive = true
         height.isActive = true
-        
-        didChangeText()
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -53,5 +50,11 @@ class TextView:NSTextView {
         let size = layoutManager!.usedRect(for:textContainer!).size
         width.constant = size.width + 4
         height.constant = size.height
+    }
+    
+    override func resignFirstResponder() -> Bool {
+        isEditable = false
+        setSelectedRange(NSMakeRange(string.count, 0))
+        return super.resignFirstResponder()
     }
 }

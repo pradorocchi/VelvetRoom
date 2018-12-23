@@ -11,17 +11,17 @@ class TextLayout:NSLayoutManager, NSLayoutManagerDelegate {
     func layoutManager(_:NSLayoutManager, shouldSetLineFragmentRect rect:UnsafeMutablePointer<NSRect>,
                        lineFragmentUsedRect:UnsafeMutablePointer<NSRect>, baselineOffset
         base:UnsafeMutablePointer<CGFloat>, in:NSTextContainer, forGlyphRange:NSRange) -> Bool {
-        base.pointee = base.pointee + ((TextView.lineHeight - rect.pointee.size.height) / 2)
-        rect.pointee.size.height = TextView.lineHeight
-        lineFragmentUsedRect.pointee.size.height = TextView.lineHeight
+        base.pointee = base.pointee + ((22 - rect.pointee.size.height) / 2)
+        rect.pointee.size.height = 22
+        lineFragmentUsedRect.pointee.size.height = 22
         return true
     }
     
     override func setExtraLineFragmentRect(_ rect:NSRect, usedRect:NSRect, textContainer container:NSTextContainer) {
         var rect = rect
         var used = usedRect
-        rect.size.height = TextView.lineHeight
-        used.size.height = TextView.lineHeight
+        rect.size.height = 22
+        used.size.height = 22
         super.setExtraLineFragmentRect(rect, usedRect:used, textContainer:container)
     }
 }
