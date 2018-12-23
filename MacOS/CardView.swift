@@ -3,9 +3,7 @@ import VelvetRoom
 
 class CardView:ItemView, NSTextViewDelegate {
     private(set) weak var card:Card!
-    private weak var content:NSTextView!
-    private weak var contentWidth:NSLayoutConstraint!
-    private weak var contentHeight:NSLayoutConstraint!
+    private weak var content:TextView!
     private weak var view:View!
     
     init(_ card:Card, view:View) {
@@ -14,18 +12,7 @@ class CardView:ItemView, NSTextViewDelegate {
         self.card = card
         self.view = view
         
-        let content = TextView()
-        content.translatesAutoresizingMaskIntoConstraints = false
-        content.isContinuousSpellCheckingEnabled = true
-        content.allowsUndo = true
-        content.drawsBackground = false
-        content.isIncrementalSearchingEnabled = true
-        content.isRichText = false
-        content.isEditable = false
-        content.insertionPointColor = .velvetBlue
-        content.font = .regular(14)
-        content.string = card.content
-        content.textContainer!.lineFragmentPadding = 0
+        let content = TextView(card.content)
         content.delegate = self
         addSubview(content)
         self.content = content
@@ -34,16 +21,10 @@ class CardView:ItemView, NSTextViewDelegate {
         content.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-10).isActive = true
         content.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         content.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
-        contentWidth = content.widthAnchor.constraint(equalToConstant:0)
-        contentHeight = content.heightAnchor.constraint(equalToConstant:0)
-        contentWidth.isActive = true
-        contentHeight.isActive = true
-        updateSize()
     }
     
     func textDidChange(_:Notification) {
         card.content = content.string
-        updateSize()
         view.canvasChanged()
     }
     
@@ -71,12 +52,5 @@ class CardView:ItemView, NSTextViewDelegate {
             return true
         }
         return false
-    }
-    
-    private func updateSize() {
-        let size = content.textStorage!.boundingRect(with:NSSize(width:220, height:10000), options:
-            [.usesLineFragmentOrigin, .usesFontLeading])
-        contentWidth.constant = ceil(size.width)
-        contentHeight.constant = ceil(size.height)
     }
 }
