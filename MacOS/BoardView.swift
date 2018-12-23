@@ -28,7 +28,6 @@ class BoardView:NSControl, NSTextViewDelegate {
     }
     
     required init?(coder:NSCoder) { return nil }
-    override func cancelOperation(_:Any?) { Application.view.makeFirstResponder(nil) }
     
     override func mouseDown(with event:NSEvent) {
         if event.clickCount == 2 {

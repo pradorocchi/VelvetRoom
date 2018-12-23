@@ -7,6 +7,7 @@ class View:NSWindow {
     private weak var canvas:ScrollView!
     private weak var root:ItemView?
     
+    override func cancelOperation(_:Any?) { Application.view.makeFirstResponder(nil) }
     override func mouseDown(with:NSEvent) { Application.view.makeFirstResponder(nil) }
     
     override func awakeFromNib() {

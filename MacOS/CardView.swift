@@ -25,7 +25,6 @@ class CardView:ItemView, NSTextViewDelegate {
     }
     
     required init?(coder:NSCoder) { return nil }
-    override func cancelOperation(_:Any?) { Application.view.makeFirstResponder(nil) }
     
     func beginEditing() {
         content.isEditable = true
