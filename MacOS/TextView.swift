@@ -4,6 +4,7 @@ class TextView:NSTextView {
     private weak var width:NSLayoutConstraint!
     private weak var height:NSLayoutConstraint!
     override var font:NSFont? { didSet { didChangeText() } }
+    @objc var placeholderAttributedString: NSAttributedString?
     
     init(_ string:String, maxWidth:CGFloat, maxHeight:CGFloat) {
         let container = NSTextContainer()
@@ -19,6 +20,7 @@ class TextView:NSTextView {
         drawsBackground = false
         isRichText = false
         isEditable = false
+        isSelectable = false
         insertionPointColor = .velvetBlue
         self.string = string
         

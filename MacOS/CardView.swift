@@ -36,8 +36,10 @@ class CardView:ItemView, NSTextViewDelegate {
         view.canvasChanged()
     }
     
-    func textDidEndEditing(_ notification:Notification) {
+    func textDidEndEditing(_:Notification) {
+        view.canvasChanged()
         card.content = content.string
+        view.presenter.scheduleUpdate()
     }
     
     override func mouseDown(with event:NSEvent) {

@@ -1,43 +1,30 @@
 import AppKit
 import VelvetRoom
 
-class ColumnView:ItemView, NSTextFieldDelegate {
+class ColumnView:ItemView, NSTextViewDelegate {
     private(set) weak var column:Column!
-    private weak var name:NSTextField!
-    private weak var nameWidth:NSLayoutConstraint!
+    private weak var name:TextView!
     private weak var view:View!
     private let index:Int
     
     init(_ column:Column, index:Int, view:View) {
-        self.column = column
         self.index = index
         super.init()
         translatesAutoresizingMaskIntoConstraints = false
+        self.column = column
         self.view = view
         
-        let name = NSTextField()
-        name.translatesAutoresizingMaskIntoConstraints = false
-        name.drawsBackground = false
-        name.isBezeled = false
-        name.isEditable = false
-        name.focusRingType = .none
+        let name = TextView(column.name, maxWidth:10000, maxHeight:40)
         name.font = .bold(18)
-        name.stringValue = column.name
         name.textColor = NSColor.textColor.withAlphaComponent(0.4)
-        name.maximumNumberOfLines = 1
-        name.lineBreakMode = .byTruncatingTail
         name.delegate = self
         addSubview(name)
         self.name = name
         
         name.topAnchor.constraint(equalTo:topAnchor, constant:10).isActive = true
         name.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-10).isActive = true
-        name.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         name.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
-        nameWidth = name.widthAnchor.constraint(greaterThanOrEqualToConstant:0)
-        nameWidth.isActive = true
-        
-        updateWidth()
+        name.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -47,26 +34,24 @@ class ColumnView:ItemView, NSTextFieldDelegate {
         if event.clickCount == 2 {
             name.isEditable = true
             Application.view.makeFirstResponder(name)
-            name.currentEditor()?.selectedRange = NSMakeRange(name.stringValue.count, 0)
         }
     }
     
-    func controlTextDidEndEditing(_:Notification) {
-        name.isEditable = false
-        column.name = name.stringValue
-        updateWidth()
+    func textDidChange(_:Notification) {
         view.canvasChanged()
     }
     
-    func control(_:NSControl, textView:NSTextView, doCommandBy selector:Selector) -> Bool {
-        if (selector == #selector(NSResponder.insertNewline(_:))) {
+    func textDidEndEditing(_:Notification) {
+        view.canvasChanged()
+        column.name = name.string
+        view.presenter.scheduleUpdate()
+    }
+    
+    func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
+        if (command == #selector(NSResponder.insertNewline(_:))) {
             Application.view.makeFirstResponder(nil)
             return true
         }
         return false
-    }
-    
-    private func updateWidth() {
-        nameWidth.constant = name.sizeThatFits(NSSize(width:900, height:30)).width
     }
 }

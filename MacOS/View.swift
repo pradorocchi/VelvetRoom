@@ -20,7 +20,6 @@ class View:NSWindow {
     
     func canvasChanged() {
         animateAlign()
-        presenter.scheduleUpdate()
     }
     
     private func makeOutlets() {
