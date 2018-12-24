@@ -23,6 +23,34 @@ class View:NSWindow {
         animateAlign(0.5)
     }
     
+    func beginDrag(_ card:CardView) {
+        let parent = canvas.documentView!.subviews.first { ($0 as! ItemView).child === card } as! ItemView
+        parent.child = card.child
+        presenter.detach(card.card)
+        canvasChanged()
+    }
+    
+    func endDrag(_ card:CardView) {
+        var column = root
+        while column!.sibling is ColumnView {
+            guard column!.sibling!.left.constant < card.frame.midX else { break }
+            column = column!.sibling
+        }
+        var after = column
+        while after!.child != nil {
+            guard after!.child!.top.constant < card.top.constant else { break }
+            after = after!.child
+        }
+        if after!.child is CreateView {
+            after = after?.child
+        }
+        card.child = after!.child
+        after!.child = card
+        canvasChanged()
+        presenter.attach(card.card, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
+        presenter.scheduleUpdate()
+    }
+    
     private func makeOutlets() {
         let list = ScrollView()
         list.hasVerticalScroller = true
@@ -54,10 +82,12 @@ class View:NSWindow {
         border.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:148).isActive = true
         border.widthAnchor.constraint(equalToConstant:1).isActive = true
         
-        canvas.topAnchor.constraint(equalTo:list.topAnchor).isActive = true
+        canvas.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:1).isActive = true
         canvas.leftAnchor.constraint(equalTo:border.rightAnchor).isActive = true
-        canvas.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
-        canvas.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-2).isActive = true
+        canvas.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-1).isActive = true
+        canvas.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-1).isActive = true
+        canvas.documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:canvas.bottomAnchor).isActive = true
+        canvas.documentView!.rightAnchor.constraint(greaterThanOrEqualTo:canvas.rightAnchor).isActive = true
     }
     
     private func list(_ boards:[Board]) {
@@ -130,12 +160,12 @@ class View:NSWindow {
     }
     
     private func align() {
-        var maxRight = CGFloat(40)
+        var maxRight = CGFloat(36)
         var maxBottom = CGFloat()
         var sibling = root
         while sibling != nil {
             let right = maxRight
-            var bottom = CGFloat()
+            var bottom = CGFloat(36)
             
             var child = sibling
             sibling = sibling!.sibling
@@ -143,16 +173,16 @@ class View:NSWindow {
                 child!.left.constant = right
                 child!.top.constant = bottom
                 
-                bottom += child!.bounds.height + 40
-                maxRight = max(maxRight, right + child!.bounds.width + 40)
+                bottom += child!.bounds.height + 20
+                maxRight = max(maxRight, right + child!.bounds.width + 20)
                 
                 child = child!.child
             }
             
             maxBottom = max(bottom, maxBottom)
         }
-        canvas.bottom = canvas.documentView!.heightAnchor.constraint(equalToConstant:maxBottom)
-        canvas.right = canvas.documentView!.widthAnchor.constraint(equalToConstant:maxRight)
+        canvas.bottom = canvas.documentView!.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 16)
+        canvas.right = canvas.documentView!.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight + 16)
     }
     
     private func select(_ board:Board) {

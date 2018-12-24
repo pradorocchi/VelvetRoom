@@ -48,6 +48,7 @@ class TextView:NSTextView {
     
     override func resignFirstResponder() -> Bool {
         isEditable = false
+        isSelectable = false
         setSelectedRange(NSMakeRange(string.count, 0))
         return super.resignFirstResponder()
     }

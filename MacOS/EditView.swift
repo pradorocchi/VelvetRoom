@@ -43,6 +43,7 @@ class EditView:ItemView, NSTextViewDelegate {
             if dragging {
                 left.constant += event.deltaX
                 top.constant += event.deltaY
+                NSCursor.pointingHand.set()
             } else {
                 dragging = true
                 Application.view.makeFirstResponder(nil)
@@ -78,5 +79,6 @@ class EditView:ItemView, NSTextViewDelegate {
     
     func endDrag() {
         layer!.backgroundColor = NSColor.clear.cgColor
+        NSCursor.arrow.set()
     }
 }

@@ -19,4 +19,14 @@ class CardView:EditView {
         card.content = text.string
         super.textDidEndEditing(notification)
     }
+    
+    override func beginDrag() {
+        super.beginDrag()
+        view.beginDrag(self)
+    }
+    
+    override func endDrag() {
+        super.endDrag()
+        view.endDrag(self)
+    }
 }

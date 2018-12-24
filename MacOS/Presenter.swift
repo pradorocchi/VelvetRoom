@@ -32,6 +32,11 @@ class Presenter {
     }
     
     func newCard() -> Card { return try! repository.newCard(selected.board) }
+    func detach(_ card:Card) { repository.detach(card, board:selected.board) }
+    
+    func attach(_ card:Card, column:Column, after:Card?) {
+        repository.attach(card, board:selected.board, column:column, after:after)
+    }
     
     func scheduleUpdate() {
         DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(self.selected.board) }

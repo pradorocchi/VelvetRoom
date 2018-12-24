@@ -3,8 +3,8 @@ import AppKit
 class CreateView:ItemView {
     init(_ target:AnyObject, selector:Selector) {
         super.init()
-        widthAnchor.constraint(equalToConstant:30).isActive = true
-        heightAnchor.constraint(equalToConstant:38).isActive = true
+        widthAnchor.constraint(equalToConstant:64).isActive = true
+        heightAnchor.constraint(equalToConstant:40).isActive = true
         action = selector
         self.target = target
         
