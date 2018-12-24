@@ -20,7 +20,7 @@ class View:NSWindow {
     }
     
     func canvasChanged() {
-        animateAlign()
+        animateAlign(0.5)
     }
     
     private func makeOutlets() {
@@ -82,7 +82,7 @@ class View:NSWindow {
         root = nil
         var sibling:ItemView?
         board.columns.enumerated().forEach { (index, item) in
-            let column = ColumnView(item, index:index, view:self)
+            let column = ColumnView(item, view:self)
             if sibling == nil {
                 root = column
             } else {
@@ -93,7 +93,7 @@ class View:NSWindow {
             sibling = column
             
             if index == 0 {
-                let buttonCard = NewItemView(self, selector:#selector(newCard(_:)))
+                let buttonCard = CreateView(self, selector:#selector(newCard(_:)))
                 canvas.documentView!.addSubview(buttonCard)
                 child.child = buttonCard
                 child = buttonCard
@@ -107,7 +107,7 @@ class View:NSWindow {
             }
         }
         
-        let buttonColumn = NewItemView(self, selector:#selector(newColumn))
+        let buttonColumn = CreateView(self, selector:#selector(newColumn))
         canvas.documentView!.addSubview(buttonColumn)
         
         if root == nil {
@@ -117,12 +117,12 @@ class View:NSWindow {
         }
     }
     
-    private func animateAlign() {
+    private func animateAlign(_ duration:TimeInterval) {
         canvas.documentView!.layoutSubtreeIfNeeded()
         align()
         if #available(OSX 10.12, *) {
             NSAnimationContext.runAnimationGroup { context in
-                context.duration = 0.5
+                context.duration = duration
                 context.allowsImplicitAnimation = true
                 canvas.documentView!.layoutSubtreeIfNeeded()
             }
@@ -171,19 +171,21 @@ class View:NSWindow {
         Application.view.makeFirstResponder(nil)
         presenter.selected = view
         render(view.board)
-        animateAlign()
+        animateAlign(0)
     }
     
     @objc private func newColumn() {
         print("new column")
     }
     
-    @objc private func newCard(_ view:NewItemView) {
+    @objc private func newCard(_ view:CreateView) {
         let card = CardView(presenter.newCard(), view:self)
         card.child = view.child
         view.child = card
         canvas.documentView!.addSubview(card)
-        animateAlign()
+        card.top.constant = view.top.constant
+        card.left.constant = view.left.constant
+        animateAlign(0.5)
         card.beginEditing()
     }
     
