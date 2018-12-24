@@ -34,8 +34,8 @@ class TestCard:XCTestCase {
     func testNewPosition() {
         let time = Date().timeIntervalSince1970
         let card = Card()
-        card.position = (1, 1)
-        card.position = (2, 2)
+        card.position(column:1, index:1)
+        card.position(column:2, index:2)
         XCTAssertEqual(2, card.positions.count)
         XCTAssertEqual(1, card.positions.first!.column)
         XCTAssertEqual(1, card.positions.first!.index)

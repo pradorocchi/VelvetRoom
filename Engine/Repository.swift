@@ -48,6 +48,26 @@ public class Repository {
         return card
     }
     
+    public func attach(_ card:Card, board:Board, column:Column, after:Card?) {
+        var index = 0
+        if let after = board.cards.first(where: { $0 === after } )?.index {
+            index = after + 1
+        }
+        move(card, board:board, column:board.columns.firstIndex { $0 === column }!, index:index)
+    }
+    
+    public func detach(_ card:Card, board:Board) {
+        board.cards.forEach { item in
+            if item !== card {
+                if item.column == card.column {
+                    if item.index >= card.index {
+                        item.index -= 1
+                    }
+                }
+            }
+        }
+    }
+    
     public func scheduleUpdate(_ board:Board) {
         timer.setEventHandler { self.update(board) }
         timer.schedule(deadline:.now() + wait)
@@ -103,12 +123,12 @@ public class Repository {
     }
     
     private func move(_ card:Card, board:Board, column:Int, index:Int) {
-        card.position = (column, index)
+        card.position(column:column, index:index)
         board.cards.forEach { item in
             if item !== card {
-                if item.position.0 == column {
-                    if item.position.1 >= index {
-                        item.position = (item.position.0, item.position.1 + 1)
+                if item.column == column {
+                    if item.index >= index {
+                        item.index += 1
                     }
                 }
             }

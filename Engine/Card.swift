@@ -1,15 +1,14 @@
 import Foundation
 
 public class Card:Codable {
-    public var position:(Int, Int) {
-        get { return (positions.last!.column, positions.last!.index) }
-        set {
-            var new = Position()
-            new.column = newValue.0
-            new.index = newValue.1
-            new.time = Date().timeIntervalSince1970
-            positions.append(new)
-        }
+    public var column:Int {
+        get { return positions.last!.column }
+        set { position(column:newValue, index:index) }
+    }
+    
+    public var index:Int {
+        get { return positions.last!.index }
+        set { position(column:column, index:newValue) }
     }
     
     public var content:String {
@@ -24,4 +23,12 @@ public class Card:Codable {
     
     public private(set) var positions = [Position]()
     public private(set) var contents = [Content]()
+    
+    func position(column:Int, index:Int) {
+        var new = Position()
+        new.column = column
+        new.index = index
+        new.time = Date().timeIntervalSince1970
+        positions.append(new)
+    }
 }

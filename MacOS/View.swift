@@ -99,7 +99,7 @@ class View:NSWindow {
                 child = buttonCard
             }
             
-            board.cards.filter( { $0.position.0 == index } ).sorted(by: { $0.position.1 < $1.position.1 } ).forEach {
+            board.cards.filter( { $0.column == index } ).sorted(by: { $0.index < $1.index } ).forEach {
                 let card = CardView($0, view:self)
                 canvas.documentView!.addSubview(card)
                 child.child = card
