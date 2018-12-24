@@ -42,8 +42,8 @@ public class Repository {
             throw Exception.noColumns
         }
         let card = Card()
-        card.position = (0, 0)
         board.cards.append(card)
+        move(card, board:board, column:0, index:0)
         scheduleUpdate(board)
         return card
     }
@@ -100,5 +100,18 @@ public class Repository {
         column.name = name
         column.created = Date().timeIntervalSince1970
         return column
+    }
+    
+    private func move(_ card:Card, board:Board, column:Int, index:Int) {
+        card.position = (column, index)
+        board.cards.forEach { item in
+            if item !== card {
+                if item.position.0 == column {
+                    if item.position.1 >= index {
+                        item.position = (item.position.0, item.position.1 + 1)
+                    }
+                }
+            }
+        }
     }
 }
