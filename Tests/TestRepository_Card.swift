@@ -32,7 +32,6 @@ class TestRepository_Card:XCTestCase {
     func testNewCardOrdering() {
         let board = Board()
         board.columns = [Column()]
-        repository.boards = [board]
         var cardFirst:Card!
         XCTAssertNoThrow(try cardFirst = repository.newCard(board))
         var cardSecond:Card!
@@ -50,7 +49,6 @@ class TestRepository_Card:XCTestCase {
     func testDetach() {
         let board = Board()
         board.columns = [Column()]
-        repository.boards = [board]
         var cardFirst:Card!
         XCTAssertNoThrow(try cardFirst = repository.newCard(board))
         var cardSecond:Card!
@@ -68,7 +66,6 @@ class TestRepository_Card:XCTestCase {
         let board = Board()
         let column = Column()
         board.columns = [column]
-        repository.boards = [board]
         var cardFirst:Card!
         XCTAssertNoThrow(try cardFirst = repository.newCard(board))
         var cardSecond:Card!
@@ -85,7 +82,6 @@ class TestRepository_Card:XCTestCase {
         let board = Board()
         let column = Column()
         board.columns = [column]
-        repository.boards = [board]
         var cardFirst:Card!
         XCTAssertNoThrow(try cardFirst = repository.newCard(board))
         var cardSecond:Card!
@@ -102,7 +98,6 @@ class TestRepository_Card:XCTestCase {
         let board = Board()
         let column = Column()
         board.columns = [Column(), column, Column()]
-        repository.boards = [board]
         let card = Card()
         repository.attach(card, board:board, column:column, after:nil)
         XCTAssertEqual(0, card.index)

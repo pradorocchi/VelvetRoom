@@ -11,6 +11,7 @@
 		DA1ABDA921C9AFD500CE1462 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */; };
 		DA1D104721CBCCAD00A8FBE9 /* TestRepository_Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */; };
 		DA2B491721C9187B00BABE86 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B491621C9187B00BABE86 /* NSColor.swift */; };
+		DA65DA6F21D1327100E74011 /* TestRepository_Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65DA6E21D1327100E74011 /* TestRepository_Column.swift */; };
 		DA6A986C21CEA70000C18C7F /* TextLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A986B21CEA70000C18C7F /* TextLayout.swift */; };
 		DA7B2AE721C67982003B7333 /* TestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B2AE621C67982003B7333 /* TestList.swift */; };
 		DA7B2AE921C67C3E003B7333 /* TestSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B2AE821C67C3E003B7333 /* TestSelect.swift */; };
@@ -116,6 +117,7 @@
 		DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository_Card.swift; sourceTree = "<group>"; };
 		DA2B491621C9187B00BABE86 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
+		DA65DA6E21D1327100E74011 /* TestRepository_Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository_Column.swift; sourceTree = "<group>"; };
 		DA6A986B21CEA70000C18C7F /* TextLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLayout.swift; sourceTree = "<group>"; };
 		DA7B2AE621C67982003B7333 /* TestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestList.swift; sourceTree = "<group>"; };
 		DA7B2AE821C67C3E003B7333 /* TestSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSelect.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 			children = (
 				DAD0C1E621C50F0900E6D1C7 /* TestRepository_Board.swift */,
 				DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */,
+				DA65DA6E21D1327100E74011 /* TestRepository_Column.swift */,
 				DAD0C1FF21C52C8500E6D1C7 /* TestStorage.swift */,
 				DAD0C1FD21C52C6600E6D1C7 /* TestSynch.swift */,
 				DA7B2AE621C67982003B7333 /* TestList.swift */,
@@ -594,6 +597,7 @@
 				DA7B2AE921C67C3E003B7333 /* TestSelect.swift in Sources */,
 				DAD0C1D921C5092400E6D1C7 /* TestColumn.swift in Sources */,
 				DAD0C20021C52C8500E6D1C7 /* TestStorage.swift in Sources */,
+				DA65DA6F21D1327100E74011 /* TestRepository_Column.swift in Sources */,
 				DAD0C1CE21C5036200E6D1C7 /* TestBoard.swift in Sources */,
 				DA1D104721CBCCAD00A8FBE9 /* TestRepository_Card.swift in Sources */,
 				DAD0C1DD21C50B8100E6D1C7 /* TestPosition.swift in Sources */,

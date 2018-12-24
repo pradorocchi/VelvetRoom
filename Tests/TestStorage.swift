@@ -88,4 +88,16 @@ class TestStorage:XCTestCase {
         _ = try! repository.newCard(board)
         waitForExpectations(timeout:1)
     }
+    
+    func testNewColumnSavesBoard() {
+        let expect = expectation(description:String())
+        let board = Board()
+        storage.onSaveBoard = { item in
+            XCTAssertFalse(item.columns.isEmpty)
+            expect.fulfill()
+        }
+        repository.wait = 0
+        _ = repository.newColumn(board)
+        waitForExpectations(timeout:1)
+    }
 }

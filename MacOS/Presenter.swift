@@ -31,6 +31,7 @@ class Presenter {
         DispatchQueue.global(qos:.background).async { self.repository.newBoard(name, template:template) }
     }
     
+    func newColumn() -> Column { return repository.newColumn(selected.board) }
     func newCard() -> Card { return try! repository.newCard(selected.board) }
     func detach(_ card:Card) { repository.detach(card, board:selected.board) }
     

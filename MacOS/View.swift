@@ -20,7 +20,7 @@ class View:NSWindow {
     }
     
     func canvasChanged() {
-        animateAlign(0.5)
+        animateAlign()
     }
     
     func beginDrag(_ card:CardView) {
@@ -137,7 +137,7 @@ class View:NSWindow {
             }
         }
         
-        let buttonColumn = CreateView(self, selector:#selector(newColumn))
+        let buttonColumn = CreateView(self, selector:#selector(newColumn(_:)))
         canvas.documentView!.addSubview(buttonColumn)
         
         if root == nil {
@@ -147,7 +147,7 @@ class View:NSWindow {
         }
     }
     
-    private func animateAlign(_ duration:TimeInterval) {
+    private func animateAlign(_ duration:TimeInterval = 0.5) {
         canvas.documentView!.layoutSubtreeIfNeeded()
         align()
         if #available(OSX 10.12, *) {
@@ -204,8 +204,19 @@ class View:NSWindow {
         animateAlign(0)
     }
     
-    @objc private func newColumn() {
-        print("new column")
+    @objc private func newColumn(_ view:CreateView) {
+        let column = ColumnView(presenter.newColumn(), view:self)
+        var left = root
+        while left!.sibling !== view {
+            left = left!.sibling
+        }
+        left!.sibling = column
+        column.sibling = view
+        canvas.documentView!.addSubview(column)
+        column.top.constant = view.top.constant
+        column.left.constant = view.left.constant
+        animateAlign()
+        column.beginEditing()
     }
     
     @objc private func newCard(_ view:CreateView) {
@@ -215,7 +226,7 @@ class View:NSWindow {
         canvas.documentView!.addSubview(card)
         card.top.constant = view.top.constant
         card.left.constant = view.left.constant
-        animateAlign(0.5)
+        animateAlign()
         card.beginEditing()
     }
     

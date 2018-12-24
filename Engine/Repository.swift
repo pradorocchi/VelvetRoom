@@ -37,6 +37,13 @@ public class Repository {
         select(board)
     }
     
+    public func newColumn(_ board:Board) -> Column {
+        let column = self.column(String())
+        board.columns.append(column)
+        scheduleUpdate(board)
+        return column
+    }
+    
     public func newCard(_ board:Board) throws -> Card {
         if board.columns.isEmpty {
             throw Exception.noColumns
