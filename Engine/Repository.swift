@@ -75,6 +75,17 @@ public class Repository {
         }
     }
     
+    public func move(_ column:Column, board:Board, index:Int) {
+        let old = board.columns.firstIndex { $0 === column }!
+        board.columns.remove(at:old)
+        board.columns.insert(column, at:index)
+        board.cards.forEach {
+            if $0.column == old {
+                $0.column = index
+            }
+        }
+    }
+    
     public func scheduleUpdate(_ board:Board) {
         timer.setEventHandler { self.update(board) }
         timer.schedule(deadline:.now() + wait)
