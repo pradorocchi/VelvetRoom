@@ -3,10 +3,17 @@ import AppKit
 class TextView:NSTextView {
     private weak var width:NSLayoutConstraint!
     private weak var height:NSLayoutConstraint!
+    override var font:NSFont? {
+        didSet {
+            let storage = textStorage as! TextStorage
+            storage.text = font
+            storage.header = .bold(font!.pointSize)
+        }
+    }
     
     init() {
         let container = NSTextContainer()
-        let storage = NSTextStorage()
+        let storage = TextStorage()
         let layout = TextLayout()
         storage.addLayoutManager(layout)
         layout.addTextContainer(container)

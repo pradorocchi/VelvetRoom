@@ -16,8 +16,8 @@ class BoardView:NSControl, NSTextViewDelegate {
         self.view = view
         
         let text = TextView()
-        text.textContainer!.size = NSSize(width:160, height:30)
-        text.font = .systemFont(ofSize:12, weight:.regular)
+        text.textContainer!.size = NSSize(width:210, height:30)
+        text.font = .light(14)
         text.delegate = self
         text.string = board.name
         text.update()
@@ -62,19 +62,19 @@ class BoardView:NSControl, NSTextViewDelegate {
     }
     
     func textView(_:NSTextView, shouldChangeTextIn range:NSRange, replacementString:String?) -> Bool {
-        return (text.string as NSString).replacingCharacters(in:range, with:replacementString ?? String()).count < 18
+        return (text.string as NSString).replacingCharacters(in:range, with:replacementString ?? String()).count < 23
     }
     
     private func update() {
         if Application.view.firstResponder === text {
-            layer!.backgroundColor = NSColor(white:0, alpha:0.2).cgColor
-            text.textColor = .textColor
+            layer!.backgroundColor = NSColor.windowFrameColor.withAlphaComponent(0.2).cgColor
+            text.alphaValue = 1
         } else if selected {
             layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
-            text.textColor = NSColor.textColor.withAlphaComponent(0.6)
+            text.alphaValue = 0.6
         } else {
             layer!.backgroundColor = NSColor.clear.cgColor
-            text.textColor = NSColor.textColor.withAlphaComponent(0.4)
+            text.alphaValue = 0.6
         }
     }
 }

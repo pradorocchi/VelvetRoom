@@ -8,7 +8,7 @@ class ColumnView:EditView {
         super.init(view)
         text.textContainer!.size = NSSize(width:10000, height:40)
         text.font = .bold(18)
-        text.textColor = NSColor.textColor.withAlphaComponent(0.35)
+        text.textColor = NSColor.textColor.withAlphaComponent(0.4)
         text.string = column.name
         text.update()
         self.column = column

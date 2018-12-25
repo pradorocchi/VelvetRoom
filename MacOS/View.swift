@@ -131,7 +131,7 @@ class View:NSWindow {
         
         border.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:1).isActive = true
         border.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:1).isActive = true
-        border.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:148).isActive = true
+        border.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:218).isActive = true
         border.widthAnchor.constraint(equalToConstant:1).isActive = true
         
         canvas.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:1).isActive = true

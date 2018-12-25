@@ -125,13 +125,15 @@ public class Repository {
     }
     
     public func scheduleUpdate(_ board:Board) {
-        timer.setEventHandler { self.update(board) }
+        timer.setEventHandler {
+            self.update(board)
+            self.timer.setEventHandler(handler:nil)
+        }
         timer.schedule(deadline:.now() + wait)
     }
     
     public func fireSchedule() {
         timer.schedule(deadline:.now())
-        timer.setEventHandler(handler:nil)
     }
     
     private func update(_ board:Board) {
