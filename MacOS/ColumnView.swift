@@ -21,6 +21,26 @@ class ColumnView:EditView {
         super.textDidEndEditing(notification)
     }
     
+    override func beginDrag() {
+        super.beginDrag()
+        view.beginDrag(self)
+    }
+    
+    override func endDrag() {
+        super.endDrag()
+        view.endDrag(self)
+    }
+    
+    override func drag(deltaX:CGFloat, deltaY:CGFloat) {
+        super.drag(deltaX:deltaX, deltaY:deltaY)
+        var child = self.child
+        while child != nil {
+            child!.left.constant += deltaX
+            child!.top.constant += deltaY
+            child = child!.child
+        }
+    }
+    
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
             Application.view.makeFirstResponder(nil)

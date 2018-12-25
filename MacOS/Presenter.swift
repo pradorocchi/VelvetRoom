@@ -38,6 +38,10 @@ class Presenter {
         repository.move(card, board:selected.board, column:column, after:after)
     }
     
+    func move(_ column:Column, after:Column?) {
+        repository.move(column, board:selected.board, after:after)
+    }
+    
     func scheduleUpdate() {
         DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(self.selected.board) }
     }

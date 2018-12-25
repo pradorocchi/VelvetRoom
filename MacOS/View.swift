@@ -51,31 +51,43 @@ class View:NSWindow {
     }
     
     func beginDrag(_ column:ColumnView) {
-//        let parent = canvas.documentView!.subviews.first { ($0 as! ItemView).sibling === card } as! ItemView
-//        parent.child = card.child
-//        presenter.detach(card.card)
-//        canvasChanged()
+        if column === root {
+            let create = column.child
+            column.child = column.child?.child
+            create?.child = column.sibling?.child
+            column.sibling?.child = create
+            root = column.sibling
+        } else {
+            var sibling = root
+            while sibling!.sibling != column {
+                sibling = sibling!.sibling
+            }
+            sibling!.sibling = column.sibling
+        }
+        canvasChanged()
     }
     
     func endDrag(_ column:ColumnView) {
-//        var column = root
-//        while column!.sibling is ColumnView {
-//            guard column!.sibling!.left.constant < card.frame.midX else { break }
-//            column = column!.sibling
-//        }
-//        var after = column
-//        while after!.child != nil {
-//            guard after!.child!.top.constant < card.top.constant else { break }
-//            after = after!.child
-//        }
-//        if after!.child is CreateView {
-//            after = after?.child
-//        }
-//        card.child = after!.child
-//        after!.child = card
-//        canvasChanged()
-//        presenter.attach(card.card, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
-//        presenter.scheduleUpdate()
+        var after = root
+        if root is CreateView || root!.frame.maxX > column.frame.midX {
+            let create = root!.child
+            root!.child = root!.child?.child
+            column.sibling = root
+            root = column
+            create?.child = column.child
+            column.child = create
+            after = nil
+        } else {
+            while after!.sibling is ColumnView {
+                guard after!.sibling!.left.constant < column.frame.minX else { break }
+                after = after!.sibling
+            }
+            column.sibling = after!.sibling
+            after!.sibling = column
+        }
+        canvasChanged()
+        presenter.move(column.column, after:(after as? ColumnView)?.column)
+        presenter.scheduleUpdate()
     }
     
     private func makeOutlets() {

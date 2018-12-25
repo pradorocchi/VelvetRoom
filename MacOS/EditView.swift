@@ -41,8 +41,7 @@ class EditView:ItemView, NSTextViewDelegate {
     override func mouseDragged(with event:NSEvent) {
         if !text.isEditable {
             if dragging {
-                left.constant += event.deltaX
-                top.constant += event.deltaY
+                drag(deltaX:event.deltaX, deltaY:event.deltaY)
                 NSCursor.pointingHand.set()
             } else {
                 dragging = true
@@ -80,5 +79,10 @@ class EditView:ItemView, NSTextViewDelegate {
     func endDrag() {
         layer!.backgroundColor = NSColor.clear.cgColor
         NSCursor.arrow.set()
+    }
+    
+    func drag(deltaX:CGFloat, deltaY:CGFloat) {
+        left.constant += deltaX
+        top.constant += deltaY
     }
 }
