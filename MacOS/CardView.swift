@@ -18,6 +18,9 @@ class CardView:EditView {
     override func textDidEndEditing(_ notification:Notification) {
         card.content = text.string
         super.textDidEndEditing(notification)
+        if card.content.isEmpty {
+            view.delete(self)
+        }
     }
     
     override func beginDrag() {

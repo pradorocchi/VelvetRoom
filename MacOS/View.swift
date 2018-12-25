@@ -23,11 +23,7 @@ class View:NSWindow {
         animateAlign()
     }
     
-    func beginDrag(_ card:CardView) {
-        let parent = canvas.documentView!.subviews.first { ($0 as! ItemView).child === card } as! ItemView
-        parent.child = card.child
-        canvasChanged()
-    }
+    func beginDrag(_ card:CardView) { detach(card) }
     
     func endDrag(_ card:CardView) {
         var column = root
@@ -88,6 +84,19 @@ class View:NSWindow {
         canvasChanged()
         presenter.move(column.column, after:(after as? ColumnView)?.column)
         presenter.scheduleUpdate()
+    }
+    
+    func delete(_ card:CardView) {
+        Application.view.makeFirstResponder(nil)
+        Application.view.beginSheet(DeleteCardView(card, board:presenter.selected.board, view:self))
+    }
+    
+    func delete(_ card:Card, view:CardView?, board:Board) {
+        if let view = view {
+            detach(view)
+            view.removeFromSuperview()
+        }
+        presenter.delete(card, board:board)
     }
     
     private func makeOutlets() {
@@ -224,6 +233,12 @@ class View:NSWindow {
         canvas.right = canvas.documentView!.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight + 16)
     }
     
+    private func detach(_ card:CardView) {
+        let parent = canvas.documentView!.subviews.first { ($0 as! ItemView).child === card } as! ItemView
+        parent.child = card.child
+        canvasChanged()
+    }
+    
     private func select(_ board:Board) {
         let view = list.documentView!.subviews.first { ($0 as! BoardView).board.id == board.id } as! BoardView
         select(view:view)
@@ -273,6 +288,6 @@ class View:NSWindow {
     
     @IBAction private func newDocument(_ sender:Any) {
         Application.view.makeFirstResponder(nil)
-        Application.view.beginSheet(NewBoardView(presenter))
+        Application.view.beginSheet(NewView(presenter))
     }
 }

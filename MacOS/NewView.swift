@@ -1,7 +1,7 @@
 import AppKit
 import VelvetRoom
 
-class NewBoardView:NSWindow, NSTextFieldDelegate {
+class NewView:NSWindow, NSTextFieldDelegate {
     private weak var name:NSTextField!
     private weak var none:NSButton!
     private weak var single:NSButton!
@@ -10,11 +10,10 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
     private weak var columns:NSTextField!
     private weak var selectorLeft:NSLayoutConstraint!
     private var template:Template!
-    private let presenter:Presenter!
+    private weak var presenter:Presenter!
     override var canBecomeKey:Bool { return true }
     
     init(_ presenter:Presenter) {
-        self.presenter = presenter
         super.init(contentRect:NSRect(x:0, y:0, width:Application.view.frame.width - 2, height:
             Application.view.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
         isOpaque = false
@@ -22,6 +21,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         contentView!.wantsLayer = true
         contentView!.layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
         contentView!.layer!.cornerRadius = 4
+        self.presenter = presenter
         
         let title = NSTextField()
         title.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +29,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         title.isBezeled = false
         title.isEditable = false
         title.font = .systemFont(ofSize:18, weight:.bold)
-        title.stringValue = .local("NewBoardView.title")
+        title.stringValue = .local("NewView.title")
         contentView!.addSubview(title)
         
         let columns = NSTextField()
@@ -46,7 +46,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         name.translatesAutoresizingMaskIntoConstraints = false
         name.isBezeled = false
         name.font = .systemFont(ofSize:18, weight:.regular)
-        name.placeholderString = .local("NewBoardView.name")
+        name.placeholderString = .local("NewView.name")
         name.focusRingType = .none
         name.drawsBackground = false
         name.delegate = self
@@ -60,7 +60,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         contentView!.addSubview(border)
         
         let cancel = NSButton()
-        cancel.title = .local("NewBoardView.cancel")
+        cancel.title = .local("NewView.cancel")
         cancel.target = self
         cancel.action = #selector(self.cancel)
         cancel.translatesAutoresizingMaskIntoConstraints = false
@@ -77,7 +77,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         create.imageScaling = .scaleNone
         create.translatesAutoresizingMaskIntoConstraints = false
         create.isBordered = false
-        create.attributedTitle = NSAttributedString(string:.local("NewBoardView.create"), attributes:
+        create.attributedTitle = NSAttributedString(string:.local("NewView.create"), attributes:
             [.font:NSFont.systemFont(ofSize:15, weight:.medium), .foregroundColor:NSColor.black])
         create.keyEquivalent = "\r"
         contentView!.addSubview(create)
@@ -210,7 +210,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         double.image = NSImage(named:"doubleOff")
         triple.image = NSImage(named:"tripleOff")
         moveSelector(-140)
-        columns.stringValue = .local("NewBoardView.none")
+        columns.stringValue = .local("NewView.none")
         makeFirstResponder(nil)
     }
     
@@ -221,7 +221,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         double.image = NSImage(named:"doubleOff")
         triple.image = NSImage(named:"tripleOff")
         moveSelector(-40)
-        columns.stringValue = .local("NewBoardView.single")
+        columns.stringValue = .local("NewView.single")
         makeFirstResponder(nil)
     }
     
@@ -232,7 +232,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         double.image = NSImage(named:"doubleOn")
         triple.image = NSImage(named:"tripleOff")
         moveSelector(40)
-        columns.stringValue = .local("NewBoardView.double")
+        columns.stringValue = .local("NewView.double")
         makeFirstResponder(nil)
     }
     
@@ -243,7 +243,7 @@ class NewBoardView:NSWindow, NSTextFieldDelegate {
         double.image = NSImage(named:"doubleOff")
         triple.image = NSImage(named:"tripleOn")
         moveSelector(140)
-        columns.stringValue = .local("NewBoardView.triple")
+        columns.stringValue = .local("NewView.triple")
         makeFirstResponder(nil)
     }
     

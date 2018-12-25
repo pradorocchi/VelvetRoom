@@ -34,6 +34,13 @@ class Presenter {
     func newColumn() -> Column { return repository.newColumn(selected.board) }
     func newCard() -> Card { return try! repository.newCard(selected.board) }
     
+    func delete(_ card:Card, board:Board) {
+        DispatchQueue.global(qos:.background).async {
+            self.repository.delete(card, board:board)
+            self.repository.scheduleUpdate(board)
+        }
+    }
+    
     func move(_ card:Card, column:Column, after:Card?) {
         repository.move(card, board:selected.board, column:column, after:after)
     }

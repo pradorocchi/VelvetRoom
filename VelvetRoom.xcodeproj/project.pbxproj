@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA1544E321D2752600B9D9F7 /* DeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1544E221D2752600B9D9F7 /* DeleteView.swift */; };
+		DA1544E721D27D7F00B9D9F7 /* DeleteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1544E621D27D7F00B9D9F7 /* DeleteCardView.swift */; };
 		DA16E00121CE8AFF00D21C7A /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16E00021CE8AFF00D21C7A /* TextView.swift */; };
 		DA1ABDA921C9AFD500CE1462 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */; };
 		DA1D104721CBCCAD00A8FBE9 /* TestRepository_Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */; };
@@ -50,7 +52,7 @@
 		DAB270A821C3CD7A008F184E /* libiOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A621C3CD5E008F184E /* libiOSengine.a */; };
 		DAB270A921C3CD83008F184E /* libMacOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A521C3CD50008F184E /* libMacOSengine.a */; };
 		DAB270AE21C3CE09008F184E /* libMacOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A521C3CD50008F184E /* libMacOSengine.a */; };
-		DAC2CDC021C8E2F000AD927B /* NewBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDBF21C8E2F000AD927B /* NewBoardView.swift */; };
+		DAC2CDC021C8E2F000AD927B /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDBF21C8E2F000AD927B /* NewView.swift */; };
 		DAC2CDC321C8EDA700AD927B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDC221C8EDA700AD927B /* String.swift */; };
 		DAC2CDC421C8EDA700AD927B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDC221C8EDA700AD927B /* String.swift */; };
 		DAD0C1CE21C5036200E6D1C7 /* TestBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */; };
@@ -113,6 +115,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA1544E221D2752600B9D9F7 /* DeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteView.swift; sourceTree = "<group>"; };
+		DA1544E621D27D7F00B9D9F7 /* DeleteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCardView.swift; sourceTree = "<group>"; };
 		DA16E00021CE8AFF00D21C7A /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository_Card.swift; sourceTree = "<group>"; };
@@ -158,7 +162,7 @@
 		DAB270A521C3CD50008F184E /* libMacOSengine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMacOSengine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270A621C3CD5E008F184E /* libiOSengine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiOSengine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270AF21C3D421008F184E /* VelvetRoom.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = VelvetRoom.sketch; sourceTree = "<group>"; };
-		DAC2CDBF21C8E2F000AD927B /* NewBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBoardView.swift; sourceTree = "<group>"; };
+		DAC2CDBF21C8E2F000AD927B /* NewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewView.swift; sourceTree = "<group>"; };
 		DAC2CDC221C8EDA700AD927B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBoard.swift; sourceTree = "<group>"; };
 		DAD0C1CF21C5056B00E6D1C7 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
@@ -287,7 +291,9 @@
 				DA86474421C3FDE500E4957B /* ColumnView.swift */,
 				DA982ED821CD10540085480B /* CardView.swift */,
 				DA7FD2CF21C40AB500F366B9 /* BoardView.swift */,
-				DAC2CDBF21C8E2F000AD927B /* NewBoardView.swift */,
+				DAC2CDBF21C8E2F000AD927B /* NewView.swift */,
+				DA1544E221D2752600B9D9F7 /* DeleteView.swift */,
+				DA1544E621D27D7F00B9D9F7 /* DeleteCardView.swift */,
 				DA16E00021CE8AFF00D21C7A /* TextView.swift */,
 				DA6A986B21CEA70000C18C7F /* TextLayout.swift */,
 				DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */,
@@ -622,6 +628,7 @@
 				DA86AB3F21D0F884007DFFEE /* EditView.swift in Sources */,
 				DA86474521C3FDE500E4957B /* ColumnView.swift in Sources */,
 				DA16E00121CE8AFF00D21C7A /* TextView.swift in Sources */,
+				DA1544E721D27D7F00B9D9F7 /* DeleteCardView.swift in Sources */,
 				DAB2709521C3CA87008F184E /* Application.swift in Sources */,
 				DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */,
 				DA2B491721C9187B00BABE86 /* NSColor.swift in Sources */,
@@ -630,7 +637,8 @@
 				DA7C744421C3E1C000B1F931 /* View.swift in Sources */,
 				DA86474721C401DF00E4957B /* NSFont.swift in Sources */,
 				DAC2CDC321C8EDA700AD927B /* String.swift in Sources */,
-				DAC2CDC021C8E2F000AD927B /* NewBoardView.swift in Sources */,
+				DAC2CDC021C8E2F000AD927B /* NewView.swift in Sources */,
+				DA1544E321D2752600B9D9F7 /* DeleteView.swift in Sources */,
 				DA6A986C21CEA70000C18C7F /* TextLayout.swift in Sources */,
 				DA1ABDA921C9AFD500CE1462 /* ScrollView.swift in Sources */,
 			);
