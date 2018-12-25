@@ -131,6 +131,7 @@ public class Repository {
     
     public func fireSchedule() {
         timer.schedule(deadline:.now())
+        timer.setEventHandler(handler:nil)
     }
     
     private func update(_ board:Board) {

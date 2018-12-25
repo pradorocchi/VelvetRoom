@@ -44,11 +44,13 @@ class BoardView:NSControl, NSTextViewDelegate {
     
     func textDidEndEditing(_:Notification) {
         board.name = text.string
-        view.presenter.scheduleUpdate()
-        DispatchQueue.main.async { [weak self] in self?.update() }
         if board.name.isEmpty {
+            view.presenter.fireSchedule()
             view.delete()
+        } else {
+            view.presenter.scheduleUpdate()
         }
+        DispatchQueue.main.async { [weak self] in self?.update() }
     }
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
