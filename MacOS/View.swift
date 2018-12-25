@@ -80,6 +80,11 @@ class View:NSWindow {
         Application.view.beginSheet(DeleteColumnView(column, board:presenter.selected.board, view:self))
     }
     
+    func delete() {
+        Application.view.makeFirstResponder(nil)
+        Application.view.beginSheet(DeleteBoardView(presenter.selected.board, view:self))
+    }
+    
     func deleteConfirm(_ card:CardView, board:Board) {
         detach(card)
         card.removeFromSuperview()
@@ -138,10 +143,11 @@ class View:NSWindow {
     }
     
     private func list(_ boards:[Board]) {
+        canvas.removeSubviews()
         list.removeSubviews()
         var top = list.documentView!.topAnchor
         boards.forEach { board in
-            let view = BoardView(board, presenter:presenter)
+            let view = BoardView(board, view:self)
             view.target = self
             view.action = #selector(select(view:))
             list.documentView!.addSubview(view)

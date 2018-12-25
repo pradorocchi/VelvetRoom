@@ -4,16 +4,16 @@ import VelvetRoom
 class BoardView:NSControl, NSTextViewDelegate {
     var selected = false { didSet { update() } }
     private(set) weak var board:Board!
-    private weak var presenter:Presenter!
+    private weak var view:View!
     private weak var text:TextView!
     override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:50) }
     
-    init(_ board:Board, presenter:Presenter) {
+    init(_ board:Board, view:View) {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
         self.board = board
-        self.presenter = presenter
+        self.view = view
         
         let text = TextView()
         text.textContainer!.size = NSSize(width:160, height:30)
@@ -44,9 +44,10 @@ class BoardView:NSControl, NSTextViewDelegate {
     
     func textDidEndEditing(_:Notification) {
         board.name = text.string
-        presenter.scheduleUpdate()
-        DispatchQueue.main.async {
-            self.update()
+        view.presenter.scheduleUpdate()
+        DispatchQueue.main.async { [weak self] in self?.update() }
+        if board.name.isEmpty {
+            view.delete()
         }
     }
     

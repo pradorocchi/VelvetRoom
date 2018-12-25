@@ -72,4 +72,17 @@ class TestRepository_Board:XCTestCase {
         XCTAssertTrue(repository.boards.isEmpty)
         XCTAssertTrue(repository.account.boards.isEmpty)
     }
+    
+    func testDeleteBoardLists() {
+        let expect = expectation(description:String())
+        repository.list = { boards in
+            XCTAssertTrue(boards.isEmpty)
+            expect.fulfill()
+        }
+        let board = Board()
+        board.id = "hello world"
+        repository.boards = [board]
+        repository.delete(board)
+        waitForExpectations(timeout:1)
+    }
 }

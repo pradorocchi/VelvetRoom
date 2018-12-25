@@ -97,6 +97,7 @@ public class Repository {
         storage.save(account)
         storage.delete(board)
         synchUpdates()
+        listBoards()
     }
     
     public func delete(_ column:Column, board:Board) {
