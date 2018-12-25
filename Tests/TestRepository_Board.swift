@@ -64,4 +64,12 @@ class TestRepository_Board:XCTestCase {
         }
         waitForExpectations(timeout:1)
     }
+    
+    func testDeleteBoard() {
+        repository.newBoard("test", template:.none)
+        let board = repository.boards.first!
+        repository.delete(board)
+        XCTAssertTrue(repository.boards.isEmpty)
+        XCTAssertTrue(repository.account.boards.isEmpty)
+    }
 }

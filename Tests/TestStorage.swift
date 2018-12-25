@@ -100,4 +100,18 @@ class TestStorage:XCTestCase {
         _ = repository.newColumn(board)
         waitForExpectations(timeout:1)
     }
+    
+    func testDeleteBoard() {
+        let expect = expectation(description:String())
+        storage.onDeleteBoard = { expect.fulfill() }
+        repository.delete(Board())
+        waitForExpectations(timeout:1)
+    }
+    
+    func testDeleteBoardSavesAccount() {
+        let expect = expectation(description:String())
+        storage.onSaveAccount = { expect.fulfill() }
+        repository.delete(Board())
+        waitForExpectations(timeout:1)
+    }
 }

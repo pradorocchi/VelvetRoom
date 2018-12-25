@@ -133,4 +133,18 @@ class TestSynch:XCTestCase {
         _ = repository.newColumn(board)
         waitForExpectations(timeout:1)
     }
+    
+    func testDeleteBoardSynchsAccount() {
+        let expect = expectation(description:String())
+        synch.onSaveAccount = { items in
+            XCTAssertTrue(items.isEmpty)
+            expect.fulfill()
+        }
+        let board = Board()
+        board.id = "some"
+        repository.wait = 0
+        repository.boards = [board]
+        repository.delete(board)
+        waitForExpectations(timeout:1)
+    }
 }

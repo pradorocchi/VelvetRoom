@@ -94,6 +94,14 @@ public class Repository {
         }
     }
     
+    public func delete(_ board:Board) {
+        boards.removeAll { $0 === board }
+        account.boards.removeAll { $0 == board.id }
+        storage.save(account)
+        storage.delete(board)
+        synchUpdates()
+    }
+    
     public func scheduleUpdate(_ board:Board) {
         timer.setEventHandler { self.update(board) }
         timer.schedule(deadline:.now() + wait)
