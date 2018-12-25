@@ -24,6 +24,7 @@ class View:NSWindow {
     }
     
     func beginDrag(_ card:CardView) { detach(card) }
+    func beginDrag(_ column:ColumnView) { detach(column) }
     
     func endDrag(_ card:CardView) {
         var column = root
@@ -44,23 +45,6 @@ class View:NSWindow {
         canvasChanged()
         presenter.move(card.card, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
         presenter.scheduleUpdate()
-    }
-    
-    func beginDrag(_ column:ColumnView) {
-        if column === root {
-            let create = column.child
-            column.child = column.child?.child
-            create?.child = column.sibling?.child
-            column.sibling?.child = create
-            root = column.sibling
-        } else {
-            var sibling = root
-            while sibling!.sibling != column {
-                sibling = sibling!.sibling
-            }
-            sibling!.sibling = column.sibling
-        }
-        canvasChanged()
     }
     
     func endDrag(_ column:ColumnView) {
@@ -91,12 +75,27 @@ class View:NSWindow {
         Application.view.beginSheet(DeleteCardView(card, board:presenter.selected.board, view:self))
     }
     
-    func delete(_ card:Card, view:CardView?, board:Board) {
-        if let view = view {
-            detach(view)
-            view.removeFromSuperview()
+    func delete(_ column:ColumnView) {
+        Application.view.makeFirstResponder(nil)
+        Application.view.beginSheet(DeleteColumnView(column, board:presenter.selected.board, view:self))
+    }
+    
+    func deleteConfirm(_ card:CardView, board:Board) {
+        detach(card)
+        card.removeFromSuperview()
+        presenter.delete(card.card, board:board)
+    }
+    
+    func deleteConfirm(_ column:ColumnView, board:Board) {
+        detach(column)
+        var child = column as ItemView?
+        while child != nil {
+            if !(child is CreateView) {
+                child!.removeFromSuperview()
+            }
+            child = child!.child
         }
-        presenter.delete(card, board:board)
+        presenter.delete(column.column, board:board)
     }
     
     private func makeOutlets() {
@@ -234,8 +233,26 @@ class View:NSWindow {
     }
     
     private func detach(_ card:CardView) {
-        let parent = canvas.documentView!.subviews.first { ($0 as! ItemView).child === card } as! ItemView
-        parent.child = card.child
+        if let parent = canvas.documentView!.subviews.first(where:{ ($0 as! ItemView).child === card }) as? ItemView {
+            parent.child = card.child
+            canvasChanged()
+        }
+    }
+    
+    private func detach(_ column:ColumnView) {
+        if column === root {
+            let create = column.child
+            column.child = column.child?.child
+            create?.child = column.sibling?.child
+            column.sibling?.child = create
+            root = column.sibling
+        } else {
+            var sibling = root
+            while sibling != nil && sibling!.sibling !== column {
+                sibling = sibling!.sibling
+            }
+            sibling?.sibling = column.sibling
+        }
         canvasChanged()
     }
     

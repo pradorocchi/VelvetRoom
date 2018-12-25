@@ -7,5 +7,6 @@ NewView.single="1 column";
 NewView.double="2 columns";
 NewView.triple="3 columns";
 DeleteCardView.message="Delete card?";
+DeleteColumnView.message="Delete column?";
 DeleteView.delete="Delete";
 DeleteView.cancel="Cancel";

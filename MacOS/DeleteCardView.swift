@@ -2,20 +2,18 @@ import Foundation
 import VelvetRoom
 
 class DeleteCardView:DeleteView {
-    private weak var cardView:CardView?
     private weak var board:Board!
-    private weak var card:Card!
+    private var card:CardView!
     
     init(_ card:CardView, board:Board, view:View) {
         super.init(view)
         message.stringValue = .local("DeleteCardView.message")
         self.board = board
-        self.cardView = card
-        self.card = card.card
+        self.card = card
     }
     
     override func delete() {
-        view.delete(card, view:cardView, board:board)
+        view.deleteConfirm(card, board:board)
         super.delete()
     }
 }

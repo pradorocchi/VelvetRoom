@@ -19,6 +19,9 @@ class ColumnView:EditView {
     override func textDidEndEditing(_ notification:Notification) {
         column.name = text.string
         super.textDidEndEditing(notification)
+        if column.name.isEmpty {
+            view.delete(self)
+        }
     }
     
     override func beginDrag() {

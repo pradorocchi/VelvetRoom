@@ -13,6 +13,7 @@
 		DA1ABDA921C9AFD500CE1462 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */; };
 		DA1D104721CBCCAD00A8FBE9 /* TestRepository_Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */; };
 		DA2B491721C9187B00BABE86 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B491621C9187B00BABE86 /* NSColor.swift */; };
+		DA53930C21D2B02F00482FCA /* DeleteColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53930B21D2B02F00482FCA /* DeleteColumnView.swift */; };
 		DA65DA6F21D1327100E74011 /* TestRepository_Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65DA6E21D1327100E74011 /* TestRepository_Column.swift */; };
 		DA6A986C21CEA70000C18C7F /* TextLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A986B21CEA70000C18C7F /* TextLayout.swift */; };
 		DA7B2AE721C67982003B7333 /* TestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B2AE621C67982003B7333 /* TestList.swift */; };
@@ -121,6 +122,7 @@
 		DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository_Card.swift; sourceTree = "<group>"; };
 		DA2B491621C9187B00BABE86 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
+		DA53930B21D2B02F00482FCA /* DeleteColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteColumnView.swift; sourceTree = "<group>"; };
 		DA65DA6E21D1327100E74011 /* TestRepository_Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository_Column.swift; sourceTree = "<group>"; };
 		DA6A986B21CEA70000C18C7F /* TextLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLayout.swift; sourceTree = "<group>"; };
 		DA7B2AE621C67982003B7333 /* TestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestList.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 				DAC2CDBF21C8E2F000AD927B /* NewView.swift */,
 				DA1544E221D2752600B9D9F7 /* DeleteView.swift */,
 				DA1544E621D27D7F00B9D9F7 /* DeleteCardView.swift */,
+				DA53930B21D2B02F00482FCA /* DeleteColumnView.swift */,
 				DA16E00021CE8AFF00D21C7A /* TextView.swift */,
 				DA6A986B21CEA70000C18C7F /* TextLayout.swift */,
 				DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */,
@@ -633,6 +636,7 @@
 				DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */,
 				DA2B491721C9187B00BABE86 /* NSColor.swift in Sources */,
 				DAFA95FD21CBDAAD00BA265C /* ItemView.swift in Sources */,
+				DA53930C21D2B02F00482FCA /* DeleteColumnView.swift in Sources */,
 				DA982ED921CD10540085480B /* CardView.swift in Sources */,
 				DA7C744421C3E1C000B1F931 /* View.swift in Sources */,
 				DA86474721C401DF00E4957B /* NSFont.swift in Sources */,

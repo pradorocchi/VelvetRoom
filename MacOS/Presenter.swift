@@ -41,6 +41,13 @@ class Presenter {
         }
     }
     
+    func delete(_ column:Column, board:Board) {
+        DispatchQueue.global(qos:.background).async {
+            self.repository.delete(column, board:board)
+            self.repository.scheduleUpdate(board)
+        }
+    }
+    
     func move(_ card:Card, column:Column, after:Card?) {
         repository.move(card, board:selected.board, column:column, after:after)
     }
