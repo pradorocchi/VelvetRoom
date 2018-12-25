@@ -38,10 +38,8 @@ public class Repository {
     }
     
     public func newColumn(_ board:Board) -> Column {
-        let column = self.column(String())
-        board.columns.append(column)
-        scheduleUpdate(board)
-        return column
+        board.columns.append(column(String()))
+        return board.columns.last!
     }
     
     public func newCard(_ board:Board) throws -> Card {
@@ -51,11 +49,10 @@ public class Repository {
         let card = Card()
         board.cards.append(card)
         move(card, board:board, column:0, index:0)
-        scheduleUpdate(board)
         return card
     }
     
-    public func move(_ card:Card, board:Board, column:Column, after:Card?) {
+    public func move(_ card:Card, board:Board, column:Column, after:Card? = nil) {
         board.cards.forEach { item in
             if item !== card {
                 if item.column == card.column {
@@ -72,7 +69,7 @@ public class Repository {
         move(card, board:board, column:board.columns.firstIndex { $0 === column }!, index:index)
     }
     
-    public func move(_ column:Column, board:Board, after:Column?) {
+    public func move(_ column:Column, board:Board, after:Column? = nil) {
         let old = board.columns.firstIndex { $0 === column }!
         board.columns.remove(at:old)
         var index = 0
@@ -100,6 +97,30 @@ public class Repository {
         storage.save(account)
         storage.delete(board)
         synchUpdates()
+    }
+    
+    public func delete(_ column:Column, board:Board) {
+        let index = board.columns.firstIndex { $0 === column }!
+        board.columns.remove(at:index)
+        board.cards = board.cards.compactMap {
+            guard $0.column != index else { return nil }
+            if $0.column > index {
+                $0.column -= 1
+            }
+            return $0
+        }
+    }
+    
+    public func delete(_ card:Card, board:Board) {
+        board.cards = board.cards.compactMap {
+            guard $0 !== card else { return nil }
+            if $0.column == card.column {
+                if $0.index >= card.index {
+                    $0.index -= 1
+                }
+            }
+            return $0
+        }
     }
     
     public func scheduleUpdate(_ board:Board) {

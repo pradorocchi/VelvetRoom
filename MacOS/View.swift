@@ -256,6 +256,7 @@ class View:NSWindow {
         column.left.constant = view.left.constant
         animateAlign()
         column.beginEditing()
+        presenter.scheduleUpdate()
     }
     
     @objc private func newCard(_ view:CreateView) {
@@ -267,6 +268,7 @@ class View:NSWindow {
         card.left.constant = view.left.constant
         animateAlign()
         card.beginEditing()
+        presenter.scheduleUpdate()
     }
     
     @IBAction private func newDocument(_ sender:Any) {

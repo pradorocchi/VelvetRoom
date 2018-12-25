@@ -32,12 +32,9 @@ class TestRepository_Card:XCTestCase {
     func testNewCardOrdering() {
         let board = Board()
         board.columns = [Column()]
-        var cardFirst:Card!
-        XCTAssertNoThrow(try cardFirst = repository.newCard(board))
-        var cardSecond:Card!
-        XCTAssertNoThrow(try cardSecond = repository.newCard(board))
-        var cardThird:Card!
-        XCTAssertNoThrow(try cardThird = repository.newCard(board))
+        let cardFirst = try! repository.newCard(board)
+        let cardSecond = try! repository.newCard(board)
+        let cardThird = try! repository.newCard(board)
         XCTAssertEqual(0, cardThird.column)
         XCTAssertEqual(0, cardThird.index)
         XCTAssertEqual(0, cardSecond.column)
@@ -50,12 +47,9 @@ class TestRepository_Card:XCTestCase {
         let board = Board()
         let column = Column()
         board.columns = [column]
-        var cardFirst:Card!
-        XCTAssertNoThrow(try cardFirst = repository.newCard(board))
-        var cardSecond:Card!
-        XCTAssertNoThrow(try cardSecond = repository.newCard(board))
-        var cardThird:Card!
-        XCTAssertNoThrow(try cardThird = repository.newCard(board))
+        let cardFirst = try! repository.newCard(board)
+        let cardSecond = try! repository.newCard(board)
+        let cardThird = try! repository.newCard(board)
         repository.move(cardThird, board:board, column:column, after:cardFirst)
         XCTAssertEqual(0, cardSecond.column)
         XCTAssertEqual(0, cardSecond.index)
@@ -69,13 +63,10 @@ class TestRepository_Card:XCTestCase {
         let board = Board()
         let column = Column()
         board.columns = [column]
-        var cardFirst:Card!
-        XCTAssertNoThrow(try cardFirst = repository.newCard(board))
-        var cardSecond:Card!
-        XCTAssertNoThrow(try cardSecond = repository.newCard(board))
-        var cardThird:Card!
-        XCTAssertNoThrow(try cardThird = repository.newCard(board))
-        repository.move(cardFirst, board:board, column:column, after:nil)
+        let cardFirst = try! repository.newCard(board)
+        let cardSecond = try! repository.newCard(board)
+        let cardThird = try! repository.newCard(board)
+        repository.move(cardFirst, board:board, column:column)
         XCTAssertEqual(2, cardSecond.index)
         XCTAssertEqual(0, cardFirst.index)
         XCTAssertEqual(1, cardThird.index)
@@ -86,18 +77,27 @@ class TestRepository_Card:XCTestCase {
         let columnA = Column()
         let columnB = Column()
         board.columns = [columnA, columnB]
-        var cardFirst:Card!
-        XCTAssertNoThrow(try cardFirst = repository.newCard(board))
-        var cardSecond:Card!
-        XCTAssertNoThrow(try cardSecond = repository.newCard(board))
-        var cardThird:Card!
-        XCTAssertNoThrow(try cardThird = repository.newCard(board))
-        repository.move(cardThird, board:board, column:columnB, after:nil)
+        let cardFirst = try! repository.newCard(board)
+        let cardSecond = try! repository.newCard(board)
+        let cardThird = try! repository.newCard(board)
+        repository.move(cardThird, board:board, column:columnB)
         XCTAssertEqual(0, cardSecond.column)
         XCTAssertEqual(0, cardSecond.index)
         XCTAssertEqual(0, cardFirst.column)
         XCTAssertEqual(1, cardFirst.index)
         XCTAssertEqual(1, cardThird.column)
         XCTAssertEqual(0, cardThird.index)
+    }
+    
+    func testDeleteCard() {
+        let board = Board()
+        board.columns = [Column()]
+        let cardFirst = try! repository.newCard(board)
+        let cardSecond = try! repository.newCard(board)
+        XCTAssertEqual(0, cardSecond.index)
+        XCTAssertEqual(1, cardFirst.index)
+        repository.delete(cardSecond, board:board)
+        XCTAssertEqual(0, cardFirst.index)
+        XCTAssertEqual(1, board.cards.count)
     }
 }

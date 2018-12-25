@@ -76,64 +76,6 @@ class TestSynch:XCTestCase {
         waitForExpectations(timeout:1)
     }
     
-    func testNewCardSynchsBoard() {
-        let expect = expectation(description:String())
-        synch.onSaveBoard = { item in
-            XCTAssertFalse(item.cards.isEmpty)
-            expect.fulfill()
-        }
-        let board = Board()
-        board.columns = [Column()]
-        repository.wait = 0
-        _ = try! repository.newCard(board)
-        waitForExpectations(timeout:1)
-    }
-    
-    func testNewCardSynchsAccount() {
-        let expect = expectation(description:String())
-        let time = Date().timeIntervalSince1970
-        synch.onSaveAccount = { items in
-            XCTAssertEqual("some", items.first!.key)
-            XCTAssertLessThan(time, items.first!.value)
-            expect.fulfill()
-        }
-        let board = Board()
-        board.id = "some"
-        board.columns = [Column()]
-        repository.wait = 0
-        repository.boards = [board]
-        _ = try! repository.newCard(board)
-        waitForExpectations(timeout:1)
-    }
-    
-    func testNewColumnSynchsBoard() {
-        let expect = expectation(description:String())
-        synch.onSaveBoard = { item in
-            XCTAssertFalse(item.columns.isEmpty)
-            expect.fulfill()
-        }
-        let board = Board()
-        repository.wait = 0
-        _ = repository.newColumn(board)
-        waitForExpectations(timeout:1)
-    }
-    
-    func testNewColumnSynchsAccount() {
-        let expect = expectation(description:String())
-        let time = Date().timeIntervalSince1970
-        synch.onSaveAccount = { items in
-            XCTAssertEqual("some", items.first!.key)
-            XCTAssertLessThan(time, items.first!.value)
-            expect.fulfill()
-        }
-        let board = Board()
-        board.id = "some"
-        repository.wait = 0
-        repository.boards = [board]
-        _ = repository.newColumn(board)
-        waitForExpectations(timeout:1)
-    }
-    
     func testDeleteBoardSynchsAccount() {
         let expect = expectation(description:String())
         synch.onSaveAccount = { items in

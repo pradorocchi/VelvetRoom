@@ -46,7 +46,7 @@ class TestRepository_Column:XCTestCase {
         let cardA = try! repository.newCard(board)
         let columnB = repository.newColumn(board)
         let columnC = repository.newColumn(board)
-        repository.move(columnC, board:board, after:nil)
+        repository.move(columnC, board:board)
         XCTAssertTrue(columnA === board.columns[1])
         XCTAssertTrue(columnB === board.columns[2])
         XCTAssertTrue(columnC === board.columns[0])
@@ -61,9 +61,9 @@ class TestRepository_Column:XCTestCase {
         let cardZ = try! repository.newCard(board)
         let columnB = repository.newColumn(board)
         let columnC = repository.newColumn(board)
-        repository.move(cardX, board:board, column:columnB, after:nil)
+        repository.move(cardX, board:board, column:columnB)
         XCTAssertEqual(1, cardX.column)
-        repository.move(cardY, board:board, column:columnC, after:nil)
+        repository.move(cardY, board:board, column:columnC)
         XCTAssertEqual(2, cardY.column)
         XCTAssertEqual(0, cardZ.column)
         repository.move(columnA, board:board, after:columnC)
@@ -73,5 +73,18 @@ class TestRepository_Column:XCTestCase {
         XCTAssertEqual(0, cardX.column)
         XCTAssertEqual(1, cardY.column)
         XCTAssertEqual(2, cardZ.column)
+    }
+    
+    func testDeleteColumn() {
+        let board = Board()
+        let columnA = repository.newColumn(board)
+        _ = try! repository.newCard(board)
+        let cardB = try! repository.newCard(board)
+        let columnB = repository.newColumn(board)
+        repository.move(cardB, board:board, column:columnB)
+        repository.delete(columnA, board:board)
+        XCTAssertEqual(1, board.cards.count)
+        XCTAssertEqual(1, board.columns.count)
+        XCTAssertEqual(0, cardB.column)
     }
 }

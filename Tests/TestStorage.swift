@@ -76,31 +76,6 @@ class TestStorage:XCTestCase {
         waitForExpectations(timeout:1)
     }
     
-    func testNewCardSavesBoard() {
-        let expect = expectation(description:String())
-        let board = Board()
-        board.columns = [Column()]
-        storage.onSaveBoard = { item in
-            XCTAssertFalse(item.cards.isEmpty)
-            expect.fulfill()
-        }
-        repository.wait = 0
-        _ = try! repository.newCard(board)
-        waitForExpectations(timeout:1)
-    }
-    
-    func testNewColumnSavesBoard() {
-        let expect = expectation(description:String())
-        let board = Board()
-        storage.onSaveBoard = { item in
-            XCTAssertFalse(item.columns.isEmpty)
-            expect.fulfill()
-        }
-        repository.wait = 0
-        _ = repository.newColumn(board)
-        waitForExpectations(timeout:1)
-    }
-    
     func testDeleteBoard() {
         let expect = expectation(description:String())
         storage.onDeleteBoard = { expect.fulfill() }
