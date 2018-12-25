@@ -46,23 +46,26 @@ class TestRepository_Card:XCTestCase {
         XCTAssertEqual(2, cardFirst.index)
     }
     
-    func testDetach() {
+    func testMove() {
         let board = Board()
-        board.columns = [Column()]
+        let column = Column()
+        board.columns = [column]
         var cardFirst:Card!
         XCTAssertNoThrow(try cardFirst = repository.newCard(board))
         var cardSecond:Card!
         XCTAssertNoThrow(try cardSecond = repository.newCard(board))
         var cardThird:Card!
         XCTAssertNoThrow(try cardThird = repository.newCard(board))
-        repository.detach(cardThird, board:board)
+        repository.move(cardThird, board:board, column:column, after:cardFirst)
         XCTAssertEqual(0, cardSecond.column)
         XCTAssertEqual(0, cardSecond.index)
         XCTAssertEqual(0, cardFirst.column)
         XCTAssertEqual(1, cardFirst.index)
+        XCTAssertEqual(0, cardThird.column)
+        XCTAssertEqual(2, cardThird.index)
     }
     
-    func testAttachNoAfter() {
+    func testMoveNoAfter() {
         let board = Board()
         let column = Column()
         board.columns = [column]
@@ -70,37 +73,31 @@ class TestRepository_Card:XCTestCase {
         XCTAssertNoThrow(try cardFirst = repository.newCard(board))
         var cardSecond:Card!
         XCTAssertNoThrow(try cardSecond = repository.newCard(board))
-        let card = Card()
-        repository.attach(card, board:board, column:column, after:nil)
-        XCTAssertEqual(0, card.index)
-        XCTAssertEqual(0, card.column)
-        XCTAssertEqual(1, cardSecond.index)
-        XCTAssertEqual(2, cardFirst.index)
+        var cardThird:Card!
+        XCTAssertNoThrow(try cardThird = repository.newCard(board))
+        repository.move(cardFirst, board:board, column:column, after:nil)
+        XCTAssertEqual(2, cardSecond.index)
+        XCTAssertEqual(0, cardFirst.index)
+        XCTAssertEqual(1, cardThird.index)
     }
     
-    func testAttachWithAfter() {
+    func testMoveOtherColumn() {
         let board = Board()
-        let column = Column()
-        board.columns = [column]
+        let columnA = Column()
+        let columnB = Column()
+        board.columns = [columnA, columnB]
         var cardFirst:Card!
         XCTAssertNoThrow(try cardFirst = repository.newCard(board))
         var cardSecond:Card!
         XCTAssertNoThrow(try cardSecond = repository.newCard(board))
-        let card = Card()
-        repository.attach(card, board:board, column:column, after:cardSecond)
+        var cardThird:Card!
+        XCTAssertNoThrow(try cardThird = repository.newCard(board))
+        repository.move(cardThird, board:board, column:columnB, after:nil)
+        XCTAssertEqual(0, cardSecond.column)
         XCTAssertEqual(0, cardSecond.index)
-        XCTAssertEqual(0, card.column)
-        XCTAssertEqual(1, card.index)
-        XCTAssertEqual(2, cardFirst.index)
-    }
-    
-    func testAttachOtherColumn() {
-        let board = Board()
-        let column = Column()
-        board.columns = [Column(), column, Column()]
-        let card = Card()
-        repository.attach(card, board:board, column:column, after:nil)
-        XCTAssertEqual(0, card.index)
-        XCTAssertEqual(1, card.column)
+        XCTAssertEqual(0, cardFirst.column)
+        XCTAssertEqual(1, cardFirst.index)
+        XCTAssertEqual(1, cardThird.column)
+        XCTAssertEqual(0, cardThird.index)
     }
 }

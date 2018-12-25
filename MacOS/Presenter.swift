@@ -33,10 +33,9 @@ class Presenter {
     
     func newColumn() -> Column { return repository.newColumn(selected.board) }
     func newCard() -> Card { return try! repository.newCard(selected.board) }
-    func detach(_ card:Card) { repository.detach(card, board:selected.board) }
     
-    func attach(_ card:Card, column:Column, after:Card?) {
-        repository.attach(card, board:selected.board, column:column, after:after)
+    func move(_ card:Card, column:Column, after:Card?) {
+        repository.move(card, board:selected.board, column:column, after:after)
     }
     
     func scheduleUpdate() {

@@ -24,7 +24,7 @@ class TestRepository_Column:XCTestCase {
         XCTAssertLessThanOrEqual(time, columnA.created)
     }
     
-    func testMoveColumn() {
+    func testMoveColumnWithAfter() {
         let board = Board()
         let columnA = repository.newColumn(board)
         _ = repository.newColumn(board)
@@ -33,10 +33,45 @@ class TestRepository_Column:XCTestCase {
         XCTAssertTrue(columnA === board.columns[0])
         XCTAssertEqual(0, cardA.column)
         XCTAssertEqual(0, cardB.column)
-        _ = repository.newColumn(board)
-        repository.move(columnA, board:board, index:2)
+        let columnC = repository.newColumn(board)
+        repository.move(columnA, board:board, after:columnC)
         XCTAssertTrue(columnA === board.columns[2])
         XCTAssertEqual(2, cardA.column)
         XCTAssertEqual(2, cardB.column)
+    }
+    
+    func testMoveColumnNoAfter() {
+        let board = Board()
+        let columnA = repository.newColumn(board)
+        let cardA = try! repository.newCard(board)
+        let columnB = repository.newColumn(board)
+        let columnC = repository.newColumn(board)
+        repository.move(columnC, board:board, after:nil)
+        XCTAssertTrue(columnA === board.columns[1])
+        XCTAssertTrue(columnB === board.columns[2])
+        XCTAssertTrue(columnC === board.columns[0])
+        XCTAssertEqual(1, cardA.column)
+    }
+    
+    func testMoveAndRearrange() {
+        let board = Board()
+        let columnA = repository.newColumn(board)
+        let cardX = try! repository.newCard(board)
+        let cardY = try! repository.newCard(board)
+        let cardZ = try! repository.newCard(board)
+        let columnB = repository.newColumn(board)
+        let columnC = repository.newColumn(board)
+        repository.move(cardX, board:board, column:columnB, after:nil)
+        XCTAssertEqual(1, cardX.column)
+        repository.move(cardY, board:board, column:columnC, after:nil)
+        XCTAssertEqual(2, cardY.column)
+        XCTAssertEqual(0, cardZ.column)
+        repository.move(columnA, board:board, after:columnC)
+        XCTAssertTrue(columnA === board.columns[2])
+        XCTAssertTrue(columnB === board.columns[0])
+        XCTAssertTrue(columnC === board.columns[1])
+        XCTAssertEqual(0, cardX.column)
+        XCTAssertEqual(1, cardY.column)
+        XCTAssertEqual(2, cardZ.column)
     }
 }

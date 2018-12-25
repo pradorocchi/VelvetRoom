@@ -55,15 +55,7 @@ public class Repository {
         return card
     }
     
-    public func attach(_ card:Card, board:Board, column:Column, after:Card?) {
-        var index = 0
-        if let after = board.cards.first(where: { $0 === after } )?.index {
-            index = after + 1
-        }
-        move(card, board:board, column:board.columns.firstIndex { $0 === column }!, index:index)
-    }
-    
-    public func detach(_ card:Card, board:Board) {
+    public func move(_ card:Card, board:Board, column:Column, after:Card?) {
         board.cards.forEach { item in
             if item !== card {
                 if item.column == card.column {
@@ -73,15 +65,31 @@ public class Repository {
                 }
             }
         }
+        var index = 0
+        if let after = board.cards.first(where: { $0 === after } )?.index {
+            index = after + 1
+        }
+        move(card, board:board, column:board.columns.firstIndex { $0 === column }!, index:index)
     }
     
-    public func move(_ column:Column, board:Board, index:Int) {
+    public func move(_ column:Column, board:Board, after:Column?) {
         let old = board.columns.firstIndex { $0 === column }!
         board.columns.remove(at:old)
+        var index = 0
+        if let after = after {
+            index = board.columns.firstIndex { $0 === after }! + 1
+        }
         board.columns.insert(column, at:index)
         board.cards.forEach {
             if $0.column == old {
                 $0.column = index
+            } else {
+                if $0.column > old {
+                    $0.column -= 1
+                }
+                if $0.column >= index {
+                    $0.column += 1
+                }
             }
         }
     }

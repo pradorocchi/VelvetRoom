@@ -26,7 +26,6 @@ class View:NSWindow {
     func beginDrag(_ card:CardView) {
         let parent = canvas.documentView!.subviews.first { ($0 as! ItemView).child === card } as! ItemView
         parent.child = card.child
-        presenter.detach(card.card)
         canvasChanged()
     }
     
@@ -47,8 +46,36 @@ class View:NSWindow {
         card.child = after!.child
         after!.child = card
         canvasChanged()
-        presenter.attach(card.card, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
+        presenter.move(card.card, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
         presenter.scheduleUpdate()
+    }
+    
+    func beginDrag(_ column:ColumnView) {
+//        let parent = canvas.documentView!.subviews.first { ($0 as! ItemView).sibling === card } as! ItemView
+//        parent.child = card.child
+//        presenter.detach(card.card)
+//        canvasChanged()
+    }
+    
+    func endDrag(_ column:ColumnView) {
+//        var column = root
+//        while column!.sibling is ColumnView {
+//            guard column!.sibling!.left.constant < card.frame.midX else { break }
+//            column = column!.sibling
+//        }
+//        var after = column
+//        while after!.child != nil {
+//            guard after!.child!.top.constant < card.top.constant else { break }
+//            after = after!.child
+//        }
+//        if after!.child is CreateView {
+//            after = after?.child
+//        }
+//        card.child = after!.child
+//        after!.child = card
+//        canvasChanged()
+//        presenter.attach(card.card, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
+//        presenter.scheduleUpdate()
     }
     
     private func makeOutlets() {
