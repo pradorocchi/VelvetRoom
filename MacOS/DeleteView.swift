@@ -20,8 +20,7 @@ class DeleteView:NSWindow {
         message.backgroundColor = .clear
         message.isBezeled = false
         message.isEditable = false
-        message.font = .systemFont(ofSize:18, weight:.bold)
-        message.alignment = .center
+        message.font = .systemFont(ofSize:22, weight:.bold)
         contentView!.addSubview(message)
         self.message = message
         

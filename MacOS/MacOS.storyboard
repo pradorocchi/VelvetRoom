@@ -348,6 +348,22 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="6632A0DE-5D88-4A1A-B7D6-CFF62DF9CB28" label="Delete" paletteLabel="Delete" image="delete" sizingBehavior="auto" id="kcB-kf-DEw">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="g3I-fJ-Wch">
+                                        <rect key="frame" x="9" y="14" width="24" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="delete" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" inset="2" id="M0T-6s-bOy">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent">w</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="remove:" target="Oky-zY-oP4" id="QWU-ci-LJW"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="KZI-1n-q2z"/>
                                 <toolbarItem implicitItemIdentifier="56E71E3B-60A1-4A9A-84F4-D5B88BD98297" label="List" paletteLabel="List" image="listOff" sizingBehavior="auto" id="1qu-sh-P4N">
                                     <nil key="toolTip"/>
@@ -367,11 +383,13 @@
                             <defaultToolbarItems>
                                 <toolbarItem reference="KZI-1n-q2z"/>
                                 <toolbarItem reference="1qu-sh-P4N"/>
+                                <toolbarItem reference="kcB-kf-DEw"/>
                                 <toolbarItem reference="0K5-pA-w2U"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
+                            <outlet property="deleteButton" destination="g3I-fJ-Wch" id="IoL-g9-NFL"/>
                             <outlet property="listButton" destination="6hB-Rg-9L8" id="1t5-Ge-ACe"/>
                         </connections>
                     </window>
@@ -398,6 +416,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="delete" width="24" height="18"/>
         <image name="listOff" width="24" height="18"/>
         <image name="listOn" width="24" height="18"/>
         <image name="new" width="24" height="18"/>

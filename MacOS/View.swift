@@ -8,9 +8,10 @@ class View:NSWindow {
     private weak var root:ItemView?
     private weak var borderLeft:NSLayoutConstraint!
     @IBOutlet private weak var listButton:NSButton!
+    @IBOutlet private weak var deleteButton:NSButton!
     
-    override func cancelOperation(_:Any?) { Application.shared.view.makeFirstResponder(nil) }
-    override func mouseDown(with:NSEvent) { Application.shared.view.makeFirstResponder(nil) }
+    override func cancelOperation(_:Any?) { makeFirstResponder(nil) }
+    override func mouseDown(with:NSEvent) { makeFirstResponder(nil) }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -79,18 +80,19 @@ class View:NSWindow {
     }
     
     func delete(_ card:CardView) {
-        Application.shared.view.makeFirstResponder(nil)
-        Application.shared.view.beginSheet(DeleteCardView(card, board:presenter.selected.board, view:self))
+        makeFirstResponder(nil)
+        beginSheet(DeleteCardView(card, board:presenter.selected.board, view:self))
     }
     
     func delete(_ column:ColumnView) {
-        Application.shared.view.makeFirstResponder(nil)
-        Application.shared.view.beginSheet(DeleteColumnView(column, board:presenter.selected.board, view:self))
+        makeFirstResponder(nil)
+        beginSheet(DeleteColumnView(column, board:presenter.selected.board, view:self))
     }
     
     func delete() {
-        Application.shared.view.makeFirstResponder(nil)
-        Application.shared.view.beginSheet(DeleteBoardView(presenter.selected.board, view:self))
+        presenter.fireSchedule()
+        makeFirstResponder(nil)
+        beginSheet(DeleteBoardView(presenter.selected.board, view:self))
     }
     
     func deleteConfirm(_ card:CardView, board:Board) {
@@ -152,6 +154,7 @@ class View:NSWindow {
     }
     
     private func list(_ boards:[Board]) {
+        deleteButton.isEnabled = false
         canvas.removeSubviews()
         list.removeSubviews()
         var top = list.documentView!.topAnchor
@@ -270,10 +273,11 @@ class View:NSWindow {
     }
     
     @objc private func select(view:BoardView) {
-        Application.shared.view.makeFirstResponder(nil)
+        makeFirstResponder(nil)
         presenter.selected = view
         render(view.board)
         canvasChanged(0)
+        deleteButton.isEnabled = true
     }
     
     @objc private func newColumn(_ view:CreateView) {
@@ -336,7 +340,12 @@ class View:NSWindow {
     }
     
     @IBAction private func newDocument(_ sender:Any) {
-        Application.shared.view.makeFirstResponder(nil)
-        Application.shared.view.beginSheet(NewView(presenter))
+        makeFirstResponder(nil)
+        beginSheet(NewView(presenter))
+    }
+    
+    @IBAction private func remove(_ sender:Any) {
+        makeFirstResponder(nil)
+        delete()
     }
 }

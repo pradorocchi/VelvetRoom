@@ -45,7 +45,7 @@ class EditView:ItemView, NSTextViewDelegate {
                 NSCursor.pointingHand.set()
             } else {
                 dragging = true
-                Application.shared.view.makeFirstResponder(nil)
+                view.makeFirstResponder(nil)
             }
         }
     }
@@ -67,7 +67,7 @@ class EditView:ItemView, NSTextViewDelegate {
     
     func beginEditing() {
         text.isEditable = true
-        Application.shared.view.makeFirstResponder(text)
+        view.makeFirstResponder(text)
     }
     
     func beginDrag() {
