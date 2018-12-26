@@ -12,9 +12,9 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="MacOS" id="1Xt-HY-uBw">
+                            <menuItem title="VelvetRoom" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="MacOS" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="VelvetRoom" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
                                         <menuItem title="About Waverley" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -296,6 +296,12 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
+                                        <menuItem title="List" keyEquivalent="l" id="6i5-27-0d7">
+                                            <connections>
+                                                <action selector="toggleSourceList:" target="Ady-hI-5gd" id="T5x-nG-stP"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="nLV-dX-BB2"/>
                                         <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -323,7 +329,11 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="Application" customModule="MacOS" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="Application" customModule="MacOS" customModuleProvider="target">
+                    <connections>
+                        <outlet property="list" destination="6i5-27-0d7" id="cpx-La-6sG"/>
+                    </connections>
+                </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
@@ -340,10 +350,10 @@
                         <value key="minSize" type="size" width="600" height="400"/>
                         <toolbar key="toolbar" implicitIdentifier="0EF9E741-92DF-4035-BE2B-BFA6AA2034CD" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="small" id="ert-1v-Elu">
                             <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="D2276672-4A5C-43DF-A158-35DA6E6D7C4A" label="New board" paletteLabel="New board" image="new" sizingBehavior="auto" id="0K5-pA-w2U">
+                                <toolbarItem implicitItemIdentifier="D2276672-4A5C-43DF-A158-35DA6E6D7C4A" label="New" paletteLabel="New" image="new" sizingBehavior="auto" id="0K5-pA-w2U">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="4U0-1M-3QA">
-                                        <rect key="frame" x="20" y="14" width="24" height="25"/>
+                                        <rect key="frame" x="4" y="14" width="24" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="new" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="QLx-xz-5aq">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -355,14 +365,30 @@
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="KZI-1n-q2z"/>
+                                <toolbarItem implicitItemIdentifier="56E71E3B-60A1-4A9A-84F4-D5B88BD98297" label="List" paletteLabel="List" image="listOff" sizingBehavior="auto" id="1qu-sh-P4N">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="6hB-Rg-9L8">
+                                        <rect key="frame" x="1" y="14" width="24" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" title="Textured Rounded" bezelStyle="texturedRounded" image="listOff" imagePosition="only" alignment="center" alternateImage="listOn" lineBreakMode="truncatingTail" state="on" inset="2" id="n6h-l0-3Ia">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="toggleList:" target="IQv-IB-iLA" id="89V-74-MuP"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="KZI-1n-q2z"/>
+                                <toolbarItem reference="1qu-sh-P4N"/>
                                 <toolbarItem reference="0K5-pA-w2U"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
+                            <outlet property="listButton" destination="6hB-Rg-9L8" id="1t5-Ge-ACe"/>
                         </connections>
                     </window>
                     <connections>
@@ -371,7 +397,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="166" y="278"/>
+            <point key="canvasLocation" x="206" y="277"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -384,10 +410,12 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="366" y="885"/>
+            <point key="canvasLocation" x="399" y="883"/>
         </scene>
     </scenes>
     <resources>
+        <image name="listOff" width="24" height="18"/>
+        <image name="listOn" width="24" height="18"/>
         <image name="new" width="24" height="18"/>
     </resources>
 </document>

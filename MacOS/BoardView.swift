@@ -6,7 +6,7 @@ class BoardView:NSControl, NSTextViewDelegate {
     private(set) weak var board:Board!
     private weak var view:View!
     private weak var text:TextView!
-    override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:50) }
+    override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:60) }
     
     init(_ board:Board, view:View) {
         super.init(frame:.zero)
@@ -16,8 +16,8 @@ class BoardView:NSControl, NSTextViewDelegate {
         self.view = view
         
         let text = TextView()
-        text.textContainer!.size = NSSize(width:210, height:30)
-        text.font = .light(14)
+        text.textContainer!.size = NSSize(width:250, height:30)
+        text.font = .light(13)
         text.delegate = self
         text.string = board.name
         text.update()
@@ -62,7 +62,7 @@ class BoardView:NSControl, NSTextViewDelegate {
     }
     
     func textView(_:NSTextView, shouldChangeTextIn range:NSRange, replacementString:String?) -> Bool {
-        return (text.string as NSString).replacingCharacters(in:range, with:replacementString ?? String()).count < 23
+        return (text.string as NSString).replacingCharacters(in:range, with:replacementString ?? String()).count < 28
     }
     
     private func update() {
@@ -71,10 +71,10 @@ class BoardView:NSControl, NSTextViewDelegate {
             text.alphaValue = 1
         } else if selected {
             layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
-            text.alphaValue = 0.6
+            text.alphaValue = 0.8
         } else {
             layer!.backgroundColor = NSColor.clear.cgColor
-            text.alphaValue = 0.6
+            text.alphaValue = 0.8
         }
     }
 }

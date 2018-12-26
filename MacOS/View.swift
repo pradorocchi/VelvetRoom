@@ -6,6 +6,8 @@ class View:NSWindow {
     private weak var list:ScrollView!
     private weak var canvas:ScrollView!
     private weak var root:ItemView?
+    private weak var borderLeft:NSLayoutConstraint!
+    @IBOutlet private weak var listButton:NSButton!
     
     override func cancelOperation(_:Any?) { Application.view.makeFirstResponder(nil) }
     override func mouseDown(with:NSEvent) { Application.view.makeFirstResponder(nil) }
@@ -17,6 +19,7 @@ class View:NSWindow {
         presenter.list = { self.list($0) }
         presenter.select = { self.select($0) }
         presenter.load()
+        toggleSourceList(Application.lis)
     }
     
     func canvasChanged(_ animation:TimeInterval = 0.5) {
@@ -136,8 +139,9 @@ class View:NSWindow {
         
         border.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:1).isActive = true
         border.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:1).isActive = true
-        border.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:218).isActive = true
         border.widthAnchor.constraint(equalToConstant:1).isActive = true
+        borderLeft = border.leftAnchor.constraint(equalTo:contentView!.leftAnchor)
+        borderLeft.isActive = true
         
         canvas.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:1).isActive = true
         canvas.leftAnchor.constraint(equalTo:border.rightAnchor).isActive = true
@@ -265,6 +269,17 @@ class View:NSWindow {
         }
     }
     
+    private func animateList(_ width:CGFloat) {
+        borderLeft.constant = width
+        if #available(OSX 10.12, *) {
+            NSAnimationContext.runAnimationGroup { context in
+                context.duration = 0.5
+                context.allowsImplicitAnimation = true
+                self.contentView!.layoutSubtreeIfNeeded()
+            }
+        }
+    }
+    
     @objc private func select(view:BoardView) {
         Application.view.makeFirstResponder(nil)
         presenter.selected = view
@@ -302,6 +317,26 @@ class View:NSWindow {
         canvasChanged()
         card.beginEditing()
         presenter.scheduleUpdate()
+    }
+    
+    @IBAction private func toggleSourceList(_ sender:NSMenuItem) {
+        switch listButton.state {
+        case .on:
+            sender.title = .local("Window.showList")
+            listButton.state = .off
+        default:
+            sender.title = .local("Window.hideList")
+            listButton.state = .on
+        }
+        toggleList(listButton)
+    }
+    
+    @IBAction private func toggleList(_ listButton:NSButton) {
+        if listButton.state == .on {
+            animateList(250)
+        } else {
+            animateList(0)
+        }
     }
     
     @IBAction private func newDocument(_ sender:Any) {
