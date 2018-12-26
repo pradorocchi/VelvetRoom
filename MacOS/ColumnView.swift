@@ -52,7 +52,7 @@ class ColumnView:EditView {
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
-            Application.view.makeFirstResponder(nil)
+            Application.shared.view.makeFirstResponder(nil)
             return true
         }
         return false

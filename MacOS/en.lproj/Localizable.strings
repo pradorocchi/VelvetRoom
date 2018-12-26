@@ -1,3 +1,5 @@
+View.hideList="Hide list";
+View.showList="Show list";
 NewView.title="New board";
 NewView.create="Create";
 NewView.cancel="Cancel";

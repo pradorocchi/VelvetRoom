@@ -35,7 +35,7 @@ class BoardView:NSControl, NSTextViewDelegate {
     override func mouseDown(with event:NSEvent) {
         if event.clickCount == 2 {
             text.isEditable = true
-            Application.view.makeFirstResponder(text)
+            Application.shared.view.makeFirstResponder(text)
             update()
         } else if !selected {
             sendAction(self.action, to:self.target)
@@ -55,7 +55,7 @@ class BoardView:NSControl, NSTextViewDelegate {
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
-            Application.view.makeFirstResponder(nil)
+            Application.shared.view.makeFirstResponder(nil)
             return true
         }
         return false
@@ -66,7 +66,7 @@ class BoardView:NSControl, NSTextViewDelegate {
     }
     
     private func update() {
-        if Application.view.firstResponder === text {
+        if Application.shared.view.firstResponder === text {
             layer!.backgroundColor = NSColor.windowFrameColor.withAlphaComponent(0.2).cgColor
             text.alphaValue = 1
         } else if selected {

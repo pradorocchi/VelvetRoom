@@ -14,8 +14,8 @@ class NewView:NSWindow, NSTextFieldDelegate {
     override var canBecomeKey:Bool { return true }
     
     init(_ presenter:Presenter) {
-        super.init(contentRect:NSRect(x:0, y:0, width:Application.view.frame.width - 2, height:
-            Application.view.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
+        super.init(contentRect:NSRect(x:0, y:0, width:Application.shared.view.frame.width - 2, height:
+            Application.shared.view.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
         isOpaque = false
         backgroundColor = .clear
         contentView!.wantsLayer = true
@@ -249,12 +249,12 @@ class NewView:NSWindow, NSTextFieldDelegate {
     
     @objc private func cancel() {
         makeFirstResponder(nil)
-        Application.view.endSheet(self)
+        Application.shared.view.endSheet(self)
     }
     
     @objc private func create() {
         makeFirstResponder(nil)
         presenter.newBoard(name.stringValue, template:template)
-        Application.view.endSheet(self)
+        Application.shared.view.endSheet(self)
     }
 }

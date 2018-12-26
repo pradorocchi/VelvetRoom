@@ -9,8 +9,8 @@ class View:NSWindow {
     private weak var borderLeft:NSLayoutConstraint!
     @IBOutlet private weak var listButton:NSButton!
     
-    override func cancelOperation(_:Any?) { Application.view.makeFirstResponder(nil) }
-    override func mouseDown(with:NSEvent) { Application.view.makeFirstResponder(nil) }
+    override func cancelOperation(_:Any?) { Application.shared.view.makeFirstResponder(nil) }
+    override func mouseDown(with:NSEvent) { Application.shared.view.makeFirstResponder(nil) }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,7 +19,7 @@ class View:NSWindow {
         presenter.list = { self.list($0) }
         presenter.select = { self.select($0) }
         presenter.load()
-        toggleSourceList(Application.lis)
+        toggleList(listButton)
     }
     
     func canvasChanged(_ animation:TimeInterval = 0.5) {
@@ -79,18 +79,18 @@ class View:NSWindow {
     }
     
     func delete(_ card:CardView) {
-        Application.view.makeFirstResponder(nil)
-        Application.view.beginSheet(DeleteCardView(card, board:presenter.selected.board, view:self))
+        Application.shared.view.makeFirstResponder(nil)
+        Application.shared.view.beginSheet(DeleteCardView(card, board:presenter.selected.board, view:self))
     }
     
     func delete(_ column:ColumnView) {
-        Application.view.makeFirstResponder(nil)
-        Application.view.beginSheet(DeleteColumnView(column, board:presenter.selected.board, view:self))
+        Application.shared.view.makeFirstResponder(nil)
+        Application.shared.view.beginSheet(DeleteColumnView(column, board:presenter.selected.board, view:self))
     }
     
     func delete() {
-        Application.view.makeFirstResponder(nil)
-        Application.view.beginSheet(DeleteBoardView(presenter.selected.board, view:self))
+        Application.shared.view.makeFirstResponder(nil)
+        Application.shared.view.beginSheet(DeleteBoardView(presenter.selected.board, view:self))
     }
     
     func deleteConfirm(_ card:CardView, board:Board) {
@@ -269,19 +269,8 @@ class View:NSWindow {
         }
     }
     
-    private func animateList(_ width:CGFloat) {
-        borderLeft.constant = width
-        if #available(OSX 10.12, *) {
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = 0.5
-                context.allowsImplicitAnimation = true
-                self.contentView!.layoutSubtreeIfNeeded()
-            }
-        }
-    }
-    
     @objc private func select(view:BoardView) {
-        Application.view.makeFirstResponder(nil)
+        Application.shared.view.makeFirstResponder(nil)
         presenter.selected = view
         render(view.board)
         canvasChanged(0)
@@ -322,10 +311,8 @@ class View:NSWindow {
     @IBAction private func toggleSourceList(_ sender:NSMenuItem) {
         switch listButton.state {
         case .on:
-            sender.title = .local("Window.showList")
             listButton.state = .off
         default:
-            sender.title = .local("Window.hideList")
             listButton.state = .on
         }
         toggleList(listButton)
@@ -333,14 +320,23 @@ class View:NSWindow {
     
     @IBAction private func toggleList(_ listButton:NSButton) {
         if listButton.state == .on {
-            animateList(250)
+            borderLeft.constant = 250
+            Application.shared.list.title = .local("View.hideList")
         } else {
-            animateList(0)
+            borderLeft.constant = 0
+            Application.shared.list.title = .local("View.showList")
+        }
+        if #available(OSX 10.12, *) {
+            NSAnimationContext.runAnimationGroup { context in
+                context.duration = 1
+                context.allowsImplicitAnimation = true
+                self.contentView!.layoutSubtreeIfNeeded()
+            }
         }
     }
     
     @IBAction private func newDocument(_ sender:Any) {
-        Application.view.makeFirstResponder(nil)
-        Application.view.beginSheet(NewView(presenter))
+        Application.shared.view.makeFirstResponder(nil)
+        Application.shared.view.beginSheet(NewView(presenter))
     }
 }
