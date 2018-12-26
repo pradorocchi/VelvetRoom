@@ -19,8 +19,17 @@ class View:NSWindow {
         presenter.load()
     }
     
-    func canvasChanged() {
-        animateAlign()
+    func canvasChanged(_ animation:TimeInterval = 0.5) {
+        createCard()
+        canvas.documentView!.layoutSubtreeIfNeeded()
+        align()
+        if #available(OSX 10.12, *) {
+            NSAnimationContext.runAnimationGroup { context in
+                context.duration = animation
+                context.allowsImplicitAnimation = true
+                canvas.documentView!.layoutSubtreeIfNeeded()
+            }
+        }
     }
     
     func beginDrag(_ card:CardView) { detach(card) }
@@ -50,12 +59,8 @@ class View:NSWindow {
     func endDrag(_ column:ColumnView) {
         var after = root
         if root is CreateView || root!.frame.maxX > column.frame.midX {
-            let create = root!.child
-            root!.child = root!.child?.child
             column.sibling = root
             root = column
-            create?.child = column.child
-            column.child = create
             after = nil
         } else {
             while after!.sibling is ColumnView {
@@ -175,13 +180,6 @@ class View:NSWindow {
             var child:ItemView = column
             sibling = column
             
-            if index == 0 {
-                let buttonCard = CreateView(self, selector:#selector(newCard(_:)))
-                canvas.documentView!.addSubview(buttonCard)
-                child.child = buttonCard
-                child = buttonCard
-            }
-            
             board.cards.filter( { $0.column == index } ).sorted(by: { $0.index < $1.index } ).forEach {
                 let card = CardView($0, view:self)
                 canvas.documentView!.addSubview(card)
@@ -197,18 +195,6 @@ class View:NSWindow {
             root = buttonColumn
         } else {
             sibling!.sibling = buttonColumn
-        }
-    }
-    
-    private func animateAlign(_ duration:TimeInterval = 0.5) {
-        canvas.documentView!.layoutSubtreeIfNeeded()
-        align()
-        if #available(OSX 10.12, *) {
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = duration
-                context.allowsImplicitAnimation = true
-                canvas.documentView!.layoutSubtreeIfNeeded()
-            }
         }
     }
     
@@ -238,8 +224,15 @@ class View:NSWindow {
         canvas.right = canvas.documentView!.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight + 16)
     }
     
+    private func createCard() {
+        guard !(root is CreateView), !(root!.child is CreateView) else { return }
+        let create = CreateView(self, selector:#selector(newCard(_:)))
+        canvas.documentView!.addSubview(create)
+        create.child = root!.child
+        root!.child = create    }
+    
     private func detach(_ card:CardView) {
-        if let parent = canvas.documentView!.subviews.first(where:{ ($0 as! ItemView).child === card }) as? ItemView {
+        if let parent = canvas.documentView!.subviews.first(where: {($0 as! ItemView).child === card }) as? ItemView {
             parent.child = card.child
             canvasChanged()
         }
@@ -247,10 +240,8 @@ class View:NSWindow {
     
     private func detach(_ column:ColumnView) {
         if column === root {
-            let create = column.child
-            column.child = column.child?.child
-            create?.child = column.sibling?.child
-            column.sibling?.child = create
+            column.child!.removeFromSuperview()
+            column.child = column.child!.child
             root = column.sibling
         } else {
             var sibling = root
@@ -278,21 +269,25 @@ class View:NSWindow {
         Application.view.makeFirstResponder(nil)
         presenter.selected = view
         render(view.board)
-        animateAlign(0)
+        canvasChanged(0)
     }
     
     @objc private func newColumn(_ view:CreateView) {
         let column = ColumnView(presenter.newColumn(), view:self)
-        var left = root
-        while left!.sibling !== view {
-            left = left!.sibling
-        }
-        left!.sibling = column
         column.sibling = view
+        if root === view {
+            root = column
+        } else {
+            var left = root
+            while left!.sibling !== view {
+                left = left!.sibling
+            }
+            left!.sibling = column
+        }
         canvas.documentView!.addSubview(column)
         column.top.constant = view.top.constant
         column.left.constant = view.left.constant
-        animateAlign()
+        canvasChanged()
         column.beginEditing()
         presenter.scheduleUpdate()
     }
@@ -304,7 +299,7 @@ class View:NSWindow {
         canvas.documentView!.addSubview(card)
         card.top.constant = view.top.constant
         card.left.constant = view.left.constant
-        animateAlign()
+        canvasChanged()
         card.beginEditing()
         presenter.scheduleUpdate()
     }
