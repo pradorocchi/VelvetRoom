@@ -1,7 +1,8 @@
 import AppKit
 import VelvetRoom
 
-class ChartView:NSWindow {
+class ChartView:NSWindow, NSWindowDelegate {
+    private weak var cross:CrossView!
     override var canBecomeKey:Bool { return true }
     
     init(_ board:Board) {
@@ -12,6 +13,7 @@ class ChartView:NSWindow {
         contentView!.wantsLayer = true
         contentView!.layer!.backgroundColor = NSColor.black.cgColor
         contentView!.layer!.cornerRadius = 4
+        delegate = self
         
         let done = NSButton()
         done.target = self
@@ -34,6 +36,9 @@ class ChartView:NSWindow {
         title.stringValue = board.name
         contentView!.addSubview(title)
         
+        let cross = CrossView()
+        contentView!.addSubview(cross)
+        
         done.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:20).isActive = true
         done.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:20).isActive = true
         done.widthAnchor.constraint(equalToConstant:24).isActive = true
@@ -41,6 +46,16 @@ class ChartView:NSWindow {
         
         title.leftAnchor.constraint(equalTo:done.rightAnchor, constant:10).isActive = true
         title.centerYAnchor.constraint(equalTo:done.centerYAnchor).isActive = true
+        
+        cross.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:80).isActive = true
+        cross.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-80).isActive = true
+        cross.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:80).isActive = true
+        cross.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-80).isActive = true
+        self.cross = cross
+    }
+    
+    func windowDidBecomeKey(_:Notification) {
+        cross.update()
     }
     
     @objc private func done() {

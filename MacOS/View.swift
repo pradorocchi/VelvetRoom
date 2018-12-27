@@ -102,6 +102,7 @@ class View:NSWindow {
         detach(card)
         card.removeFromSuperview()
         presenter.delete(card.card, board:board)
+        progress.progress(CGFloat(presenter.selected.board.progress))
     }
     
     func deleteConfirm(_ column:ColumnView, board:Board) {
@@ -114,6 +115,7 @@ class View:NSWindow {
             child = child!.child
         }
         presenter.delete(column.column, board:board)
+        progress.progress(CGFloat(presenter.selected.board.progress))
     }
     
     private func makeOutlets() {
@@ -315,6 +317,7 @@ class View:NSWindow {
         canvasChanged()
         card.beginEditing()
         presenter.scheduleUpdate()
+        progress.progress(CGFloat(presenter.selected.board.progress))
     }
     
     @IBAction private func toggleSourceList(_ sender:NSMenuItem) {
