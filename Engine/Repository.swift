@@ -7,7 +7,7 @@ public class Repository {
     var account = Account()
     var storage:Storage = LocalStorage()
     var synch:Synch = CloudSynch()
-    var wait = 10.0
+    var wait = 1.0
     private let timer = DispatchSource.makeTimerSource(queue:.global(qos:.background))
     
     public init() {
