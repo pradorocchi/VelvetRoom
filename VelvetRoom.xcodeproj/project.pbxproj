@@ -13,6 +13,7 @@
 		DA1ABDA921C9AFD500CE1462 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */; };
 		DA1D104721CBCCAD00A8FBE9 /* TestRepository_Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */; };
 		DA2B491721C9187B00BABE86 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B491621C9187B00BABE86 /* NSColor.swift */; };
+		DA4C2AC521D4F4CB004988B4 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C2AC421D4F4CB004988B4 /* ProgressView.swift */; };
 		DA53930C21D2B02F00482FCA /* DeleteColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53930B21D2B02F00482FCA /* DeleteColumnView.swift */; };
 		DA53930E21D2B98B00482FCA /* DeleteBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53930D21D2B98B00482FCA /* DeleteBoardView.swift */; };
 		DA53931021D2CB6F00482FCA /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53930F21D2CB6F00482FCA /* TextStorage.swift */; };
@@ -124,6 +125,7 @@
 		DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository_Card.swift; sourceTree = "<group>"; };
 		DA2B491621C9187B00BABE86 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
+		DA4C2AC421D4F4CB004988B4 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		DA53930B21D2B02F00482FCA /* DeleteColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteColumnView.swift; sourceTree = "<group>"; };
 		DA53930D21D2B98B00482FCA /* DeleteBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBoardView.swift; sourceTree = "<group>"; };
 		DA53930F21D2CB6F00482FCA /* TextStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStorage.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				DAB2709021C3CA87008F184E /* Application.swift */,
 				DAAE57A021C6909D00ED711C /* Presenter.swift */,
 				DA7C744321C3E1C000B1F931 /* View.swift */,
+				DA4C2AC421D4F4CB004988B4 /* ProgressView.swift */,
 				DAFA95FC21CBDAAD00BA265C /* ItemView.swift */,
 				DAFA95FE21CBDC2C00BA265C /* CreateView.swift */,
 				DA86AB3E21D0F884007DFFEE /* EditView.swift */,
@@ -653,6 +656,7 @@
 				DA6A986C21CEA70000C18C7F /* TextLayout.swift in Sources */,
 				DA53930E21D2B98B00482FCA /* DeleteBoardView.swift in Sources */,
 				DA1ABDA921C9AFD500CE1462 /* ScrollView.swift in Sources */,
+				DA4C2AC521D4F4CB004988B4 /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

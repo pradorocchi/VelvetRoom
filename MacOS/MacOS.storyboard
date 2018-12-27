@@ -379,11 +379,19 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="2EA9C2BE-9B88-4B0C-93A6-C23F1E8951B7" label="Progress" paletteLabel="Progress" tag="-1" sizingBehavior="auto" id="LDS-zm-AEa">
+                                    <nil key="toolTip"/>
+                                    <customView key="view" id="dVc-iK-GaO" customClass="ProgressView" customModule="MacOS" customModuleProvider="target">
+                                        <rect key="frame" x="15" y="14" width="24" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </customView>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="KZI-1n-q2z"/>
                                 <toolbarItem reference="1qu-sh-P4N"/>
                                 <toolbarItem reference="kcB-kf-DEw"/>
+                                <toolbarItem reference="LDS-zm-AEa"/>
                                 <toolbarItem reference="0K5-pA-w2U"/>
                             </defaultToolbarItems>
                         </toolbar>
@@ -391,6 +399,7 @@
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                             <outlet property="deleteButton" destination="g3I-fJ-Wch" id="IoL-g9-NFL"/>
                             <outlet property="listButton" destination="6hB-Rg-9L8" id="1t5-Ge-ACe"/>
+                            <outlet property="progress" destination="dVc-iK-GaO" id="IMy-Nw-1Da"/>
                         </connections>
                     </window>
                     <connections>

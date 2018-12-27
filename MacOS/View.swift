@@ -7,6 +7,7 @@ class View:NSWindow {
     private weak var canvas:ScrollView!
     private weak var root:ItemView?
     private weak var borderLeft:NSLayoutConstraint!
+    @IBOutlet private weak var progress:ProgressView!
     @IBOutlet private weak var listButton:NSButton!
     @IBOutlet private weak var deleteButton:NSButton!
     
@@ -154,6 +155,7 @@ class View:NSWindow {
     }
     
     private func list(_ boards:[Board]) {
+        progress.clear()
         deleteButton.isEnabled = false
         canvas.removeSubviews()
         list.removeSubviews()
@@ -278,6 +280,7 @@ class View:NSWindow {
         render(view.board)
         canvasChanged(0)
         deleteButton.isEnabled = true
+        progress.progress(0.5)
     }
     
     @objc private func newColumn(_ view:CreateView) {
