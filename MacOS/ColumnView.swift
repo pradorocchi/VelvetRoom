@@ -4,8 +4,8 @@ import VelvetRoom
 class ColumnView:EditView {
     private(set) weak var column:Column!
     
-    init(_ column:Column, view:View) {
-        super.init(view)
+    init(_ column:Column) {
+        super.init()
         text.textContainer!.size = NSSize(width:10000, height:40)
         text.font = .bold(18)
         text.textColor = NSColor.textColor.withAlphaComponent(0.4)
@@ -26,18 +26,18 @@ class ColumnView:EditView {
         super.textDidEndEditing(notification)
         text.textColor = NSColor.textColor.withAlphaComponent(0.4)
         if column.name.isEmpty {
-            view.delete(self)
+            Application.shared.view.delete(self)
         }
     }
     
     override func beginDrag() {
         super.beginDrag()
-        view.beginDrag(self)
+        Application.shared.view.beginDrag(self)
     }
     
     override func endDrag() {
         super.endDrag()
-        view.endDrag(self)
+        Application.shared.view.endDrag(self)
     }
     
     override func drag(deltaX:CGFloat, deltaY:CGFloat) {
@@ -52,7 +52,7 @@ class ColumnView:EditView {
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
-            view.makeFirstResponder(nil)
+            Application.shared.view.makeFirstResponder(nil)
             return true
         }
         return false

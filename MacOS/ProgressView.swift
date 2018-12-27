@@ -4,9 +4,14 @@ class ProgressView:NSControl {
     private weak var label:NSTextField!
     private weak var width:NSLayoutConstraint!
     
+    override func mouseDown(with event:NSEvent) {
+        if !label.isHidden {
+            sendAction(action, to:target)
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         let background = NSView()
         background.translatesAutoresizingMaskIntoConstraints = false
         background.wantsLayer = true

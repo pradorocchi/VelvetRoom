@@ -1,11 +1,10 @@
 import AppKit
 
 class DeleteView:NSWindow {
-    private(set) weak var view:View!
     private(set) weak var message:NSTextField!
     override var canBecomeKey:Bool { return true }
     
-    init(_ view:View) {
+    init() {
         super.init(contentRect:NSRect(x:0, y:0, width:Application.shared.view.frame.width - 2, height:
             Application.shared.view.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
         isOpaque = false
@@ -13,7 +12,6 @@ class DeleteView:NSWindow {
         contentView!.wantsLayer = true
         contentView!.layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
         contentView!.layer!.cornerRadius = 4
-        self.view = view
         
         let message = NSTextField()
         message.translatesAutoresizingMaskIntoConstraints = false

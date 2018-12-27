@@ -1,12 +1,11 @@
 import AppKit
 
 class CreateView:ItemView {
-    init(_ target:AnyObject, selector:Selector) {
+    init(_ selector:Selector) {
         super.init()
         widthAnchor.constraint(equalToConstant:64).isActive = true
         heightAnchor.constraint(equalToConstant:40).isActive = true
         action = selector
-        self.target = target
         
         let image = NSImageView()
         image.image = NSImage(named:"new")
@@ -23,7 +22,7 @@ class CreateView:ItemView {
     required init?(coder:NSCoder) { return nil }
     
     override func mouseDown(with:NSEvent) {
-        sendAction(action, to:target)
+        sendAction(action, to:Application.shared.view)
         if #available(OSX 10.12, *) {
             NSAnimationContext.runAnimationGroup( { context in
                 context.duration = 0.2

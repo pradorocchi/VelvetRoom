@@ -2,7 +2,6 @@ import AppKit
 
 class EditView:ItemView, NSTextViewDelegate {
     private(set) weak var text:TextView!
-    private(set) weak var view:View!
     private var dragging = false {
         didSet {
             if dragging {
@@ -13,12 +12,11 @@ class EditView:ItemView, NSTextViewDelegate {
         }
     }
     
-    init(_ view:View) {
+    override init() {
         super.init()
         wantsLayer = true
         layer!.cornerRadius = 6
-        self.view = view
-        
+
         let text = TextView()
         text.delegate = self
         addSubview(text)
@@ -45,7 +43,7 @@ class EditView:ItemView, NSTextViewDelegate {
                 NSCursor.pointingHand.set()
             } else {
                 dragging = true
-                view.makeFirstResponder(nil)
+                Application.shared.view.makeFirstResponder(nil)
             }
         }
     }
@@ -57,17 +55,17 @@ class EditView:ItemView, NSTextViewDelegate {
     }
     
     func textDidChange(_:Notification) {
-        view.canvasChanged()
+        Application.shared.view.canvasChanged()
     }
     
     func textDidEndEditing(_:Notification) {
-        view.canvasChanged()
-        view.presenter.scheduleUpdate()
+        Application.shared.view.canvasChanged()
+        Application.shared.view.presenter.scheduleUpdate()
     }
     
     func beginEditing() {
         text.isEditable = true
-        view.makeFirstResponder(text)
+        Application.shared.view.makeFirstResponder(text)
     }
     
     func beginDrag() {

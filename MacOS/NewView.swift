@@ -10,10 +10,9 @@ class NewView:NSWindow, NSTextFieldDelegate {
     private weak var columns:NSTextField!
     private weak var selectorLeft:NSLayoutConstraint!
     private var template:Template!
-    private weak var presenter:Presenter!
     override var canBecomeKey:Bool { return true }
     
-    init(_ presenter:Presenter) {
+    init() {
         super.init(contentRect:NSRect(x:0, y:0, width:Application.shared.view.frame.width - 2, height:
             Application.shared.view.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
         isOpaque = false
@@ -21,7 +20,6 @@ class NewView:NSWindow, NSTextFieldDelegate {
         contentView!.wantsLayer = true
         contentView!.layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
         contentView!.layer!.cornerRadius = 4
-        self.presenter = presenter
         
         let title = NSTextField()
         title.translatesAutoresizingMaskIntoConstraints = false
@@ -254,7 +252,7 @@ class NewView:NSWindow, NSTextFieldDelegate {
     
     @objc private func create() {
         makeFirstResponder(nil)
-        presenter.newBoard(name.stringValue, template:template)
+        Application.shared.view.presenter.newBoard(name.stringValue, template:template)
         Application.shared.view.endSheet(self)
     }
 }

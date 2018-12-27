@@ -59,6 +59,7 @@ class View:NSWindow {
         canvasChanged()
         presenter.move(card.card, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
         presenter.scheduleUpdate()
+        progress.progress(CGFloat(presenter.selected.board.progress))
     }
     
     func endDrag(_ column:ColumnView) {
@@ -78,22 +79,23 @@ class View:NSWindow {
         canvasChanged()
         presenter.move(column.column, after:(after as? ColumnView)?.column)
         presenter.scheduleUpdate()
+        progress.progress(CGFloat(presenter.selected.board.progress))
     }
     
     func delete(_ card:CardView) {
         makeFirstResponder(nil)
-        beginSheet(DeleteCardView(card, board:presenter.selected.board, view:self))
+        beginSheet(DeleteCardView(card, board:presenter.selected.board))
     }
     
     func delete(_ column:ColumnView) {
         makeFirstResponder(nil)
-        beginSheet(DeleteColumnView(column, board:presenter.selected.board, view:self))
+        beginSheet(DeleteColumnView(column, board:presenter.selected.board))
     }
     
     func delete() {
         presenter.fireSchedule()
         makeFirstResponder(nil)
-        beginSheet(DeleteBoardView(presenter.selected.board, view:self))
+        beginSheet(DeleteBoardView(presenter.selected.board))
     }
     
     func deleteConfirm(_ card:CardView, board:Board) {
@@ -161,7 +163,7 @@ class View:NSWindow {
         list.removeSubviews()
         var top = list.documentView!.topAnchor
         boards.forEach { board in
-            let view = BoardView(board, view:self)
+            let view = BoardView(board)
             view.target = self
             view.action = #selector(select(view:))
             list.documentView!.addSubview(view)
@@ -179,7 +181,7 @@ class View:NSWindow {
         root = nil
         var sibling:ItemView?
         board.columns.enumerated().forEach { (index, item) in
-            let column = ColumnView(item, view:self)
+            let column = ColumnView(item)
             if sibling == nil {
                 root = column
             } else {
@@ -190,14 +192,14 @@ class View:NSWindow {
             sibling = column
             
             board.cards.filter( { $0.column == index } ).sorted(by: { $0.index < $1.index } ).forEach {
-                let card = CardView($0, view:self)
+                let card = CardView($0)
                 canvas.documentView!.addSubview(card)
                 child.child = card
                 child = card
             }
         }
         
-        let buttonColumn = CreateView(self, selector:#selector(newColumn(_:)))
+        let buttonColumn = CreateView(#selector(newColumn(_:)))
         canvas.documentView!.addSubview(buttonColumn)
         
         if root == nil {
@@ -235,7 +237,7 @@ class View:NSWindow {
     
     private func createCard() {
         guard !(root is CreateView), !(root!.child is CreateView) else { return }
-        let create = CreateView(self, selector:#selector(newCard(_:)))
+        let create = CreateView(#selector(newCard(_:)))
         canvas.documentView!.addSubview(create)
         create.child = root!.child
         root!.child = create    }
@@ -284,7 +286,7 @@ class View:NSWindow {
     }
     
     @objc private func newColumn(_ view:CreateView) {
-        let column = ColumnView(presenter.newColumn(), view:self)
+        let column = ColumnView(presenter.newColumn())
         column.sibling = view
         if root === view {
             root = column
@@ -304,7 +306,7 @@ class View:NSWindow {
     }
     
     @objc private func newCard(_ view:CreateView) {
-        let card = CardView(presenter.newCard(), view:self)
+        let card = CardView(presenter.newCard())
         card.child = view.child
         view.child = card
         canvas.documentView!.addSubview(card)
@@ -342,9 +344,14 @@ class View:NSWindow {
         }
     }
     
+    @IBAction private func play(_ sender:Any) {
+        makeFirstResponder(nil)
+        beginSheet(ChartView(presenter.selected.board))
+    }
+    
     @IBAction private func newDocument(_ sender:Any) {
         makeFirstResponder(nil)
-        beginSheet(NewView(presenter))
+        beginSheet(NewView())
     }
     
     @IBAction private func remove(_ sender:Any) {

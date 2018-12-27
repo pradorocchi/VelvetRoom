@@ -14,6 +14,7 @@
 		DA1D104721CBCCAD00A8FBE9 /* TestRepository_Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */; };
 		DA2B491721C9187B00BABE86 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B491621C9187B00BABE86 /* NSColor.swift */; };
 		DA4C2AC521D4F4CB004988B4 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C2AC421D4F4CB004988B4 /* ProgressView.swift */; };
+		DA4C2AC721D5098A004988B4 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C2AC621D5098A004988B4 /* ChartView.swift */; };
 		DA53930C21D2B02F00482FCA /* DeleteColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53930B21D2B02F00482FCA /* DeleteColumnView.swift */; };
 		DA53930E21D2B98B00482FCA /* DeleteBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53930D21D2B98B00482FCA /* DeleteBoardView.swift */; };
 		DA53931021D2CB6F00482FCA /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53930F21D2CB6F00482FCA /* TextStorage.swift */; };
@@ -126,6 +127,7 @@
 		DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository_Card.swift; sourceTree = "<group>"; };
 		DA2B491621C9187B00BABE86 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
 		DA4C2AC421D4F4CB004988B4 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		DA4C2AC621D5098A004988B4 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		DA53930B21D2B02F00482FCA /* DeleteColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteColumnView.swift; sourceTree = "<group>"; };
 		DA53930D21D2B98B00482FCA /* DeleteBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBoardView.swift; sourceTree = "<group>"; };
 		DA53930F21D2CB6F00482FCA /* TextStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStorage.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				DA982ED821CD10540085480B /* CardView.swift */,
 				DA7FD2CF21C40AB500F366B9 /* BoardView.swift */,
 				DAC2CDBF21C8E2F000AD927B /* NewView.swift */,
+				DA4C2AC621D5098A004988B4 /* ChartView.swift */,
 				DA1544E221D2752600B9D9F7 /* DeleteView.swift */,
 				DA1544E621D27D7F00B9D9F7 /* DeleteCardView.swift */,
 				DA53930B21D2B02F00482FCA /* DeleteColumnView.swift */,
@@ -641,6 +644,7 @@
 				DA86AB3F21D0F884007DFFEE /* EditView.swift in Sources */,
 				DA86474521C3FDE500E4957B /* ColumnView.swift in Sources */,
 				DA16E00121CE8AFF00D21C7A /* TextView.swift in Sources */,
+				DA4C2AC721D5098A004988B4 /* ChartView.swift in Sources */,
 				DA1544E721D27D7F00B9D9F7 /* DeleteCardView.swift in Sources */,
 				DAB2709521C3CA87008F184E /* Application.swift in Sources */,
 				DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */,

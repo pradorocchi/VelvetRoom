@@ -4,16 +4,14 @@ import VelvetRoom
 class BoardView:NSControl, NSTextViewDelegate {
     var selected = false { didSet { update() } }
     private(set) weak var board:Board!
-    private weak var view:View!
     private weak var text:TextView!
     override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:60) }
     
-    init(_ board:Board, view:View) {
+    init(_ board:Board) {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
         self.board = board
-        self.view = view
         
         let text = TextView()
         text.textContainer!.size = NSSize(width:250, height:30)
@@ -35,26 +33,26 @@ class BoardView:NSControl, NSTextViewDelegate {
     override func mouseDown(with event:NSEvent) {
         if event.clickCount == 2 {
             text.isEditable = true
-            view.makeFirstResponder(text)
+            Application.shared.view.makeFirstResponder(text)
             update()
         } else if !selected {
-            sendAction(self.action, to:self.target)
+            sendAction(action, to:target)
         }
     }
     
     func textDidEndEditing(_:Notification) {
         board.name = text.string
         if board.name.isEmpty {
-            view.delete()
+            Application.shared.view.delete()
         } else {
-            view.presenter.scheduleUpdate()
+            Application.shared.view.presenter.scheduleUpdate()
         }
         DispatchQueue.main.async { [weak self] in self?.update() }
     }
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
-            view.makeFirstResponder(nil)
+            Application.shared.view.makeFirstResponder(nil)
             return true
         }
         return false
@@ -65,7 +63,7 @@ class BoardView:NSControl, NSTextViewDelegate {
     }
     
     private func update() {
-        if view.firstResponder === text {
+        if Application.shared.view.firstResponder === text {
             layer!.backgroundColor = NSColor.windowFrameColor.withAlphaComponent(0.2).cgColor
             text.alphaValue = 1
         } else if selected {

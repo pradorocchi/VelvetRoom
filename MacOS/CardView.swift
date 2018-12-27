@@ -4,8 +4,8 @@ import VelvetRoom
 class CardView:EditView {
     private(set) weak var card:Card!
     
-    init(_ card:Card, view:View) {
-        super.init(view)
+    init(_ card:Card) {
+        super.init()
         text.textContainer!.size = NSSize(width:400, height:1000000)
         text.font = .light(14)
         text.string = card.content
@@ -19,17 +19,17 @@ class CardView:EditView {
         card.content = text.string
         super.textDidEndEditing(notification)
         if card.content.isEmpty {
-            view.delete(self)
+            Application.shared.view.delete(self)
         }
     }
     
     override func beginDrag() {
         super.beginDrag()
-        view.beginDrag(self)
+        Application.shared.view.beginDrag(self)
     }
     
     override func endDrag() {
         super.endDrag()
-        view.endDrag(self)
+        Application.shared.view.endDrag(self)
     }
 }
