@@ -87,4 +87,70 @@ class TestBoard:XCTestCase {
         board.cards = [cardA, cardB]
         XCTAssertEqual(1, board.progress)
     }
+    
+    func testChartNoColumns() {
+        let board = Board()
+        XCTAssertTrue(board.chart.isEmpty)
+    }
+    
+    func testChartOneColumnNoCards() {
+        let board = Board()
+        board.columns = [Column()]
+        XCTAssertTrue(board.chart.isEmpty)
+    }
+    
+    func testChartOneColumnWithCards() {
+        let board = Board()
+        let cardA = Card()
+        let cardB = Card()
+        cardA.position(column:0, index:0)
+        cardB.position(column:0, index:1)
+        board.columns = [Column()]
+        board.cards = [cardA, cardB]
+        XCTAssertEqual(1, board.chart[0])
+    }
+    
+    func testChartTwoColumnNoCards() {
+        let board = Board()
+        board.columns = [Column(), Column()]
+        XCTAssertTrue(board.chart.isEmpty)
+    }
+    
+    func testChartTwoColumnsWithCards() {
+        let board = Board()
+        let cardA = Card()
+        let cardB = Card()
+        cardA.position(column:0, index:0)
+        cardB.position(column:1, index:0)
+        board.columns = [Column(), Column()]
+        board.cards = [cardA, cardB]
+        XCTAssertEqual(0.5, board.chart[0])
+        XCTAssertEqual(0.5, board.chart[1])
+    }
+    
+    func testChartThreeColumnsWithCards() {
+        let board = Board()
+        let cardA = Card()
+        let cardB = Card()
+        cardA.position(column:0, index:0)
+        cardB.position(column:1, index:0)
+        board.columns = [Column(), Column(), Column()]
+        board.cards = [cardA, cardB]
+        XCTAssertEqual(0.5, board.chart[0])
+        XCTAssertEqual(0.5, board.chart[1])
+        XCTAssertEqual(0, board.chart[2])
+    }
+    
+    func testChartThreeColumnsWithCardsCompleted() {
+        let board = Board()
+        let cardA = Card()
+        let cardB = Card()
+        cardA.position(column:2, index:0)
+        cardB.position(column:2, index:0)
+        board.columns = [Column(), Column(), Column()]
+        board.cards = [cardA, cardB]
+        XCTAssertEqual(0, board.chart[0])
+        XCTAssertEqual(0, board.chart[1])
+        XCTAssertEqual(1, board.chart[2])
+    }
 }
