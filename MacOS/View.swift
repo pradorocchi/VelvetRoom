@@ -280,7 +280,7 @@ class View:NSWindow {
         render(view.board)
         canvasChanged(0)
         deleteButton.isEnabled = true
-        progress.progress(0.5)
+        progress.progress(CGFloat(view.board.progress))
     }
     
     @objc private func newColumn(_ view:CreateView) {
