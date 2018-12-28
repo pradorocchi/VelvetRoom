@@ -150,7 +150,7 @@ class View:NSWindow {
         borderLeft = border.leftAnchor.constraint(equalTo:contentView!.leftAnchor)
         borderLeft.isActive = true
         
-        canvas.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:1).isActive = true
+        canvas.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:36).isActive = true
         canvas.leftAnchor.constraint(equalTo:border.rightAnchor).isActive = true
         canvas.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-1).isActive = true
         canvas.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-1).isActive = true
@@ -217,7 +217,7 @@ class View:NSWindow {
         var sibling = root
         while sibling != nil {
             let right = maxRight
-            var bottom = CGFloat(56)
+            var bottom = CGFloat(20)
             
             var child = sibling
             sibling = sibling!.sibling
