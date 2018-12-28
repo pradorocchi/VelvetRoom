@@ -1,72 +1,78 @@
 import AppKit
 
 class CrossView:NSView {
-    var knowledge:CGFloat = 0.5
-    var empathy:CGFloat = 0.3
-    var courage:CGFloat = 0.7
-    var diligence:CGFloat = 0.2
-    
-    init() {
-        super.init(frame:.zero)
+    init(_ chart:[(String, Float)]) {
+        super.init(frame:Application.shared.view.frame)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
+        display(chart)
     }
     
     required init?(coder:NSCoder) { return nil }
     
-    func update(_ chart:[(String, Float)]) {
-        let side = (min(frame.width, frame.height) / 2) - 60
-        let origin = CGMutablePath()
-        let marker = CGMutablePath()
-        let destiny = CGMutablePath()
-        origin.move(to:CGPoint(x:bounds.midX, y:bounds.midY))
-        origin.addLine(to:CGPoint(x:bounds.midX, y:bounds.midY))
-        origin.closeSubpath()
-        destiny.move(to:CGPoint(x:bounds.midX, y:bounds.midY))
-        
+    private func display(_ chart:[(String, Float)]) {
         var angle = CGFloat()
-        var first:CGPoint?
-        chart.forEach {
-            marker.addArc(center:CGPoint(x:bounds.midX, y:bounds.midY), radius:(side * CGFloat($0.1) + 10), startAngle:0,
-                          endAngle:angle, clockwise:true)
-            destiny.addLine(to:marker.currentPoint)
-            if first == nil {
-                first = marker.currentPoint
+        let center = CGPoint(x:bounds.midX, y:bounds.midY)
+        chart.enumerated().forEach {
+            let delta = .pi * -2 * CGFloat($0.element.1)
+            let radius = delta + angle
+            let path = CGMutablePath()
+            path.move(to:center)
+            if $0.element.1 > 0 {
+                let name = CGMutablePath()
+                name.addArc(center:center, radius:130, startAngle:0, endAngle:angle + (delta / 2), clockwise:true)
+                caption($0.element.0, percent:$0.element.1, point:name.currentPoint)
             }
-            angle += .pi * -2 / CGFloat(chart.count)
+            path.addArc(center:center, radius:100, startAngle:angle, endAngle:radius, clockwise:true)
+            
+            path.closeSubpath()
+            let layer = CAShapeLayer()
+            layer.frame = bounds
+            layer.path = path
+            layer.lineWidth = 5
+            layer.strokeColor = NSColor.black.cgColor
+            if $0.offset == chart.count - 1 {
+                layer.fillColor = NSColor.velvetBlue.withAlphaComponent(0.3).cgColor
+            } else {
+                layer.fillColor = NSColor.velvetBlue.cgColor
+            }
+            self.layer!.addSublayer(layer)
+            angle = radius
         }
-        destiny.addLine(to:first!)
         
-        let animation = CABasicAnimation(keyPath:"path")
-        animation.duration = 1
-        animation.fromValue = origin
-        animation.toValue = destiny
-        
+        let path = CGMutablePath()
+        path.addArc(center:center, radius:60, startAngle:0.001, endAngle:0, clockwise:false)
         let layer = CAShapeLayer()
-        layer.fillColor = NSColor.velvetBlue.cgColor
         layer.frame = bounds
-        layer.add(animation, forKey:String())
-        layer.path = destiny
+        layer.path = path
+        layer.fillColor = NSColor.black.cgColor
         self.layer!.addSublayer(layer)
     }
     
-    private func circle(_ side:CGFloat) {
-        let path = CGMutablePath()
-        path.addArc(center:CGPoint(x:bounds.midX, y:bounds.midY), radius:side, startAngle:0.0001, endAngle:0, clockwise:false)
-        path.move(to:CGPoint(x:bounds.midX - side, y:bounds.midY))
-        path.addLine(to:CGPoint(x:bounds.midX + side, y:bounds.midY))
-        path.move(to:CGPoint(x:bounds.midX, y:bounds.midY - side))
-        path.addLine(to:CGPoint(x:bounds.midX, y:bounds.midY + side))
-        path.closeSubpath()
+    private func caption(_ name:String, percent:Float, point:CGPoint) {
+        let mutable = NSMutableAttributedString()
+        mutable.append(NSAttributedString(
+            string:name, attributes:[.font:NSFont.systemFont(ofSize:16, weight:.medium)]))
+        mutable.append(NSAttributedString(
+            string:"\n\(Int(percent * 100))%", attributes:[.font:NSFont.systemFont(ofSize:14, weight:.ultraLight)]))
         
-        let layer = CAShapeLayer()
-        layer.lineDashPattern = [NSNumber(value:1), NSNumber(value:7)]
-        layer.strokeColor = NSColor.white.cgColor
-        layer.path = path
-        layer.lineWidth = 1
-        layer.lineCap = .round
-        layer.lineJoin = .round
-        layer.frame = bounds
-        self.layer!.addSublayer(layer)
+        let label = NSTextField()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .clear
+        label.isBezeled = false
+        label.isEditable = false
+        label.textColor = .white
+        label.attributedStringValue = mutable
+        addSubview(label)
+        
+        label.centerYAnchor.constraint(equalTo:bottomAnchor, constant:-point.y).isActive = true
+        
+        if point.x == bounds.midX {
+            label.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        } else if point.x >= bounds.midX {
+            label.leftAnchor.constraint(equalTo:leftAnchor, constant:point.x).isActive = true
+        } else {
+            label.rightAnchor.constraint(equalTo:leftAnchor, constant:point.x).isActive = true
+        }
     }
 }

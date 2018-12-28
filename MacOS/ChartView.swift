@@ -29,12 +29,12 @@ class ChartView:NSWindow {
         title.backgroundColor = .clear
         title.isBezeled = false
         title.isEditable = false
-        title.font = .systemFont(ofSize:18, weight:.bold)
+        title.font = .systemFont(ofSize:16, weight:.bold)
         title.textColor = .velvetBlue
         title.stringValue = board.name
         contentView!.addSubview(title)
         
-        let cross = CrossView()
+        let cross = CrossView(board.chart)
         contentView!.addSubview(cross)
         
         done.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:20).isActive = true
@@ -49,9 +49,6 @@ class ChartView:NSWindow {
         cross.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
         cross.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
         cross.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
-        
-        contentView!.layoutSubtreeIfNeeded()
-        cross.update(board.chart)
     }
     
     @objc private func done() {
