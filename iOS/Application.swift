@@ -7,7 +7,7 @@ import UIKit
         window = UIWindow(frame:UIScreen.main.bounds)
         window!.backgroundColor = .black
         window!.makeKeyAndVisible()
-        window!.rootViewController = UIViewController()
+        window!.rootViewController = View()
         return true
     }
 }
