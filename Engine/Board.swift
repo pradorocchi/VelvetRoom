@@ -17,10 +17,10 @@ public class Board:Codable {
         }) / Float(cards.count)
     }
     
-    public var chart:[Float] {
+    public var chart:[(String, Float)] {
         guard !cards.isEmpty else { return [] }
-        return cards.reduce(into:[Int](repeating:0, count:columns.count), { result, card in
-            result[card.column] += 1
-        }).map { Float($0) / Float(cards.count)  }
+        return cards.reduce(into:columns.map({ ($0.name, 0) }), { result, card in
+            result[card.column].1 += 1
+        }).map { ($0.0, Float($0.1) / Float(cards.count))  }
     }
 }

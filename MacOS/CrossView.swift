@@ -12,45 +12,30 @@ class CrossView:NSView {
         wantsLayer = true
     }
     
-    func update() {
-        let side = (min(frame.width, frame.height) / 2) - 50
-        circle(side)
-        chart(side)
-    }
-    
     required init?(coder:NSCoder) { return nil }
     
-    private func chart(_ side:CGFloat) {
+    func update(_ chart:[(String, Float)]) {
+        let side = (min(frame.width, frame.height) / 2) - 60
         let origin = CGMutablePath()
+        let marker = CGMutablePath()
+        let destiny = CGMutablePath()
         origin.move(to:CGPoint(x:bounds.midX, y:bounds.midY))
         origin.addLine(to:CGPoint(x:bounds.midX, y:bounds.midY))
         origin.closeSubpath()
-        
-        let destiny = CGMutablePath()
-//        destiny.move(to:CGPoint(x:bounds.midX, y:bounds.midY - (side * knowledge)))
-//        destiny.addLine(to:CGPoint(x:bounds.midX + (side * empathy), y:bounds.midY))
-//        destiny.addLine(to:CGPoint(x:bounds.midX, y:bounds.midY + (side * courage)))
-//        destiny.addLine(to:CGPoint(x:bounds.midX - (side * diligence), y:bounds.midY))
-//        destiny.closeSubpath()
-        
-        
-        
-        let marker = CGMutablePath()
-        marker.addArc(center:CGPoint(x:bounds.midX, y:bounds.midY), radius:side * knowledge, startAngle:0, endAngle:0, clockwise:false)
-        let knowledgePoint = marker.currentPoint
-        destiny.closeSubpath()
-        marker.addArc(center:CGPoint(x:bounds.midX, y:bounds.midY), radius:side * empathy, startAngle:0, endAngle:2.0944, clockwise:false)
-        let empathyPoint = marker.currentPoint
-        destiny.closeSubpath()
-        marker.addArc(center:CGPoint(x:bounds.midX, y:bounds.midY), radius:side * courage, startAngle:0, endAngle:4.18879, clockwise:false)
-        let couragePoint = marker.currentPoint
-        
         destiny.move(to:CGPoint(x:bounds.midX, y:bounds.midY))
-        destiny.addLine(to:knowledgePoint)
-        destiny.addLine(to:empathyPoint)
-        destiny.addLine(to:couragePoint)
-        destiny.addLine(to:knowledgePoint)
-        destiny.closeSubpath()
+        
+        var angle = CGFloat()
+        var first:CGPoint?
+        chart.forEach {
+            marker.addArc(center:CGPoint(x:bounds.midX, y:bounds.midY), radius:(side * CGFloat($0.1) + 10), startAngle:0,
+                          endAngle:angle, clockwise:true)
+            destiny.addLine(to:marker.currentPoint)
+            if first == nil {
+                first = marker.currentPoint
+            }
+            angle += .pi * -2 / CGFloat(chart.count)
+        }
+        destiny.addLine(to:first!)
         
         let animation = CABasicAnimation(keyPath:"path")
         animation.duration = 1

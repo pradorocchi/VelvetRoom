@@ -51,7 +51,7 @@ class ChartView:NSWindow {
         cross.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
         
         contentView!.layoutSubtreeIfNeeded()
-        cross.update()
+        cross.update(board.chart)
     }
     
     @objc private func done() {
