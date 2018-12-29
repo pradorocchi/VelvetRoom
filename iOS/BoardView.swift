@@ -6,13 +6,17 @@ class BoardView:UIControl, UITextViewDelegate {
     override var isHighlighted:Bool { didSet { update() } }
     private(set) weak var board:Board!
     private weak var text:TextView!
+    private weak var delete:UIButton!
     override var intrinsicContentSize:CGSize { return CGSize(width:UIView.noIntrinsicMetric, height:54) }
     
     init(_ board:Board) {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 4
-        addGestureRecognizer(UILongPressGestureRecognizer(target:self, action:#selector(longpressed(_:))))
+        addTarget(self, action:#selector(selectBoard), for:.touchUpInside)
+        let gesture = UILongPressGestureRecognizer(target:self, action:#selector(longpressed(_:)))
+        gesture.minimumPressDuration = 1
+        addGestureRecognizer(gesture)
         self.board = board
         
         let text = TextView()
@@ -26,21 +30,36 @@ class BoardView:UIControl, UITextViewDelegate {
         text.textContainer.lineBreakMode = .byTruncatingHead
         addSubview(text)
         self.text = text
-
+        
+        let delete = UIButton()
+        delete.addTarget(self, action:#selector(remove), for:.touchUpInside)
+        delete.translatesAutoresizingMaskIntoConstraints = false
+        delete.setImage(#imageLiteral(resourceName: "delete.pdf"), for:.normal)
+        delete.imageView!.clipsToBounds = true
+        delete.imageView!.contentMode = .center
+        addSubview(delete)
+        self.delete = delete
+        
         text.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:12).isActive = true
-        text.rightAnchor.constraint(equalTo:rightAnchor, constant:-40).isActive = true
+        text.rightAnchor.constraint(equalTo:delete.leftAnchor, constant:-10).isActive = true
         text.heightAnchor.constraint(equalToConstant:22).isActive = true
+        
+        delete.topAnchor.constraint(equalTo:topAnchor).isActive = true
+        delete.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
+        delete.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
+        delete.widthAnchor.constraint(equalToConstant:54).isActive = true
+        
         update()
     }
     
     required init?(coder:NSCoder) { return nil }
     
     func textViewDidEndEditing(_:UITextView) {
+        delete.isHidden = false
         text.isUserInteractionEnabled = false
         board.name = text.text
         Application.view.scheduleUpdate()
-        isSelected = false
         DispatchQueue.main.async {
             self.update()
         }
@@ -54,34 +73,11 @@ class BoardView:UIControl, UITextViewDelegate {
         return true
     }
     
-    /*
-    func textDidEndEditing(_:Notification) {
-        board.name = text.string
-        if board.name.isEmpty {
-            Application.shared.view.delete()
-        } else {
-            Application.shared.view.presenter.scheduleUpdate()
-        }
-        DispatchQueue.main.async { [weak self] in self?.update() }
-    }
-    
-    func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
-        if (command == #selector(NSResponder.insertNewline(_:))) {
-            Application.shared.view.makeFirstResponder(nil)
-            return true
-        }
-        return false
-    }
-    
-    func textView(_:NSTextView, shouldChangeTextIn range:NSRange, replacementString:String?) -> Bool {
-        return (text.string as NSString).replacingCharacters(in:range, with:replacementString ?? String()).count < 28
-    }
-    */
     private func update() {
         if text.isFirstResponder {
             backgroundColor = .clear
             text.textColor = .white
-        } else if isSelected || isHighlighted {
+        } else if isHighlighted || isSelected {
             backgroundColor = .velvetBlue
             text.textColor = .black
         } else {
@@ -90,11 +86,30 @@ class BoardView:UIControl, UITextViewDelegate {
         }
     }
     
+    @objc private func remove() {
+        UIApplication.shared.keyWindow!.endEditing(true)
+    }
+    
+    @objc private func selectBoard() {
+        guard !text.isFirstResponder else { return }
+        isHighlighted = true
+        isSelected = true
+        UIApplication.shared.keyWindow!.endEditing(true)
+        Application.view.open(board)
+        DispatchQueue.main.asyncAfter(deadline:.now() + 1) { [weak self] in
+            self?.isSelected = false
+        }
+    }
+    
     @objc private func longpressed(_ gesture:UILongPressGestureRecognizer) {
-        guard gesture.state == .began else { return }
+        guard
+            gesture.state == .began,
+            gesture.location(in:self).x < bounds.width - 80
+        else { return }
+        delete.isHidden = true
         text.isUserInteractionEnabled = true
         text.becomeFirstResponder()
         update()
-        Application.view.selected = self
+        Application.view.selected = board
     }
 }

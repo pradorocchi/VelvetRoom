@@ -1,7 +1,10 @@
 import UIKit
 
 class ProgressView:UIControl {
-    private weak var label:UILabel!
+    var progress:Float = 0 { didSet {
+        width.constant = CGFloat(progress)
+        UIView.animate(withDuration:1) { self.layoutIfNeeded() }
+    } }
     private weak var width:NSLayoutConstraint!
     
     init() {
@@ -29,14 +32,12 @@ class ProgressView:UIControl {
         label.textAlignment = .center
         label.textColor = .black
         label.text = "%"
-        label.isHidden = true
         addSubview(label)
-        self.label = label
         
         background.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         background.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         background.heightAnchor.constraint(equalToConstant:18).isActive = true
-        background.widthAnchor.constraint(equalToConstant:24).isActive = true
+        background.widthAnchor.constraint(equalToConstant:26).isActive = true
         
         progress.leftAnchor.constraint(equalTo:background.leftAnchor).isActive = true
         progress.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
@@ -49,19 +50,4 @@ class ProgressView:UIControl {
     }
     
     required init?(coder:NSCoder) { return nil }
-    
-    func progress(_ value:CGFloat) {
-        label.isHidden = false
-        animate(value * 24)
-    }
-    
-    func clear() {
-        label.isHidden = true
-        animate(0)
-    }
-    
-    private func animate(_ value:CGFloat) {
-        width.constant = value
-        UIView.animate(withDuration:1) { self.layoutIfNeeded() }
-    }
 }

@@ -2,33 +2,40 @@ import UIKit
 import VelvetRoom
 
 class View:UIViewController {
-    weak var selected:BoardView! {
-        willSet {
-            if let previous = selected {
-                previous.isSelected = false
-            }
-        }
-        didSet {
-            selected.isSelected = true
-            fireSchedule()
-        }
-    }
+    weak var selected:Board! { didSet { fireSchedule() } }
     let repository = Repository()
+    private weak var progressButton:ProgressView!
     private weak var titleLabel:UILabel!
     private weak var boards:UIView!
     private weak var boardsBottom:NSLayoutConstraint!
+    private weak var boardsRight:NSLayoutConstraint!
+    private weak var newLeft:NSLayoutConstraint!
+    private weak var progressLeft:NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         makeOutlets()
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
-        repository.select = { board in DispatchQueue.main.async { self.select(board) } }
+        repository.select = { board in DispatchQueue.main.async { self.open(board) } }
         listenKeyboard()
         DispatchQueue.global(qos:.background).async { self.repository.load() }
     }
     
+    func open(_ board:Board) {
+        selected = board
+        progressButton.progress = board.progress
+        titleLabel.text = board.name
+        newLeft.constant = view.bounds.width * -0.16
+        progressLeft.constant = view.bounds.width * -0.32
+        boardsRight.constant = view.bounds.width
+        UIView.animate(withDuration:0.5) {
+            self.view.layoutIfNeeded()
+            self.titleLabel.alpha = 1
+        }
+    }
+    
     func scheduleUpdate() {
-        DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(self.selected.board) }
+        DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(self.selected) }
     }
     
     func fireSchedule() {
@@ -46,28 +53,22 @@ class View:UIViewController {
         
         let progressButton = ProgressView()
         view.addSubview(progressButton)
-        
-        let deleteButton = UIButton()
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.setImage(#imageLiteral(resourceName: "delete.pdf"), for:.normal)
-        deleteButton.imageView!.clipsToBounds = true
-        deleteButton.imageView!.contentMode = .center
-        deleteButton.isEnabled = false
-        view.addSubview(deleteButton)
+        self.progressButton = progressButton
         
         let listButton = UIButton()
+        listButton.addTarget(self, action:#selector(showList), for:.touchUpInside)
         listButton.translatesAutoresizingMaskIntoConstraints = false
         listButton.setImage(#imageLiteral(resourceName: "list.pdf"), for:.normal)
         listButton.imageView!.clipsToBounds = true
         listButton.imageView!.contentMode = .center
-        listButton.isEnabled = false
         view.addSubview(listButton)
         
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.isUserInteractionEnabled = false
-        titleLabel.font = .light(15)
+        titleLabel.font = .bold(16)
         titleLabel.textColor = .white
+        titleLabel.alpha = 0
         view.addSubview(titleLabel)
         self.titleLabel = titleLabel
         
@@ -82,37 +83,38 @@ class View:UIViewController {
         boardsScroll.addSubview(boards)
         self.boards = boards
         
-        newButton.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
         newButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         newButton.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.16).isActive = true
+        newLeft = newButton.leftAnchor.constraint(equalTo:view.leftAnchor)
+        newLeft.isActive = true
         
         progressButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
-        progressButton.rightAnchor.constraint(equalTo:newButton.leftAnchor).isActive = true
         progressButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         progressButton.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.16).isActive = true
-        
-        deleteButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
-        deleteButton.rightAnchor.constraint(equalTo:progressButton.leftAnchor).isActive = true
-        deleteButton.heightAnchor.constraint(equalToConstant:50).isActive = true
-        deleteButton.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.16).isActive = true
+        progressLeft = progressButton.leftAnchor.constraint(equalTo:view.rightAnchor)
+        progressLeft.isActive = true
         
         listButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
-        listButton.rightAnchor.constraint(equalTo:deleteButton.leftAnchor).isActive = true
+        listButton.leftAnchor.constraint(equalTo:progressButton.rightAnchor).isActive = true
         listButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         listButton.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.16).isActive = true
         
-        titleLabel.topAnchor.constraint(equalTo:newButton.bottomAnchor).isActive = true
-        titleLabel.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-18).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant:30).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo:newButton.centerYAnchor).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo:newButton.rightAnchor, constant:20).isActive = true
+        titleLabel.rightAnchor.constraint(equalTo:progressButton.leftAnchor).isActive = true
         
-        boardsScroll.topAnchor.constraint(equalTo:newButton.bottomAnchor, constant:50).isActive = true
-        boardsScroll.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        boardsScroll.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        boardsScroll.topAnchor.constraint(equalTo:newButton.bottomAnchor).isActive = true
+        boardsScroll.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
         
         boards.bottomAnchor.constraint(equalTo:boardsScroll.bottomAnchor).isActive = true
         boards.topAnchor.constraint(equalTo:boardsScroll.topAnchor).isActive = true
-        boards.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        boards.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        boards.leftAnchor.constraint(equalTo:boardsScroll.leftAnchor).isActive = true
+        boards.rightAnchor.constraint(equalTo:boardsScroll.rightAnchor).isActive = true
+        
+        boardsRight = boardsScroll.rightAnchor.constraint(equalTo:view.rightAnchor)
         boardsBottom = boardsScroll.bottomAnchor.constraint(equalTo:view.bottomAnchor)
+        boardsRight.isActive = true
         boardsBottom.isActive = true
         
         if #available(iOS 11.0, *) {
@@ -123,9 +125,6 @@ class View:UIViewController {
     }
     
     private func list(_ boards:[Board]) {
-//        progress.clear()
-//        deleteButton.isEnabled = false
-//        canvas.removeSubviews()
         self.boards.subviews.forEach { $0.removeFromSuperview() }
         var top = self.boards.topAnchor
         boards.forEach { board in
@@ -140,9 +139,6 @@ class View:UIViewController {
         if !boards.isEmpty {
             self.boards.bottomAnchor.constraint(equalTo:top, constant:10).isActive = true
         }
-    }
-    
-    private func select(_ board:Board) {
     }
     
     private func listenKeyboard() {
@@ -162,6 +158,17 @@ class View:UIViewController {
     }
     
     @objc private func new() {
+        UIApplication.shared.keyWindow!.endEditing(true)
         present(NewView(), animated:true)
+    }
+    
+    @objc private func showList() {
+        newLeft.constant = 0
+        progressLeft.constant = 0
+        boardsRight.constant = 0
+        UIView.animate(withDuration:0.4) {
+            self.view.layoutIfNeeded()
+            self.titleLabel.alpha = 0
+        }
     }
 }
