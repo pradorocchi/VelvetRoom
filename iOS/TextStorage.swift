@@ -1,8 +1,8 @@
-import AppKit
+import UIKit
 
 class TextStorage:NSTextStorage {
-    var text:NSFont!
-    var header:NSFont!
+    var text:UIFont!
+    var header:UIFont!
     override var string:String { return storage.string }
     private let storage = NSTextStorage()
     

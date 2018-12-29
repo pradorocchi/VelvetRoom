@@ -40,7 +40,7 @@ class TextView:NSTextView {
         super.drawInsertionPoint(in:rect, color:color, turnedOn:turnedOn)
     }
     
-    override func mouseDown(with event: NSEvent) {
+    override func mouseDown(with event:NSEvent) {
         if !isEditable {
             superview?.mouseDown(with:event)
         } else {
@@ -61,7 +61,6 @@ class TextView:NSTextView {
     }
     
     func update() {
-        layoutManager!.ensureLayout(for:textContainer!)
         let size = layoutManager!.usedRect(for:textContainer!).size
         width.constant = size.width + 4
         height.constant = size.height

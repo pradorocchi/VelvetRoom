@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA0A146C21D779B600CF4BDD /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0A146B21D779B600CF4BDD /* BoardView.swift */; };
+		DA0A146E21D77A2A00CF4BDD /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0A146D21D77A2A00CF4BDD /* TextView.swift */; };
+		DA0A147021D77A6A00CF4BDD /* TextLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0A146F21D77A6A00CF4BDD /* TextLayout.swift */; };
+		DA0A147221D77A7700CF4BDD /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0A147121D77A7700CF4BDD /* TextStorage.swift */; };
 		DA1544E321D2752600B9D9F7 /* DeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1544E221D2752600B9D9F7 /* DeleteView.swift */; };
 		DA1544E721D27D7F00B9D9F7 /* DeleteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1544E621D27D7F00B9D9F7 /* DeleteCardView.swift */; };
 		DA16E00121CE8AFF00D21C7A /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16E00021CE8AFF00D21C7A /* TextView.swift */; };
@@ -126,6 +130,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA0A146B21D779B600CF4BDD /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		DA0A146D21D77A2A00CF4BDD /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		DA0A146F21D77A6A00CF4BDD /* TextLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLayout.swift; sourceTree = "<group>"; };
+		DA0A147121D77A7700CF4BDD /* TextStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStorage.swift; sourceTree = "<group>"; };
 		DA1544E221D2752600B9D9F7 /* DeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteView.swift; sourceTree = "<group>"; };
 		DA1544E621D27D7F00B9D9F7 /* DeleteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCardView.swift; sourceTree = "<group>"; };
 		DA16E00021CE8AFF00D21C7A /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
@@ -295,7 +303,11 @@
 				DAB2708221C3CA7C008F184E /* Application.swift */,
 				DAD7B78021D654E3003396B1 /* View.swift */,
 				DAD7B78821D660E6003396B1 /* NewView.swift */,
+				DA0A146B21D779B600CF4BDD /* BoardView.swift */,
 				DAD7B78221D65683003396B1 /* ProgressView.swift */,
+				DA0A146D21D77A2A00CF4BDD /* TextView.swift */,
+				DA0A146F21D77A6A00CF4BDD /* TextLayout.swift */,
+				DA0A147121D77A7700CF4BDD /* TextStorage.swift */,
 				DAD7B78421D65712003396B1 /* UIColor.swift */,
 				DAD7B78621D65BFE003396B1 /* UIFont.swift */,
 				DAB2707E21C3CA7C008F184E /* Localizable.strings */,
@@ -692,7 +704,11 @@
 				DAD7B78721D65BFE003396B1 /* UIFont.swift in Sources */,
 				DAB2708721C3CA7C008F184E /* Application.swift in Sources */,
 				DAD7B78921D660E6003396B1 /* NewView.swift in Sources */,
+				DA0A146C21D779B600CF4BDD /* BoardView.swift in Sources */,
+				DA0A147221D77A7700CF4BDD /* TextStorage.swift in Sources */,
+				DA0A146E21D77A2A00CF4BDD /* TextView.swift in Sources */,
 				DAD7B78121D654E3003396B1 /* View.swift in Sources */,
+				DA0A147021D77A6A00CF4BDD /* TextLayout.swift in Sources */,
 				DAD7B78521D65712003396B1 /* UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
