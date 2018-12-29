@@ -1,6 +1,7 @@
 import UIKit
 
 @UIApplicationMain class Application:UIResponder, UIApplicationDelegate {
+    private(set) static var view:View!
     var window:UIWindow?
     
     func application(_:UIApplication, didFinishLaunchingWithOptions:[UIApplication.LaunchOptionsKey:Any]?) -> Bool {
@@ -8,6 +9,7 @@ import UIKit
         window!.backgroundColor = .black
         window!.makeKeyAndVisible()
         window!.rootViewController = View()
+        Application.view = window!.rootViewController as? View
         return true
     }
 }

@@ -1,11 +1,16 @@
 import UIKit
+import VelvetRoom
 
 class View:UIViewController {
     private weak var titleLabel:UILabel!
+    let repository = Repository()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         makeOutlets()
+        repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
+        repository.select = { board in DispatchQueue.main.async { self.select(board) } }
+        DispatchQueue.global(qos:.background).async { self.repository.load() }
     }
     
     private func makeOutlets() {
@@ -71,6 +76,12 @@ class View:UIViewController {
         } else {
             newButton.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
         }
+    }
+    
+    private func list(_ boards:[Board]) {
+    }
+    
+    private func select(_ board:Board) {
     }
     
     @objc private func new() {

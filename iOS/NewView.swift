@@ -1,4 +1,5 @@
 import UIKit
+import VelvetRoom
 
 class NewView:UIViewController, UITextFieldDelegate {
     private weak var field:UITextField!
@@ -6,7 +7,9 @@ class NewView:UIViewController, UITextFieldDelegate {
     private weak var single:UIButton!
     private weak var double:UIButton!
     private weak var triple:UIButton!
+    private weak var columns:UILabel!
     private weak var selectorX:NSLayoutConstraint!
+    private var template:Template!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,6 +127,14 @@ class NewView:UIViewController, UITextFieldDelegate {
         view.addSubview(triple)
         self.triple = triple
         
+        let columns = UILabel()
+        columns.translatesAutoresizingMaskIntoConstraints = false
+        columns.isUserInteractionEnabled = false
+        columns.font = .systemFont(ofSize:12, weight:.light)
+        columns.textColor = UIColor(white:1, alpha:0.3)
+        view.addSubview(columns)
+        self.columns = columns
+        
         labelTitle.leftAnchor.constraint(equalTo:view.leftAnchor, constant:25).isActive = true
         
         field.topAnchor.constraint(equalTo:labelTitle.bottomAnchor, constant:30).isActive = true
@@ -137,7 +148,7 @@ class NewView:UIViewController, UITextFieldDelegate {
         border.heightAnchor.constraint(equalToConstant:1).isActive = true
         
         cancel.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
-        cancel.topAnchor.constraint(equalTo:none.bottomAnchor, constant:50).isActive = true
+        cancel.topAnchor.constraint(equalTo:columns.bottomAnchor, constant:60).isActive = true
         cancel.widthAnchor.constraint(equalToConstant:88).isActive = true
         cancel.heightAnchor.constraint(equalToConstant:30).isActive = true
         
@@ -172,6 +183,9 @@ class NewView:UIViewController, UITextFieldDelegate {
         triple.heightAnchor.constraint(equalToConstant:44).isActive = true
         triple.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.25).isActive = true
         
+        columns.topAnchor.constraint(equalTo:none.bottomAnchor, constant:20).isActive = true
+        columns.leftAnchor.constraint(equalTo:border.leftAnchor).isActive = true
+        
         if #available(iOS 11.0, *) {
             labelTitle.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant:20).isActive = true
         } else {
@@ -191,10 +205,16 @@ class NewView:UIViewController, UITextFieldDelegate {
     
     @objc private func create() {
         field.resignFirstResponder()
+        let name = field.text!
+        DispatchQueue.global(qos:.background).async {
+            Application.view.repository.newBoard(name, template:self.template)
+        }
         presentingViewController!.dismiss(animated:true)
     }
     
     @objc private func selectNone() {
+        template = .none
+        columns.text = .local("NewView.none")
         none.imageView!.tintColor = .black
         single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         double.imageView!.tintColor = UIColor(white:1, alpha:0.2)
@@ -203,6 +223,8 @@ class NewView:UIViewController, UITextFieldDelegate {
     }
     
     @objc private func selectSingle() {
+        template = .single
+        columns.text = .local("NewView.single")
         none.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         single.imageView!.tintColor = .black
         double.imageView!.tintColor = UIColor(white:1, alpha:0.2)
@@ -211,6 +233,8 @@ class NewView:UIViewController, UITextFieldDelegate {
     }
     
     @objc private func selectDouble() {
+        template = .double
+        columns.text = .local("NewView.double")
         none.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         double.imageView!.tintColor = .black
@@ -219,6 +243,8 @@ class NewView:UIViewController, UITextFieldDelegate {
     }
     
     @objc private func selectTriple() {
+        template = .triple
+        columns.text = .local("NewView.triple")
         none.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         double.imageView!.tintColor = UIColor(white:1, alpha:0.2)

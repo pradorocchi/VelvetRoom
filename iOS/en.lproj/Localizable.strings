@@ -2,3 +2,7 @@ NewView.title="New board";
 NewView.placeholder="Name";
 NewView.cancel="Cancel";
 NewView.create="Create";
+NewView.none="No columns";
+NewView.single="1 column";
+NewView.double="2 columns";
+NewView.triple="3 columns";

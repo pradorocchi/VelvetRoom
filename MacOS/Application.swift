@@ -2,7 +2,7 @@ import AppKit
 
 @NSApplicationMain class Application:NSObject, NSApplicationDelegate, NSWindowDelegate {
     private(set) static weak var shared:Application!
-    private(set) var view:View!
+    private(set) weak var view:View!
     @IBOutlet private(set) weak var list:NSMenuItem!
     
     func applicationShouldTerminateAfterLastWindowClosed(_:NSApplication) -> Bool { return true }
