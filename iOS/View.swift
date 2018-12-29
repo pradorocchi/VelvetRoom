@@ -2,8 +2,8 @@ import UIKit
 import VelvetRoom
 
 class View:UIViewController {
-    weak var selected:Board! { didSet { fireSchedule() } }
     let repository = Repository()
+    private weak var selected:Board! { didSet { fireSchedule() } }
     private weak var progressButton:ProgressView!
     private weak var titleLabel:UILabel!
     private weak var boards:UIView!
@@ -34,8 +34,8 @@ class View:UIViewController {
         }
     }
     
-    func scheduleUpdate() {
-        DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(self.selected) }
+    func scheduleUpdate(_ board:Board? = nil) {
+        DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(board ?? self.selected) }
     }
     
     func fireSchedule() {

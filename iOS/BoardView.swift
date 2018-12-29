@@ -59,7 +59,7 @@ class BoardView:UIControl, UITextViewDelegate {
         delete.isHidden = false
         text.isUserInteractionEnabled = false
         board.name = text.text
-        Application.view.scheduleUpdate()
+        Application.view.scheduleUpdate(board)
         DispatchQueue.main.async {
             self.update()
         }
@@ -92,9 +92,9 @@ class BoardView:UIControl, UITextViewDelegate {
     
     @objc private func selectBoard() {
         guard !text.isFirstResponder else { return }
+        UIApplication.shared.keyWindow!.endEditing(true)
         isHighlighted = true
         isSelected = true
-        UIApplication.shared.keyWindow!.endEditing(true)
         Application.view.open(board)
         DispatchQueue.main.asyncAfter(deadline:.now() + 1) { [weak self] in
             self?.isSelected = false
@@ -110,6 +110,5 @@ class BoardView:UIControl, UITextViewDelegate {
         text.isUserInteractionEnabled = true
         text.becomeFirstResponder()
         update()
-        Application.view.selected = board
     }
 }
