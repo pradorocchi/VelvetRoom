@@ -9,3 +9,5 @@ NewView.double="2 columns";
 NewView.triple="3 columns";
 DeleteView.delete="Delete";
 DeleteView.cancel="Cancel";
+TextView.done="Done";
+TextView.delete="Delete";

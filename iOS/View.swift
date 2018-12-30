@@ -64,6 +64,22 @@ class View:UIViewController {
         }
     }
     
+    func delete(_ column:ColumnView) {
+        detach(column)
+        var child = column as ItemView?
+        while child != nil {
+            if !(child is CreateView) {
+                child!.removeFromSuperview()
+            }
+            child = child!.child
+        }
+        DispatchQueue.global(qos:.background).async {
+            self.repository.delete(column.column, board:self.selected)
+            self.scheduleUpdate()
+            DispatchQueue.main.async { self.progressButton.progress = self.selected.progress }
+        }
+    }
+    
     func scheduleUpdate(_ board:Board? = nil) {
         DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(board ?? self.selected) }
     }
@@ -305,6 +321,21 @@ class View:UIViewController {
         }
     }
     
+    private func detach(_ column:ColumnView) {
+        if column === root {
+            column.child!.removeFromSuperview()
+            column.child = column.child!.child
+            root = column.sibling
+        } else {
+            var sibling = root
+            while sibling != nil && sibling!.sibling !== column {
+                sibling = sibling!.sibling
+            }
+            sibling?.sibling = column.sibling
+        }
+        canvasChanged()
+    }
+    
     @objc private func new() {
         UIApplication.shared.keyWindow!.endEditing(true)
         present(NewView(), animated:true)
@@ -312,6 +343,7 @@ class View:UIViewController {
     
     @objc private func showList() {
         UIApplication.shared.keyWindow!.endEditing(true)
+        progressButton.progress = 0
         newLeft.constant = 0
         progressLeft.constant = 0
         boardsRight.constant = 0

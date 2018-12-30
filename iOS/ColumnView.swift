@@ -10,6 +10,7 @@ class ColumnView:EditView {
         text.alpha = 0.4
         text.text = column.name
         text.textContainer.maximumNumberOfLines = 1
+        text.onDelete = { if !self.text.text.isEmpty { self.askDelete() } }
         self.column = column
         
         text.heightAnchor.constraint(equalToConstant:22).isActive = true
@@ -23,11 +24,13 @@ class ColumnView:EditView {
     }
     
     override func textViewDidEndEditing(_ textView:UITextView) {
-        column.name = text.text
-        super.textViewDidEndEditing(textView)
-        text.alpha = 0.4
-        if column.name.isEmpty {
-//            Application.shared.view.delete(self)
+        if text.text.isEmpty {
+            UIApplication.shared.keyWindow!.endEditing(true)
+            askDelete()
+        } else {
+            column.name = text.text
+            text.alpha = 0.4
+            super.textViewDidEndEditing(textView)
         }
     }
     
@@ -57,5 +60,13 @@ class ColumnView:EditView {
             return false
         }
         return true
+    }
+    
+    private func askDelete() {
+        Application.view.present(DeleteView { self.confirmDelete() }, animated:true)
+    }
+    
+    private func confirmDelete() {
+        Application.view.delete(self)
     }
 }

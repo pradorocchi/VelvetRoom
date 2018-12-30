@@ -23,8 +23,8 @@ class ColumnView:EditView {
     
     override func textDidEndEditing(_ notification:Notification) {
         column.name = text.string
-        super.textDidEndEditing(notification)
         text.textColor = NSColor.textColor.withAlphaComponent(0.4)
+        super.textDidEndEditing(notification)
         if column.name.isEmpty {
             Application.shared.view.delete(self)
         }
