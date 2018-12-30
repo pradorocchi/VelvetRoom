@@ -27,7 +27,7 @@ class BoardView:UIControl, UITextViewDelegate {
         text.isScrollEnabled = false
         text.isUserInteractionEnabled = false
         text.textContainer.maximumNumberOfLines = 1
-        text.textContainer.lineBreakMode = .byTruncatingHead
+        text.textContainer.lineBreakMode = .byTruncatingTail
         addSubview(text)
         self.text = text
         

@@ -106,11 +106,12 @@ class View:UIViewController {
         
         boardsScroll.topAnchor.constraint(equalTo:newButton.bottomAnchor).isActive = true
         boardsScroll.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
+        boardsScroll.rightAnchor.constraint(equalTo:boards.rightAnchor).isActive = true
         
         boards.bottomAnchor.constraint(equalTo:boardsScroll.bottomAnchor).isActive = true
         boards.topAnchor.constraint(equalTo:boardsScroll.topAnchor).isActive = true
         boards.leftAnchor.constraint(equalTo:boardsScroll.leftAnchor).isActive = true
-        boards.rightAnchor.constraint(equalTo:boardsScroll.rightAnchor).isActive = true
+        boards.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
         
         boardsRight = boardsScroll.rightAnchor.constraint(equalTo:view.rightAnchor)
         boardsBottom = boardsScroll.bottomAnchor.constraint(equalTo:view.bottomAnchor)
