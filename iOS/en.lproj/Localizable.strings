@@ -1,3 +1,4 @@
+View.emptyButton="Start";
 NewView.title="New board";
 NewView.placeholder="Name";
 NewView.cancel="Cancel";

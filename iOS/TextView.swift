@@ -19,6 +19,9 @@ class TextView:UITextView {
         layout.addTextContainer(container)
         super.init(frame:.zero, textContainer:container)
         translatesAutoresizingMaskIntoConstraints = false
+        bounces = false
+        isScrollEnabled = false
+        isUserInteractionEnabled = false
         backgroundColor = .clear
         tintColor = .velvetBlue
         textColor = .white

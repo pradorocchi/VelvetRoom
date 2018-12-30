@@ -5,12 +5,19 @@ class View:UIViewController {
     let repository = Repository()
     private weak var selected:Board! { didSet { fireSchedule() } }
     private weak var progressButton:ProgressView!
+    private weak var root:ItemView?
+    private weak var emptyButton:UIButton!
     private weak var titleLabel:UILabel!
     private weak var boards:UIView!
-    private weak var boardsBottom:NSLayoutConstraint!
-    private weak var boardsRight:NSLayoutConstraint!
-    private weak var newLeft:NSLayoutConstraint!
-    private weak var progressLeft:NSLayoutConstraint!
+    private weak var canvas:UIView!
+    private weak var boardsBottom:NSLayoutConstraint! { willSet { newValue.isActive = true } }
+    private weak var boardsRight:NSLayoutConstraint! { willSet { newValue.isActive = true } }
+    private weak var newLeft:NSLayoutConstraint! { willSet { newValue.isActive = true } }
+    private weak var progressLeft:NSLayoutConstraint! { willSet { newValue.isActive = true } }
+    private weak var canvasWidth:NSLayoutConstraint? { didSet {
+        oldValue?.isActive = false; canvasWidth!.isActive = true } }
+    private weak var canvasHeight:NSLayoutConstraint? { didSet {
+        oldValue?.isActive = false; canvasHeight!.isActive = true } }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +35,21 @@ class View:UIViewController {
         newLeft.constant = view.bounds.width * -0.16
         progressLeft.constant = view.bounds.width * -0.32
         boardsRight.constant = view.bounds.width
+        (canvas.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:false)
+        render(board)
+        canvasChanged(0)
         UIView.animate(withDuration:0.5) {
             self.view.layoutIfNeeded()
             self.titleLabel.alpha = 1
+        }
+    }
+    
+    func canvasChanged(_ animation:TimeInterval = 0.5) {
+        createCard()
+        canvas.layoutIfNeeded()
+        align()
+        UIView.animate(withDuration:animation) {
+            self.canvas.layoutIfNeeded()
         }
     }
     
@@ -83,16 +102,39 @@ class View:UIViewController {
         boardsScroll.addSubview(boards)
         self.boards = boards
         
+        let canvasScroll = UIScrollView()
+        canvasScroll.translatesAutoresizingMaskIntoConstraints = false
+        canvasScroll.alwaysBounceVertical = true
+        canvasScroll.alwaysBounceHorizontal = true
+        canvasScroll.indicatorStyle = .white
+        view.addSubview(canvasScroll)
+        
+        let canvas = UIView()
+        canvas.translatesAutoresizingMaskIntoConstraints = false
+        canvasScroll.addSubview(canvas)
+        self.canvas = canvas
+        
+        let emptyButton = UIButton()
+        emptyButton.layer.cornerRadius = 4
+        emptyButton.backgroundColor = .velvetBlue
+        emptyButton.translatesAutoresizingMaskIntoConstraints = false
+        emptyButton.addTarget(self, action:#selector(new), for:.touchUpInside)
+        emptyButton.setTitle(.local("View.emptyButton"), for:[])
+        emptyButton.setTitleColor(.black, for:.normal)
+        emptyButton.setTitleColor(UIColor(white:0, alpha:0.2), for:.highlighted)
+        emptyButton.titleLabel!.font = .systemFont(ofSize:15, weight:.medium)
+        emptyButton.isHidden = true
+        view.addSubview(emptyButton)
+        self.emptyButton = emptyButton
+        
         newButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         newButton.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.16).isActive = true
         newLeft = newButton.leftAnchor.constraint(equalTo:view.leftAnchor)
-        newLeft.isActive = true
         
         progressButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
         progressButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         progressButton.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.16).isActive = true
         progressLeft = progressButton.leftAnchor.constraint(equalTo:view.rightAnchor)
-        progressLeft.isActive = true
         
         listButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
         listButton.leftAnchor.constraint(equalTo:progressButton.rightAnchor).isActive = true
@@ -106,19 +148,35 @@ class View:UIViewController {
         
         boardsScroll.topAnchor.constraint(equalTo:newButton.bottomAnchor).isActive = true
         boardsScroll.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
-        boardsScroll.rightAnchor.constraint(equalTo:boards.rightAnchor).isActive = true
         
         boards.bottomAnchor.constraint(equalTo:boardsScroll.bottomAnchor).isActive = true
         boards.topAnchor.constraint(equalTo:boardsScroll.topAnchor).isActive = true
         boards.leftAnchor.constraint(equalTo:boardsScroll.leftAnchor).isActive = true
+        boards.rightAnchor.constraint(equalTo:boardsScroll.rightAnchor).isActive = true
         boards.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
-        
         boardsRight = boardsScroll.rightAnchor.constraint(equalTo:view.rightAnchor)
         boardsBottom = boardsScroll.bottomAnchor.constraint(equalTo:view.bottomAnchor)
-        boardsRight.isActive = true
-        boardsBottom.isActive = true
+        
+        canvasScroll.topAnchor.constraint(equalTo:boardsScroll.topAnchor).isActive = true
+        canvasScroll.bottomAnchor.constraint(equalTo:boardsScroll.bottomAnchor).isActive = true
+        canvasScroll.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
+        canvasScroll.rightAnchor.constraint(equalTo:boardsScroll.leftAnchor).isActive = true
+
+        canvas.bottomAnchor.constraint(equalTo:canvasScroll.bottomAnchor).isActive = true
+        canvas.topAnchor.constraint(equalTo:canvasScroll.topAnchor).isActive = true
+        canvas.leftAnchor.constraint(equalTo:canvasScroll.leftAnchor).isActive = true
+        canvas.rightAnchor.constraint(equalTo:canvasScroll.rightAnchor).isActive = true
+        canvas.widthAnchor.constraint(greaterThanOrEqualTo:view.widthAnchor).isActive = true
+        canvas.heightAnchor.constraint(greaterThanOrEqualTo:canvasScroll.heightAnchor).isActive = true
+        
+        emptyButton.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
+        emptyButton.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
+        emptyButton.widthAnchor.constraint(equalToConstant:88).isActive = true
+        emptyButton.heightAnchor.constraint(equalToConstant:30).isActive = true
         
         if #available(iOS 11.0, *) {
+            boardsScroll.contentInsetAdjustmentBehavior = .never
+            canvasScroll.contentInsetAdjustmentBehavior = .never
             newButton.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor).isActive = true
         } else {
             newButton.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
@@ -138,7 +196,10 @@ class View:UIViewController {
             view.rightAnchor.constraint(equalTo:self.boards.rightAnchor, constant:20).isActive = true
             top = view.bottomAnchor
         }
-        if !boards.isEmpty {
+        if boards.isEmpty {
+            emptyButton.isHidden = false
+        } else {
+            emptyButton.isHidden = true
             self.boards.bottomAnchor.constraint(equalTo:top, constant:10).isActive = true
         }
     }
@@ -159,12 +220,80 @@ class View:UIViewController {
         }
     }
     
+    private func render(_ board:Board) {
+        canvas.subviews.forEach { $0.removeFromSuperview() }
+        root = nil
+        var sibling:ItemView?
+        board.columns.enumerated().forEach { (index, item) in
+            let column = ColumnView(item)
+            if sibling == nil {
+                root = column
+            } else {
+                sibling!.sibling = column
+            }
+            canvas.addSubview(column)
+            var child:ItemView = column
+            sibling = column
+            
+            board.cards.filter( { $0.column == index } ).sorted(by: { $0.index < $1.index } ).forEach {
+                let card = CardView($0)
+                canvas.addSubview(card)
+                child.child = card
+                child = card
+            }
+        }
+        
+        let buttonColumn = CreateView(#selector(newColumn(_:)))
+        canvas.addSubview(buttonColumn)
+        
+        if root == nil {
+            root = buttonColumn
+        } else {
+            sibling!.sibling = buttonColumn
+        }
+    }
+    
+    private func align() {
+        var maxRight = CGFloat(36)
+        var maxBottom = CGFloat()
+        var sibling = root
+        while sibling != nil {
+            let right = maxRight
+            var bottom = CGFloat(20)
+            
+            var child = sibling
+            sibling = sibling!.sibling
+            while child != nil {
+                child!.left.constant = right
+                child!.top.constant = bottom
+                
+                bottom += child!.bounds.height + 20
+                maxRight = max(maxRight, right + child!.bounds.width + 20)
+                
+                child = child!.child
+            }
+            
+            maxBottom = max(bottom, maxBottom)
+        }
+        canvasWidth = canvas.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight + 16)
+        canvasHeight = canvas.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 16)
+    }
+    
+    private func createCard() {
+        guard !(root is CreateView), !(root!.child is CreateView) else { return }
+        let create = CreateView(#selector(newCard(_:)))
+        canvas.addSubview(create)
+        create.child = root!.child
+        root!.child = create
+    }
+    
     @objc private func new() {
         UIApplication.shared.keyWindow!.endEditing(true)
         present(NewView(), animated:true)
     }
     
     @objc private func showList() {
+        UIApplication.shared.keyWindow!.endEditing(true)
         newLeft.constant = 0
         progressLeft.constant = 0
         boardsRight.constant = 0
@@ -172,5 +301,38 @@ class View:UIViewController {
             self.view.layoutIfNeeded()
             self.titleLabel.alpha = 0
         }
+    }
+    
+    @objc private func newColumn(_ view:CreateView) {
+//        let column = ColumnView(presenter.newColumn())
+//        column.sibling = view
+//        if root === view {
+//            root = column
+//        } else {
+//            var left = root
+//            while left!.sibling !== view {
+//                left = left!.sibling
+//            }
+//            left!.sibling = column
+//        }
+//        canvas.documentView!.addSubview(column)
+//        column.top.constant = view.top.constant
+//        column.left.constant = view.left.constant
+//        canvasChanged()
+//        column.beginEditing()
+//        presenter.scheduleUpdate()
+    }
+    
+    @objc private func newCard(_ view:CreateView) {
+//        let card = CardView(presenter.newCard())
+//        card.child = view.child
+//        view.child = card
+//        canvas.documentView!.addSubview(card)
+//        card.top.constant = view.top.constant
+//        card.left.constant = view.left.constant
+//        canvasChanged()
+//        card.beginEditing()
+//        presenter.scheduleUpdate()
+//        progress.progress(CGFloat(presenter.selected.board.progress))
     }
 }

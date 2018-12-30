@@ -23,9 +23,6 @@ class BoardView:UIControl, UITextViewDelegate {
         text.font = .regular(18)
         text.delegate = self
         text.text = board.name
-        text.bounces = false
-        text.isScrollEnabled = false
-        text.isUserInteractionEnabled = false
         text.textContainer.maximumNumberOfLines = 1
         text.textContainer.lineBreakMode = .byTruncatingTail
         addSubview(text)

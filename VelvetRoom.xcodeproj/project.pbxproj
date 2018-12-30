@@ -49,6 +49,11 @@
 		DA86AB3F21D0F884007DFFEE /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86AB3E21D0F884007DFFEE /* EditView.swift */; };
 		DA88A21D21D8DB6000144E39 /* DeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88A21C21D8DB6000144E39 /* DeleteView.swift */; };
 		DA982ED921CD10540085480B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA982ED821CD10540085480B /* CardView.swift */; };
+		DAADDD6821D8E8D60038F85F /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADDD6721D8E8D60038F85F /* ItemView.swift */; };
+		DAADDD6A21D8E91D0038F85F /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADDD6921D8E91D0038F85F /* CreateView.swift */; };
+		DAADDD6C21D8E96B0038F85F /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADDD6B21D8E96B0038F85F /* EditView.swift */; };
+		DAADDD6E21D8EA1C0038F85F /* ColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADDD6D21D8EA1C0038F85F /* ColumnView.swift */; };
+		DAADDD7021D8EA680038F85F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADDD6F21D8EA680038F85F /* CardView.swift */; };
 		DAAE57A121C6909D00ED711C /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAE57A021C6909D00ED711C /* Presenter.swift */; };
 		DAB2708421C3CA7C008F184E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAB2707E21C3CA7C008F184E /* Localizable.strings */; };
 		DAB2708521C3CA7C008F184E /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708021C3CA7C008F184E /* iOS.storyboard */; };
@@ -166,6 +171,11 @@
 		DA86AB3E21D0F884007DFFEE /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		DA88A21C21D8DB6000144E39 /* DeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteView.swift; sourceTree = "<group>"; };
 		DA982ED821CD10540085480B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		DAADDD6721D8E8D60038F85F /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
+		DAADDD6921D8E91D0038F85F /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
+		DAADDD6B21D8E96B0038F85F /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		DAADDD6D21D8EA1C0038F85F /* ColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnView.swift; sourceTree = "<group>"; };
+		DAADDD6F21D8EA680038F85F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		DAAE57A021C6909D00ED711C /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		DAB2707F21C3CA7C008F184E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DAB2708021C3CA7C008F184E /* iOS.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iOS.storyboard; sourceTree = "<group>"; };
@@ -308,6 +318,11 @@
 				DA88A21C21D8DB6000144E39 /* DeleteView.swift */,
 				DA0A146B21D779B600CF4BDD /* BoardView.swift */,
 				DAD7B78221D65683003396B1 /* ProgressView.swift */,
+				DAADDD6721D8E8D60038F85F /* ItemView.swift */,
+				DAADDD6921D8E91D0038F85F /* CreateView.swift */,
+				DAADDD6B21D8E96B0038F85F /* EditView.swift */,
+				DAADDD6D21D8EA1C0038F85F /* ColumnView.swift */,
+				DAADDD6F21D8EA680038F85F /* CardView.swift */,
 				DA0A146D21D77A2A00CF4BDD /* TextView.swift */,
 				DA0A146F21D77A6A00CF4BDD /* TextLayout.swift */,
 				DA0A147121D77A7700CF4BDD /* TextStorage.swift */,
@@ -706,13 +721,18 @@
 				DAD7B78321D65683003396B1 /* ProgressView.swift in Sources */,
 				DAD7B78721D65BFE003396B1 /* UIFont.swift in Sources */,
 				DAB2708721C3CA7C008F184E /* Application.swift in Sources */,
+				DAADDD6E21D8EA1C0038F85F /* ColumnView.swift in Sources */,
+				DAADDD6A21D8E91D0038F85F /* CreateView.swift in Sources */,
 				DAD7B78921D660E6003396B1 /* NewView.swift in Sources */,
 				DA0A146C21D779B600CF4BDD /* BoardView.swift in Sources */,
 				DA0A147221D77A7700CF4BDD /* TextStorage.swift in Sources */,
 				DA0A146E21D77A2A00CF4BDD /* TextView.swift in Sources */,
 				DAD7B78121D654E3003396B1 /* View.swift in Sources */,
+				DAADDD6821D8E8D60038F85F /* ItemView.swift in Sources */,
+				DAADDD6C21D8E96B0038F85F /* EditView.swift in Sources */,
 				DA88A21D21D8DB6000144E39 /* DeleteView.swift in Sources */,
 				DA0A147021D77A6A00CF4BDD /* TextLayout.swift in Sources */,
+				DAADDD7021D8EA680038F85F /* CardView.swift in Sources */,
 				DAD7B78521D65712003396B1 /* UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

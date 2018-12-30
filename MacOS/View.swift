@@ -242,7 +242,8 @@ class View:NSWindow {
         let create = CreateView(#selector(newCard(_:)))
         canvas.documentView!.addSubview(create)
         create.child = root!.child
-        root!.child = create    }
+        root!.child = create
+    }
     
     private func detach(_ card:CardView) {
         if let parent = canvas.documentView!.subviews.first(where: {($0 as! ItemView).child === card }) as? ItemView {
