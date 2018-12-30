@@ -6,3 +6,5 @@ NewView.none="No columns";
 NewView.single="1 column";
 NewView.double="2 columns";
 NewView.triple="3 columns";
+DeleteView.delete="Delete";
+DeleteView.cancel="Cancel";

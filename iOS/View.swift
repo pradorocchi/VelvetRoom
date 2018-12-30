@@ -127,6 +127,7 @@ class View:UIViewController {
     
     private func list(_ boards:[Board]) {
         self.boards.subviews.forEach { $0.removeFromSuperview() }
+        (self.boards.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:true)
         var top = self.boards.topAnchor
         boards.forEach { board in
             let view = BoardView(board)
