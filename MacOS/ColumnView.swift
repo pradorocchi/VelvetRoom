@@ -32,7 +32,7 @@ class ColumnView:EditView {
     
     override func beginDrag() {
         super.beginDrag()
-        Application.shared.view.beginDrag(self)
+        Application.shared.view.detach(self)
     }
     
     override func endDrag() {

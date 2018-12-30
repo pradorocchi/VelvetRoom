@@ -37,9 +37,6 @@ class View:NSWindow {
         }
     }
     
-    func beginDrag(_ card:CardView) { detach(card) }
-    func beginDrag(_ column:ColumnView) { detach(column) }
-    
     func endDrag(_ card:CardView) {
         var column = root
         while column!.sibling is ColumnView {
@@ -68,6 +65,10 @@ class View:NSWindow {
             column.sibling = root
             root = column
             after = nil
+            if column.sibling?.child is CreateView {
+                column.sibling?.child?.removeFromSuperview()
+                column.sibling?.child = column.sibling?.child?.child
+            }
         } else {
             while after!.sibling is ColumnView {
                 guard after!.sibling!.left.constant < column.frame.minX else { break }
@@ -109,13 +110,33 @@ class View:NSWindow {
         detach(column)
         var child = column as ItemView?
         while child != nil {
-            if !(child is CreateView) {
-                child!.removeFromSuperview()
-            }
+            child!.removeFromSuperview()
             child = child!.child
         }
         presenter.delete(column.column, board:board)
         progress.progress(CGFloat(presenter.selected.board.progress))
+    }
+    
+    func detach(_ card:CardView) {
+        if let parent = canvas.documentView!.subviews.first(where: {($0 as! ItemView).child === card }) as? ItemView {
+            parent.child = card.child
+            canvasChanged()
+        }
+    }
+    
+    func detach(_ column:ColumnView) {
+        if column === root {
+            column.child!.removeFromSuperview()
+            column.child = column.child!.child
+            root = column.sibling
+        } else {
+            var sibling = root
+            while sibling != nil && sibling!.sibling !== column {
+                sibling = sibling!.sibling
+            }
+            sibling?.sibling = column.sibling
+        }
+        canvasChanged()
     }
     
     private func makeOutlets() {
@@ -240,31 +261,9 @@ class View:NSWindow {
     private func createCard() {
         guard !(root is CreateView), !(root!.child is CreateView) else { return }
         let create = CreateView(#selector(newCard(_:)))
-        canvas.documentView!.addSubview(create)
         create.child = root!.child
         root!.child = create
-    }
-    
-    private func detach(_ card:CardView) {
-        if let parent = canvas.documentView!.subviews.first(where: {($0 as! ItemView).child === card }) as? ItemView {
-            parent.child = card.child
-            canvasChanged()
-        }
-    }
-    
-    private func detach(_ column:ColumnView) {
-        if column === root {
-            column.child!.removeFromSuperview()
-            column.child = column.child!.child
-            root = column.sibling
-        } else {
-            var sibling = root
-            while sibling != nil && sibling!.sibling !== column {
-                sibling = sibling!.sibling
-            }
-            sibling?.sibling = column.sibling
-        }
-        canvasChanged()
+        canvas.documentView!.addSubview(create)
     }
     
     private func select(_ board:Board) {

@@ -30,15 +30,50 @@ class CardView:EditView {
     
     override func beginDrag() {
         super.beginDrag()
-//        Application.shared.view.beginDrag(self)
+        detach()
     }
     
     override func endDrag() {
         super.endDrag()
-//        Application.shared.view.endDrag(self)
+        var column = Application.view.root
+        while column!.sibling is ColumnView {
+            guard column!.sibling!.left.constant < frame.midX else { break }
+            column = column!.sibling
+        }
+        var after = column
+        while after!.child != nil {
+            guard after!.child!.top.constant < top.constant else { break }
+            after = after!.child
+        }
+        if after!.child is CreateView {
+            after = after?.child
+        }
+        child = after!.child
+        after!.child = self
+        Application.view.canvasChanged()
+        Application.view.repository.move(card, board:Application.view.selected, column:(column as! ColumnView).column,
+                                         after:(after as? CardView)?.card)
+        Application.view.scheduleUpdate()
+        Application.view.progressButton.progress = Application.view.selected.progress
     }
     
     private func confirmDelete() {
-        Application.view.delete(self)
+        detach()
+        DispatchQueue.global(qos:.background).async {
+            Application.view.repository.delete(self.card, board:Application.view.selected)
+            Application.view.scheduleUpdate()
+            DispatchQueue.main.async {
+                Application.view.progressButton.progress = Application.view.selected.progress
+                self.removeFromSuperview()
+            }
+        }
+    }
+    
+    private func detach() {
+        if let parent = Application.view.canvas.subviews.first(where:
+            { ($0 as! ItemView).child === self } ) as? ItemView {
+            parent.child = child
+            Application.view.canvasChanged()
+        }
     }
 }

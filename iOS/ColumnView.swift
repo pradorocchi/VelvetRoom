@@ -36,12 +36,32 @@ class ColumnView:EditView {
     
     override func beginDrag() {
         super.beginDrag()
-//        Application.shared.view.beginDrag(self)
+        detach()
     }
     
     override func endDrag() {
         super.endDrag()
-//        Application.shared.view.endDrag(self)
+        var after = Application.view.root
+        if Application.view.root! is CreateView || Application.view.root!.frame.maxX > frame.midX {
+            sibling = Application.view.root
+            Application.view.root = self
+            after = nil
+            if sibling?.child is CreateView {
+                sibling?.child?.removeFromSuperview()
+                sibling?.child = sibling?.child?.child
+            }
+        } else {
+            while after!.sibling is ColumnView {
+                guard after!.sibling!.left.constant < frame.minX else { break }
+                after = after!.sibling
+            }
+            sibling = after!.sibling
+            after!.sibling = self
+        }
+        Application.view.canvasChanged()
+        Application.view.repository.move(column, board:Application.view.selected, after:(after as? ColumnView)?.column)
+        Application.view.scheduleUpdate()
+        Application.view.progressButton.progress = Application.view.selected.progress
     }
     
     override func drag(deltaX:CGFloat, deltaY:CGFloat) {
@@ -67,6 +87,34 @@ class ColumnView:EditView {
     }
     
     private func confirmDelete() {
-        Application.view.delete(self)
+        detach()
+        var child = self.child
+        while child != nil {
+            child!.removeFromSuperview()
+            child = child!.child
+        }
+        DispatchQueue.global(qos:.background).async {
+            Application.view.repository.delete(self.column, board:Application.view.selected)
+            Application.view.scheduleUpdate()
+            DispatchQueue.main.async {
+                Application.view.progressButton.progress = Application.view.selected.progress
+                self.removeFromSuperview()
+            }
+        }
+    }
+    
+    private func detach() {
+        if self === Application.view.root {
+            child!.removeFromSuperview()
+            child = child!.child
+            Application.view.root = sibling
+        } else {
+            var sibling = Application.view.root
+            while sibling != nil && sibling!.sibling !== self {
+                sibling = sibling!.sibling
+            }
+            sibling?.sibling = self.sibling
+        }
+        Application.view.canvasChanged()
     }
 }

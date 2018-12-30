@@ -3,13 +3,13 @@ import VelvetRoom
 
 class View:UIViewController {
     let repository = Repository()
-    private weak var selected:Board! { didSet { fireSchedule() } }
+    weak var root:ItemView?
+    private(set) weak var selected:Board! { didSet { fireSchedule() } }
     private(set) weak var progressButton:ProgressView!
-    private weak var root:ItemView?
+    private(set) weak var canvas:UIView!
     private weak var emptyButton:UIButton!
     private weak var titleLabel:UILabel!
     private weak var boards:UIView!
-    private weak var canvas:UIView!
     private weak var boardsBottom:NSLayoutConstraint! { willSet { newValue.isActive = true } }
     private weak var boardsRight:NSLayoutConstraint! { willSet { newValue.isActive = true } }
     private weak var newLeft:NSLayoutConstraint! { willSet { newValue.isActive = true } }
@@ -54,32 +54,6 @@ class View:UIViewController {
         }
     }
     
-    func delete(_ card:CardView) {
-        detach(card)
-        card.removeFromSuperview()
-        DispatchQueue.global(qos:.background).async {
-            self.repository.delete(card.card, board:self.selected)
-            self.scheduleUpdate()
-            DispatchQueue.main.async { self.progressButton.progress = self.selected.progress }
-        }
-    }
-    
-    func delete(_ column:ColumnView) {
-        detach(column)
-        var child = column as ItemView?
-        while child != nil {
-            if !(child is CreateView) {
-                child!.removeFromSuperview()
-            }
-            child = child!.child
-        }
-        DispatchQueue.global(qos:.background).async {
-            self.repository.delete(column.column, board:self.selected)
-            self.scheduleUpdate()
-            DispatchQueue.main.async { self.progressButton.progress = self.selected.progress }
-        }
-    }
-    
     func scheduleUpdate(_ board:Board? = nil) {
         DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(board ?? self.selected) }
     }
@@ -118,23 +92,25 @@ class View:UIViewController {
         view.addSubview(titleLabel)
         self.titleLabel = titleLabel
         
+        let canvasScroll = UIScrollView()
+        canvasScroll.translatesAutoresizingMaskIntoConstraints = false
+        canvasScroll.alwaysBounceVertical = true
+        canvasScroll.alwaysBounceHorizontal = true
+        canvasScroll.indicatorStyle = .white
+        canvasScroll.clipsToBounds = false
+        view.addSubview(canvasScroll)
+        
         let boardsScroll = UIScrollView()
         boardsScroll.translatesAutoresizingMaskIntoConstraints = false
         boardsScroll.alwaysBounceVertical = true
         boardsScroll.indicatorStyle = .white
+        boardsScroll.backgroundColor = .black
         view.addSubview(boardsScroll)
         
         let boards = UIView()
         boards.translatesAutoresizingMaskIntoConstraints = false
         boardsScroll.addSubview(boards)
         self.boards = boards
-        
-        let canvasScroll = UIScrollView()
-        canvasScroll.translatesAutoresizingMaskIntoConstraints = false
-        canvasScroll.alwaysBounceVertical = true
-        canvasScroll.alwaysBounceHorizontal = true
-        canvasScroll.indicatorStyle = .white
-        view.addSubview(canvasScroll)
         
         let canvas = UIView()
         canvas.translatesAutoresizingMaskIntoConstraints = false
@@ -170,7 +146,7 @@ class View:UIViewController {
         
         titleLabel.heightAnchor.constraint(equalToConstant:30).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo:newButton.centerYAnchor).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo:newButton.rightAnchor, constant:20).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo:newButton.rightAnchor, constant:30).isActive = true
         titleLabel.rightAnchor.constraint(equalTo:progressButton.leftAnchor).isActive = true
         
         boardsScroll.topAnchor.constraint(equalTo:newButton.bottomAnchor).isActive = true
@@ -281,7 +257,7 @@ class View:UIViewController {
     }
     
     private func align() {
-        var maxRight = CGFloat(36)
+        var maxRight = CGFloat(10)
         var maxBottom = CGFloat()
         var sibling = root
         while sibling != nil {
@@ -309,31 +285,11 @@ class View:UIViewController {
     private func createCard() {
         guard !(root is CreateView), !(root!.child is CreateView) else { return }
         let create = CreateView(#selector(newCard(_:)))
-        canvas.addSubview(create)
         create.child = root!.child
         root!.child = create
-    }
-    
-    private func detach(_ card:CardView) {
-        if let parent = canvas.subviews.first(where: {($0 as! ItemView).child === card }) as? ItemView {
-            parent.child = card.child
-            canvasChanged()
-        }
-    }
-    
-    private func detach(_ column:ColumnView) {
-        if column === root {
-            column.child!.removeFromSuperview()
-            column.child = column.child!.child
-            root = column.sibling
-        } else {
-            var sibling = root
-            while sibling != nil && sibling!.sibling !== column {
-                sibling = sibling!.sibling
-            }
-            sibling?.sibling = column.sibling
-        }
-        canvasChanged()
+        canvas.addSubview(create)
+        create.top.constant = root!.top.constant
+        create.left.constant = root!.left.constant
     }
     
     @objc private func new() {

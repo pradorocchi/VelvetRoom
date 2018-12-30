@@ -2,20 +2,23 @@ import UIKit
 
 class EditView:ItemView, UITextViewDelegate {
     private(set) weak var text:TextView!
-    private var dragging = false {
-        didSet {
-            if dragging {
-                beginDrag()
-            } else {
-                endDrag()
-            }
-        }
-    }
+    private weak var dragGesture:UIPanGestureRecognizer!
+    private weak var longGesture:UILongPressGestureRecognizer!
+    private var dragX:CGFloat!
+    private var dragY:CGFloat!
     
     override init() {
         super.init()
         layer.cornerRadius = 6
-        addGestureRecognizer(UILongPressGestureRecognizer(target:self, action:#selector(longpressed(_:))))
+        
+        let dragGesture = UIPanGestureRecognizer(target:self, action:#selector(drag(_:)))
+        addGestureRecognizer(dragGesture)
+        self.dragGesture = dragGesture
+        
+        let longGesture = UILongPressGestureRecognizer(target:self, action:#selector(long(_:)))
+        longGesture.minimumPressDuration = 1
+        addGestureRecognizer(longGesture)
+        self.longGesture = longGesture
         
         let text = TextView()
         text.delegate = self
@@ -30,6 +33,10 @@ class EditView:ItemView, UITextViewDelegate {
     }
     
     required init?(coder:NSCoder) { return nil }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
     
 //    override func mouseDown(with event:NSEvent) {
 //        if event.clickCount == 2 {
@@ -60,24 +67,30 @@ class EditView:ItemView, UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView:UITextView) {
+        dragGesture.isEnabled = true
         text.isUserInteractionEnabled = false
         Application.view.canvasChanged()
         Application.view.scheduleUpdate()
     }
     
     func beginEditing() {
+        dragGesture.isEnabled = false
         text.isUserInteractionEnabled = true
         text.becomeFirstResponder()
     }
     
     func beginDrag() {
-//        layer!.removeFromSuperlayer()
-//        superview!.layer!.addSublayer(layer!)
-//        layer!.backgroundColor = NSColor.textColor.withAlphaComponent(0.1).cgColor
+        UIApplication.shared.keyWindow!.endEditing(true)
+        dragX = 0
+        dragY = 0
+        longGesture.isEnabled = false
+        superview!.bringSubviewToFront(self)
+        backgroundColor = .velvetShade
     }
     
     func endDrag() {
-//        layer!.backgroundColor = NSColor.clear.cgColor
+        longGesture.isEnabled = true
+        backgroundColor = .clear
     }
     
     func drag(deltaX:CGFloat, deltaY:CGFloat) {
@@ -85,7 +98,20 @@ class EditView:ItemView, UITextViewDelegate {
         top.constant += deltaY
     }
     
-    @objc private func longpressed(_ gesture:UILongPressGestureRecognizer) {
+    @objc private func drag(_ gesture:UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .began: beginDrag()
+        case .cancelled, .ended, .failed: endDrag()
+        case .possible, .changed:
+            let point = gesture.translation(in:superview)
+            drag(deltaX:point.x - dragX, deltaY:point.y - dragY)
+            dragX = point.x
+            dragY = point.y
+            
+        }
+    }
+    
+    @objc private func long(_ gesture:UILongPressGestureRecognizer) {
         guard gesture.state == .began else { return }
         beginEditing()
     }
