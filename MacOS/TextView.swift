@@ -61,6 +61,7 @@ class TextView:NSTextView {
     }
     
     func update() {
+        layoutManager!.ensureLayout(for:textContainer!)
         let size = layoutManager!.usedRect(for:textContainer!).size
         width.constant = size.width + 4
         height.constant = size.height
