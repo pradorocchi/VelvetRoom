@@ -6,22 +6,22 @@ class CardView:EditView {
     
     init(_ card:Card) {
         super.init()
-//        text.textContainer!.size = NSSize(width:400, height:1000000)
         text.font = .light(14)
-//        text.string = card.content
-//        text.update()
+        text.text = card.content
         self.card = card
     }
     
     required init?(coder:NSCoder) { return nil }
     
-//    override func textDidEndEditing(_ notification:Notification) {
-//        card.content = text.string
-//        super.textDidEndEditing(notification)
-//        if card.content.isEmpty {
-//            Application.shared.view.delete(self)
-//        }
-//    }
+    override func textViewDidEndEditing(_ textView:UITextView) {
+        if card.content.isEmpty {
+            UIApplication.shared.keyWindow!.endEditing(true)
+            Application.view.delete(self)
+        } else {
+            card.content = text.text
+            super.textViewDidEndEditing(textView)
+        }
+    }
     
     override func beginDrag() {
         super.beginDrag()

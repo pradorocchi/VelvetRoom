@@ -7,7 +7,7 @@ class ColumnView:EditView {
     init(_ column:Column) {
         super.init()
         text.font = .bold(18)
-        text.textColor = UIColor(white:1, alpha:0.4)
+        text.alpha = 0.4
         text.text = column.name
         text.textContainer.maximumNumberOfLines = 1
         self.column = column
@@ -19,13 +19,13 @@ class ColumnView:EditView {
     
     override func beginEditing() {
         super.beginEditing()
-        text.textColor = .white
+        text.alpha = 1
     }
     
     override func textViewDidEndEditing(_ textView:UITextView) {
         column.name = text.text
         super.textViewDidEndEditing(textView)
-        text.textColor = UIColor(white:1, alpha:0.4)
+        text.alpha = 0.4
         if column.name.isEmpty {
 //            Application.shared.view.delete(self)
         }

@@ -4,7 +4,7 @@ import VelvetRoom
 class View:UIViewController {
     let repository = Repository()
     private weak var selected:Board! { didSet { fireSchedule() } }
-    private weak var progressButton:ProgressView!
+    private(set) weak var progressButton:ProgressView!
     private weak var root:ItemView?
     private weak var emptyButton:UIButton!
     private weak var titleLabel:UILabel!
@@ -50,6 +50,17 @@ class View:UIViewController {
         align()
         UIView.animate(withDuration:animation) {
             self.canvas.layoutIfNeeded()
+            self.canvas.superview!.layoutIfNeeded()
+        }
+    }
+    
+    func delete(_ card:CardView) {
+        detach(card)
+        card.removeFromSuperview()
+        DispatchQueue.global(qos:.background).async {
+            self.repository.delete(card.card, board:self.selected)
+            self.scheduleUpdate()
+            DispatchQueue.main.async { self.progressButton.progress = self.selected.progress }
         }
     }
     
@@ -287,6 +298,13 @@ class View:UIViewController {
         root!.child = create
     }
     
+    private func detach(_ card:CardView) {
+        if let parent = canvas.subviews.first(where: {($0 as! ItemView).child === card }) as? ItemView {
+            parent.child = card.child
+            canvasChanged()
+        }
+    }
+    
     @objc private func new() {
         UIApplication.shared.keyWindow!.endEditing(true)
         present(NewView(), animated:true)
@@ -304,35 +322,35 @@ class View:UIViewController {
     }
     
     @objc private func newColumn(_ view:CreateView) {
-//        let column = ColumnView(presenter.newColumn())
-//        column.sibling = view
-//        if root === view {
-//            root = column
-//        } else {
-//            var left = root
-//            while left!.sibling !== view {
-//                left = left!.sibling
-//            }
-//            left!.sibling = column
-//        }
-//        canvas.documentView!.addSubview(column)
-//        column.top.constant = view.top.constant
-//        column.left.constant = view.left.constant
-//        canvasChanged()
-//        column.beginEditing()
-//        presenter.scheduleUpdate()
+        let column = ColumnView(repository.newColumn(selected))
+        column.sibling = view
+        if root === view {
+            root = column
+        } else {
+            var left = root
+            while left!.sibling !== view {
+                left = left!.sibling
+            }
+            left!.sibling = column
+        }
+        canvas.addSubview(column)
+        column.top.constant = view.top.constant
+        column.left.constant = view.left.constant
+        canvasChanged()
+        column.beginEditing()
+        scheduleUpdate()
     }
     
     @objc private func newCard(_ view:CreateView) {
-//        let card = CardView(presenter.newCard())
-//        card.child = view.child
-//        view.child = card
-//        canvas.documentView!.addSubview(card)
-//        card.top.constant = view.top.constant
-//        card.left.constant = view.left.constant
-//        canvasChanged()
-//        card.beginEditing()
-//        presenter.scheduleUpdate()
-//        progress.progress(CGFloat(presenter.selected.board.progress))
+        let card = CardView(try! repository.newCard(selected))
+        card.child = view.child
+        view.child = card
+        canvas.addSubview(card)
+        card.top.constant = view.top.constant
+        card.left.constant = view.left.constant
+        canvasChanged()
+        card.beginEditing()
+        scheduleUpdate()
+        progressButton.progress = selected.progress
     }
 }

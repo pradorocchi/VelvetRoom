@@ -17,6 +17,7 @@ class TextView:UITextView {
         let layout = TextLayout()
         storage.addLayoutManager(layout)
         layout.addTextContainer(container)
+        container.lineBreakMode = .byTruncatingTail
         super.init(frame:.zero, textContainer:container)
         translatesAutoresizingMaskIntoConstraints = false
         bounces = false
