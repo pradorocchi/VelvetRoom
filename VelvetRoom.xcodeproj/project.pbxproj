@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA00F0D221DA3C92002FD057 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA00F0D121DA3C92002FD057 /* ChartView.swift */; };
 		DA0A146C21D779B600CF4BDD /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0A146B21D779B600CF4BDD /* BoardView.swift */; };
 		DA0A146E21D77A2A00CF4BDD /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0A146D21D77A2A00CF4BDD /* TextView.swift */; };
 		DA0A147021D77A6A00CF4BDD /* TextLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0A146F21D77A6A00CF4BDD /* TextLayout.swift */; };
@@ -136,6 +137,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA00F0D121DA3C92002FD057 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		DA0A146B21D779B600CF4BDD /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		DA0A146D21D77A2A00CF4BDD /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		DA0A146F21D77A6A00CF4BDD /* TextLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLayout.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				DAD7B78021D654E3003396B1 /* View.swift */,
 				DAD7B78821D660E6003396B1 /* NewView.swift */,
 				DA88A21C21D8DB6000144E39 /* DeleteView.swift */,
+				DA00F0D121DA3C92002FD057 /* ChartView.swift */,
 				DA0A146B21D779B600CF4BDD /* BoardView.swift */,
 				DAD7B78221D65683003396B1 /* ProgressView.swift */,
 				DAADDD6721D8E8D60038F85F /* ItemView.swift */,
@@ -722,6 +725,7 @@
 				DAD7B78721D65BFE003396B1 /* UIFont.swift in Sources */,
 				DAB2708721C3CA7C008F184E /* Application.swift in Sources */,
 				DAADDD6E21D8EA1C0038F85F /* ColumnView.swift in Sources */,
+				DA00F0D221DA3C92002FD057 /* ChartView.swift in Sources */,
 				DAADDD6A21D8E91D0038F85F /* CreateView.swift in Sources */,
 				DAD7B78921D660E6003396B1 /* NewView.swift in Sources */,
 				DA0A146C21D779B600CF4BDD /* BoardView.swift in Sources */,

@@ -11,3 +11,4 @@ DeleteView.delete="Delete";
 DeleteView.cancel="Cancel";
 TextView.done="Done";
 TextView.delete="Delete";
+ChartView.done="Close";

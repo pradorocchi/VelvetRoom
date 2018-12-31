@@ -72,6 +72,7 @@ class View:UIViewController {
         view.addSubview(newButton)
         
         let progressButton = ProgressView()
+        progressButton.addTarget(self, action:#selector(progress), for:.touchUpInside)
         view.addSubview(progressButton)
         self.progressButton = progressButton
         
@@ -305,6 +306,11 @@ class View:UIViewController {
             self.view.layoutIfNeeded()
             self.titleLabel.alpha = 0
         }
+    }
+    
+    @objc private func progress() {
+        UIApplication.shared.keyWindow!.endEditing(true)
+        present(ChartView(selected), animated:true)
     }
     
     @objc private func newColumn(_ view:CreateView) {

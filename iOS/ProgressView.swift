@@ -5,6 +5,8 @@ class ProgressView:UIControl {
         width.constant = CGFloat(progress) * 24
         UIView.animate(withDuration:1) { self.layoutIfNeeded() }
     } }
+    override var isSelected:Bool { didSet { update() } }
+    override var isHighlighted:Bool { didSet { update() } }
     private weak var width:NSLayoutConstraint!
     
     init() {
@@ -50,4 +52,12 @@ class ProgressView:UIControl {
     }
     
     required init?(coder:NSCoder) { return nil }
+    
+    private func update() {
+        if isSelected || isHighlighted {
+            alpha = 0.2
+        } else {
+            alpha = 1
+        }
+    }
 }
