@@ -73,6 +73,7 @@
 		DAC2CDC021C8E2F000AD927B /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDBF21C8E2F000AD927B /* NewView.swift */; };
 		DAC2CDC321C8EDA700AD927B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDC221C8EDA700AD927B /* String.swift */; };
 		DAC2CDC421C8EDA700AD927B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDC221C8EDA700AD927B /* String.swift */; };
+		DAC5F1A821DA5A010039612C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC5F1A721DA5A000039612C /* CloudKit.framework */; };
 		DAD0C1CE21C5036200E6D1C7 /* TestBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */; };
 		DAD0C1D021C5056B00E6D1C7 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CF21C5056B00E6D1C7 /* Board.swift */; };
 		DAD0C1D121C5056B00E6D1C7 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CF21C5056B00E6D1C7 /* Board.swift */; };
@@ -205,6 +206,7 @@
 		DAB270AF21C3D421008F184E /* VelvetRoom.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = VelvetRoom.sketch; sourceTree = "<group>"; };
 		DAC2CDBF21C8E2F000AD927B /* NewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewView.swift; sourceTree = "<group>"; };
 		DAC2CDC221C8EDA700AD927B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		DAC5F1A721DA5A000039612C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBoard.swift; sourceTree = "<group>"; };
 		DAD0C1CF21C5056B00E6D1C7 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		DAD0C1D221C508D800E6D1C7 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB270A921C3CD83008F184E /* libMacOSengine.a in Frameworks */,
+				DAC5F1A821DA5A010039612C /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +427,7 @@
 		DAB270A721C3CD7A008F184E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAC5F1A721DA5A000039612C /* CloudKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
