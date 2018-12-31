@@ -57,6 +57,14 @@ class TextView:UITextView {
         inputAccessoryView!.addSubview(deleteButton)
         self.deleteButton = deleteButton
         
+        let headerButton = UIButton()
+        headerButton.addTarget(self, action:#selector(header), for:.touchUpInside)
+        headerButton.translatesAutoresizingMaskIntoConstraints = false
+        headerButton.setImage(#imageLiteral(resourceName: "header.pdf"), for:.normal)
+        headerButton.imageView!.clipsToBounds = true
+        headerButton.imageView!.contentMode = .center
+        inputAccessoryView!.addSubview(headerButton)
+        
         doneButton.rightAnchor.constraint(equalTo:inputAccessoryView!.rightAnchor, constant:-20).isActive = true
         doneButton.centerYAnchor.constraint(equalTo:inputAccessoryView!.centerYAnchor).isActive = true
         doneButton.widthAnchor.constraint(equalToConstant:56).isActive = true
@@ -66,6 +74,11 @@ class TextView:UITextView {
         deleteButton.bottomAnchor.constraint(equalTo:inputAccessoryView!.bottomAnchor).isActive = true
         deleteButton.leftAnchor.constraint(equalTo:inputAccessoryView!.leftAnchor).isActive = true
         deleteButton.widthAnchor.constraint(equalToConstant:60).isActive = true
+        
+        headerButton.topAnchor.constraint(equalTo:inputAccessoryView!.topAnchor, constant:2).isActive = true
+        headerButton.bottomAnchor.constraint(equalTo:inputAccessoryView!.bottomAnchor).isActive = true
+        headerButton.centerXAnchor.constraint(equalTo:inputAccessoryView!.centerXAnchor).isActive = true
+        headerButton.widthAnchor.constraint(equalToConstant:60).isActive = true
         
         if #available(iOS 11.0, *) {
             contentInsetAdjustmentBehavior = .never
@@ -84,4 +97,6 @@ class TextView:UITextView {
         resignFirstResponder()
         onDelete()
     }
+    
+    @objc private func header() { insertText("#") }
 }
