@@ -17,8 +17,8 @@ public class Repository {
     public func load() {
         account = (try? storage.account()) ?? account
         account.boards.forEach { id in boards.append(storage.board(id)) }
-        synchBoards()
         listBoards()
+        synchBoards()
     }
     
     public func newBoard(_ name:String, template:Template) {
@@ -154,6 +154,12 @@ public class Repository {
         return rating
     }
     
+    func synchBoards() {
+        synch.notification = synchNotification
+        synch.loaded = synchLoaded
+        synch.start()
+    }
+    
     private func update(_ board:Board) {
         board.updated = Date().timeIntervalSince1970
         storage.save(board)
@@ -174,18 +180,28 @@ public class Repository {
         }
     }
     
-    private func synchBoards() {
-        synch.notification = synchNotification
-        synch.loaded = synchLoaded
-        synch.start()
-    }
-    
     private func synchNotification(_ items:[String:TimeInterval]) {
-        
+        items.forEach { item in
+            if let current = boards.first(where: { $0.id == item.key } ) {
+                if current.updated < item.value {
+                    synch.load(item.key)
+                }
+            } else {
+                synch.load(item.key)
+            }
+        }
     }
     
     private func synchLoaded(_ board:Board) {
-        
+        if !account.boards.contains(board.id) {
+            account.boards.append(board.id)
+        }
+        boards.removeAll { $0.id == board.id }
+        boards.append(board)
+        storage.save(board)
+        storage.save(account)
+        listBoards()
+        select(board)
     }
     
     private func synchUpdates() {
