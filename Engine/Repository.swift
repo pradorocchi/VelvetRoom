@@ -136,6 +136,24 @@ public class Repository {
         timer.schedule(deadline:.now())
     }
     
+    public func rate() -> Bool {
+        var rating = false
+        account.rateTries += 1
+        if (account.rateTries % 3) == 0 {
+            if let last = account.rates.last,
+                let months = Calendar.current.dateComponents([.month], from:last, to:Date()).month {
+                rating = months < -1
+            } else {
+                rating = true
+            }
+        }
+        if rating {
+            account.rates.append(Date())
+        }
+        storage.save(account)
+        return rating
+    }
+    
     private func update(_ board:Board) {
         board.updated = Date().timeIntervalSince1970
         storage.save(board)

@@ -1,5 +1,6 @@
 import Foundation
 import VelvetRoom
+import StoreKit
 
 class Presenter {
     weak var selected:BoardView! {
@@ -29,6 +30,7 @@ class Presenter {
     
     func newBoard(_ name:String, template:Template) {
         DispatchQueue.global(qos:.background).async { self.repository.newBoard(name, template:template) }
+        if repository.rate() { if #available(OSX 10.14, *) { SKStoreReviewController.requestReview() } }
     }
     
     func newColumn() -> Column { return repository.newColumn(selected.board) }

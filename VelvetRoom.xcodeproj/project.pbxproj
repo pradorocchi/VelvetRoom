@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DA00F0D221DA3C92002FD057 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA00F0D121DA3C92002FD057 /* ChartView.swift */; };
+		DA00F0D421DA4A43002FD057 /* TestRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA00F0D321DA4A43002FD057 /* TestRating.swift */; };
 		DA0A146C21D779B600CF4BDD /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0A146B21D779B600CF4BDD /* BoardView.swift */; };
 		DA0A146E21D77A2A00CF4BDD /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0A146D21D77A2A00CF4BDD /* TextView.swift */; };
 		DA0A147021D77A6A00CF4BDD /* TextLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0A146F21D77A6A00CF4BDD /* TextLayout.swift */; };
@@ -138,6 +139,7 @@
 
 /* Begin PBXFileReference section */
 		DA00F0D121DA3C92002FD057 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		DA00F0D321DA4A43002FD057 /* TestRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRating.swift; sourceTree = "<group>"; };
 		DA0A146B21D779B600CF4BDD /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		DA0A146D21D77A2A00CF4BDD /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		DA0A146F21D77A6A00CF4BDD /* TextLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLayout.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 				DAD0C1E621C50F0900E6D1C7 /* TestRepository_Board.swift */,
 				DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */,
 				DA65DA6E21D1327100E74011 /* TestRepository_Column.swift */,
+				DA00F0D321DA4A43002FD057 /* TestRating.swift */,
 				DAD0C1FF21C52C8500E6D1C7 /* TestStorage.swift */,
 				DAD0C1FD21C52C6600E6D1C7 /* TestSynch.swift */,
 				DA7B2AE621C67982003B7333 /* TestList.swift */,
@@ -676,6 +679,7 @@
 				DA7B2AEE21C67DBE003B7333 /* TestTemplate.swift in Sources */,
 				DAD0C1FE21C52C6600E6D1C7 /* TestSynch.swift in Sources */,
 				DAD0C1FC21C52A9D00E6D1C7 /* MockSynch.swift in Sources */,
+				DA00F0D421DA4A43002FD057 /* TestRating.swift in Sources */,
 				DAD0C1FA21C52A3200E6D1C7 /* MockStorage.swift in Sources */,
 				DAD0C1E221C50C7300E6D1C7 /* TestContent.swift in Sources */,
 				DAD0C1DB21C509D700E6D1C7 /* TestCard.swift in Sources */,

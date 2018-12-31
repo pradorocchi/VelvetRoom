@@ -1,5 +1,6 @@
 import UIKit
 import VelvetRoom
+import StoreKit
 
 class NewView:UIViewController, UITextFieldDelegate {
     private weak var field:UITextField!
@@ -210,6 +211,7 @@ class NewView:UIViewController, UITextFieldDelegate {
             Application.view.repository.newBoard(name, template:self.template)
         }
         presentingViewController!.dismiss(animated:true)
+        if Application.view.repository.rate() { if #available(iOS 10.3, *) { SKStoreReviewController.requestReview() } }
     }
     
     @objc private func selectNone() {
