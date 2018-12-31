@@ -7,7 +7,7 @@ class CreateView:ItemView {
     init(_ selector:Selector) {
         super.init()
         widthAnchor.constraint(equalToConstant:64).isActive = true
-        heightAnchor.constraint(equalToConstant:40).isActive = true
+        heightAnchor.constraint(equalToConstant:50).isActive = true
         addTarget(Application.view, action:selector, for:.touchUpInside)
         
         let image = UIImageView(image:#imageLiteral(resourceName: "new.pdf"))

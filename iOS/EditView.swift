@@ -16,7 +16,6 @@ class EditView:ItemView, UITextViewDelegate {
         self.dragGesture = dragGesture
         
         let longGesture = UILongPressGestureRecognizer(target:self, action:#selector(long(_:)))
-        longGesture.minimumPressDuration = 1
         addGestureRecognizer(longGesture)
         self.longGesture = longGesture
         
@@ -25,18 +24,14 @@ class EditView:ItemView, UITextViewDelegate {
         addSubview(text)
         self.text = text
         
-        text.topAnchor.constraint(equalTo:topAnchor, constant:10).isActive = true
-        text.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-10).isActive = true
-        text.rightAnchor.constraint(equalTo:rightAnchor, constant:-10).isActive = true
-        text.leftAnchor.constraint(equalTo:leftAnchor, constant:14).isActive = true
-        text.widthAnchor.constraint(lessThanOrEqualToConstant:250).isActive = true
+        text.topAnchor.constraint(equalTo:topAnchor, constant:16).isActive = true
+        text.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-16).isActive = true
+        text.rightAnchor.constraint(equalTo:rightAnchor, constant:-16).isActive = true
+        text.leftAnchor.constraint(equalTo:leftAnchor, constant:16).isActive = true
+        text.widthAnchor.constraint(lessThanOrEqualToConstant:180).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
     
 //    override func mouseDown(with event:NSEvent) {
 //        if event.clickCount == 2 {

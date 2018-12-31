@@ -86,31 +86,29 @@ class View:UIViewController {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.isUserInteractionEnabled = false
-        titleLabel.font = .bold(16)
-        titleLabel.textColor = .white
+        titleLabel.font = .bold(20)
+        titleLabel.textColor = .velvetBlue
         titleLabel.alpha = 0
         view.addSubview(titleLabel)
         self.titleLabel = titleLabel
-        
-        let canvasScroll = UIScrollView()
-        canvasScroll.translatesAutoresizingMaskIntoConstraints = false
-        canvasScroll.alwaysBounceVertical = true
-        canvasScroll.alwaysBounceHorizontal = true
-        canvasScroll.indicatorStyle = .white
-        canvasScroll.clipsToBounds = false
-        view.addSubview(canvasScroll)
         
         let boardsScroll = UIScrollView()
         boardsScroll.translatesAutoresizingMaskIntoConstraints = false
         boardsScroll.alwaysBounceVertical = true
         boardsScroll.indicatorStyle = .white
-        boardsScroll.backgroundColor = .black
         view.addSubview(boardsScroll)
         
         let boards = UIView()
         boards.translatesAutoresizingMaskIntoConstraints = false
         boardsScroll.addSubview(boards)
         self.boards = boards
+        
+        let canvasScroll = UIScrollView()
+        canvasScroll.translatesAutoresizingMaskIntoConstraints = false
+        canvasScroll.alwaysBounceVertical = true
+        canvasScroll.alwaysBounceHorizontal = true
+        canvasScroll.indicatorStyle = .white
+        view.addSubview(canvasScroll)
         
         let canvas = UIView()
         canvas.translatesAutoresizingMaskIntoConstraints = false
@@ -146,7 +144,7 @@ class View:UIViewController {
         
         titleLabel.heightAnchor.constraint(equalToConstant:30).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo:newButton.centerYAnchor).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo:newButton.rightAnchor, constant:30).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo:newButton.rightAnchor, constant:32).isActive = true
         titleLabel.rightAnchor.constraint(equalTo:progressButton.leftAnchor).isActive = true
         
         boardsScroll.topAnchor.constraint(equalTo:newButton.bottomAnchor).isActive = true
@@ -262,7 +260,7 @@ class View:UIViewController {
         var sibling = root
         while sibling != nil {
             let right = maxRight
-            var bottom = CGFloat(20)
+            var bottom = CGFloat(5)
             
             var child = sibling
             sibling = sibling!.sibling
@@ -270,16 +268,16 @@ class View:UIViewController {
                 child!.left.constant = right
                 child!.top.constant = bottom
                 
-                bottom += child!.bounds.height + 20
-                maxRight = max(maxRight, right + child!.bounds.width + 20)
+                bottom += child!.bounds.height + 10
+                maxRight = max(maxRight, right + child!.bounds.width + 45)
                 
                 child = child!.child
             }
             
             maxBottom = max(bottom, maxBottom)
         }
-        canvasWidth = canvas.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight + 16)
-        canvasHeight = canvas.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 16)
+        canvasWidth = canvas.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight - 40)
+        canvasHeight = canvas.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 20)
     }
     
     private func createCard() {

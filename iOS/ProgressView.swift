@@ -2,7 +2,7 @@ import UIKit
 
 class ProgressView:UIControl {
     var progress:Float = 0 { didSet {
-        width.constant = CGFloat(progress) * bounds.width
+        width.constant = CGFloat(progress) * 24
         UIView.animate(withDuration:1) { self.layoutIfNeeded() }
     } }
     private weak var width:NSLayoutConstraint!
@@ -36,8 +36,8 @@ class ProgressView:UIControl {
         
         background.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         background.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
-        background.heightAnchor.constraint(equalToConstant:18).isActive = true
-        background.widthAnchor.constraint(equalToConstant:26).isActive = true
+        background.heightAnchor.constraint(equalToConstant:20).isActive = true
+        background.widthAnchor.constraint(equalToConstant:24).isActive = true
         
         progress.leftAnchor.constraint(equalTo:background.leftAnchor).isActive = true
         progress.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
