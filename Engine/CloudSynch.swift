@@ -7,14 +7,14 @@ class CloudSynch:Synch {
     private var started = false
     
     func start() {
-        DispatchQueue.global(qos:.background).async {
+        LocalStorage.queue.async {
             self.register()
             self.fetch()
         }
     }
     
     func load(_ id:String) {
-        DispatchQueue.global(qos:.background).async {
+        LocalStorage.queue.async {
             CKContainer(identifier:"iCloud.VelvetRoom").publicCloudDatabase.fetch(withRecordID:.init(recordName:id))
             { record, _ in
                 if let json = record?["json"] as? CKAsset,
@@ -28,7 +28,7 @@ class CloudSynch:Synch {
     
     func save(_ account:[String:TimeInterval]) {
         if started {
-            DispatchQueue.global(qos:.background).async {
+            LocalStorage.queue.async {
                 NSUbiquitousKeyValueStore.default.set(account, forKey:"velvetroom.boards")
                 NSUbiquitousKeyValueStore.default.synchronize()
             }
@@ -37,7 +37,7 @@ class CloudSynch:Synch {
     
     func save(_ board:Board) {
         if started {
-            DispatchQueue.global(qos:.background).async {
+            LocalStorage.queue.async {
                 let record = CKRecord(recordType:"Board", recordID:.init(recordName:board.id))
                 record["json"] = CKAsset(fileURL:LocalStorage.url(board.id))
                 let operation = CKModifyRecordsOperation(recordsToSave:[record])

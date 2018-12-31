@@ -36,11 +36,12 @@ class View:UIViewController {
         progressLeft.constant = view.bounds.width * -0.32
         boardsRight.constant = view.bounds.width
         (canvas.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:false)
-        render(board)
-        canvasChanged(0)
-        UIView.animate(withDuration:0.5) {
+        UIView.animate(withDuration:0.5, animations: {
             self.view.layoutIfNeeded()
             self.titleLabel.alpha = 1
+        }) { _ in
+            self.render(board)
+            self.canvasChanged(0)
         }
     }
     
@@ -302,9 +303,11 @@ class View:UIViewController {
         newLeft.constant = 0
         progressLeft.constant = 0
         boardsRight.constant = 0
-        UIView.animate(withDuration:0.4) {
+        UIView.animate(withDuration:0.4, animations: {
             self.view.layoutIfNeeded()
             self.titleLabel.alpha = 0
+        }) { _ in
+            self.canvas.subviews.forEach { $0.removeFromSuperview() }
         }
     }
     

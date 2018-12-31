@@ -1,6 +1,7 @@
 import Foundation
 
 class LocalStorage:Storage {
+    static let queue = DispatchQueue(label:String(), qos:.background, target:.global(qos:.background))
     private static let url = FileManager.default.urls(for:.documentDirectory, in:.userDomainMask)[0]
     private let accountUrl = LocalStorage.url("Account")
     
@@ -16,19 +17,19 @@ class LocalStorage:Storage {
     }
     
     func save(_ account:Account) {
-        DispatchQueue.global(qos:.background).async {
+        LocalStorage.queue.async {
             try! (try! JSONEncoder().encode(account)).write(to:self.accountUrl)
         }
     }
     
     func save(_ board:Board) {
-        DispatchQueue.global(qos:.background).async {
+        LocalStorage.queue.async {
             try! (try! JSONEncoder().encode(board)).write(to:LocalStorage.url(board.id))
         }
     }
     
     func delete(_ board:Board) {
-        DispatchQueue.global(qos:.background).async {
+        LocalStorage.queue.async {
             if FileManager.default.fileExists(atPath:LocalStorage.url(board.id).path) {
                 try! FileManager.default.removeItem(at:LocalStorage.url(board.id))
             }

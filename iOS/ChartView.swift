@@ -97,9 +97,9 @@ class ChartView:UIViewController {
             layer.lineWidth = 5
             layer.strokeColor = UIColor.black.cgColor
             if $0.offset == chart.count - 1 {
-                layer.fillColor = UIColor.velvetBlue.withAlphaComponent(0.3).cgColor
-            } else {
                 layer.fillColor = UIColor.velvetBlue.cgColor
+            } else {
+                layer.fillColor = UIColor.velvetBlue.withAlphaComponent(0.3).cgColor
             }
             view.layer.addSublayer(layer)
             angle = radius

@@ -32,9 +32,9 @@ class CrossView:NSView {
             layer.lineWidth = 5
             layer.strokeColor = NSColor.black.cgColor
             if $0.offset == chart.count - 1 {
-                layer.fillColor = NSColor.velvetBlue.withAlphaComponent(0.3).cgColor
-            } else {
                 layer.fillColor = NSColor.velvetBlue.cgColor
+            } else {
+                layer.fillColor = NSColor.velvetBlue.withAlphaComponent(0.3).cgColor
             }
             self.layer!.addSublayer(layer)
             angle = radius
