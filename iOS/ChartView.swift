@@ -96,6 +96,7 @@ class ChartView:UIViewController {
             layer.path = path
             layer.lineWidth = 5
             layer.lineJoin = .round
+            layer.lineCap = .round
             layer.strokeColor = UIColor.black.cgColor
             if $0.offset == chart.count - 1 {
                 layer.fillColor = UIColor.velvetBlue.cgColor
