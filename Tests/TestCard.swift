@@ -44,4 +44,34 @@ class TestCard:XCTestCase {
         XCTAssertEqual(2, card.positions.last!.index)
         XCTAssertLessThanOrEqual(card.positions.first!.time, card.positions.last!.time)
     }
+    
+    func testContentEndingWhiteSpace() {
+        let card = Card()
+        card.content = "hello world "
+        XCTAssertEqual("hello world", card.contents.first!.value)
+    }
+    
+    func testContentEndingMultipleWhiteSpace() {
+        let card = Card()
+        card.content = "hello world    "
+        XCTAssertEqual("hello world", card.contents.first!.value)
+    }
+    
+    func testContentEndingNewLine() {
+        let card = Card()
+        card.content = "hello world\n"
+        XCTAssertEqual("hello world", card.contents.first!.value)
+    }
+    
+    func testContentEndingCarriageReturn() {
+        let card = Card()
+        card.content = "hello world\r"
+        XCTAssertEqual("hello world", card.contents.first!.value)
+    }
+    
+    func testContentEndingTab() {
+        let card = Card()
+        card.content = "hello world\t"
+        XCTAssertEqual("hello world", card.contents.first!.value)
+    }
 }

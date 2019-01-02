@@ -15,7 +15,7 @@ public class Card:Codable {
         get { return contents.last?.value ?? String() }
         set {
             var new = Content()
-            new.value = newValue
+            new.value = clean(newValue)
             new.time = Date().timeIntervalSince1970
             contents.append(new)
         }
@@ -30,5 +30,14 @@ public class Card:Codable {
         new.index = index
         new.time = Date().timeIntervalSince1970
         positions.append(new)
+    }
+    
+    private func clean(_ string:String) -> String {
+        var string = string
+        while let last = string.last,
+            last == " " || last == "\n" || last == "\r" || last == "\t" {
+            string = String(string.dropLast())
+        }
+        return string
     }
 }
