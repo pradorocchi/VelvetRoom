@@ -17,10 +17,12 @@ class CardView:EditView {
     
     override func textDidEndEditing(_ notification:Notification) {
         card.content = text.string
-        super.textDidEndEditing(notification)
         if card.content.isEmpty {
             Application.shared.view.delete(self)
+        } else {
+            text.string = card.content
         }
+        super.textDidEndEditing(notification)
     }
     
     override func beginDrag() {
