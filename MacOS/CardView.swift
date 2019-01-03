@@ -21,6 +21,7 @@ class CardView:EditView {
             Application.shared.view.delete(self)
         } else {
             text.string = card.content
+            text.update()
         }
         super.textDidEndEditing(notification)
     }
