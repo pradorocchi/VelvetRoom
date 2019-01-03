@@ -24,6 +24,7 @@ class CardView:EditView {
             confirmDelete()
         } else {
             card.content = text.text
+            text.text = card.content
             super.textViewDidEndEditing(textView)
         }
     }
