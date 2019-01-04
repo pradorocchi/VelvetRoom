@@ -17,7 +17,7 @@ class Presenter {
     
     var list:(([Board]) -> Void)!
     var select:((Board) -> Void)!
-    private let repository = Repository()
+    let repository = Repository()
     
     init() {
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }

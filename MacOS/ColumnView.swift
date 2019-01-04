@@ -35,8 +35,8 @@ class ColumnView:EditView {
         Application.shared.view.detach(self)
     }
     
-    override func endDrag() {
-        super.endDrag()
+    override func endDrag(_ event:NSEvent) {
+        super.endDrag(event)
         Application.shared.view.endDrag(self)
     }
     

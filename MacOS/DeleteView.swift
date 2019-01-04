@@ -1,10 +1,11 @@
 import AppKit
 
 class DeleteView:NSWindow {
-    private(set) weak var message:NSTextField!
+    private let onConfirm:(() -> Void)
     override var canBecomeKey:Bool { return true }
     
-    init() {
+    init(_ name:String, onConfirm:@escaping(() -> Void)) {
+        self.onConfirm = onConfirm
         super.init(contentRect:NSRect(x:0, y:0, width:Application.shared.view.frame.width - 2, height:
             Application.shared.view.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
         isOpaque = false
@@ -19,8 +20,8 @@ class DeleteView:NSWindow {
         message.isBezeled = false
         message.isEditable = false
         message.font = .systemFont(ofSize:22, weight:.bold)
+        message.stringValue = name
         contentView!.addSubview(message)
-        self.message = message
         
         let cancel = NSButton()
         cancel.title = .local("DeleteView.cancel")
@@ -60,6 +61,7 @@ class DeleteView:NSWindow {
     }
     
     @objc func delete() {
+        onConfirm()
         Application.shared.view.endSheet(self)
     }
     

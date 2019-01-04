@@ -1,6 +1,10 @@
 import AppKit
 
 class ProgressView:NSControl {
+    var progress:Float = 0 { didSet {
+        label.isHidden = false
+        animate(CGFloat(progress) * bounds.width)
+    } }
     private weak var label:NSTextField!
     private weak var width:NSLayoutConstraint!
     
@@ -51,11 +55,6 @@ class ProgressView:NSControl {
         
         label.centerYAnchor.constraint(equalTo:centerYAnchor, constant:-1).isActive = true
         label.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
-    }
-    
-    func progress(_ value:CGFloat) {
-        label.isHidden = false
-        animate(value * bounds.width)
     }
     
     func clear() {

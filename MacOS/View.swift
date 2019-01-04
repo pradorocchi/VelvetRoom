@@ -3,11 +3,11 @@ import VelvetRoom
 
 class View:NSWindow {
     let presenter = Presenter()
+    private(set) weak var canvas:ScrollView!
     private weak var list:ScrollView!
-    private weak var canvas:ScrollView!
     private weak var root:ItemView?
     private weak var borderLeft:NSLayoutConstraint!
-    @IBOutlet private weak var progress:ProgressView!
+    @IBOutlet private(set) weak var progress:ProgressView!
     @IBOutlet private weak var listButton:NSButton!
     @IBOutlet private weak var deleteButton:NSButton!
     
@@ -56,7 +56,7 @@ class View:NSWindow {
         canvasChanged()
         presenter.move(card.card, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
         presenter.scheduleUpdate()
-        progress.progress(CGFloat(presenter.selected.board.progress))
+        progress.progress = presenter.selected.board.progress
     }
     
     func endDrag(_ column:ColumnView) {
@@ -80,30 +80,18 @@ class View:NSWindow {
         canvasChanged()
         presenter.move(column.column, after:(after as? ColumnView)?.column)
         presenter.scheduleUpdate()
-        progress.progress(CGFloat(presenter.selected.board.progress))
-    }
-    
-    func delete(_ card:CardView) {
-        makeFirstResponder(nil)
-        beginSheet(DeleteCardView(card, board:presenter.selected.board))
+        progress.progress = presenter.selected.board.progress
     }
     
     func delete(_ column:ColumnView) {
         makeFirstResponder(nil)
-        beginSheet(DeleteColumnView(column, board:presenter.selected.board))
+//        beginSheet(DeleteColumnView(column, board:presenter.selected.board))
     }
     
     func delete() {
         presenter.fireSchedule()
         makeFirstResponder(nil)
-        beginSheet(DeleteBoardView(presenter.selected.board))
-    }
-    
-    func deleteConfirm(_ card:CardView, board:Board) {
-        detach(card)
-        card.removeFromSuperview()
-        presenter.delete(card.card, board:board)
-        progress.progress(CGFloat(presenter.selected.board.progress))
+//        beginSheet(DeleteBoardView(presenter.selected.board))
     }
     
     func deleteConfirm(_ column:ColumnView, board:Board) {
@@ -114,14 +102,7 @@ class View:NSWindow {
             child = child!.child
         }
         presenter.delete(column.column, board:board)
-        progress.progress(CGFloat(presenter.selected.board.progress))
-    }
-    
-    func detach(_ card:CardView) {
-        if let parent = canvas.documentView!.subviews.first(where: {($0 as! ItemView).child === card }) as? ItemView {
-            parent.child = card.child
-            canvasChanged()
-        }
+        progress.progress = presenter.selected.board.progress
     }
     
     func detach(_ column:ColumnView) {
@@ -284,7 +265,7 @@ class View:NSWindow {
         render(view.board)
         canvasChanged(0)
         deleteButton.isEnabled = true
-        progress.progress(CGFloat(view.board.progress))
+        progress.progress = view.board.progress
     }
     
     @objc private func newColumn(_ view:CreateView) {
@@ -317,7 +298,7 @@ class View:NSWindow {
         canvasChanged()
         card.beginEditing()
         presenter.scheduleUpdate()
-        progress.progress(CGFloat(presenter.selected.board.progress))
+        progress.progress = presenter.selected.board.progress
     }
     
     @IBAction private func toggleSourceList(_ sender:NSMenuItem) {

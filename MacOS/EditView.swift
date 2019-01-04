@@ -2,15 +2,7 @@ import AppKit
 
 class EditView:ItemView, NSTextViewDelegate {
     private(set) weak var text:TextView!
-    private var dragging = false {
-        didSet {
-            if dragging {
-                beginDrag()
-            } else {
-                endDrag()
-            }
-        }
-    }
+    private var dragging = false
     
     override init() {
         super.init()
@@ -43,6 +35,7 @@ class EditView:ItemView, NSTextViewDelegate {
                 NSCursor.pointingHand.set()
             } else {
                 dragging = true
+                beginDrag()
                 Application.shared.view.makeFirstResponder(nil)
             }
         }
@@ -51,6 +44,7 @@ class EditView:ItemView, NSTextViewDelegate {
     override func mouseUp(with:NSEvent) {
         if dragging {
             dragging = false
+            endDrag(with)
         }
     }
     
@@ -74,7 +68,7 @@ class EditView:ItemView, NSTextViewDelegate {
         layer!.backgroundColor = NSColor.textColor.withAlphaComponent(0.1).cgColor
     }
     
-    func endDrag() {
+    func endDrag(_ event:NSEvent) {
         layer!.backgroundColor = NSColor.clear.cgColor
         NSCursor.arrow.set()
     }
