@@ -86,7 +86,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
-      customArchiveName = "VelvetRoom"
+      customArchiveName = "Velvet Room"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
