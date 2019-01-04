@@ -14,6 +14,7 @@ public class Card:Codable {
     public var content:String {
         get { return contents.last?.value ?? String() }
         set {
+            guard newValue != contents.last?.value else { return }
             var new = Content()
             new.value = clean(newValue)
             new.time = Date().timeIntervalSince1970
@@ -25,6 +26,7 @@ public class Card:Codable {
     public private(set) var contents = [Content]()
     
     func position(column:Int, index:Int) {
+        guard column != positions.last?.column || index != positions.last?.index else { return }
         var new = Position()
         new.column = column
         new.index = index

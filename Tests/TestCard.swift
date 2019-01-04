@@ -31,6 +31,13 @@ class TestCard:XCTestCase {
         XCTAssertLessThanOrEqual(card.contents.first!.time, card.contents.last!.time)
     }
     
+    func testNotNewContentIfSame() {
+        let card = Card()
+        card.content = "hello world"
+        card.content = "hello world"
+        XCTAssertEqual(1, card.contents.count)
+    }
+    
     func testNewPosition() {
         let time = Date().timeIntervalSince1970
         let card = Card()
@@ -43,6 +50,13 @@ class TestCard:XCTestCase {
         XCTAssertEqual(2, card.positions.last!.column)
         XCTAssertEqual(2, card.positions.last!.index)
         XCTAssertLessThanOrEqual(card.positions.first!.time, card.positions.last!.time)
+    }
+    
+    func testNotNewPositionIfSame() {
+        let card = Card()
+        card.position(column:1, index:1)
+        card.position(column:1, index:1)
+        XCTAssertEqual(1, card.positions.count)
     }
     
     func testContentEndingWhiteSpace() {
