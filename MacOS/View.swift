@@ -3,9 +3,9 @@ import VelvetRoom
 
 class View:NSWindow {
     let presenter = Presenter()
+    weak var root:ItemView?
     private(set) weak var canvas:ScrollView!
     private weak var list:ScrollView!
-    private weak var root:ItemView?
     private weak var borderLeft:NSLayoutConstraint!
     @IBOutlet private(set) weak var progress:ProgressView!
     @IBOutlet private weak var listButton:NSButton!
@@ -59,65 +59,10 @@ class View:NSWindow {
         progress.progress = presenter.selected.board.progress
     }
     
-    func endDrag(_ column:ColumnView) {
-        var after = root
-        if root is CreateView || root!.frame.maxX > column.frame.midX {
-            column.sibling = root
-            root = column
-            after = nil
-            if column.sibling?.child is CreateView {
-                column.sibling?.child?.removeFromSuperview()
-                column.sibling?.child = column.sibling?.child?.child
-            }
-        } else {
-            while after!.sibling is ColumnView {
-                guard after!.sibling!.left.constant < column.frame.minX else { break }
-                after = after!.sibling
-            }
-            column.sibling = after!.sibling
-            after!.sibling = column
-        }
-        canvasChanged()
-        presenter.move(column.column, after:(after as? ColumnView)?.column)
-        presenter.scheduleUpdate()
-        progress.progress = presenter.selected.board.progress
-    }
-    
-    func delete(_ column:ColumnView) {
-        makeFirstResponder(nil)
-//        beginSheet(DeleteColumnView(column, board:presenter.selected.board))
-    }
-    
     func delete() {
         presenter.fireSchedule()
         makeFirstResponder(nil)
 //        beginSheet(DeleteBoardView(presenter.selected.board))
-    }
-    
-    func deleteConfirm(_ column:ColumnView, board:Board) {
-        detach(column)
-        var child = column as ItemView?
-        while child != nil {
-            child!.removeFromSuperview()
-            child = child!.child
-        }
-        presenter.delete(column.column, board:board)
-        progress.progress = presenter.selected.board.progress
-    }
-    
-    func detach(_ column:ColumnView) {
-        if column === root {
-            column.child!.removeFromSuperview()
-            column.child = column.child!.child
-            root = column.sibling
-        } else {
-            var sibling = root
-            while sibling != nil && sibling!.sibling !== column {
-                sibling = sibling!.sibling
-            }
-            sibling?.sibling = column.sibling
-        }
-        canvasChanged()
     }
     
     private func makeOutlets() {

@@ -24,20 +24,46 @@ class ColumnView:EditView {
     override func textDidEndEditing(_ notification:Notification) {
         column.name = text.string
         text.textColor = NSColor.textColor.withAlphaComponent(0.4)
-        super.textDidEndEditing(notification)
         if column.name.isEmpty {
-            Application.shared.view.delete(self)
+            Application.shared.view.makeFirstResponder(nil)
+            Application.shared.view.beginSheet(DeleteView(.local("DeleteView.column")) { [weak self] in
+                self?.confirmDelete()
+            })
+        } else {
+            text.string = column.name
+            text.update()
         }
+        super.textDidEndEditing(notification)
     }
     
     override func beginDrag() {
         super.beginDrag()
-        Application.shared.view.detach(self)
+        detach()
     }
     
     override func endDrag(_ event:NSEvent) {
         super.endDrag(event)
-        Application.shared.view.endDrag(self)
+        var after = Application.shared.view.root
+        if Application.shared.view.root is CreateView || Application.shared.view.root!.frame.maxX > frame.midX {
+            sibling = Application.shared.view.root
+            Application.shared.view.root = self
+            after = nil
+            if sibling?.child is CreateView {
+                sibling?.child?.removeFromSuperview()
+                sibling?.child = sibling?.child?.child
+            }
+        } else {
+            while after!.sibling is ColumnView {
+                guard after!.sibling!.left.constant < frame.minX else { break }
+                after = after!.sibling
+            }
+            sibling = after!.sibling
+            after!.sibling = self
+        }
+        Application.shared.view.canvasChanged()
+        Application.shared.view.presenter.repository.move(column, board:Application.shared.view.presenter.selected.board, after:(after as? ColumnView)?.column)
+        Application.shared.view.presenter.scheduleUpdate()
+        Application.shared.view.progress.progress = Application.shared.view.presenter.selected.board.progress
     }
     
     override func drag(deltaX:CGFloat, deltaY:CGFloat) {
@@ -56,5 +82,37 @@ class ColumnView:EditView {
             return true
         }
         return false
+    }
+    
+    private func confirmDelete() {
+        detach()
+        var child = self.child
+        while child != nil {
+            child!.removeFromSuperview()
+            child = child!.child
+        }
+        DispatchQueue.global(qos:.background).async {
+            Application.shared.view.presenter.repository.delete(self.column, board:Application.shared.view.presenter.selected.board)
+            Application.shared.view.presenter.scheduleUpdate()
+            DispatchQueue.main.async {
+                Application.shared.view.progress.progress = Application.shared.view.presenter.selected.board.progress
+                self.removeFromSuperview()
+            }
+        }
+    }
+    
+    private func detach() {
+        if self === Application.shared.view.root {
+            child!.removeFromSuperview()
+            child = child!.child
+            Application.shared.view.root = sibling
+        } else {
+            var sibling = Application.shared.view.root
+            while sibling != nil && sibling!.sibling !== self {
+                sibling = sibling!.sibling
+            }
+            sibling?.sibling = self.sibling
+        }
+        Application.shared.view.canvasChanged()
     }
 }
