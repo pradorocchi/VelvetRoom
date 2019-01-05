@@ -11,7 +11,7 @@ class DeleteView:NSWindow {
         isOpaque = false
         backgroundColor = .clear
         contentView!.wantsLayer = true
-        contentView!.layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
+        contentView!.layer!.backgroundColor = NSColor.black.cgColor
         contentView!.layer!.cornerRadius = 4
         
         let message = NSTextField()
@@ -20,16 +20,17 @@ class DeleteView:NSWindow {
         message.isBezeled = false
         message.isEditable = false
         message.font = .systemFont(ofSize:22, weight:.bold)
+        message.textColor = .white
         message.stringValue = name
         contentView!.addSubview(message)
         
         let cancel = NSButton()
-        cancel.title = .local("DeleteView.cancel")
         cancel.target = self
         cancel.action = #selector(self.cancel)
         cancel.translatesAutoresizingMaskIntoConstraints = false
         cancel.isBordered = false
-        cancel.font = .systemFont(ofSize:15, weight:.regular)
+        cancel.attributedTitle = NSAttributedString(string:.local("DeleteView.cancel"), attributes:
+            [.font:NSFont.systemFont(ofSize:15, weight:.regular), .foregroundColor:NSColor(white:1, alpha:0.6)])
         cancel.keyEquivalent = "\u{1b}"
         contentView!.addSubview(cancel)
         

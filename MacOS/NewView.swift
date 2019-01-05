@@ -18,7 +18,7 @@ class NewView:NSWindow, NSTextFieldDelegate {
         isOpaque = false
         backgroundColor = .clear
         contentView!.wantsLayer = true
-        contentView!.layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
+        contentView!.layer!.backgroundColor = NSColor.black.cgColor
         contentView!.layer!.cornerRadius = 4
         
         let title = NSTextField()
@@ -28,6 +28,7 @@ class NewView:NSWindow, NSTextFieldDelegate {
         title.isEditable = false
         title.font = .systemFont(ofSize:18, weight:.bold)
         title.stringValue = .local("NewView.title")
+        title.textColor = .white
         contentView!.addSubview(title)
         
         let columns = NSTextField()
@@ -37,33 +38,37 @@ class NewView:NSWindow, NSTextFieldDelegate {
         columns.isEditable = false
         columns.font = .systemFont(ofSize:12, weight:.light)
         columns.alphaValue = 0.5
+        columns.textColor = .white
         contentView!.addSubview(columns)
         self.columns = columns
         
         let name = NSTextField()
         name.translatesAutoresizingMaskIntoConstraints = false
         name.isBezeled = false
-        name.font = .systemFont(ofSize:18, weight:.regular)
-        name.placeholderString = .local("NewView.name")
+        name.font = .systemFont(ofSize:18, weight:.medium)
+        name.placeholderAttributedString = NSAttributedString(string:.local("NewView.name"), attributes:
+            [.font:NSFont.systemFont(ofSize:18, weight:.medium), .foregroundColor:NSColor(white:1, alpha:0.2)])
         name.focusRingType = .none
         name.drawsBackground = false
         name.delegate = self
+        name.textColor = .white
         contentView!.addSubview(name)
+        (name.window?.fieldEditor(true, for:name) as! NSTextView).insertionPointColor = .velvetBlue
         self.name = name
         
         let border = NSView()
         border.translatesAutoresizingMaskIntoConstraints = false
         border.wantsLayer = true
-        border.layer!.backgroundColor = NSColor.textColor.withAlphaComponent(0.2).cgColor
+        border.layer!.backgroundColor = NSColor(white:1, alpha:0.4).cgColor
         contentView!.addSubview(border)
         
         let cancel = NSButton()
-        cancel.title = .local("NewView.cancel")
         cancel.target = self
         cancel.action = #selector(self.cancel)
         cancel.translatesAutoresizingMaskIntoConstraints = false
         cancel.isBordered = false
-        cancel.font = .systemFont(ofSize:15, weight:.regular)
+        cancel.attributedTitle = NSAttributedString(string:.local("NewView.cancel"), attributes:
+            [.font:NSFont.systemFont(ofSize:15, weight:.regular), .foregroundColor:NSColor(white:1, alpha:0.6)])
         cancel.keyEquivalent = "\u{1b}"
         contentView!.addSubview(cancel)
         
@@ -178,6 +183,7 @@ class NewView:NSWindow, NSTextFieldDelegate {
         create.widthAnchor.constraint(equalToConstant:92).isActive = true
         create.heightAnchor.constraint(equalToConstant:34).isActive = true
         
+        contentView!.layoutSubtreeIfNeeded()
         selectTriple()
     }
     

@@ -55,7 +55,7 @@ class View:NSWindow {
         let border = NSView()
         border.translatesAutoresizingMaskIntoConstraints = false
         border.wantsLayer = true
-        border.layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
+        border.layer!.backgroundColor = NSColor.textColor.withAlphaComponent(0.2).cgColor
         contentView!.addSubview(border)
         
         list.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:36).isActive = true
@@ -63,8 +63,8 @@ class View:NSWindow {
         list.rightAnchor.constraint(equalTo:border.leftAnchor).isActive = true
         list.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
         
-        border.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:1).isActive = true
-        border.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:1).isActive = true
+        border.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
+        border.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
         border.widthAnchor.constraint(equalToConstant:1).isActive = true
         borderLeft = border.leftAnchor.constraint(equalTo:contentView!.leftAnchor)
         borderLeft.isActive = true
@@ -75,6 +75,8 @@ class View:NSWindow {
         canvas.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-1).isActive = true
         canvas.documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:canvas.bottomAnchor).isActive = true
         canvas.documentView!.rightAnchor.constraint(greaterThanOrEqualTo:canvas.rightAnchor).isActive = true
+        
+        contentView!.layoutSubtreeIfNeeded()
     }
     
     private func list(_ boards:[Board]) {

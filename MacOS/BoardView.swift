@@ -73,10 +73,10 @@ class BoardView:NSControl, NSTextViewDelegate {
     
     private func update() {
         if Application.shared.view.firstResponder === text {
-            layer!.backgroundColor = NSColor.windowFrameColor.withAlphaComponent(0.2).cgColor
+            layer!.backgroundColor = NSColor.selectedTextBackgroundColor.cgColor
             text.alphaValue = 1
         } else if selected {
-            layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
+            layer!.backgroundColor = NSColor.textColor.withAlphaComponent(0.2).cgColor
             text.alphaValue = 0.8
         } else {
             layer!.backgroundColor = NSColor.clear.cgColor
