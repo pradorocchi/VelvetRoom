@@ -1,6 +1,6 @@
 import Foundation
 
-public class Column:Codable {
-    public var name = String()
+public class Column:Clean, Codable {
+    public var name = String() { didSet { name = clean(name) } }
     public internal(set) var created = 0.0
 }

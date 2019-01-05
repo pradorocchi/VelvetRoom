@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
+		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		DA00F0D221DA3C92002FD057 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA00F0D121DA3C92002FD057 /* ChartView.swift */; };
 		DA00F0D421DA4A43002FD057 /* TestRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA00F0D321DA4A43002FD057 /* TestRating.swift */; };
 		DA0A146C21D779B600CF4BDD /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0A146B21D779B600CF4BDD /* BoardView.swift */; };
@@ -136,6 +138,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		20CD59BC21E0CD6B00ADF8BC /* Clean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clean.swift; sourceTree = "<group>"; };
 		DA00F0D121DA3C92002FD057 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		DA00F0D321DA4A43002FD057 /* TestRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRating.swift; sourceTree = "<group>"; };
 		DA0A146B21D779B600CF4BDD /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
@@ -409,6 +412,7 @@
 				DAD0C1CF21C5056B00E6D1C7 /* Board.swift */,
 				DAD0C1D221C508D800E6D1C7 /* Column.swift */,
 				DAD0C1D521C5090200E6D1C7 /* Card.swift */,
+				20CD59BC21E0CD6B00ADF8BC /* Clean.swift */,
 				DAD0C1DE21C50BF700E6D1C7 /* Position.swift */,
 				DAD0C1E321C50CB600E6D1C7 /* Content.swift */,
 				DA7B2AEA21C67D55003B7333 /* Template.swift */,
@@ -639,6 +643,7 @@
 				DAD0C1D321C508D800E6D1C7 /* Column.swift in Sources */,
 				DAD0C1DF21C50BF700E6D1C7 /* Position.swift in Sources */,
 				DAD0C1F421C5279500E6D1C7 /* Synch.swift in Sources */,
+				20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */,
 				DAD0C1D621C5090200E6D1C7 /* Card.swift in Sources */,
 				DAD0C1EE21C521D600E6D1C7 /* Storage.swift in Sources */,
 				DAD0C1E421C50CB600E6D1C7 /* Content.swift in Sources */,
@@ -659,6 +664,7 @@
 				DAD0C1D421C508D800E6D1C7 /* Column.swift in Sources */,
 				DAD0C1E021C50BF700E6D1C7 /* Position.swift in Sources */,
 				DAD0C1F521C5279500E6D1C7 /* Synch.swift in Sources */,
+				20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */,
 				DAD0C1D721C5090200E6D1C7 /* Card.swift in Sources */,
 				DAD0C1EF21C521D600E6D1C7 /* Storage.swift in Sources */,
 				DAD0C1E521C50CB600E6D1C7 /* Content.swift in Sources */,

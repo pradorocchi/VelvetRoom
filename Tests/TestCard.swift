@@ -88,4 +88,11 @@ class TestCard:XCTestCase {
         card.content = "hello world\t"
         XCTAssertEqual("hello world", card.contents.first!.value)
     }
+    
+    func testCleanBeforeComparingContent() {
+        let card = Card()
+        card.content = "hello world"
+        card.content = "hello world "
+        XCTAssertEqual(1, card.contents.count)
+    }
 }

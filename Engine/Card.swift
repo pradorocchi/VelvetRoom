@@ -1,6 +1,6 @@
 import Foundation
 
-public class Card:Codable {
+public class Card:Clean, Codable {
     public var column:Int {
         get { return positions.last!.column }
         set { position(column:newValue, index:index) }
@@ -14,9 +14,10 @@ public class Card:Codable {
     public var content:String {
         get { return contents.last?.value ?? String() }
         set {
+            let newValue = clean(newValue)
             guard newValue != contents.last?.value else { return }
             var new = Content()
-            new.value = clean(newValue)
+            new.value = newValue
             new.time = Date().timeIntervalSince1970
             contents.append(new)
         }
@@ -32,14 +33,5 @@ public class Card:Codable {
         new.index = index
         new.time = Date().timeIntervalSince1970
         positions.append(new)
-    }
-    
-    private func clean(_ string:String) -> String {
-        var string = string
-        while let last = string.last,
-            last == " " || last == "\n" || last == "\r" || last == "\t" {
-            string = String(string.dropLast())
-        }
-        return string
     }
 }

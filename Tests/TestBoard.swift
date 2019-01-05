@@ -153,4 +153,34 @@ class TestBoard:XCTestCase {
         XCTAssertEqual(0, board.chart[1].1)
         XCTAssertEqual(1, board.chart[2].1)
     }
+    
+    func testNameEndingWhiteSpace() {
+        let board = Board()
+        board.name = "hello world "
+        XCTAssertEqual("hello world", board.name)
+    }
+    
+    func testNameEndingMultipleWhiteSpace() {
+        let board = Board()
+        board.name = "hello world     "
+        XCTAssertEqual("hello world", board.name)
+    }
+    
+    func testNameEndingNewLine() {
+        let board = Board()
+        board.name = "hello world\n"
+        XCTAssertEqual("hello world", board.name)
+    }
+    
+    func testNameEndingCarriageReturn() {
+        let board = Board()
+        board.name = "hello world\r"
+        XCTAssertEqual("hello world", board.name)
+    }
+    
+    func testNameEndingTab() {
+        let board = Board()
+        board.name = "hello world\t"
+        XCTAssertEqual("hello world", board.name)
+    }
 }
