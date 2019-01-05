@@ -37,34 +37,6 @@ class View:NSWindow {
         }
     }
     
-    func endDrag(_ card:CardView) {
-        var column = root
-        while column!.sibling is ColumnView {
-            guard column!.sibling!.left.constant < card.frame.midX else { break }
-            column = column!.sibling
-        }
-        var after = column
-        while after!.child != nil {
-            guard after!.child!.top.constant < card.top.constant else { break }
-            after = after!.child
-        }
-        if after!.child is CreateView {
-            after = after?.child
-        }
-        card.child = after!.child
-        after!.child = card
-        canvasChanged()
-        presenter.move(card.card, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
-        presenter.scheduleUpdate()
-        progress.progress = presenter.selected.board.progress
-    }
-    
-    func delete() {
-        presenter.fireSchedule()
-        makeFirstResponder(nil)
-//        beginSheet(DeleteBoardView(presenter.selected.board))
-    }
-    
     private func makeOutlets() {
         let list = ScrollView()
         list.hasVerticalScroller = true
@@ -285,6 +257,6 @@ class View:NSWindow {
     
     @IBAction private func remove(_ sender:Any) {
         makeFirstResponder(nil)
-        delete()
+        presenter.selected.delete()
     }
 }

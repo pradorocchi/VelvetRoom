@@ -33,30 +33,6 @@ class EditView:ItemView, UITextViewDelegate {
     
     required init?(coder:NSCoder) { return nil }
     
-//    override func mouseDown(with event:NSEvent) {
-//        if event.clickCount == 2 {
-//            beginEditing()
-//        }
-//    }
-//
-//    override func mouseDragged(with event:NSEvent) {
-//        if !text.isEditable {
-//            if dragging {
-//                drag(deltaX:event.deltaX, deltaY:event.deltaY)
-//                NSCursor.pointingHand.set()
-//            } else {
-//                dragging = true
-//                Application.shared.view.makeFirstResponder(nil)
-//            }
-//        }
-//    }
-//
-//    override func mouseUp(with:NSEvent) {
-//        if dragging {
-//            dragging = false
-//        }
-//    }
-    
     func textViewDidChange(_:UITextView) {
         Application.view.canvasChanged(0)
     }

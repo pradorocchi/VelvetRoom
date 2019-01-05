@@ -36,7 +36,25 @@ class CardView:EditView {
     
     override func endDrag(_ event:NSEvent) {
         super.endDrag(event)
-        Application.shared.view.endDrag(self)
+        var column = Application.shared.view.root
+        while column!.sibling is ColumnView {
+            guard column!.sibling!.left.constant < frame.midX else { break }
+            column = column!.sibling
+        }
+        var after = column
+        while after!.child != nil {
+            guard after!.child!.top.constant < top.constant else { break }
+            after = after!.child
+        }
+        if after!.child is CreateView {
+            after = after?.child
+        }
+        child = after!.child
+        after!.child = self
+        Application.shared.view.canvasChanged()
+        Application.shared.view.presenter.repository.move(card, board:Application.shared.view.presenter.selected.board, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
+        Application.shared.view.presenter.scheduleUpdate()
+        Application.shared.view.progress.progress = Application.shared.view.presenter.selected.board.progress
     }
     
     private func confirmDelete() {

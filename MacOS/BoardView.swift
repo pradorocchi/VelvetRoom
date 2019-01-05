@@ -40,11 +40,20 @@ class BoardView:NSControl, NSTextViewDelegate {
         }
     }
     
+    func delete() {
+        Application.shared.view.makeFirstResponder(nil)
+        Application.shared.view.beginSheet(DeleteView(.local("DeleteView.board")) {
+            Application.shared.view.presenter.repository.delete(self.board)
+        })
+    }
+    
     func textDidEndEditing(_:Notification) {
         board.name = text.string
         if board.name.isEmpty {
-            Application.shared.view.delete()
+            delete()
         } else {
+            text.string = board.name
+            text.update()
             Application.shared.view.presenter.scheduleUpdate()
         }
         DispatchQueue.main.async { [weak self] in self?.update() }
