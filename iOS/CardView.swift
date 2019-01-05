@@ -25,8 +25,8 @@ class CardView:EditView {
         } else {
             card.content = text.text
             text.text = card.content
-            super.textViewDidEndEditing(textView)
         }
+        super.textViewDidEndEditing(textView)
     }
     
     override func beginDrag() {

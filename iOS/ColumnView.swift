@@ -31,8 +31,8 @@ class ColumnView:EditView {
         } else {
             text.text = column.name
             text.alpha = 0.4
-            super.textViewDidEndEditing(textView)
         }
+        super.textViewDidEndEditing(textView)
     }
     
     override func beginDrag() {

@@ -32,8 +32,8 @@ class ColumnView:EditView {
         } else {
             text.string = column.name
             text.update()
-            super.textDidEndEditing(notification)
         }
+        super.textDidEndEditing(notification)
     }
     
     override func beginDrag() {

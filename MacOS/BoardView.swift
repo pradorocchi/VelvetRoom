@@ -54,8 +54,8 @@ class BoardView:NSControl, NSTextViewDelegate {
         } else {
             text.string = board.name
             text.update()
-            Application.shared.view.presenter.scheduleUpdate()
         }
+        Application.shared.view.presenter.scheduleUpdate()
         DispatchQueue.main.async { [weak self] in self?.update() }
     }
     
