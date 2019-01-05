@@ -40,6 +40,7 @@ class CardView:EditView {
         while column!.sibling is ColumnView {
             guard
                 column!.sibling!.left.constant < event.locationInWindow.x - Application.shared.view.borderLeft.constant
+                    + Application.shared.view.canvas.documentVisibleRect.origin.x
             else { break }
             column = column!.sibling
         }
