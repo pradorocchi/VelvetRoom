@@ -38,7 +38,7 @@ class CardView:EditView {
         super.endDrag()
         var column = Application.view.root
         while column!.sibling is ColumnView {
-            guard column!.sibling!.left.constant < frame.midX else { break }
+            guard column!.sibling!.left.constant < dragGesture.location(in:superview!).x else { break }
             column = column!.sibling
         }
         var after = column

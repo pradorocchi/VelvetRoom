@@ -53,9 +53,10 @@ class BoardView:UIControl, UITextViewDelegate {
     required init?(coder:NSCoder) { return nil }
     
     func textViewDidEndEditing(_:UITextView) {
-        delete.isHidden = false
         text.isUserInteractionEnabled = false
         board.name = text.text
+        text.text = board.name
+        delete.isHidden = false
         Application.view.scheduleUpdate(board)
         DispatchQueue.main.async {
             self.update()

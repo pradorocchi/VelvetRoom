@@ -25,8 +25,8 @@ class CardView:EditView {
         } else {
             text.string = card.content
             text.update()
+            super.textDidEndEditing(notification)
         }
-        super.textDidEndEditing(notification)
     }
     
     override func beginDrag() {
@@ -38,7 +38,9 @@ class CardView:EditView {
         super.endDrag(event)
         var column = Application.shared.view.root
         while column!.sibling is ColumnView {
-            guard column!.sibling!.left.constant < frame.midX else { break }
+            guard
+                column!.sibling!.left.constant < event.locationInWindow.x - Application.shared.view.borderLeft.constant
+            else { break }
             column = column!.sibling
         }
         var after = column

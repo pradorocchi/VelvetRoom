@@ -2,7 +2,7 @@ import UIKit
 
 class EditView:ItemView, UITextViewDelegate {
     private(set) weak var text:TextView!
-    private weak var dragGesture:UIPanGestureRecognizer!
+    private(set) weak var dragGesture:UIPanGestureRecognizer!
     private weak var longGesture:UILongPressGestureRecognizer!
     private var dragX:CGFloat!
     private var dragY:CGFloat!

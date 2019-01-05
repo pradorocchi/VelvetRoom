@@ -24,11 +24,12 @@ class ColumnView:EditView {
     }
     
     override func textViewDidEndEditing(_ textView:UITextView) {
-        if text.text.isEmpty {
+        column.name = text.text
+        if column.name.isEmpty {
             UIApplication.shared.keyWindow!.endEditing(true)
             askDelete()
         } else {
-            column.name = text.text
+            text.text = column.name
             text.alpha = 0.4
             super.textViewDidEndEditing(textView)
         }
