@@ -1,7 +1,7 @@
 import UIKit
 
 @UIApplicationMain class Application:UIResponder, UIApplicationDelegate {
-    private(set) static var view:View!
+    private(set) static weak var view:View!
     var window:UIWindow?
     
     func application(_:UIApplication, didFinishLaunchingWithOptions:[UIApplication.LaunchOptionsKey:Any]?) -> Bool {

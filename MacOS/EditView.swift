@@ -36,7 +36,7 @@ class EditView:ItemView, NSTextViewDelegate {
             } else {
                 dragging = true
                 beginDrag()
-                Application.shared.view.makeFirstResponder(nil)
+                Application.view.makeFirstResponder(nil)
             }
         }
     }
@@ -49,17 +49,17 @@ class EditView:ItemView, NSTextViewDelegate {
     }
     
     func textDidChange(_:Notification) {
-        Application.shared.view.canvasChanged()
+        Application.view.canvasChanged()
     }
     
     func textDidEndEditing(_:Notification) {
-        Application.shared.view.canvasChanged()
-        Application.shared.view.scheduleUpdate()
+        Application.view.canvasChanged()
+        Application.view.scheduleUpdate()
     }
     
     func beginEditing() {
         text.isEditable = true
-        Application.shared.view.makeFirstResponder(text)
+        Application.view.makeFirstResponder(text)
     }
     
     func beginDrag() {

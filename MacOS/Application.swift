@@ -1,33 +1,35 @@
 import AppKit
 
 @NSApplicationMain class Application:NSObject, NSApplicationDelegate, NSWindowDelegate {
-    private(set) static weak var shared:Application!
-    private(set) weak var view:View!
-    @IBOutlet private(set) weak var list:NSMenuItem!
+    private(set) static weak var view:View!
+    private(set) static weak var list:NSMenuItem!
+    @IBOutlet private(set) weak var list:NSMenuItem! {
+        get { return Application.list }
+        set { Application.list = newValue }
+    }
     
     func applicationShouldTerminateAfterLastWindowClosed(_:NSApplication) -> Bool { return true }
     
     override init() {
         super.init()
-        Application.shared = self
         UserDefaults.standard.set(false, forKey:"NSFullScreenMenuItemEverywhere")
     }
     
     func applicationDidFinishLaunching(_:Notification) {
-        view = NSApp.windows.first as? View
-        view.delegate = self
+        Application.view = NSApp.windows.first as? View
+        Application.view.delegate = self
     }
     
     func applicationWillTerminate(_:Notification) {
-        view.fireSchedule()
+        Application.view.fireSchedule()
     }
     
     func windowWillBeginSheet(_ notification: Notification) {
-        view.menu!.items.forEach { $0.isEnabled = false }
+        Application.view.menu!.items.forEach { $0.isEnabled = false }
     }
     
     func windowDidEndSheet(_ notification: Notification) {
-        view.menu!.items.forEach { $0.isEnabled = true }
+        Application.view.menu!.items.forEach { $0.isEnabled = true }
     }
     
     func window(_:NSWindow, willPositionSheet:NSWindow, using rect:NSRect) -> NSRect {

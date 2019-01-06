@@ -253,10 +253,10 @@ class View:NSWindow {
     @IBAction private func toggleList(_ listButton:NSButton) {
         if listButton.state == .on {
             borderLeft.constant = 250
-            Application.shared.list.title = .local("View.hideList")
+            Application.list.title = .local("View.hideList")
         } else {
             borderLeft.constant = 0
-            Application.shared.list.title = .local("View.showList")
+            Application.list.title = .local("View.showList")
         }
         if #available(OSX 10.12, *) {
             NSAnimationContext.runAnimationGroup { context in

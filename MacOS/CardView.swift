@@ -18,8 +18,8 @@ class CardView:EditView {
     override func textDidEndEditing(_ notification:Notification) {
         card.content = text.string
         if card.content.isEmpty {
-            Application.shared.view.makeFirstResponder(nil)
-            Application.shared.view.beginSheet(DeleteView(.local("DeleteView.card")) { [weak self] in
+            Application.view.makeFirstResponder(nil)
+            Application.view.beginSheet(DeleteView(.local("DeleteView.card")) { [weak self] in
                 self?.confirmDelete()
             })
         } else {
@@ -36,11 +36,11 @@ class CardView:EditView {
     
     override func endDrag(_ event:NSEvent) {
         super.endDrag(event)
-        var column = Application.shared.view.root
+        var column = Application.view.root
         while column!.sibling is ColumnView {
             guard
-                column!.sibling!.left.constant < event.locationInWindow.x - Application.shared.view.borderLeft.constant
-                    + Application.shared.view.canvas.documentVisibleRect.origin.x
+                column!.sibling!.left.constant < event.locationInWindow.x - Application.view.borderLeft.constant
+                    + Application.view.canvas.documentVisibleRect.origin.x
             else { break }
             column = column!.sibling
         }
@@ -54,29 +54,30 @@ class CardView:EditView {
         }
         child = after!.child
         after!.child = self
-        Application.shared.view.canvasChanged()
-        Application.shared.view.repository.move(card, board:Application.shared.view.selected.board, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
-        Application.shared.view.scheduleUpdate()
-        Application.shared.view.progress.progress = Application.shared.view.selected.board.progress
+        Application.view.canvasChanged()
+        Application.view.repository.move(card, board:Application.view.selected.board,
+                                         column:(column as! ColumnView).column, after:(after as? CardView)?.card)
+        Application.view.scheduleUpdate()
+        Application.view.progress.progress = Application.view.selected.board.progress
     }
     
     private func confirmDelete() {
         detach()
         DispatchQueue.global(qos:.background).async {
-            Application.shared.view.repository.delete(self.card, board:Application.shared.view.selected.board)
-            Application.shared.view.scheduleUpdate()
+            Application.view.repository.delete(self.card, board:Application.view.selected.board)
+            Application.view.scheduleUpdate()
             DispatchQueue.main.async {
-                Application.shared.view.progress.progress = Application.shared.view.selected.board.progress
+                Application.view.progress.progress = Application.view.selected.board.progress
                 self.removeFromSuperview()
             }
         }
     }
     
     private func detach() {
-        if let parent = Application.shared.view.canvas.documentView!.subviews.first(
+        if let parent = Application.view.canvas.documentView!.subviews.first(
             where: {($0 as! ItemView).child === self }) as? ItemView {
             parent.child = child
-            Application.shared.view.canvasChanged()
+            Application.view.canvasChanged()
         }
     }
 }

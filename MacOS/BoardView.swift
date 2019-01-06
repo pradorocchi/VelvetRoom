@@ -33,7 +33,7 @@ class BoardView:NSControl, NSTextViewDelegate {
     override func mouseDown(with event:NSEvent) {
         if event.clickCount == 2 {
             text.isEditable = true
-            Application.shared.view.makeFirstResponder(text)
+            Application.view.makeFirstResponder(text)
             update()
         } else if !selected {
             sendAction(action, to:target)
@@ -41,9 +41,9 @@ class BoardView:NSControl, NSTextViewDelegate {
     }
     
     func delete() {
-        Application.shared.view.makeFirstResponder(nil)
-        Application.shared.view.beginSheet(DeleteView(.local("DeleteView.board")) {
-            Application.shared.view.repository.delete(self.board)
+        Application.view.makeFirstResponder(nil)
+        Application.view.beginSheet(DeleteView(.local("DeleteView.board")) {
+            Application.view.repository.delete(self.board)
         })
     }
     
@@ -55,13 +55,13 @@ class BoardView:NSControl, NSTextViewDelegate {
             text.string = board.name
             text.update()
         }
-        Application.shared.view.scheduleUpdate(board)
+        Application.view.scheduleUpdate(board)
         DispatchQueue.main.async { [weak self] in self?.update() }
     }
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
-            Application.shared.view.makeFirstResponder(nil)
+            Application.view.makeFirstResponder(nil)
             return true
         }
         return false
@@ -72,7 +72,7 @@ class BoardView:NSControl, NSTextViewDelegate {
     }
     
     private func update() {
-        if Application.shared.view.firstResponder === text {
+        if Application.view.firstResponder === text {
             layer!.backgroundColor = NSColor.selectedTextBackgroundColor.cgColor
             text.alphaValue = 1
         } else if selected {

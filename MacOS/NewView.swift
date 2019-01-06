@@ -14,8 +14,8 @@ class NewView:NSWindow, NSTextFieldDelegate {
     override var canBecomeKey:Bool { return true }
     
     init() {
-        super.init(contentRect:NSRect(x:0, y:0, width:Application.shared.view.frame.width - 2, height:
-            Application.shared.view.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
+        super.init(contentRect:NSRect(x:0, y:0, width:Application.view.frame.width - 2, height:
+            Application.view.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
         isOpaque = false
         backgroundColor = .clear
         contentView!.wantsLayer = true
@@ -254,16 +254,18 @@ class NewView:NSWindow, NSTextFieldDelegate {
     
     @objc private func cancel() {
         makeFirstResponder(nil)
-        Application.shared.view.endSheet(self)
+        Application.view.endSheet(self)
     }
     
     @objc private func create() {
         makeFirstResponder(nil)
         let name = self.name.stringValue
         DispatchQueue.global(qos:.background).async {
-            Application.shared.view.repository.newBoard(name, template:self.template)
+            Application.view.repository.newBoard(name, template:self.template)
         }
-        if Application.shared.view.repository.rate() { if #available(OSX 10.14, *) { SKStoreReviewController.requestReview() } }
-        Application.shared.view.endSheet(self)
+        if Application.view.repository.rate() {
+            if #available(OSX 10.14, *) { SKStoreReviewController.requestReview() }
+        }
+        Application.view.endSheet(self)
     }
 }
