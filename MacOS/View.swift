@@ -21,7 +21,7 @@ class View:NSWindow {
         presenter.list = { self.list($0) }
         presenter.select = { self.select($0) }
         presenter.load()
-        toggleList(listButton)
+        DispatchQueue.main.async { self.toggleList(self.listButton) }
     }
     
     func canvasChanged(_ animation:TimeInterval = 0.5) {
@@ -80,8 +80,8 @@ class View:NSWindow {
     }
     
     private func list(_ boards:[Board]) {
-        progress.clear()
         deleteButton.isEnabled = false
+        progress.clear()
         canvas.removeSubviews()
         list.removeSubviews()
         var top = list.documentView!.topAnchor
