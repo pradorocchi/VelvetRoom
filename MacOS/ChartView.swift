@@ -6,7 +6,7 @@ class ChartView:SheetView {
         super.init()
         let done = NSButton()
         done.target = self
-        done.action = #selector(end)
+        done.action = #selector(self.end)
         done.image = NSImage(named:"delete")
         done.imageScaling = .scaleNone
         done.translatesAutoresizingMaskIntoConstraints = false
@@ -24,6 +24,14 @@ class ChartView:SheetView {
         title.textColor = .velvetBlue
         title.stringValue = board.name
         contentView!.addSubview(title)
+        
+        let end = NSButton()
+        end.title = String()
+        end.target = self
+        end.action = #selector(self.end)
+        end.isBordered = false
+        end.keyEquivalent = "\r"
+        contentView!.addSubview(end)
         
         done.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:20).isActive = true
         done.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:20).isActive = true
