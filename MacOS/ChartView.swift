@@ -1,21 +1,12 @@
 import AppKit
 import VelvetRoom
 
-class ChartView:NSWindow {
-    override var canBecomeKey:Bool { return true }
-    
+class ChartView:SheetView {
     init(_ board:Board) {
-        super.init(contentRect:NSRect(x:0, y:0, width:Application.view.frame.width - 2, height:
-            Application.view.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
-        isOpaque = false
-        backgroundColor = .clear
-        contentView!.wantsLayer = true
-        contentView!.layer!.backgroundColor = NSColor.black.cgColor
-        contentView!.layer!.cornerRadius = 4
-        
+        super.init()
         let done = NSButton()
         done.target = self
-        done.action = #selector(self.done)
+        done.action = #selector(end)
         done.image = NSImage(named:"delete")
         done.imageScaling = .scaleNone
         done.translatesAutoresizingMaskIntoConstraints = false
@@ -109,9 +100,5 @@ class ChartView:NSWindow {
         } else {
             label.rightAnchor.constraint(equalTo:contentView!.leftAnchor, constant:point.x).isActive = true
         }
-    }
-    
-    @objc private func done() {
-        Application.view.endSheet(self)
     }
 }

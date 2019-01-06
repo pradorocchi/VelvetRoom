@@ -1,19 +1,10 @@
 import AppKit
 
-class DeleteView:NSWindow {
+class DeleteView:SheetView {
     private let onConfirm:(() -> Void)
-    override var canBecomeKey:Bool { return true }
-    
     init(_ name:String, onConfirm:@escaping(() -> Void)) {
         self.onConfirm = onConfirm
-        super.init(contentRect:NSRect(x:0, y:0, width:Application.view.frame.width - 2, height:
-            Application.view.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
-        isOpaque = false
-        backgroundColor = .clear
-        contentView!.wantsLayer = true
-        contentView!.layer!.backgroundColor = NSColor.black.cgColor
-        contentView!.layer!.cornerRadius = 4
-        
+        super.init()
         let message = NSTextField()
         message.translatesAutoresizingMaskIntoConstraints = false
         message.backgroundColor = .clear
@@ -26,7 +17,7 @@ class DeleteView:NSWindow {
         
         let cancel = NSButton()
         cancel.target = self
-        cancel.action = #selector(self.cancel)
+        cancel.action = #selector(end)
         cancel.translatesAutoresizingMaskIntoConstraints = false
         cancel.isBordered = false
         cancel.attributedTitle = NSAttributedString(string:.local("DeleteView.cancel"), attributes:
@@ -63,10 +54,6 @@ class DeleteView:NSWindow {
     
     @objc func delete() {
         onConfirm()
-        Application.view.endSheet(self)
-    }
-    
-    @objc private func cancel() {
         Application.view.endSheet(self)
     }
 }

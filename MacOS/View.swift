@@ -10,6 +10,7 @@ class View:NSWindow {
     @IBOutlet private(set) weak var progress:ProgressView!
     @IBOutlet private weak var listButton:NSButton!
     @IBOutlet private weak var deleteButton:NSButton!
+    @IBOutlet private weak var exportButton:NSButton!
     
     weak var selected:BoardView! {
         willSet {
@@ -101,6 +102,7 @@ class View:NSWindow {
     
     private func list(_ boards:[Board]) {
         deleteButton.isEnabled = false
+        exportButton.isEnabled = false
         progress.clear()
         canvas.removeSubviews()
         list.removeSubviews()
@@ -204,6 +206,7 @@ class View:NSWindow {
         render(view.board)
         canvasChanged(0)
         deleteButton.isEnabled = true
+        exportButton.isEnabled = true
         progress.progress = view.board.progress
     }
     
@@ -280,5 +283,10 @@ class View:NSWindow {
     @IBAction private func remove(_ sender:Any) {
         makeFirstResponder(nil)
         selected.delete()
+    }
+    
+    @IBAction private func export(_ sender:Any) {
+        makeFirstResponder(nil)
+        beginSheet(ExportView())
     }
 }

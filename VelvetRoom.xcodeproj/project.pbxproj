@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		202D692721E230EC009398AB /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692621E230EC009398AB /* SheetView.swift */; };
+		202D692921E231EF009398AB /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692821E231EF009398AB /* ExportView.swift */; };
 		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		DA00F0D221DA3C92002FD057 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA00F0D121DA3C92002FD057 /* ChartView.swift */; };
@@ -129,6 +131,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		202D692621E230EC009398AB /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		202D692821E231EF009398AB /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		20CD59BC21E0CD6B00ADF8BC /* Clean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clean.swift; sourceTree = "<group>"; };
 		DA00F0D121DA3C92002FD057 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		DA00F0D321DA4A43002FD057 /* TestRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRating.swift; sourceTree = "<group>"; };
@@ -331,6 +335,7 @@
 			children = (
 				DAB2709021C3CA87008F184E /* Application.swift */,
 				DA7C744321C3E1C000B1F931 /* View.swift */,
+				202D692621E230EC009398AB /* SheetView.swift */,
 				DA4C2AC421D4F4CB004988B4 /* ProgressView.swift */,
 				DAFA95FC21CBDAAD00BA265C /* ItemView.swift */,
 				DAFA95FE21CBDC2C00BA265C /* CreateView.swift */,
@@ -341,6 +346,7 @@
 				DAC2CDBF21C8E2F000AD927B /* NewView.swift */,
 				DA4C2AC621D5098A004988B4 /* ChartView.swift */,
 				DA1544E221D2752600B9D9F7 /* DeleteView.swift */,
+				202D692821E231EF009398AB /* ExportView.swift */,
 				DA16E00021CE8AFF00D21C7A /* TextView.swift */,
 				DA6A986B21CEA70000C18C7F /* TextLayout.swift */,
 				DA53930F21D2CB6F00482FCA /* TextStorage.swift */,
@@ -690,10 +696,12 @@
 				DA86474721C401DF00E4957B /* NSFont.swift in Sources */,
 				DAC2CDC321C8EDA700AD927B /* String.swift in Sources */,
 				DAC2CDC021C8E2F000AD927B /* NewView.swift in Sources */,
+				202D692721E230EC009398AB /* SheetView.swift in Sources */,
 				DA1544E321D2752600B9D9F7 /* DeleteView.swift in Sources */,
 				DA6A986C21CEA70000C18C7F /* TextLayout.swift in Sources */,
 				DA1ABDA921C9AFD500CE1462 /* ScrollView.swift in Sources */,
 				DA4C2AC521D4F4CB004988B4 /* ProgressView.swift in Sources */,
+				202D692921E231EF009398AB /* ExportView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

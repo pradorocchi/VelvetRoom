@@ -337,7 +337,7 @@
                                     <button key="view" verticalHuggingPriority="750" id="4U0-1M-3QA">
                                         <rect key="frame" x="4" y="14" width="24" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="new" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="QLx-xz-5aq">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="new" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="QLx-xz-5aq">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                             <string key="keyEquivalent">n</string>
@@ -353,7 +353,7 @@
                                     <button key="view" verticalHuggingPriority="750" id="g3I-fJ-Wch">
                                         <rect key="frame" x="9" y="14" width="24" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="delete" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" inset="2" id="M0T-6s-bOy">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="delete" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" inset="2" id="M0T-6s-bOy">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                             <string key="keyEquivalent">w</string>
@@ -389,18 +389,46 @@
                                         </connections>
                                     </customView>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="54741872-1325-41DF-8375-6D7A66039348" label="Export" paletteLabel="Export" image="export" sizingBehavior="auto" id="MIW-Tn-3Vo">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="tts-xe-5IT">
+                                        <rect key="frame" x="9" y="14" width="24" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="export" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" inset="2" id="Lvw-Gx-Yrv">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="export:" target="IQv-IB-iLA" id="jma-dR-cd6"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="8851677E-4D65-4FDE-AA76-74601A619674" label="Import" paletteLabel="Import" image="import" sizingBehavior="auto" id="LuM-kZ-gHJ">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="gAR-ED-JIt">
+                                        <rect key="frame" x="9" y="14" width="24" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="import" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="r8d-BK-bJh">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="KZI-1n-q2z"/>
                                 <toolbarItem reference="1qu-sh-P4N"/>
                                 <toolbarItem reference="kcB-kf-DEw"/>
                                 <toolbarItem reference="LDS-zm-AEa"/>
+                                <toolbarItem reference="MIW-Tn-3Vo"/>
+                                <toolbarItem reference="LuM-kZ-gHJ"/>
                                 <toolbarItem reference="0K5-pA-w2U"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                             <outlet property="deleteButton" destination="g3I-fJ-Wch" id="IoL-g9-NFL"/>
+                            <outlet property="exportButton" destination="tts-xe-5IT" id="v9C-CF-AnF"/>
                             <outlet property="listButton" destination="6hB-Rg-9L8" id="1t5-Ge-ACe"/>
                             <outlet property="progress" destination="dVc-iK-GaO" id="IMy-Nw-1Da"/>
                         </connections>
@@ -429,6 +457,8 @@
     </scenes>
     <resources>
         <image name="delete" width="24" height="24"/>
+        <image name="export" width="24" height="18"/>
+        <image name="import" width="24" height="18"/>
         <image name="listOff" width="24" height="18"/>
         <image name="listOn" width="24" height="18"/>
         <image name="new" width="24" height="18"/>

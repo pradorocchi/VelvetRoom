@@ -2,7 +2,7 @@ import AppKit
 import VelvetRoom
 import StoreKit
 
-class NewView:NSWindow, NSTextFieldDelegate {
+class NewView:SheetView, NSTextFieldDelegate {
     private weak var name:NSTextField!
     private weak var none:NSButton!
     private weak var single:NSButton!
@@ -11,17 +11,9 @@ class NewView:NSWindow, NSTextFieldDelegate {
     private weak var columns:NSTextField!
     private weak var selectorLeft:NSLayoutConstraint!
     private var template:Template!
-    override var canBecomeKey:Bool { return true }
     
-    init() {
-        super.init(contentRect:NSRect(x:0, y:0, width:Application.view.frame.width - 2, height:
-            Application.view.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
-        isOpaque = false
-        backgroundColor = .clear
-        contentView!.wantsLayer = true
-        contentView!.layer!.backgroundColor = NSColor.black.cgColor
-        contentView!.layer!.cornerRadius = 4
-        
+    override init() {
+        super.init()
         let title = NSTextField()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.backgroundColor = .clear
@@ -253,12 +245,10 @@ class NewView:NSWindow, NSTextFieldDelegate {
     }
     
     @objc private func cancel() {
-        makeFirstResponder(nil)
-        Application.view.endSheet(self)
+        end()
     }
     
     @objc private func create() {
-        makeFirstResponder(nil)
         let name = self.name.stringValue
         DispatchQueue.global(qos:.background).async {
             Application.view.repository.newBoard(name, template:self.template)
@@ -266,6 +256,6 @@ class NewView:NSWindow, NSTextFieldDelegate {
         if Application.view.repository.rate() {
             if #available(OSX 10.14, *) { SKStoreReviewController.requestReview() }
         }
-        Application.view.endSheet(self)
+        end()
     }
 }
