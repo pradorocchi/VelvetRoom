@@ -13,3 +13,6 @@ DeleteView.column="Column";
 DeleteView.board="Board";
 DeleteView.delete="Delete";
 DeleteView.cancel="Cancel";
+ExportView.title="Export\n";
+ExportView.share="Share";
+ExportView.qr="Save QR Code";

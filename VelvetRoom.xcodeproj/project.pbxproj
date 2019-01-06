@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		202D692721E230EC009398AB /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692621E230EC009398AB /* SheetView.swift */; };
 		202D692921E231EF009398AB /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692821E231EF009398AB /* ExportView.swift */; };
+		202D692B21E23CA1009398AB /* TestSharer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692A21E23CA1009398AB /* TestSharer.swift */; };
+		202D692F21E23D9B009398AB /* Sharer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692C21E23D2B009398AB /* Sharer.swift */; };
+		202D693021E23D9B009398AB /* Sharer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692C21E23D2B009398AB /* Sharer.swift */; };
 		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		DA00F0D221DA3C92002FD057 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA00F0D121DA3C92002FD057 /* ChartView.swift */; };
@@ -133,6 +136,8 @@
 /* Begin PBXFileReference section */
 		202D692621E230EC009398AB /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		202D692821E231EF009398AB /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
+		202D692A21E23CA1009398AB /* TestSharer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSharer.swift; sourceTree = "<group>"; };
+		202D692C21E23D2B009398AB /* Sharer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sharer.swift; sourceTree = "<group>"; };
 		20CD59BC21E0CD6B00ADF8BC /* Clean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clean.swift; sourceTree = "<group>"; };
 		DA00F0D121DA3C92002FD057 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		DA00F0D321DA4A43002FD057 /* TestRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRating.swift; sourceTree = "<group>"; };
@@ -380,6 +385,7 @@
 				DAD0C1DA21C509D700E6D1C7 /* TestCard.swift */,
 				DAD0C1DC21C50B8100E6D1C7 /* TestPosition.swift */,
 				DAD0C1E121C50C7300E6D1C7 /* TestContent.swift */,
+				202D692A21E23CA1009398AB /* TestSharer.swift */,
 				DAD0C1F921C52A3200E6D1C7 /* MockStorage.swift */,
 				DAD0C1FB21C52A9D00E6D1C7 /* MockSynch.swift */,
 				DAB2709721C3CA90008F184E /* Tests.plist */,
@@ -391,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				DAB2709C21C3CA99008F184E /* Repository.swift */,
+				202D692C21E23D2B009398AB /* Sharer.swift */,
 				DAD0C1ED21C521D600E6D1C7 /* Storage.swift */,
 				DAD0C1F321C5279500E6D1C7 /* Synch.swift */,
 				DAD0C1F021C5222B00E6D1C7 /* LocalStorage.swift */,
@@ -544,6 +551,11 @@
 					};
 					DAB2705621C3C45E008F184E = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					DAB2706A21C3C473008F184E = {
 						CreatedOnToolsVersion = 10.1;
@@ -622,6 +634,7 @@
 				DAD0C1D321C508D800E6D1C7 /* Column.swift in Sources */,
 				DAD0C1DF21C50BF700E6D1C7 /* Position.swift in Sources */,
 				DAD0C1F421C5279500E6D1C7 /* Synch.swift in Sources */,
+				202D692F21E23D9B009398AB /* Sharer.swift in Sources */,
 				20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */,
 				DAD0C1D621C5090200E6D1C7 /* Card.swift in Sources */,
 				DAD0C1EE21C521D600E6D1C7 /* Storage.swift in Sources */,
@@ -643,6 +656,7 @@
 				DAD0C1D421C508D800E6D1C7 /* Column.swift in Sources */,
 				DAD0C1E021C50BF700E6D1C7 /* Position.swift in Sources */,
 				DAD0C1F521C5279500E6D1C7 /* Synch.swift in Sources */,
+				202D693021E23D9B009398AB /* Sharer.swift in Sources */,
 				20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */,
 				DAD0C1D721C5090200E6D1C7 /* Card.swift in Sources */,
 				DAD0C1EF21C521D600E6D1C7 /* Storage.swift in Sources */,
@@ -659,6 +673,7 @@
 			files = (
 				DA7B2AE921C67C3E003B7333 /* TestSelect.swift in Sources */,
 				DAD0C1D921C5092400E6D1C7 /* TestColumn.swift in Sources */,
+				202D692B21E23CA1009398AB /* TestSharer.swift in Sources */,
 				DAD0C20021C52C8500E6D1C7 /* TestStorage.swift in Sources */,
 				DA65DA6F21D1327100E74011 /* TestRepository_Column.swift in Sources */,
 				DAD0C1CE21C5036200E6D1C7 /* TestBoard.swift in Sources */,
