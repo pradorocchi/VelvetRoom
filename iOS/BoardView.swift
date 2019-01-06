@@ -20,7 +20,7 @@ class BoardView:UIControl, UITextViewDelegate {
         self.board = board
         
         let text = TextView()
-        text.font = .regular(18)
+        text.font = .bold(16)
         text.delegate = self
         text.text = board.name
         text.textContainer.maximumNumberOfLines = 1

@@ -34,14 +34,6 @@
 		DA7C743821C3DE9800B1F931 /* SFMono-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743121C3DE9800B1F931 /* SFMono-Light.otf */; };
 		DA7C743921C3DE9800B1F931 /* SFMono-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743221C3DE9800B1F931 /* SFMono-Bold.otf */; };
 		DA7C743A21C3DE9800B1F931 /* SFMono-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743221C3DE9800B1F931 /* SFMono-Bold.otf */; };
-		DA7C743B21C3DE9800B1F931 /* SFMono-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743321C3DE9800B1F931 /* SFMono-LightItalic.otf */; };
-		DA7C743C21C3DE9800B1F931 /* SFMono-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743321C3DE9800B1F931 /* SFMono-LightItalic.otf */; };
-		DA7C743D21C3DE9800B1F931 /* SFMono-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743421C3DE9800B1F931 /* SFMono-RegularItalic.otf */; };
-		DA7C743E21C3DE9800B1F931 /* SFMono-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743421C3DE9800B1F931 /* SFMono-RegularItalic.otf */; };
-		DA7C743F21C3DE9800B1F931 /* SFMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743521C3DE9800B1F931 /* SFMono-Regular.otf */; };
-		DA7C744021C3DE9800B1F931 /* SFMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743521C3DE9800B1F931 /* SFMono-Regular.otf */; };
-		DA7C744121C3DE9800B1F931 /* SFMono-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743621C3DE9800B1F931 /* SFMono-BoldItalic.otf */; };
-		DA7C744221C3DE9800B1F931 /* SFMono-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743621C3DE9800B1F931 /* SFMono-BoldItalic.otf */; };
 		DA7C744421C3E1C000B1F931 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C744321C3E1C000B1F931 /* View.swift */; };
 		DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FD2CF21C40AB500F366B9 /* BoardView.swift */; };
 		DA86474521C3FDE500E4957B /* ColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86474421C3FDE500E4957B /* ColumnView.swift */; };
@@ -160,10 +152,6 @@
 		DA7B2AED21C67DBE003B7333 /* TestTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTemplate.swift; sourceTree = "<group>"; };
 		DA7C743121C3DE9800B1F931 /* SFMono-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-Light.otf"; sourceTree = "<group>"; };
 		DA7C743221C3DE9800B1F931 /* SFMono-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-Bold.otf"; sourceTree = "<group>"; };
-		DA7C743321C3DE9800B1F931 /* SFMono-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-LightItalic.otf"; sourceTree = "<group>"; };
-		DA7C743421C3DE9800B1F931 /* SFMono-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-RegularItalic.otf"; sourceTree = "<group>"; };
-		DA7C743521C3DE9800B1F931 /* SFMono-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-Regular.otf"; sourceTree = "<group>"; };
-		DA7C743621C3DE9800B1F931 /* SFMono-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-BoldItalic.otf"; sourceTree = "<group>"; };
 		DA7C744321C3E1C000B1F931 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		DA7FD2CF21C40AB500F366B9 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		DA86474421C3FDE500E4957B /* ColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnView.swift; sourceTree = "<group>"; };
@@ -283,10 +271,6 @@
 			children = (
 				DA7C743121C3DE9800B1F931 /* SFMono-Light.otf */,
 				DA7C743221C3DE9800B1F931 /* SFMono-Bold.otf */,
-				DA7C743321C3DE9800B1F931 /* SFMono-LightItalic.otf */,
-				DA7C743421C3DE9800B1F931 /* SFMono-RegularItalic.otf */,
-				DA7C743521C3DE9800B1F931 /* SFMono-Regular.otf */,
-				DA7C743621C3DE9800B1F931 /* SFMono-BoldItalic.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -600,12 +584,8 @@
 			files = (
 				DA7C743921C3DE9800B1F931 /* SFMono-Bold.otf in Resources */,
 				DAB2709321C3CA87008F184E /* MacOS.storyboard in Resources */,
-				DA7C743F21C3DE9800B1F931 /* SFMono-Regular.otf in Resources */,
 				DAB2709221C3CA87008F184E /* Assets.xcassets in Resources */,
 				DA7C743721C3DE9800B1F931 /* SFMono-Light.otf in Resources */,
-				DA7C744121C3DE9800B1F931 /* SFMono-BoldItalic.otf in Resources */,
-				DA7C743D21C3DE9800B1F931 /* SFMono-RegularItalic.otf in Resources */,
-				DA7C743B21C3DE9800B1F931 /* SFMono-LightItalic.otf in Resources */,
 				DAB2709121C3CA87008F184E /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -616,12 +596,8 @@
 			files = (
 				DA7C743A21C3DE9800B1F931 /* SFMono-Bold.otf in Resources */,
 				DAB2708421C3CA7C008F184E /* Localizable.strings in Resources */,
-				DA7C744021C3DE9800B1F931 /* SFMono-Regular.otf in Resources */,
 				DAB2708621C3CA7C008F184E /* Assets.xcassets in Resources */,
 				DA7C743821C3DE9800B1F931 /* SFMono-Light.otf in Resources */,
-				DA7C744221C3DE9800B1F931 /* SFMono-BoldItalic.otf in Resources */,
-				DA7C743E21C3DE9800B1F931 /* SFMono-RegularItalic.otf in Resources */,
-				DA7C743C21C3DE9800B1F931 /* SFMono-LightItalic.otf in Resources */,
 				DAB2708521C3CA7C008F184E /* iOS.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

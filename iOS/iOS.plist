@@ -26,10 +26,6 @@
 	<array>
 		<string>SFMono-Light.otf</string>
 		<string>SFMono-Bold.otf</string>
-		<string>SFMono-LightItalic.otf</string>
-		<string>SFMono-RegularItalic.otf</string>
-		<string>SFMono-Regular.otf</string>
-		<string>SFMono-BoldItalic.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>iOS</string>
