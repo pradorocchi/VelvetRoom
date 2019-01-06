@@ -54,7 +54,7 @@ class EditView:ItemView, NSTextViewDelegate {
     
     func textDidEndEditing(_:Notification) {
         Application.shared.view.canvasChanged()
-        Application.shared.view.presenter.scheduleUpdate()
+        Application.shared.view.scheduleUpdate()
     }
     
     func beginEditing() {

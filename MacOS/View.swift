@@ -2,7 +2,7 @@ import AppKit
 import VelvetRoom
 
 class View:NSWindow {
-    let presenter = Presenter()
+    let repository = Repository()
     weak var root:ItemView?
     private(set) weak var canvas:ScrollView!
     private(set) weak var borderLeft:NSLayoutConstraint!
@@ -11,6 +11,18 @@ class View:NSWindow {
     @IBOutlet private weak var listButton:NSButton!
     @IBOutlet private weak var deleteButton:NSButton!
     
+    weak var selected:BoardView! {
+        willSet {
+            if let previous = selected {
+                previous.selected = false
+            }
+        }
+        didSet {
+            selected.selected = true
+            fireSchedule()
+        }
+    }
+    
     override func cancelOperation(_:Any?) { makeFirstResponder(nil) }
     override func mouseDown(with:NSEvent) { makeFirstResponder(nil) }
     
@@ -18,9 +30,9 @@ class View:NSWindow {
         super.awakeFromNib()
         backgroundColor = .textBackgroundColor
         makeOutlets()
-        presenter.list = { self.list($0) }
-        presenter.select = { self.select($0) }
-        presenter.load()
+        repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
+        repository.select = { board in DispatchQueue.main.async { self.select(board) } }
+        DispatchQueue.global(qos:.background).async { self.repository.load() }
         DispatchQueue.main.async { self.toggleList(self.listButton) }
     }
     
@@ -35,6 +47,14 @@ class View:NSWindow {
                 canvas.documentView!.layoutSubtreeIfNeeded()
             }
         }
+    }
+    
+    func scheduleUpdate(_ board:Board? = nil) {
+        DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(board ?? self.selected.board) }
+    }
+    
+    func fireSchedule() {
+        repository.fireSchedule()
     }
     
     private func makeOutlets() {
@@ -180,7 +200,7 @@ class View:NSWindow {
     
     @objc private func select(view:BoardView) {
         makeFirstResponder(nil)
-        presenter.selected = view
+        selected = view
         render(view.board)
         canvasChanged(0)
         deleteButton.isEnabled = true
@@ -188,7 +208,7 @@ class View:NSWindow {
     }
     
     @objc private func newColumn(_ view:CreateView) {
-        let column = ColumnView(presenter.newColumn())
+        let column = ColumnView(repository.newColumn(selected.board))
         column.sibling = view
         if root === view {
             root = column
@@ -204,11 +224,11 @@ class View:NSWindow {
         column.left.constant = view.left.constant
         canvasChanged()
         column.beginEditing()
-        presenter.scheduleUpdate()
+        scheduleUpdate()
     }
     
     @objc private func newCard(_ view:CreateView) {
-        let card = CardView(presenter.newCard())
+        let card = CardView(try! repository.newCard(selected.board))
         card.child = view.child
         view.child = card
         canvas.documentView!.addSubview(card)
@@ -216,8 +236,8 @@ class View:NSWindow {
         card.left.constant = view.left.constant
         canvasChanged()
         card.beginEditing()
-        presenter.scheduleUpdate()
-        progress.progress = presenter.selected.board.progress
+        scheduleUpdate()
+        progress.progress = selected.board.progress
     }
     
     @IBAction private func toggleSourceList(_ sender:NSMenuItem) {
@@ -242,14 +262,14 @@ class View:NSWindow {
             NSAnimationContext.runAnimationGroup { context in
                 context.duration = 1
                 context.allowsImplicitAnimation = true
-                self.contentView!.layoutSubtreeIfNeeded()
+                contentView!.layoutSubtreeIfNeeded()
             }
         }
     }
     
     @IBAction private func play(_ sender:Any) {
         makeFirstResponder(nil)
-        beginSheet(ChartView(presenter.selected.board))
+        beginSheet(ChartView(selected.board))
     }
     
     @IBAction private func newDocument(_ sender:Any) {
@@ -259,6 +279,6 @@ class View:NSWindow {
     
     @IBAction private func remove(_ sender:Any) {
         makeFirstResponder(nil)
-        presenter.selected.delete()
+        selected.delete()
     }
 }

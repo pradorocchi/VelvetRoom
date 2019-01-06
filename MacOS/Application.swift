@@ -19,7 +19,7 @@ import AppKit
     }
     
     func applicationWillTerminate(_:Notification) {
-        view.presenter.fireSchedule()
+        view.fireSchedule()
     }
     
     func windowWillBeginSheet(_ notification: Notification) {

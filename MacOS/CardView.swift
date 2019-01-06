@@ -55,18 +55,18 @@ class CardView:EditView {
         child = after!.child
         after!.child = self
         Application.shared.view.canvasChanged()
-        Application.shared.view.presenter.repository.move(card, board:Application.shared.view.presenter.selected.board, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
-        Application.shared.view.presenter.scheduleUpdate()
-        Application.shared.view.progress.progress = Application.shared.view.presenter.selected.board.progress
+        Application.shared.view.repository.move(card, board:Application.shared.view.selected.board, column:(column as! ColumnView).column, after:(after as? CardView)?.card)
+        Application.shared.view.scheduleUpdate()
+        Application.shared.view.progress.progress = Application.shared.view.selected.board.progress
     }
     
     private func confirmDelete() {
         detach()
         DispatchQueue.global(qos:.background).async {
-            Application.shared.view.presenter.repository.delete(self.card, board:Application.shared.view.presenter.selected.board)
-            Application.shared.view.presenter.scheduleUpdate()
+            Application.shared.view.repository.delete(self.card, board:Application.shared.view.selected.board)
+            Application.shared.view.scheduleUpdate()
             DispatchQueue.main.async {
-                Application.shared.view.progress.progress = Application.shared.view.presenter.selected.board.progress
+                Application.shared.view.progress.progress = Application.shared.view.selected.board.progress
                 self.removeFromSuperview()
             }
         }

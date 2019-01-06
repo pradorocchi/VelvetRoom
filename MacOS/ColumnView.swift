@@ -61,9 +61,9 @@ class ColumnView:EditView {
             after!.sibling = self
         }
         Application.shared.view.canvasChanged()
-        Application.shared.view.presenter.repository.move(column, board:Application.shared.view.presenter.selected.board, after:(after as? ColumnView)?.column)
-        Application.shared.view.presenter.scheduleUpdate()
-        Application.shared.view.progress.progress = Application.shared.view.presenter.selected.board.progress
+        Application.shared.view.repository.move(column, board:Application.shared.view.selected.board, after:(after as? ColumnView)?.column)
+        Application.shared.view.scheduleUpdate()
+        Application.shared.view.progress.progress = Application.shared.view.selected.board.progress
     }
     
     override func drag(deltaX:CGFloat, deltaY:CGFloat) {
@@ -92,10 +92,10 @@ class ColumnView:EditView {
             child = child!.child
         }
         DispatchQueue.global(qos:.background).async {
-            Application.shared.view.presenter.repository.delete(self.column, board:Application.shared.view.presenter.selected.board)
-            Application.shared.view.presenter.scheduleUpdate()
+            Application.shared.view.repository.delete(self.column, board:Application.shared.view.selected.board)
+            Application.shared.view.scheduleUpdate()
             DispatchQueue.main.async {
-                Application.shared.view.progress.progress = Application.shared.view.presenter.selected.board.progress
+                Application.shared.view.progress.progress = Application.shared.view.selected.board.progress
                 self.removeFromSuperview()
             }
         }

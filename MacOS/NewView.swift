@@ -1,5 +1,6 @@
 import AppKit
 import VelvetRoom
+import StoreKit
 
 class NewView:NSWindow, NSTextFieldDelegate {
     private weak var name:NSTextField!
@@ -202,7 +203,7 @@ class NewView:NSWindow, NSTextFieldDelegate {
             NSAnimationContext.runAnimationGroup { context in
                 context.duration = 0.35
                 context.allowsImplicitAnimation = true
-                self.contentView!.layoutSubtreeIfNeeded()
+                contentView!.layoutSubtreeIfNeeded()
             }
         }
     }
@@ -258,7 +259,11 @@ class NewView:NSWindow, NSTextFieldDelegate {
     
     @objc private func create() {
         makeFirstResponder(nil)
-        Application.shared.view.presenter.newBoard(name.stringValue, template:template)
+        let name = self.name.stringValue
+        DispatchQueue.global(qos:.background).async {
+            Application.shared.view.repository.newBoard(name, template:self.template)
+        }
+        if Application.shared.view.repository.rate() { if #available(OSX 10.14, *) { SKStoreReviewController.requestReview() } }
         Application.shared.view.endSheet(self)
     }
 }

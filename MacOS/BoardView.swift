@@ -43,7 +43,7 @@ class BoardView:NSControl, NSTextViewDelegate {
     func delete() {
         Application.shared.view.makeFirstResponder(nil)
         Application.shared.view.beginSheet(DeleteView(.local("DeleteView.board")) {
-            Application.shared.view.presenter.repository.delete(self.board)
+            Application.shared.view.repository.delete(self.board)
         })
     }
     
@@ -55,7 +55,7 @@ class BoardView:NSControl, NSTextViewDelegate {
             text.string = board.name
             text.update()
         }
-        Application.shared.view.presenter.scheduleUpdate()
+        Application.shared.view.scheduleUpdate(board)
         DispatchQueue.main.async { [weak self] in self?.update() }
     }
     

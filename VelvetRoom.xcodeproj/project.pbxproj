@@ -55,7 +55,6 @@
 		DAADDD6C21D8E96B0038F85F /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADDD6B21D8E96B0038F85F /* EditView.swift */; };
 		DAADDD6E21D8EA1C0038F85F /* ColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADDD6D21D8EA1C0038F85F /* ColumnView.swift */; };
 		DAADDD7021D8EA680038F85F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADDD6F21D8EA680038F85F /* CardView.swift */; };
-		DAAE57A121C6909D00ED711C /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAE57A021C6909D00ED711C /* Presenter.swift */; };
 		DAB2708421C3CA7C008F184E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAB2707E21C3CA7C008F184E /* Localizable.strings */; };
 		DAB2708521C3CA7C008F184E /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708021C3CA7C008F184E /* iOS.storyboard */; };
 		DAB2708621C3CA7C008F184E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708121C3CA7C008F184E /* Assets.xcassets */; };
@@ -178,7 +177,6 @@
 		DAADDD6B21D8E96B0038F85F /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		DAADDD6D21D8EA1C0038F85F /* ColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnView.swift; sourceTree = "<group>"; };
 		DAADDD6F21D8EA680038F85F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		DAAE57A021C6909D00ED711C /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		DAB2707F21C3CA7C008F184E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DAB2708021C3CA7C008F184E /* iOS.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iOS.storyboard; sourceTree = "<group>"; };
 		DAB2708121C3CA7C008F184E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -348,7 +346,6 @@
 			isa = PBXGroup;
 			children = (
 				DAB2709021C3CA87008F184E /* Application.swift */,
-				DAAE57A021C6909D00ED711C /* Presenter.swift */,
 				DA7C744321C3E1C000B1F931 /* View.swift */,
 				DA4C2AC421D4F4CB004988B4 /* ProgressView.swift */,
 				DAFA95FC21CBDAAD00BA265C /* ItemView.swift */,
@@ -704,7 +701,6 @@
 			files = (
 				DAFA95FF21CBDC2C00BA265C /* CreateView.swift in Sources */,
 				DA53931021D2CB6F00482FCA /* TextStorage.swift in Sources */,
-				DAAE57A121C6909D00ED711C /* Presenter.swift in Sources */,
 				DA86AB3F21D0F884007DFFEE /* EditView.swift in Sources */,
 				DA86474521C3FDE500E4957B /* ColumnView.swift in Sources */,
 				DA16E00121CE8AFF00D21C7A /* TextView.swift in Sources */,
