@@ -17,4 +17,5 @@ ExportView.title="Export\n";
 ExportView.share="Share";
 ExportView.qr="Save QR Code";
 ImportView.title="Load board";
-ImportView.open="Open";
+ImportView.description="\nDrag and drop a Velvet Room QR Code,\nor click on search to look for it.";
+ImportView.open="Search";

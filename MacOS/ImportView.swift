@@ -15,21 +15,22 @@ class ImportView:SheetView {
         done.keyEquivalent = "\u{1b}"
         contentView!.addSubview(done)
         
+        let mutable = NSMutableAttributedString()
+        mutable.append(NSAttributedString(string:.local("ImportView.title"), attributes:
+            [.font:NSFont.systemFont(ofSize:16, weight:.bold), .foregroundColor:NSColor.velvetBlue]))
+        mutable.append(NSAttributedString(string:.local("ImportView.description"), attributes:
+            [.font:NSFont.systemFont(ofSize:16, weight:.ultraLight), .foregroundColor:NSColor.white]))
+        
         let title = NSTextField()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.backgroundColor = .clear
         title.isBezeled = false
         title.isEditable = false
-        title.font = .systemFont(ofSize:16, weight:.bold)
-        title.textColor = .velvetBlue
-        title.stringValue = .local("ImportView.title")
+        title.attributedStringValue = mutable
         contentView!.addSubview(title)
         
-        let image = NSImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.imageScaling = .scaleNone
-        image.image = NSImage(named:"drop")
-        contentView!.addSubview(image)
+        let drop = DropView()
+        contentView!.addSubview(drop)
         
         let open = NSButton()
         open.image = NSImage(named:"button")
@@ -44,10 +45,10 @@ class ImportView:SheetView {
         open.keyEquivalent = "\r"
         contentView!.addSubview(open)
         
-        image.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
-        image.centerYAnchor.constraint(equalTo:contentView!.centerYAnchor).isActive = true
-        image.widthAnchor.constraint(equalToConstant:120).isActive = true
-        image.heightAnchor.constraint(equalToConstant:120).isActive = true
+        drop.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
+        drop.centerYAnchor.constraint(equalTo:contentView!.centerYAnchor).isActive = true
+        drop.widthAnchor.constraint(equalToConstant:120).isActive = true
+        drop.heightAnchor.constraint(equalToConstant:120).isActive = true
         
         done.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:20).isActive = true
         done.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:20).isActive = true
@@ -55,7 +56,7 @@ class ImportView:SheetView {
         done.heightAnchor.constraint(equalToConstant:18).isActive = true
         
         title.leftAnchor.constraint(equalTo:done.rightAnchor, constant:10).isActive = true
-        title.centerYAnchor.constraint(equalTo:done.centerYAnchor).isActive = true
+        title.topAnchor.constraint(equalTo:done.topAnchor).isActive = true
         
         open.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
         open.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-20).isActive = true
