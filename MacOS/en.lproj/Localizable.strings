@@ -16,3 +16,5 @@ DeleteView.cancel="Cancel";
 ExportView.title="Export\n";
 ExportView.share="Share";
 ExportView.qr="Save QR Code";
+ImportView.title="Load board";
+ImportView.open="Open";

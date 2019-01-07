@@ -289,4 +289,9 @@ class View:NSWindow {
         makeFirstResponder(nil)
         beginSheet(ExportView(selected.board))
     }
+    
+    @IBAction private func load(_ sender:Any) {
+        makeFirstResponder(nil)
+        beginSheet(ImportView())
+    }
 }
