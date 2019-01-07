@@ -29,7 +29,13 @@ class ImportView:SheetView {
         title.attributedStringValue = mutable
         contentView!.addSubview(title)
         
-        let drop = DropView()
+        let image = NSImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.imageScaling = .scaleNone
+        image.image = NSImage(named:"dropOff")
+        contentView!.addSubview(image)
+        
+        let drop = DropView(image)
         contentView!.addSubview(drop)
         
         let open = NSButton()
@@ -49,6 +55,11 @@ class ImportView:SheetView {
         drop.centerYAnchor.constraint(equalTo:contentView!.centerYAnchor).isActive = true
         drop.widthAnchor.constraint(equalToConstant:120).isActive = true
         drop.heightAnchor.constraint(equalToConstant:120).isActive = true
+        
+        image.topAnchor.constraint(equalTo:drop.topAnchor).isActive = true
+        image.bottomAnchor.constraint(equalTo:drop.bottomAnchor).isActive = true
+        image.leftAnchor.constraint(equalTo:drop.leftAnchor).isActive = true
+        image.rightAnchor.constraint(equalTo:drop.rightAnchor).isActive = true
         
         done.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:20).isActive = true
         done.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:20).isActive = true

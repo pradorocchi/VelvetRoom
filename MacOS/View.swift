@@ -24,8 +24,8 @@ class View:NSWindow {
         }
     }
     
-    override func cancelOperation(_:Any?) { makeFirstResponder(nil) }
-    override func mouseDown(with:NSEvent) { makeFirstResponder(nil) }
+//    override func cancelOperation(_:Any?) { makeFirstResponder(nil) }
+//    override func mouseDown(with:NSEvent) { makeFirstResponder(nil) }
     
     override func awakeFromNib() {
         super.awakeFromNib()

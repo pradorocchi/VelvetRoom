@@ -1,50 +1,49 @@
 import AppKit
 
 class DropView:NSView {
-    init() {
+    weak var image:NSImageView!
+    
+    init(_ image:NSImageView) {
         super.init(frame:.zero)
+        self.image = image
         translatesAutoresizingMaskIntoConstraints = false
-        registerForDraggedTypes([.png, .pdf, .tiff])
-        
-        let image = NSImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.imageScaling = .scaleNone
-        image.image = NSImage(named:"dropOff")
-        addSubview(image)
-        
-        image.topAnchor.constraint(equalTo:topAnchor).isActive = true
-        image.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
-        image.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
-        image.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
+        if #available(OSX 10.13, *) {
+            registerForDraggedTypes([.fileURL])
+        } else {
+            registerForDraggedTypes([NSPasteboard.PasteboardType(kUTTypeFileURL as String)])
+        }
     }
     
     required init?(coder:NSCoder) { return nil }
     
-    override func prepareForDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        return true
+    override func draggingEntered(_ sender:NSDraggingInfo) -> NSDragOperation {
+        if url(sender).contains(".png") {
+            image.image = NSImage(named:"dropOn")
+            return .copy
+        } else {
+            return NSDragOperation()
+        }
     }
     
-    override func draggingEntered(_:NSDraggingInfo) -> NSDragOperation {
-        return .copy
+    override func performDragOperation(_ sender:NSDraggingInfo) -> Bool {
+        let url = self.url(sender)
+        if url.contains(".png") {
+            print(URL(fileURLWithPath:url))
+            return true
+        }
+        return false
     }
     
-    override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
-        return .copy
+    override func draggingExited(_:NSDraggingInfo?) {
+        image.image = NSImage(named:"dropOff")
     }
     
-    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        return true
+    override func draggingEnded(_:NSDraggingInfo) {
+        image.image = NSImage(named:"dropOff")
     }
     
-    override func concludeDragOperation(_ sender: NSDraggingInfo?) {
-        NSLog("concludeDragOperation")
-    }
-    
-    override func draggingExited(_ sender: NSDraggingInfo?) {
-        NSLog("draggingExited")
-    }
-    
-    override func draggingEnded(_ sender: NSDraggingInfo?) {
-        NSLog("draggingEnded")
+    private func url(_ sender:NSDraggingInfo) -> String {
+        return (sender.draggingPasteboard.propertyList(
+            forType:NSPasteboard.PasteboardType(rawValue:"NSFilenamesPboardType")) as! NSArray)[0] as! String
     }
 }

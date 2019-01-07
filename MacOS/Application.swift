@@ -15,6 +15,11 @@ import AppKit
         UserDefaults.standard.set(false, forKey:"NSFullScreenMenuItemEverywhere")
     }
     
+    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+        print(filename)
+        return true
+    }
+    
     func applicationDidFinishLaunching(_:Notification) {
         Application.view = NSApp.windows.first as? View
         Application.view.delegate = self
