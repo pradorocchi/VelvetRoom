@@ -1,10 +1,6 @@
 import Foundation
 
 public class Repository {
-    let json = """
-{"name":"Learnings","columns":[{"name":"To do","cards":[{"content":"guard case"},{"content":"Switch nil"},{"content":"**App delegate**\n- willEncodeRestorable\n- didDecodeRestorable"},{"content":"State restoration"},{"content":"enum M {\n    case a(B)\n}\n\nswitch m {\n    case .a(let b):\n        break\n}"},{"content":"indirect enum A<B> {\n    case _c(D)\n}\n\nswitch a {\n    case let ._c(d): return d\n}"},{"content":"_IsDebug"},{"content":"Firebase cloud functions"},{"content":"Layer.contents = UIImage.decodedImage().cgimage"},{"content":"Pthread. Condition. Mutex"},{"content":"Assert()"},{"content":".random\n.shuffle"}]},{"name":"In progress","cards":[]},{"name":"Done","cards":[{"content":"CaseIterable"},{"content":"Date interval formatter.\nDate interval\nDateComponentsFormatter\nMeasurementFormatter\nPersonNameComponentsFormatter"},{"content":"Store\nDataStore"},{"content":"Default type for associated types"},{"content":"extension MyProtocol where Self:Any {"},{"content":"Storing data in the Keychain"},{"content":"try?"},{"content":"Keypaths"}]}],"syncstamp":560106546.16624796}
-"""
-    
     public var list:(([Board]) -> Void)!
     public var select:((Board) -> Void)!
     var boards = [Board]()
@@ -30,31 +26,6 @@ public class Repository {
     }
     
     public func newBoard(_ name:String, template:Template) {
-        var json = self.json.replacingOccurrences(of:"_", with:"").replacingOccurrences(of:"\n", with:"\\n")
-        let catban = try! JSONDecoder().decode(Catban.self, from:Data(json.utf8))
-        let board = Board()
-        board.id = UUID().uuidString
-        board.name = catban.name
-        board.created = Date().timeIntervalSince1970
-        catban.columns.enumerated().forEach { column in
-            let newColumn = self.newColumn(board)
-            newColumn.name = column.element.name
-            column.element.cards.forEach { card in
-                let newCard = try! self.newCard(board)
-                newCard.content = card.content
-                newCard.column = column.offset
-            }
-        }
-        
-        boards.append(board)
-        account.boards.append(board.id)
-        storage.save(account)
-        update(board)
-        
-        listBoards()
-        select(board)
-        
-        /*
         let board = Board()
         board.id = UUID().uuidString
         board.name = name
@@ -67,7 +38,7 @@ public class Repository {
         update(board)
         
         listBoards()
-        select(board)*/
+        select(board)
     }
     
     public func newColumn(_ board:Board) -> Column {
