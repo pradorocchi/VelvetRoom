@@ -15,8 +15,8 @@ class TestSharer:XCTestCase {
     
     func testRead() {
         let board = Board()
-        board.id = "hello world"
-        XCTAssertEqual("hello world", try! Sharer.load(Sharer.export(board)))
+        board.id = UUID().uuidString
+        XCTAssertEqual(board.id, try! Sharer.load(Sharer.export(board)))
     }
     
     func testInvalidImage() {
@@ -25,5 +25,11 @@ class TestSharer:XCTestCase {
         NSColor.white.drawSwatch(in:NSRect(x:0, y:0, width:100, height:100))
         image.unlockFocus()
         XCTAssertThrowsError(try Sharer.load(image.cgImage(forProposedRect:nil, context:nil, hints:nil)!))
+    }
+    
+    func testInvalidQrCode() {
+        let board = Board()
+        board.id = "hello world"
+        XCTAssertThrowsError(try Sharer.load(Sharer.export(board)))
     }
 }

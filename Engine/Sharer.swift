@@ -12,10 +12,11 @@ public class Sharer {
     
     public class func load(_ image:CGImage) throws -> String {
         let ciImage = CIImage(cgImage:image)
-        if let message = (CIDetector(ofType:CIDetectorTypeQRCode, context:nil, options:[CIDetectorAccuracy:
+        if let raw = (CIDetector(ofType:CIDetectorTypeQRCode, context:nil, options:[CIDetectorAccuracy:
             CIDetectorAccuracyHigh])!.features(in:ciImage, options:
-                nil).first { $0 is CIQRCodeFeature } as? CIQRCodeFeature)?.messageString {
-            return message
+                nil).first { $0 is CIQRCodeFeature } as? CIQRCodeFeature)?.messageString,
+            UUID(uuidString:raw) != nil {
+            return raw
         }
         throw Exception.invalidQRCode
     }
