@@ -12,4 +12,18 @@ class TestSharer:XCTestCase {
         XCTAssertLessThan(200, image.width)
         XCTAssertLessThan(200, image.height)
     }
+    
+    func testRead() {
+        let board = Board()
+        board.id = "hello world"
+        XCTAssertEqual("hello world", try! Sharer.load(Sharer.export(board)))
+    }
+    
+    func testInvalidImage() {
+        let image = NSImage(size:NSSize(width:100, height:100))
+        image.lockFocus()
+        NSColor.white.drawSwatch(in:NSRect(x:0, y:0, width:100, height:100))
+        image.unlockFocus()
+        XCTAssertThrowsError(try Sharer.load(image.cgImage(forProposedRect:nil, context:nil, hints:nil)!))
+    }
 }

@@ -28,7 +28,8 @@ class DropView:NSView {
     override func performDragOperation(_ sender:NSDraggingInfo) -> Bool {
         let url = self.url(sender)
         if url.contains(".png") {
-            print(URL(fileURLWithPath:url))
+            let image = NSImage(byReferencing:URL(fileURLWithPath:url))
+            print(image.size)
             return true
         }
         return false
