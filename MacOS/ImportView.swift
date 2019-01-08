@@ -105,7 +105,7 @@ class ImportView:SheetView {
         drop.isHidden = true
         if let image = NSImage(byReferencing:url).cgImage(forProposedRect:nil, context:nil, hints:nil),
             let id = try? Sharer.load(image) {
-            
+            Application.view.repository.load(id)
             end()
         } else {
             message.stringValue = .local("ImportView.error")

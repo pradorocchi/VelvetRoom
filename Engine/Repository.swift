@@ -21,6 +21,10 @@ public class Repository {
         synchBoards()
     }
     
+    public func load(_ id:String) {
+        synch.load(id)
+    }
+    
     public func newBoard(_ name:String, template:Template) {
         let board = Board()
         board.id = UUID().uuidString

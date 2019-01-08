@@ -188,4 +188,14 @@ class TestSynch:XCTestCase {
         XCTAssertEqual(1, repository.boards.first!.updated)
         XCTAssertEqual("hello world", repository.boards.first!.name)
     }
+    
+    func testLoadImported() {
+        let expect = expectation(description:String())
+        synch.onLoad = { id in
+            XCTAssertEqual("hello world", id)
+            expect.fulfill()
+        }
+        repository.load("hello world")
+        waitForExpectations(timeout:1)
+    }
 }
