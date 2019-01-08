@@ -41,7 +41,7 @@ class NewView:UIViewController, UITextFieldDelegate {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .none
-        field.tintColor = .white
+        field.tintColor = .velvetBlue
         field.autocorrectionType = .yes
         field.autocapitalizationType = .sentences
         field.spellCheckingType = .yes
@@ -132,7 +132,7 @@ class NewView:UIViewController, UITextFieldDelegate {
         columns.translatesAutoresizingMaskIntoConstraints = false
         columns.isUserInteractionEnabled = false
         columns.font = .systemFont(ofSize:12, weight:.light)
-        columns.textColor = UIColor(white:1, alpha:0.3)
+        columns.textColor = UIColor(white:1, alpha:0.6)
         view.addSubview(columns)
         self.columns = columns
         
@@ -196,7 +196,7 @@ class NewView:UIViewController, UITextFieldDelegate {
     
     private func moveSelector(_ left:CGFloat) {
         selectorX.constant = left
-        UIView.animate(withDuration:0.3) { self.view.layoutIfNeeded() }
+        UIView.animate(withDuration:0.3) { [weak self] in self?.view.layoutIfNeeded() }
     }
     
     @objc private func cancel() {

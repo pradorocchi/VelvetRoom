@@ -6,8 +6,8 @@ class ChartView:UIViewController {
     
     init(_ board:Board) {
         super.init(nibName:nil, bundle:nil)
-        modalPresentationStyle = .overCurrentContext
         modalTransitionStyle = .crossDissolve
+        modalPresentationStyle = .overCurrentContext
         self.board = board
     }
     
@@ -15,18 +15,12 @@ class ChartView:UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .clear
+        view.backgroundColor = .black
         makeOutlets()
         display(board.chart)
     }
     
     private func makeOutlets() {
-        let blur = UIVisualEffectView(effect:UIBlurEffect(style:.dark))
-        blur.translatesAutoresizingMaskIntoConstraints = false
-        blur.isUserInteractionEnabled = false
-        blur.alpha = 0.94
-        view.addSubview(blur)
-        
         let back = UIControl()
         back.translatesAutoresizingMaskIntoConstraints = false
         back.addTarget(self, action:#selector(self.done), for:.touchUpInside)
@@ -53,11 +47,6 @@ class ChartView:UIViewController {
         
         title.leftAnchor.constraint(equalTo:view.leftAnchor, constant:32).isActive = true
         title.heightAnchor.constraint(equalToConstant:30).isActive = true
-        
-        blur.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        blur.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
-        blur.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        blur.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
         
         back.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
         back.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
@@ -94,7 +83,7 @@ class ChartView:UIViewController {
             let layer = CAShapeLayer()
             layer.frame = Application.view.view.bounds
             layer.path = path
-            layer.lineWidth = 5
+            layer.lineWidth = 4
             layer.lineJoin = .round
             layer.lineCap = .round
             layer.strokeColor = UIColor.black.cgColor
@@ -106,6 +95,13 @@ class ChartView:UIViewController {
             view.layer.addSublayer(layer)
             angle = radius
         }
+        let path = CGMutablePath()
+        path.addArc(center:center, radius:40, startAngle:0.0001, endAngle:0, clockwise:false)
+        let layer = CAShapeLayer()
+        layer.frame = Application.view.view.bounds
+        layer.path = path
+        layer.fillColor = UIColor.black.cgColor
+        view.layer.addSublayer(layer)
     }
     
     private func caption(_ name:String, percent:Float, point:CGPoint) {

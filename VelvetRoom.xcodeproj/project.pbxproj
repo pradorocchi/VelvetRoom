@@ -16,6 +16,7 @@
 		204B690021E347200025261E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FF21E347200025261E /* DropView.swift */; };
 		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
+		20EC12DB21E4F63A00375670 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EC12DA21E4F63A00375670 /* GradientView.swift */; };
 		DA00F0D221DA3C92002FD057 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA00F0D121DA3C92002FD057 /* ChartView.swift */; };
 		DA00F0D421DA4A43002FD057 /* TestRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA00F0D321DA4A43002FD057 /* TestRating.swift */; };
 		DA0A146C21D779B600CF4BDD /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0A146B21D779B600CF4BDD /* BoardView.swift */; };
@@ -143,6 +144,7 @@
 		204B68FD21E338B10025261E /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		204B68FF21E347200025261E /* DropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
 		20CD59BC21E0CD6B00ADF8BC /* Clean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clean.swift; sourceTree = "<group>"; };
+		20EC12DA21E4F63A00375670 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		DA00F0D121DA3C92002FD057 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		DA00F0D321DA4A43002FD057 /* TestRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRating.swift; sourceTree = "<group>"; };
 		DA0A146B21D779B600CF4BDD /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 			children = (
 				DAB2708221C3CA7C008F184E /* Application.swift */,
 				DAD7B78021D654E3003396B1 /* View.swift */,
+				20EC12DA21E4F63A00375670 /* GradientView.swift */,
 				DAD7B78821D660E6003396B1 /* NewView.swift */,
 				DA88A21C21D8DB6000144E39 /* DeleteView.swift */,
 				DA00F0D121DA3C92002FD057 /* ChartView.swift */,
@@ -732,6 +735,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20EC12DB21E4F63A00375670 /* GradientView.swift in Sources */,
 				DAC2CDC421C8EDA700AD927B /* String.swift in Sources */,
 				DAD7B78321D65683003396B1 /* ProgressView.swift in Sources */,
 				DAD7B78721D65BFE003396B1 /* UIFont.swift in Sources */,

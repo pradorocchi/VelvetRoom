@@ -64,6 +64,32 @@ class View:UIViewController {
     }
     
     private func makeOutlets() {
+        let boardsScroll = UIScrollView()
+        boardsScroll.translatesAutoresizingMaskIntoConstraints = false
+        boardsScroll.alwaysBounceVertical = true
+        boardsScroll.indicatorStyle = .white
+        view.addSubview(boardsScroll)
+        
+        let boards = UIView()
+        boards.translatesAutoresizingMaskIntoConstraints = false
+        boardsScroll.addSubview(boards)
+        self.boards = boards
+        
+        let canvasScroll = UIScrollView()
+        canvasScroll.translatesAutoresizingMaskIntoConstraints = false
+        canvasScroll.alwaysBounceVertical = true
+        canvasScroll.alwaysBounceHorizontal = true
+        canvasScroll.indicatorStyle = .white
+        view.addSubview(canvasScroll)
+        
+        let canvas = UIView()
+        canvas.translatesAutoresizingMaskIntoConstraints = false
+        canvasScroll.addSubview(canvas)
+        self.canvas = canvas
+        
+        let bar = GradientView()
+        view.addSubview(bar)
+        
         let newButton = UIButton()
         newButton.addTarget(self, action:#selector(new), for:.touchUpInside)
         newButton.translatesAutoresizingMaskIntoConstraints = false
@@ -94,29 +120,6 @@ class View:UIViewController {
         view.addSubview(titleLabel)
         self.titleLabel = titleLabel
         
-        let boardsScroll = UIScrollView()
-        boardsScroll.translatesAutoresizingMaskIntoConstraints = false
-        boardsScroll.alwaysBounceVertical = true
-        boardsScroll.indicatorStyle = .white
-        view.addSubview(boardsScroll)
-        
-        let boards = UIView()
-        boards.translatesAutoresizingMaskIntoConstraints = false
-        boardsScroll.addSubview(boards)
-        self.boards = boards
-        
-        let canvasScroll = UIScrollView()
-        canvasScroll.translatesAutoresizingMaskIntoConstraints = false
-        canvasScroll.alwaysBounceVertical = true
-        canvasScroll.alwaysBounceHorizontal = true
-        canvasScroll.indicatorStyle = .white
-        view.addSubview(canvasScroll)
-        
-        let canvas = UIView()
-        canvas.translatesAutoresizingMaskIntoConstraints = false
-        canvasScroll.addSubview(canvas)
-        self.canvas = canvas
-        
         let emptyButton = UIButton()
         emptyButton.layer.cornerRadius = 4
         emptyButton.backgroundColor = .velvetBlue
@@ -129,6 +132,11 @@ class View:UIViewController {
         emptyButton.isHidden = true
         view.addSubview(emptyButton)
         self.emptyButton = emptyButton
+        
+        bar.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
+        bar.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+        bar.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        bar.heightAnchor.constraint(equalToConstant:60).isActive = true
         
         newButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         newButton.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.16).isActive = true
@@ -149,7 +157,7 @@ class View:UIViewController {
         titleLabel.leftAnchor.constraint(equalTo:newButton.rightAnchor, constant:32).isActive = true
         titleLabel.rightAnchor.constraint(equalTo:progressButton.leftAnchor).isActive = true
         
-        boardsScroll.topAnchor.constraint(equalTo:newButton.bottomAnchor).isActive = true
+        boardsScroll.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
         boardsScroll.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
         
         boards.bottomAnchor.constraint(equalTo:boardsScroll.bottomAnchor).isActive = true
@@ -190,11 +198,11 @@ class View:UIViewController {
         self.boards.subviews.forEach { $0.removeFromSuperview() }
         (self.boards.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:true)
         var top = self.boards.topAnchor
-        boards.forEach { board in
-            let view = BoardView(board)
+        boards.enumerated().forEach { board in
+            let view = BoardView(board.element)
             self.boards.addSubview(view)
             
-            view.topAnchor.constraint(equalTo:top, constant:10).isActive = true
+            view.topAnchor.constraint(equalTo:top, constant:board.offset == 0 ? 60 : 10).isActive = true
             view.leftAnchor.constraint(equalTo:self.boards.leftAnchor, constant:20).isActive = true
             view.rightAnchor.constraint(equalTo:self.boards.rightAnchor, constant:20).isActive = true
             top = view.bottomAnchor
@@ -262,7 +270,7 @@ class View:UIViewController {
         var sibling = root
         while sibling != nil {
             let right = maxRight
-            var bottom = CGFloat(5)
+            var bottom = CGFloat(60)
             
             var child = sibling
             sibling = sibling!.sibling
