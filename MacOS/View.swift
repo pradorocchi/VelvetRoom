@@ -189,7 +189,7 @@ class View:NSWindow {
     }
     
     private func select(_ board:Board) {
-        let view = list.documentView!.subviews.first { ($0 as! BoardView).board.id == board.id } as! BoardView
+        let view = list.documentView!.subviews.first { ($0 as! BoardView).board === board } as! BoardView
         select(view:view)
         if #available(OSX 10.12, *) {
             NSAnimationContext.runAnimationGroup { context in
