@@ -1,6 +1,7 @@
 import Foundation
 
 struct Catban:Decodable {
+    var name = String()
     var columns = [ColumnCatban]()
 }
 
