@@ -2,6 +2,7 @@ import AppKit
 
 class DropView:NSView {
     weak var image:NSImageView!
+    var selected:((URL) -> Void)!
     
     init(_ image:NSImageView) {
         super.init(frame:.zero)
@@ -28,8 +29,7 @@ class DropView:NSView {
     override func performDragOperation(_ sender:NSDraggingInfo) -> Bool {
         let url = self.url(sender)
         if url.contains(".png") {
-            let image = NSImage(byReferencing:URL(fileURLWithPath:url))
-            print(image.size)
+            selected(URL(fileURLWithPath:url))
             return true
         }
         return false
