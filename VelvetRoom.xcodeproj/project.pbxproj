@@ -14,6 +14,7 @@
 		202D693021E23D9B009398AB /* Sharer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692C21E23D2B009398AB /* Sharer.swift */; };
 		204B68FE21E338B10025261E /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FD21E338B10025261E /* ImportView.swift */; };
 		204B690021E347200025261E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FF21E347200025261E /* DropView.swift */; };
+		2083A04A21E4A6D200D81D01 /* Catban.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2083A04921E4A6D200D81D01 /* Catban.swift */; };
 		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		DA00F0D221DA3C92002FD057 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA00F0D121DA3C92002FD057 /* ChartView.swift */; };
@@ -142,6 +143,7 @@
 		202D692C21E23D2B009398AB /* Sharer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sharer.swift; sourceTree = "<group>"; };
 		204B68FD21E338B10025261E /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		204B68FF21E347200025261E /* DropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
+		2083A04921E4A6D200D81D01 /* Catban.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catban.swift; sourceTree = "<group>"; };
 		20CD59BC21E0CD6B00ADF8BC /* Clean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clean.swift; sourceTree = "<group>"; };
 		DA00F0D121DA3C92002FD057 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		DA00F0D321DA4A43002FD057 /* TestRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRating.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 				DAD0C1E321C50CB600E6D1C7 /* Content.swift */,
 				DA7B2AEA21C67D55003B7333 /* Template.swift */,
 				DAD0C20121C5310D00E6D1C7 /* Exception.swift */,
+				2083A04921E4A6D200D81D01 /* Catban.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -633,6 +636,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2083A04A21E4A6D200D81D01 /* Catban.swift in Sources */,
 				DAD0C1F121C5222B00E6D1C7 /* LocalStorage.swift in Sources */,
 				DAD0C1D021C5056B00E6D1C7 /* Board.swift in Sources */,
 				DA7B2AEB21C67D55003B7333 /* Template.swift in Sources */,
