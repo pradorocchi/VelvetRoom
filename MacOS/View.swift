@@ -7,6 +7,7 @@ class View:NSWindow {
     private(set) weak var canvas:ScrollView!
     private(set) weak var borderLeft:NSLayoutConstraint!
     private weak var list:ScrollView!
+    private let errors = Errors()
     @IBOutlet private(set) weak var progress:ProgressView!
     @IBOutlet private weak var listButton:NSButton!
     @IBOutlet private weak var deleteButton:NSButton!
@@ -33,6 +34,7 @@ class View:NSWindow {
         makeOutlets()
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.select(board) } }
+        repository.error = { error in DispatchQueue.main.async { self.errors.add(error) } }
         DispatchQueue.global(qos:.background).async { self.repository.load() }
         DispatchQueue.main.async { self.toggleList(self.listButton) }
     }

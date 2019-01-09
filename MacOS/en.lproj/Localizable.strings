@@ -21,3 +21,4 @@ ImportView.description="\nDrag and drop a Velvet Room QR Code,\nor click on sear
 ImportView.open="Search";
 ImportView.qr="Load a Velvet Room QR Code";
 ImportView.error="Not a valid Velvet Room QR Code.\nLoading board failed.";
+Errors.unknown="An unknown error ocurred.";
