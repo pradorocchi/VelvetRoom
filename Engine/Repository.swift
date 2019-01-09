@@ -3,6 +3,7 @@ import Foundation
 public class Repository {
     public var list:(([Board]) -> Void)!
     public var select:((Board) -> Void)!
+    public var error:((Error) -> Void)!
     var boards = [Board]()
     var account = Account()
     var storage:Storage = LocalStorage()
@@ -161,6 +162,7 @@ public class Repository {
     func synchBoards() {
         synch.notification = synchNotification
         synch.loaded = synchLoaded
+        synch.error = error
         synch.start()
     }
     

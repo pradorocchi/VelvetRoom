@@ -198,4 +198,12 @@ class TestSynch:XCTestCase {
         repository.load("hello world")
         waitForExpectations(timeout:1)
     }
+    
+    func testNotifiesRepositoryOnError() {
+        let expect = expectation(description:String())
+        synch.exception = Exception.unknown
+        repository.error = { _ in expect.fulfill() }
+        repository.synchBoards()
+        waitForExpectations(timeout:1)
+    }
 }

@@ -4,6 +4,7 @@ import CloudKit
 class CloudSynch:Synch {
     var notification:(([String:TimeInterval]) -> Void)!
     var loaded:((Board) -> Void)!
+    var error:((Error) -> Void)!
     private var started = false
     
     func start() {
