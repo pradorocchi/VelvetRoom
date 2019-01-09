@@ -18,12 +18,14 @@ class View:UIViewController {
         oldValue?.isActive = false; canvasWidth!.isActive = true } }
     private weak var canvasHeight:NSLayoutConstraint? { didSet {
         oldValue?.isActive = false; canvasHeight!.isActive = true } }
+    private let errors = Errors()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         makeOutlets()
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.open(board) } }
+        repository.error = { error in DispatchQueue.main.async { self.errors.add(error) } }
         listenKeyboard()
         DispatchQueue.global(qos:.background).async { self.repository.load() }
     }
@@ -32,8 +34,8 @@ class View:UIViewController {
         selected = board
         progressButton.progress = board.progress
         titleLabel.text = board.name
-        newLeft.constant = view.bounds.width * -0.16
-        progressLeft.constant = view.bounds.width * -0.32
+        newLeft.constant = -65
+        progressLeft.constant = -130
         boardsRight.constant = view.bounds.width
         (canvas.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:false)
         UIView.animate(withDuration:0.5, animations: {
@@ -139,18 +141,18 @@ class View:UIViewController {
         bar.heightAnchor.constraint(equalToConstant:60).isActive = true
         
         newButton.heightAnchor.constraint(equalToConstant:50).isActive = true
-        newButton.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.16).isActive = true
+        newButton.widthAnchor.constraint(equalToConstant:64).isActive = true
         newLeft = newButton.leftAnchor.constraint(equalTo:view.leftAnchor)
         
         progressButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
         progressButton.heightAnchor.constraint(equalToConstant:50).isActive = true
-        progressButton.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.16).isActive = true
+        progressButton.widthAnchor.constraint(equalToConstant:64).isActive = true
         progressLeft = progressButton.leftAnchor.constraint(equalTo:view.rightAnchor)
         
         listButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
         listButton.leftAnchor.constraint(equalTo:progressButton.rightAnchor).isActive = true
         listButton.heightAnchor.constraint(equalToConstant:50).isActive = true
-        listButton.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.16).isActive = true
+        listButton.widthAnchor.constraint(equalToConstant:64).isActive = true
         
         titleLabel.heightAnchor.constraint(equalToConstant:30).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo:newButton.centerYAnchor).isActive = true

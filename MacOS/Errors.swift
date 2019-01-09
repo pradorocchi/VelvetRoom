@@ -38,8 +38,6 @@ class Errors {
         view.rightAnchor.constraint(equalTo:Application.view.contentView!.rightAnchor, constant:-10).isActive = true
         view.heightAnchor.constraint(equalToConstant:60).isActive = true
         viewBottom!.isActive = true
-        Application.view.contentView!.layoutSubtreeIfNeeded()
-        viewBottom!.constant = 100
         
         message.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
         message.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
@@ -53,6 +51,8 @@ class Errors {
         default: message.stringValue = .local("Errors.unknown")
         }
         
+        Application.view.contentView!.layoutSubtreeIfNeeded()
+        viewBottom!.constant = 100
         if #available(OSX 10.12, *) {
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0.6
@@ -60,7 +60,7 @@ class Errors {
                 view.alphaValue = 1
                 Application.view.contentView!.layoutSubtreeIfNeeded()
             }) {
-                DispatchQueue.main.asyncAfter(deadline:.now() + 4) { self.remove() }
+                DispatchQueue.main.asyncAfter(deadline:.now() + 8) { self.remove() }
             }
         }
     }
