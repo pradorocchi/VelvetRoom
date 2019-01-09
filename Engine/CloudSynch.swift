@@ -17,11 +17,15 @@ class CloudSynch:Synch {
     func load(_ id:String) {
         LocalStorage.queue.async {
             CKContainer(identifier:"iCloud.VelvetRoom").publicCloudDatabase.fetch(withRecordID:.init(recordName:id))
-            { record, _ in
-                if let json = record?["json"] as? CKAsset,
+            { record, error in
+                if error != nil {
+                    self.error(Exception.failedLoadingFromIcloud)
+                } else if let json = record?["json"] as? CKAsset,
                     let data = try? Data(contentsOf:json.fileURL),
                     let board = try? JSONDecoder().decode(Board.self, from:data) {
                     self.loaded(board)
+                } else {
+                    self.error(Exception.errorWhileLoadingFromIcloud)
                 }
             }
         }
@@ -43,6 +47,11 @@ class CloudSynch:Synch {
                 record["json"] = CKAsset(fileURL:LocalStorage.url(board.id))
                 let operation = CKModifyRecordsOperation(recordsToSave:[record])
                 operation.savePolicy = .allKeys
+                operation.perRecordCompletionBlock = { _, error in
+                    if error != nil {
+                        self.error(Exception.unableToSaveToIcloud)
+                    }
+                }
                 CKContainer(identifier:"iCloud.VelvetRoom").publicCloudDatabase.add(operation)
             }
         }
@@ -52,6 +61,10 @@ class CloudSynch:Synch {
         NotificationCenter.default.addObserver(forName:NSUbiquitousKeyValueStore.didChangeExternallyNotification,
                                                object:nil, queue:OperationQueue()) { _ in self.fetch() }
         started = NSUbiquitousKeyValueStore.default.synchronize()
+        if started && FileManager.default.ubiquityIdentityToken == nil {
+            started = false
+            error(Exception.noIcloudToken)
+        }
     }
     
     private func fetch() {

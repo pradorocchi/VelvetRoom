@@ -22,3 +22,7 @@ ImportView.open="Search";
 ImportView.qr="Load a Velvet Room QR Code";
 ImportView.error="Not a valid Velvet Room QR Code.\nLoading board failed.";
 Errors.unknown="An unknown error ocurred.";
+Errors.noIcloudToken="Unable to connect to iCloud.\nMake sure your iCloud account is setup on this computer and iCloud Drive is enabled.";
+Errors.unableToSaveToIcloud="Unable to save to iCloud.\nMake sure your iCloud account is setup on this computer and iCloud Drive is enabled.";
+Errors.failedLoadingFromIcloud="Unable to load from iCloud.\nMake sure your iCloud account is setup on this computer and iCloud Drive is enabled.";
+Errors.errorWhileLoadingFromIcloud="Error while loading from iCloud.\nMake sure your iCloud account is setup on this computer and iCloud Drive is enabled.";

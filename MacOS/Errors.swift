@@ -46,6 +46,10 @@ class Errors {
         message.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
         
         switch errors.removeFirst() {
+        case Exception.noIcloudToken: message.stringValue = .local("Errors.noIcloudToken")
+        case Exception.errorWhileLoadingFromIcloud: message.stringValue = .local("Errors.errorWhileLoadingFromIcloud")
+        case Exception.failedLoadingFromIcloud: message.stringValue = .local("Errors.failedLoadingFromIcloud")
+        case Exception.unableToSaveToIcloud: message.stringValue = .local("Errors.unableToSaveToIcloud")
         default: message.stringValue = .local("Errors.unknown")
         }
         
