@@ -75,13 +75,29 @@ class View:NSWindow {
         contentView!.addSubview(canvas)
         self.canvas = canvas
         
+        let gradient = NSView()
+        gradient.translatesAutoresizingMaskIntoConstraints = false
+        gradient.layer = CAGradientLayer()
+        (gradient.layer as! CAGradientLayer).startPoint = CGPoint(x:0.5, y:0)
+        (gradient.layer as! CAGradientLayer).endPoint = CGPoint(x:0.5, y:1)
+        (gradient.layer as! CAGradientLayer).locations = [0, 1]
+        (gradient.layer as! CAGradientLayer).colors = [NSColor.textBackgroundColor.withAlphaComponent(0).cgColor,
+                                                       NSColor.textBackgroundColor.cgColor]
+        gradient.wantsLayer = true
+        contentView!.addSubview(gradient)
+        
         let border = NSView()
         border.translatesAutoresizingMaskIntoConstraints = false
         border.wantsLayer = true
         border.layer!.backgroundColor = NSColor.textColor.withAlphaComponent(0.2).cgColor
         contentView!.addSubview(border)
         
-        list.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:36).isActive = true
+        gradient.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
+        gradient.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
+        gradient.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
+        gradient.heightAnchor.constraint(equalToConstant:72).isActive = true
+        
+        list.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
         list.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
         list.rightAnchor.constraint(equalTo:border.leftAnchor).isActive = true
         list.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
@@ -92,7 +108,7 @@ class View:NSWindow {
         borderLeft = border.leftAnchor.constraint(equalTo:contentView!.leftAnchor)
         borderLeft.isActive = true
         
-        canvas.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:36).isActive = true
+        canvas.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
         canvas.leftAnchor.constraint(equalTo:border.rightAnchor).isActive = true
         canvas.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-1).isActive = true
         canvas.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-1).isActive = true
@@ -109,13 +125,13 @@ class View:NSWindow {
         canvas.removeSubviews()
         list.removeSubviews()
         var top = list.documentView!.topAnchor
-        boards.forEach { board in
-            let view = BoardView(board)
+        boards.enumerated().forEach { board in
+            let view = BoardView(board.element)
             view.target = self
             view.action = #selector(select(view:))
             list.documentView!.addSubview(view)
             
-            view.topAnchor.constraint(equalTo:top).isActive = true
+            view.topAnchor.constraint(equalTo:top, constant:board.offset == 0 ? 36 : 0).isActive = true
             view.leftAnchor.constraint(equalTo:list.leftAnchor).isActive = true
             view.rightAnchor.constraint(equalTo:list.rightAnchor).isActive = true
             top = view.bottomAnchor
@@ -162,7 +178,7 @@ class View:NSWindow {
         var sibling = root
         while sibling != nil {
             let right = maxRight
-            var bottom = CGFloat(20)
+            var bottom = CGFloat(56)
             
             var child = sibling
             sibling = sibling!.sibling
