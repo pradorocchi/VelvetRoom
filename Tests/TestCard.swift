@@ -78,6 +78,14 @@ class TestCard:XCTestCase {
         XCTAssertEqual(1, card.positions.count)
     }
     
+    func testNotNewPositionMovingIndex() {
+        let card = Card()
+        card.index = 1
+        card.index = 2
+        card.index = 3
+        XCTAssertTrue(card.positions.isEmpty)
+    }
+    
     func testContentEndingWhiteSpace() {
         let card = Card()
         card.content = "hello world "

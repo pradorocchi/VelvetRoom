@@ -16,6 +16,7 @@ class Errors {
     private func pop() {
         guard !errors.isEmpty else { return }
         let view = UIView()
+        view.isUserInteractionEnabled = false
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(white:1, alpha:0.9)
         view.layer.cornerRadius = 6
@@ -24,6 +25,7 @@ class Errors {
         self.view = view
         
         let message = UILabel()
+        message.isUserInteractionEnabled = false
         message.translatesAutoresizingMaskIntoConstraints = false
         message.font = .systemFont(ofSize:14, weight:.regular)
         message.textColor = .black
