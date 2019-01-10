@@ -7,12 +7,7 @@ class CloudSynch:Synch {
     var error:((Error) -> Void)!
     private var started = false
     
-    func start() {
-        LocalStorage.queue.async {
-            self.register()
-            self.fetch()
-        }
-    }
+    func start() { LocalStorage.queue.async { self.register() } }
     
     func load(_ id:String) {
         LocalStorage.queue.async {
