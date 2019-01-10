@@ -26,7 +26,7 @@ class TestRepository_Card:XCTestCase {
         XCTAssertTrue(card === repository.boards.first!.cards.first!)
         XCTAssertLessThan(time, card.positions.first!.time)
         XCTAssertEqual(0, card.positions.first!.column)
-        XCTAssertEqual(0, card.positions.first!.index)
+        XCTAssertEqual(0, card.index)
     }
     
     func testNewCardOrdering() {
@@ -59,7 +59,7 @@ class TestRepository_Card:XCTestCase {
         XCTAssertEqual(2, cardThird.index)
     }
     
-    func testMoveNoAfter() {
+    func testMoveWithNoAfter() {
         let board = Board()
         let column = Column()
         board.columns = [column]

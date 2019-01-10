@@ -42,8 +42,8 @@ class TestBoard:XCTestCase {
         let board = Board()
         let cardA = Card()
         let cardB = Card()
-        cardA.position(column:0, index:0)
-        cardB.position(column:0, index:1)
+        cardA.column = 0
+        cardB.column = 0
         board.columns = [Column()]
         board.cards = [cardA, cardB]
         XCTAssertEqual(1, board.progress)
@@ -59,8 +59,8 @@ class TestBoard:XCTestCase {
         let board = Board()
         let cardA = Card()
         let cardB = Card()
-        cardA.position(column:0, index:0)
-        cardB.position(column:1, index:0)
+        cardA.column = 0
+        cardB.column = 1
         board.columns = [Column(), Column()]
         board.cards = [cardA, cardB]
         XCTAssertEqual(0.5, board.progress)
@@ -70,8 +70,8 @@ class TestBoard:XCTestCase {
         let board = Board()
         let cardA = Card()
         let cardB = Card()
-        cardA.position(column:0, index:0)
-        cardB.position(column:1, index:0)
+        cardA.column = 0
+        cardB.column = 0
         board.columns = [Column(), Column(), Column()]
         board.cards = [cardA, cardB]
         XCTAssertEqual(0, board.progress)
@@ -81,8 +81,8 @@ class TestBoard:XCTestCase {
         let board = Board()
         let cardA = Card()
         let cardB = Card()
-        cardA.position(column:2, index:0)
-        cardB.position(column:2, index:0)
+        cardA.column = 2
+        cardB.column = 2
         board.columns = [Column(), Column(), Column()]
         board.cards = [cardA, cardB]
         XCTAssertEqual(1, board.progress)
@@ -103,8 +103,8 @@ class TestBoard:XCTestCase {
         let board = Board()
         let cardA = Card()
         let cardB = Card()
-        cardA.position(column:0, index:0)
-        cardB.position(column:0, index:1)
+        cardA.column = 0
+        cardB.column = 0
         board.columns = [Column()]
         board.cards = [cardA, cardB]
         XCTAssertEqual(1, board.chart[0].1)
@@ -120,8 +120,8 @@ class TestBoard:XCTestCase {
         let board = Board()
         let cardA = Card()
         let cardB = Card()
-        cardA.position(column:0, index:0)
-        cardB.position(column:1, index:0)
+        cardA.column = 0
+        cardB.column = 1
         board.columns = [Column(), Column()]
         board.cards = [cardA, cardB]
         XCTAssertEqual(0.5, board.chart[0].1)
@@ -132,8 +132,8 @@ class TestBoard:XCTestCase {
         let board = Board()
         let cardA = Card()
         let cardB = Card()
-        cardA.position(column:0, index:0)
-        cardB.position(column:1, index:0)
+        cardA.column = 0
+        cardB.column = 1
         board.columns = [Column(), Column(), Column()]
         board.cards = [cardA, cardB]
         XCTAssertEqual(0.5, board.chart[0].1)
@@ -145,8 +145,8 @@ class TestBoard:XCTestCase {
         let board = Board()
         let cardA = Card()
         let cardB = Card()
-        cardA.position(column:2, index:0)
-        cardB.position(column:2, index:0)
+        cardA.column = 2
+        cardB.column = 2
         board.columns = [Column(), Column(), Column()]
         board.cards = [cardA, cardB]
         XCTAssertEqual(0, board.chart[0].1)

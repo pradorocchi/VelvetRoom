@@ -222,7 +222,8 @@ public class Repository {
     }
     
     private func move(_ card:Card, board:Board, column:Int, index:Int) {
-        card.position(column:column, index:index)
+        card.index = index
+        card.column = column
         board.cards.forEach { item in
             if item !== card {
                 if item.column == column {

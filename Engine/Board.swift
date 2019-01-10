@@ -3,8 +3,8 @@ import Foundation
 public class Board:Clean, Codable {
     public var name = String() { didSet { name = clean(name) } }
     public internal(set) var id = String()
-    public internal(set) var created = 0.0
-    public internal(set) var updated = 0.0
+    public internal(set) var created = TimeInterval()
+    public internal(set) var updated = TimeInterval()
     public internal(set) var columns = [Column]()
     public internal(set) var cards = [Card]()
     
