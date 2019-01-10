@@ -1,4 +1,9 @@
 View.emptyButton="Start";
+View.loadTitle="Load board";
+View.loadMessage="Scan a Velvet Room QR Code";
+View.loadCamera="Camera";
+View.loadLibrary="Photo library";
+View.loadCancel="Cancel";
 NewView.title="New board";
 NewView.placeholder="Name";
 NewView.cancel="Cancel";

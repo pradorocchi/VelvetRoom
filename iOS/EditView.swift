@@ -79,7 +79,6 @@ class EditView:ItemView, UITextViewDelegate {
             drag(deltaX:point.x - dragX, deltaY:point.y - dragY)
             dragX = point.x
             dragY = point.y
-            
         }
     }
     

@@ -12,7 +12,7 @@ class View:UIViewController {
     private weak var boards:UIView!
     private weak var boardsBottom:NSLayoutConstraint! { willSet { newValue.isActive = true } }
     private weak var boardsRight:NSLayoutConstraint! { willSet { newValue.isActive = true } }
-    private weak var newLeft:NSLayoutConstraint! { willSet { newValue.isActive = true } }
+    private weak var loadLeft:NSLayoutConstraint! { willSet { newValue.isActive = true } }
     private weak var progressLeft:NSLayoutConstraint! { willSet { newValue.isActive = true } }
     private weak var canvasWidth:NSLayoutConstraint? { didSet {
         oldValue?.isActive = false; canvasWidth!.isActive = true } }
@@ -34,7 +34,7 @@ class View:UIViewController {
         selected = board
         progressButton.progress = board.progress
         titleLabel.text = board.name
-        newLeft.constant = -65
+        loadLeft.constant = -130
         progressLeft.constant = -130
         boardsRight.constant = view.bounds.width
         (canvas.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:false)
@@ -92,6 +92,14 @@ class View:UIViewController {
         let bar = GradientView()
         view.addSubview(bar)
         
+        let loadButton = UIButton()
+        loadButton.addTarget(self, action:#selector(load(_:)), for:.touchUpInside)
+        loadButton.translatesAutoresizingMaskIntoConstraints = false
+        loadButton.setImage(#imageLiteral(resourceName: "import.pdf"), for:.normal)
+        loadButton.imageView!.clipsToBounds = true
+        loadButton.imageView!.contentMode = .center
+        view.addSubview(loadButton)
+        
         let newButton = UIButton()
         newButton.addTarget(self, action:#selector(new), for:.touchUpInside)
         newButton.translatesAutoresizingMaskIntoConstraints = false
@@ -142,7 +150,12 @@ class View:UIViewController {
         
         newButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         newButton.widthAnchor.constraint(equalToConstant:64).isActive = true
-        newLeft = newButton.leftAnchor.constraint(equalTo:view.leftAnchor)
+        newButton.leftAnchor.constraint(equalTo:loadButton.rightAnchor).isActive = true
+        
+        loadButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
+        loadButton.widthAnchor.constraint(equalToConstant:63).isActive = true
+        loadButton.heightAnchor.constraint(equalToConstant:50).isActive = true
+        loadLeft = loadButton.leftAnchor.constraint(equalTo:view.leftAnchor)
         
         progressButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
         progressButton.heightAnchor.constraint(equalToConstant:50).isActive = true
@@ -307,10 +320,30 @@ class View:UIViewController {
         present(NewView(), animated:true)
     }
     
+    @objc private func load(_ button:UIButton) {
+        UIApplication.shared.keyWindow!.endEditing(true)
+        let alert = UIAlertController(title:.local("View.loadTitle"), message:.local("View.loadMessage"),
+                                      preferredStyle:.actionSheet)
+        alert.view.tintColor = .black
+        alert.addAction(UIAlertAction(title:.local("View.loadCamera"), style:.default) { _ in
+            
+        })
+        alert.addAction(UIAlertAction(title:.local("View.loadLibrary"), style:.default) { _ in
+            
+        })
+        alert.addAction(UIAlertAction(title:.local("View.loadCancel"), style:.cancel))
+        if let popover = alert.popoverPresentationController {
+            popover.sourceView = button
+            popover.sourceRect = button.bounds
+            popover.permittedArrowDirections = .up
+        }
+        present(alert, animated:true)
+    }
+    
     @objc private func showList() {
         UIApplication.shared.keyWindow!.endEditing(true)
         progressButton.progress = 0
-        newLeft.constant = 0
+        loadLeft.constant = 0
         progressLeft.constant = 0
         boardsRight.constant = 0
         UIView.animate(withDuration:0.4, animations: {
