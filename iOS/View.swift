@@ -329,7 +329,7 @@ class View:UIViewController {
             self.present(CameraView(), animated:true)
         })
         alert.addAction(UIAlertAction(title:.local("View.loadLibrary"), style:.default) { _ in
-            
+            self.present(PicturesView(), animated:true)
         })
         alert.addAction(UIAlertAction(title:.local("View.loadCancel"), style:.cancel))
         if let popover = alert.popoverPresentationController {

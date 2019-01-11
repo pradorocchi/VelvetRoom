@@ -1,0 +1,34 @@
+import UIKit
+import Photos
+
+class PictureViewCell:UICollectionViewCell {
+    private(set) weak var image:UIImageView!
+    var request:PHImageRequestID?
+    
+    override init(frame:CGRect) {
+        super.init(frame:frame)
+        backgroundColor = .clear
+        clipsToBounds = true
+        makeOutlets()
+    }
+    
+    required init?(coder:NSCoder) { return nil }
+    override var isSelected:Bool { didSet { update() } }
+    override var isHighlighted:Bool { didSet { update() } }
+    private func update() { alpha = isSelected || isHighlighted ? 0.2 : 1 }
+    
+    private func makeOutlets() {
+        let image = UIImageView()
+        image.isUserInteractionEnabled = false
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.clipsToBounds = true
+        image.contentMode = .scaleAspectFill
+        addSubview(image)
+        self.image = image
+        
+        image.topAnchor.constraint(equalTo:topAnchor).isActive = true
+        image.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
+        image.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
+        image.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
+    }
+}

@@ -18,6 +18,7 @@ TextView.done="Done";
 TextView.delete="Delete";
 ChartView.done="Close";
 CameraView.title="Scan Velvet Room QR Code";
+PicturesView.title="Select a Velvet Room QR Code";
 Errors.unknown="An unknown error ocurred.";
 Errors.noIcloudToken="Unable to connect to iCloud.\nMake sure your iCloud account is setup and iCloud Drive is enabled.";
 Errors.unableToSaveToIcloud="Unable to save to iCloud.\nMake sure your iCloud account is setup and iCloud Drive is enabled.";
