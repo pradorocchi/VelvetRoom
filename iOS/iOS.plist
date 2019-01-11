@@ -22,6 +22,10 @@
 	<string>138</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Scan Velvet Room QR Codes</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Load Velvet Room QR Code images</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SFMono-Light.otf</string>
