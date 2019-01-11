@@ -326,7 +326,7 @@ class View:UIViewController {
                                       preferredStyle:.actionSheet)
         alert.view.tintColor = .black
         alert.addAction(UIAlertAction(title:.local("View.loadCamera"), style:.default) { _ in
-            
+            self.present(CameraView(), animated:true)
         })
         alert.addAction(UIAlertAction(title:.local("View.loadLibrary"), style:.default) { _ in
             
