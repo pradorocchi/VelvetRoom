@@ -32,4 +32,12 @@ class TestSharer:XCTestCase {
         board.id = "hello world"
         XCTAssertThrowsError(try Sharer.load(Sharer.export(board)))
     }
+    
+    func testValidate() {
+        XCTAssertTrue(Sharer.validate(UUID().uuidString))
+    }
+    
+    func testValidateFails() {
+        XCTAssertFalse(Sharer.validate("hello world"))
+    }
 }

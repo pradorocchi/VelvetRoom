@@ -23,3 +23,4 @@ Errors.noIcloudToken="Unable to connect to iCloud.\nMake sure your iCloud accoun
 Errors.unableToSaveToIcloud="Unable to save to iCloud.\nMake sure your iCloud account is setup and iCloud Drive is enabled.";
 Errors.failedLoadingFromIcloud="Unable to load from iCloud.\nMake sure your iCloud account is setup and iCloud Drive is enabled.";
 Errors.errorWhileLoadingFromIcloud="Error while loading from iCloud.\nMake sure your iCloud account is setup and iCloud Drive is enabled.";
+Errors.imageNotValid="Not a valid Velvet Room QR Code.\nLoading board failed.";

@@ -18,7 +18,7 @@ class Errors {
         let view = NSView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.wantsLayer = true
-        view.layer!.backgroundColor = NSColor.windowFrameColor.withAlphaComponent(0.96).cgColor
+        view.layer!.backgroundColor = NSColor.windowFrameColor.withAlphaComponent(0.98).cgColor
         view.layer!.cornerRadius = 6
         view.alphaValue = 0
         Application.view.contentView!.addSubview(view)
@@ -48,6 +48,7 @@ class Errors {
         case Exception.errorWhileLoadingFromIcloud: message.stringValue = .local("Errors.errorWhileLoadingFromIcloud")
         case Exception.failedLoadingFromIcloud: message.stringValue = .local("Errors.failedLoadingFromIcloud")
         case Exception.unableToSaveToIcloud: message.stringValue = .local("Errors.unableToSaveToIcloud")
+        case Exception.imageNotValid: message.stringValue = .local("Errors.imageNotValid")
         default: message.stringValue = .local("Errors.unknown")
         }
         

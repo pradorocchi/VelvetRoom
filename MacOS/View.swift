@@ -3,11 +3,11 @@ import VelvetRoom
 
 class View:NSWindow {
     let repository = Repository()
+    let errors = Errors()
     weak var root:ItemView?
     private(set) weak var canvas:ScrollView!
     private(set) weak var borderLeft:NSLayoutConstraint!
     private weak var list:ScrollView!
-    private let errors = Errors()
     @IBOutlet private(set) weak var progress:ProgressView!
     @IBOutlet private weak var listButton:NSButton!
     @IBOutlet private weak var deleteButton:NSButton!

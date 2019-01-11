@@ -8,5 +8,6 @@ public enum Exception:LocalizedError {
     case failedLoadingFromIcloud
     case errorWhileLoadingFromIcloud
     case unableToSaveToIcloud
+    case imageNotValid
     case unknown
 }

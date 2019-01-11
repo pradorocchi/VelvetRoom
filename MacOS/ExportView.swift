@@ -94,12 +94,12 @@ class ExportView:SheetView {
     }
     
     private func saveTo(_ url:URL) {
-        let image = NSImage(size:NSSize(width:400, height:600))
+        let image = NSImage(size:NSSize(width:400, height:490))
         image.lockFocus()
-        NSColor.white.drawSwatch(in:NSRect(x:0, y:0, width:400, height:600))
-        (board.name as NSString).draw(in:NSRect(x:32, y:500, width:360, height:50), withAttributes:
+        NSColor.white.drawSwatch(in:NSRect(x:0, y:0, width:400, height:490))
+        (board.name as NSString).draw(in:NSRect(x:32, y:390, width:360, height:50), withAttributes:
             [.font:NSFont.systemFont(ofSize:30, weight:.bold), .foregroundColor:NSColor.black])
-        self.image.draw(in:NSRect(x:20, y:130, width:360, height:360))
+        self.image.draw(in:NSRect(x:20, y:20, width:360, height:360))
         image.unlockFocus()
         try! NSBitmapImageRep(data:image.tiffRepresentation!)?.representation(using:.png, properties:[:])!.write(to:url)
         end()

@@ -3,6 +3,7 @@ import VelvetRoom
 
 class View:UIViewController {
     let repository = Repository()
+    let errors = Errors()
     weak var root:ItemView?
     private(set) weak var selected:Board! { didSet { fireSchedule() } }
     private(set) weak var progressButton:ProgressView!
@@ -18,7 +19,6 @@ class View:UIViewController {
         oldValue?.isActive = false; canvasWidth!.isActive = true } }
     private weak var canvasHeight:NSLayoutConstraint? { didSet {
         oldValue?.isActive = false; canvasHeight!.isActive = true } }
-    private let errors = Errors()
     
     override func viewDidLoad() {
         super.viewDidLoad()
