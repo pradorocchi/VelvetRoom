@@ -7,16 +7,24 @@ class CloudSynch:Synch {
     var loaded:((Board) -> Void)!
     var error:((Error) -> Void)!
     private var started = false
-    private var network:Bool {
-        if #available(iOS 12.0, *) {
-            if #available(OSX 10.14, *) {
-                return NWPathMonitor().currentPath.status == .satisfied
+    private var network = true
+    private var monitor:Any?
+    
+    func start() {
+        LocalStorage.queue.async {
+            self.register()
+            if #available(iOS 12.0, *) {
+                if #available(OSX 10.14, *) {
+                    let monitor = NWPathMonitor()
+                    monitor.start(queue:LocalStorage.queue)
+                    monitor.pathUpdateHandler = {
+                        self.network = $0.status == .satisfied
+                    }
+                    self.monitor = monitor
+                }
             }
         }
-        return true
     }
-    
-    func start() { LocalStorage.queue.async { self.register() } }
     
     func load(_ id:String) {
         LocalStorage.queue.async {
