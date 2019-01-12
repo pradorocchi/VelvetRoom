@@ -7,7 +7,7 @@ class PictureViewCell:UICollectionViewCell {
     
     override init(frame:CGRect) {
         super.init(frame:frame)
-        backgroundColor = .clear
+        backgroundColor = .white
         clipsToBounds = true
         makeOutlets()
     }
@@ -15,7 +15,7 @@ class PictureViewCell:UICollectionViewCell {
     required init?(coder:NSCoder) { return nil }
     override var isSelected:Bool { didSet { update() } }
     override var isHighlighted:Bool { didSet { update() } }
-    private func update() { alpha = isSelected || isHighlighted ? 0.2 : 1 }
+    private func update() { image.alpha = isSelected || isHighlighted ? 0.15 : 1 }
     
     private func makeOutlets() {
         let image = UIImageView()

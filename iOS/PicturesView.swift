@@ -8,10 +8,14 @@ UICollectionViewDelegateFlowLayout {
     private var items:PHFetchResult<PHAsset>?
     private var size:CGSize!
     private let request = PHImageRequestOptions()
+    private weak var collection:UICollectionView!
     
     init() {
         super.init(nibName:nil, bundle:nil)
         modalPresentationStyle = .overCurrentContext
+        request.resizeMode = .fast
+        request.isSynchronous = false
+        request.deliveryMode = .fastFormat
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -22,12 +26,21 @@ UICollectionViewDelegateFlowLayout {
         makeOutlets()
     }
     
+    override func viewDidAppear(_ animated:Bool) {
+        super.viewDidAppear(animated)
+        let width = view.bounds.width + 1
+        let itemSize = (width / floor(width / 100)) - 2
+        size = CGSize(width:itemSize, height:itemSize)
+        (collection.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = size
+        checkAuth()
+    }
+    
     func collectionView(_:UICollectionView, numberOfItemsInSection:Int) -> Int { return items?.count ?? 0 }
     
-    func collectionView(_ collection:UICollectionView, cellForItemAt index:IndexPath) -> UICollectionViewCell {
-        let cell = collection.dequeueReusableCell(withReuseIdentifier:String(), for:index) as! PictureViewCell
+    func collectionView(_:UICollectionView, cellForItemAt index:IndexPath) -> UICollectionViewCell {
+        let cell = collection.dequeueReusableCell(withReuseIdentifier:"picture", for:index) as! PictureViewCell
         if let request = cell.request { caching?.cancelImageRequest(request) }
-        cell.request = caching?.requestImage(for:items![index.item], targetSize:size,
+        cell.request = caching?.requestImage(for:items![(items!.count - 1) - index.item], targetSize:size,
                                              contentMode:.aspectFill, options:request) { image, _ in
             cell.request = nil
             cell.image.image = image
@@ -37,7 +50,8 @@ UICollectionViewDelegateFlowLayout {
     
     func collectionView(_:UICollectionView, didSelectItemAt index:IndexPath) {
         view.isUserInteractionEnabled = false
-        caching?.requestImageData(for:items![index.item], options:request) { [weak self] data, _, _, _ in
+        caching?.requestImageData(for:items![(items!.count - 1) - index.item], options:request)
+        { [weak self] data, _, _, _ in
             guard
                 let data = data,
                 let image = UIImage(data:data)
@@ -63,12 +77,31 @@ UICollectionViewDelegateFlowLayout {
         close.addTarget(self, action:#selector(self.close), for:.touchUpInside)
         view.addSubview(close)
         
+        let flow = UICollectionViewFlowLayout()
+        flow.minimumLineSpacing = 1
+        flow.minimumInteritemSpacing = 1
+        flow.sectionInset = UIEdgeInsets(top:1, left:1, bottom:20, right:1)
+        let collection = UICollectionView(frame:.zero, collectionViewLayout:flow)
+        collection.backgroundColor = .black
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.alwaysBounceVertical = true
+        collection.delegate = self
+        collection.dataSource = self
+        collection.register(PictureViewCell.self, forCellWithReuseIdentifier:"picture")
+        view.addSubview(collection)
+        self.collection = collection
+        
         labelTitle.centerYAnchor.constraint(equalTo:close.centerYAnchor).isActive = true
         labelTitle.leftAnchor.constraint(equalTo:close.rightAnchor).isActive = true
         
         close.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
         close.widthAnchor.constraint(equalToConstant:50).isActive = true
         close.heightAnchor.constraint(equalToConstant:50).isActive = true
+        
+        collection.topAnchor.constraint(equalTo:close.bottomAnchor).isActive = true
+        collection.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+        collection.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        collection.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
         
         if #available(iOS 11.0, *) {
             close.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -79,59 +112,11 @@ UICollectionViewDelegateFlowLayout {
     
     private func read(_ image:UIImage) {
         close()
-//        if Sharer.validate(content) {
-//            Application.view.repository.load(content)
-//        } else {
-//            Application.view.errors.add(Exception.imageNotValid)
-//        }
-    }
-    
-    @objc private func close() {
-        caching?.stopCachingImagesForAllAssets()
-        view.isUserInteractionEnabled = false
-        presentingViewController!.dismiss(animated:true)
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    func startLoading() {
-        if caching == nil {
-            let width = bounds.width + 1
-            let itemSize = (width / floor(width / 100)) - 2
-            size = CGSize(width:itemSize, height:itemSize)
-            (collectionViewLayout as! UICollectionViewFlowLayout).itemSize = size
-            checkAuth()
-        }
-    }
-    
-    func collectionView(_:UICollectionView, cellForItemAt index:IndexPath) -> UICollectionViewCell {
-        let cell:LibraryCell = dequeueReusableCell(
-            withReuseIdentifier:String(describing:LibraryCell.self), for:index) as! LibraryCell
-        if let request = cell.request { caching?.cancelImageRequest(request) }
-        cell.request = caching?.requestImage(
-        for:items![index.item], targetSize:size, contentMode:.aspectFill, options:request) { image, _ in
-            cell.request = nil
-            cell.image.image = image
-        }
-        return cell
-    }
-    
-    func collectionView(_:UICollectionView, didSelectItemAt index:IndexPath) {
-        self.isUserInteractionEnabled = false
-        caching?.requestImageData(for:items![index.item], options:request) { [weak self] data, _, _, _ in
-            guard
-                let data = data,
-                let image = UIImage(data:data)
-                else { return }
-            self?.view.read(image:image)
+        if let image = image.cgImage,
+            let id = try? Sharer.load(image) {
+            Application.view.repository.load(id)
+        } else {
+            Application.view.errors.add(Exception.imageNotValid)
         }
     }
     
@@ -150,7 +135,6 @@ UICollectionViewDelegateFlowLayout {
             guard let roll = PHAssetCollection.fetchAssetCollections(with:.smartAlbum, subtype:.smartAlbumUserLibrary,
                                                                      options:nil).firstObject else { return }
             let options = PHFetchOptions()
-            options.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending:false)]
             options.predicate = NSPredicate(format:"mediaType = %d", PHAssetMediaType.image.rawValue)
             self?.load(roll:roll, options:options)
         }
@@ -158,8 +142,12 @@ UICollectionViewDelegateFlowLayout {
     
     private func load(roll:PHAssetCollection, options:PHFetchOptions) {
         items = PHAsset.fetchAssets(in:roll, options:options)
-        caching?.startCachingImages(for:items!.objects(at:IndexSet(integersIn:0 ..< items!.count)), targetSize:size,
-                                    contentMode:.aspectFill, options:request)
-        DispatchQueue.main.async { [weak self] in self?.reloadData() }
+        DispatchQueue.main.async { [weak self] in self?.collection.reloadData() }
+    }
+    
+    @objc private func close() {
+        caching?.stopCachingImagesForAllAssets()
+        view.isUserInteractionEnabled = false
+        presentingViewController!.dismiss(animated:true)
     }
 }
