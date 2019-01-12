@@ -111,11 +111,7 @@ class BoardView:UIControl, UITextViewDelegate {
     
     @objc private func send() {
         UIApplication.shared.keyWindow!.endEditing(true)
-        Application.view.present(DeleteView {
-            DispatchQueue.global(qos:.background).async {
-                Application.view.repository.delete(self.board)
-            }
-        }, animated:true)
+        Application.view.present(ExportView(board), animated:true)
     }
     
     @objc private func selectBoard() {

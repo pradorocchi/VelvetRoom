@@ -9,10 +9,11 @@ class CloudSynch:Synch {
     private var started = false
     private var network:Bool {
         if #available(iOS 12.0, *) {
-            return NWPathMonitor().currentPath.status == .satisfied
-        } else {
-            return true
+            if #available(OSX 10.14, *) {
+                return NWPathMonitor().currentPath.status == .satisfied
+            }
         }
+        return true
     }
     
     func start() { LocalStorage.queue.async { self.register() } }
