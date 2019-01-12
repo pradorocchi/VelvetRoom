@@ -34,8 +34,8 @@ class View:UIViewController {
         selected = board
         progressButton.progress = board.progress
         titleLabel.text = board.name
-        loadLeft.constant = -130
-        progressLeft.constant = -130
+        loadLeft.constant = -128
+        progressLeft.constant = -128
         boardsRight.constant = view.bounds.width
         (canvas.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:false)
         UIView.animate(withDuration:0.5, animations: {
@@ -153,7 +153,7 @@ class View:UIViewController {
         newButton.leftAnchor.constraint(equalTo:loadButton.rightAnchor).isActive = true
         
         loadButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
-        loadButton.widthAnchor.constraint(equalToConstant:63).isActive = true
+        loadButton.widthAnchor.constraint(equalToConstant:64).isActive = true
         loadButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         loadLeft = loadButton.leftAnchor.constraint(equalTo:view.leftAnchor)
         
