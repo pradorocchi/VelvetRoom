@@ -1,11 +1,19 @@
 import Foundation
 import CloudKit
+import Network
 
 class CloudSynch:Synch {
     var notification:(([String:TimeInterval]) -> Void)!
     var loaded:((Board) -> Void)!
     var error:((Error) -> Void)!
     private var started = false
+    private var network:Bool {
+        if #available(iOS 12.0, *) {
+            return NWPathMonitor().currentPath.status == .satisfied
+        } else {
+            return true
+        }
+    }
     
     func start() { LocalStorage.queue.async { self.register() } }
     
@@ -36,7 +44,7 @@ class CloudSynch:Synch {
     }
     
     func save(_ board:Board) {
-        if started {
+        if started && network {
             LocalStorage.queue.async {
                 let record = CKRecord(recordType:"Board", recordID:.init(recordName:board.id))
                 record["json"] = CKAsset(fileURL:LocalStorage.url(board.id))
