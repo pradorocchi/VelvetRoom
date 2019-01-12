@@ -7,6 +7,7 @@ class BoardView:UIControl, UITextViewDelegate {
     private(set) weak var board:Board!
     private weak var text:TextView!
     private weak var delete:UIButton!
+    private weak var export:UIButton!
     override var intrinsicContentSize:CGSize { return CGSize(width:UIView.noIntrinsicMetric, height:54) }
     
     init(_ board:Board) {
@@ -37,6 +38,15 @@ class BoardView:UIControl, UITextViewDelegate {
         addSubview(delete)
         self.delete = delete
         
+        let export = UIButton()
+        export.addTarget(self, action:#selector(send), for:.touchUpInside)
+        export.translatesAutoresizingMaskIntoConstraints = false
+        export.setImage(#imageLiteral(resourceName: "export.pdf"), for:.normal)
+        export.imageView!.clipsToBounds = true
+        export.imageView!.contentMode = .center
+        addSubview(export)
+        self.export = export
+        
         text.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:12).isActive = true
         text.rightAnchor.constraint(equalTo:delete.leftAnchor, constant:-10).isActive = true
@@ -44,8 +54,13 @@ class BoardView:UIControl, UITextViewDelegate {
         
         delete.topAnchor.constraint(equalTo:topAnchor).isActive = true
         delete.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
-        delete.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
+        delete.rightAnchor.constraint(equalTo:export.leftAnchor).isActive = true
         delete.widthAnchor.constraint(equalToConstant:54).isActive = true
+        
+        export.topAnchor.constraint(equalTo:topAnchor).isActive = true
+        export.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
+        export.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
+        export.widthAnchor.constraint(equalToConstant:54).isActive = true
         
         update()
     }
@@ -57,6 +72,7 @@ class BoardView:UIControl, UITextViewDelegate {
         board.name = text.text
         text.text = board.name
         delete.isHidden = false
+        export.isHidden = false
         Application.view.scheduleUpdate(board)
         DispatchQueue.main.async {
             self.update()
@@ -93,6 +109,15 @@ class BoardView:UIControl, UITextViewDelegate {
         }, animated:true)
     }
     
+    @objc private func send() {
+        UIApplication.shared.keyWindow!.endEditing(true)
+        Application.view.present(DeleteView {
+            DispatchQueue.global(qos:.background).async {
+                Application.view.repository.delete(self.board)
+            }
+        }, animated:true)
+    }
+    
     @objc private func selectBoard() {
         guard !text.isFirstResponder else { return }
         UIApplication.shared.keyWindow!.endEditing(true)
@@ -110,6 +135,7 @@ class BoardView:UIControl, UITextViewDelegate {
             gesture.location(in:self).x < bounds.width - 80
         else { return }
         delete.isHidden = true
+        export.isHidden = true
         text.isUserInteractionEnabled = true
         text.becomeFirstResponder()
         update()

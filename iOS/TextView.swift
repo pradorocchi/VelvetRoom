@@ -65,9 +65,23 @@ class TextView:UITextView {
         headerButton.imageView!.contentMode = .center
         inputAccessoryView!.addSubview(headerButton)
         
+        let listingButton = UIButton()
+        listingButton.addTarget(self, action:#selector(listing), for:.touchUpInside)
+        listingButton.translatesAutoresizingMaskIntoConstraints = false
+        listingButton.setImage(#imageLiteral(resourceName: "listing.pdf"), for:.normal)
+        listingButton.imageView!.clipsToBounds = true
+        listingButton.imageView!.contentMode = .center
+        inputAccessoryView!.addSubview(listingButton)
+        
+        let border = UIView()
+        border.isUserInteractionEnabled = false
+        border.translatesAutoresizingMaskIntoConstraints = false
+        border.backgroundColor = .black
+        inputAccessoryView!.addSubview(border)
+        
         doneButton.rightAnchor.constraint(equalTo:inputAccessoryView!.rightAnchor, constant:-20).isActive = true
         doneButton.centerYAnchor.constraint(equalTo:inputAccessoryView!.centerYAnchor).isActive = true
-        doneButton.widthAnchor.constraint(equalToConstant:56).isActive = true
+        doneButton.widthAnchor.constraint(equalToConstant:60).isActive = true
         doneButton.heightAnchor.constraint(equalToConstant:30).isActive = true
         
         deleteButton.topAnchor.constraint(equalTo:inputAccessoryView!.topAnchor, constant:2).isActive = true
@@ -77,8 +91,18 @@ class TextView:UITextView {
         
         headerButton.topAnchor.constraint(equalTo:inputAccessoryView!.topAnchor, constant:2).isActive = true
         headerButton.bottomAnchor.constraint(equalTo:inputAccessoryView!.bottomAnchor).isActive = true
-        headerButton.centerXAnchor.constraint(equalTo:inputAccessoryView!.centerXAnchor).isActive = true
+        headerButton.leftAnchor.constraint(equalTo:inputAccessoryView!.centerXAnchor, constant:10).isActive = true
         headerButton.widthAnchor.constraint(equalToConstant:60).isActive = true
+        
+        listingButton.topAnchor.constraint(equalTo:inputAccessoryView!.topAnchor, constant:2).isActive = true
+        listingButton.bottomAnchor.constraint(equalTo:inputAccessoryView!.bottomAnchor).isActive = true
+        listingButton.rightAnchor.constraint(equalTo:inputAccessoryView!.centerXAnchor, constant:-10).isActive = true
+        listingButton.widthAnchor.constraint(equalToConstant:60).isActive = true
+        
+        border.topAnchor.constraint(equalTo:inputAccessoryView!.topAnchor).isActive = true
+        border.leftAnchor.constraint(equalTo:inputAccessoryView!.leftAnchor).isActive = true
+        border.rightAnchor.constraint(equalTo:inputAccessoryView!.rightAnchor).isActive = true
+        border.heightAnchor.constraint(equalToConstant:1).isActive = true
         
         if #available(iOS 11.0, *) {
             contentInsetAdjustmentBehavior = .never
@@ -99,4 +123,5 @@ class TextView:UITextView {
     }
     
     @objc private func header() { insertText("#") }
+    @objc private func listing() { insertText("-") }
 }
