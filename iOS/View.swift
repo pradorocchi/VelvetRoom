@@ -38,12 +38,16 @@ class View:UIViewController {
         progressLeft.constant = -128
         boardsRight.constant = view.bounds.width
         (canvas.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:false)
+        canvas.alpha = 0
         UIView.animate(withDuration:0.5, animations: {
             self.view.layoutIfNeeded()
             self.titleLabel.alpha = 1
         }) { _ in
             self.render(board)
             self.canvasChanged(0)
+            UIView.animate(withDuration:0.35) {
+                self.canvas.alpha = 1
+            }
         }
     }
     
@@ -228,6 +232,7 @@ class View:UIViewController {
             emptyButton.isHidden = true
             self.boards.bottomAnchor.constraint(equalTo:top, constant:10).isActive = true
         }
+        self.boards.layoutIfNeeded()
     }
     
     private func listenKeyboard() {
