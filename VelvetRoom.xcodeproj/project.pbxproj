@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		202D0CF321EB3ED2002B2181 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D0CF221EB3ED2002B2181 /* HelpView.swift */; };
 		202D692721E230EC009398AB /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692621E230EC009398AB /* SheetView.swift */; };
 		202D692921E231EF009398AB /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692821E231EF009398AB /* ExportView.swift */; };
 		202D692B21E23CA1009398AB /* TestSharer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692A21E23CA1009398AB /* TestSharer.swift */; };
@@ -146,6 +147,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		202D0CF221EB3ED2002B2181 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		202D692621E230EC009398AB /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		202D692821E231EF009398AB /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		202D692A21E23CA1009398AB /* TestSharer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSharer.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				DA1544E221D2752600B9D9F7 /* DeleteView.swift */,
 				202D692821E231EF009398AB /* ExportView.swift */,
 				204B68FD21E338B10025261E /* ImportView.swift */,
+				202D0CF221EB3ED2002B2181 /* HelpView.swift */,
 				204B68FF21E347200025261E /* DropView.swift */,
 				DA16E00021CE8AFF00D21C7A /* TextView.swift */,
 				DA6A986B21CEA70000C18C7F /* TextLayout.swift */,
@@ -751,6 +754,7 @@
 				DA86474721C401DF00E4957B /* NSFont.swift in Sources */,
 				DAC2CDC321C8EDA700AD927B /* String.swift in Sources */,
 				DAC2CDC021C8E2F000AD927B /* NewView.swift in Sources */,
+				202D0CF321EB3ED2002B2181 /* HelpView.swift in Sources */,
 				202D692721E230EC009398AB /* SheetView.swift in Sources */,
 				DA1544E321D2752600B9D9F7 /* DeleteView.swift in Sources */,
 				DA6A986C21CEA70000C18C7F /* TextLayout.swift in Sources */,

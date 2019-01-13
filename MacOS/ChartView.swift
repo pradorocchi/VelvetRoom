@@ -11,7 +11,6 @@ class ChartView:SheetView {
         done.imageScaling = .scaleNone
         done.translatesAutoresizingMaskIntoConstraints = false
         done.isBordered = false
-        done.font = .systemFont(ofSize:16, weight:.bold)
         done.keyEquivalent = "\u{1b}"
         contentView!.addSubview(done)
         

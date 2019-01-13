@@ -312,4 +312,8 @@ class View:NSWindow {
         makeFirstResponder(nil)
         beginSheet(ImportView())
     }
+    
+    @IBAction private func showHelp(_ sender:Any?) {
+        HelpView().makeKeyAndOrderFront(nil)
+    }
 }
