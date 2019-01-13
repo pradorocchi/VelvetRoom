@@ -248,7 +248,7 @@ class View:UIViewController {
         }
         self.boards.layoutIfNeeded()
         DispatchQueue.global(qos:.background).async {
-            Widget.store(boards.map { Widget(id:$0.id, name:$0.name, columns:$0.chart.map { $0.1 } ) })
+            Widget.items = boards.map { Widget(name:$0.name, columns:$0.chart.map { $0.1 } ) }
         }
     }
     

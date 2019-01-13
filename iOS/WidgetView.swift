@@ -39,10 +39,15 @@ import NotificationCenter
     }
     
     func widgetPerformUpdate(completionHandler:(@escaping(NCUpdateResult) -> Void)) {
-        if let items = Widget.load(),
-            !items.isEmpty {
-            self.items = items
+        items = Widget.items
+        if !items.isEmpty {
+            index = Widget.index
+            if index >= items.count {
+                index = 0
+                Widget.index = index
+            }
             render()
+            display()
             completionHandler(.newData)
         } else {
             empty()
@@ -105,12 +110,9 @@ import NotificationCenter
         prevButton.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
         prevButton.bottomAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
         prevButton.widthAnchor.constraint(equalToConstant:150).isActive = true
-        
-        display(0)
     }
     
-    private func display(_ index:Int) {
-        self.index = index
+    private func display() {
         name.text = items[index].name
         self.charts?.removeFromSuperview()
         
@@ -155,10 +157,14 @@ import NotificationCenter
     }
     
     @objc private func showNext() {
-        display(index < items.count - 1 ? index + 1 : 0)
+        index = index < items.count - 1 ? index + 1 : 0
+        Widget.index = index
+        display()
     }
     
     @objc private func showPrev() {
-        display(index > 0 ? index - 1 : items.count - 1)
+        index = index > 0 ? index - 1 : items.count - 1
+        Widget.index = index
+        display()
     }
 }

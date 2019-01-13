@@ -1,19 +1,31 @@
 import Foundation
 
 struct Widget:Codable {
-    let id:String
     let name:String
     let columns:[Float]
     
-    static func load() -> [Widget]? {
-        if let data = UserDefaults(suiteName:"group.VelvetRoom")!.data(forKey:"widget") {
-            return try! JSONDecoder().decode([Widget].self, from:data)
+    static var index:Int {
+        get {
+            return suite.integer(forKey:"index")
         }
-        return nil
+        set {
+            suite.set(newValue, forKey:"index")
+            suite.synchronize()
+        }
     }
     
-    static func store(_ items:[Widget]) {
-        UserDefaults(suiteName:"group.VelvetRoom")!.set(try! JSONEncoder().encode(items), forKey:"widget")
-        UserDefaults(suiteName:"group.VelvetRoom")!.synchronize()
+    static var items:[Widget] {
+        get {
+            if let data = suite.data(forKey:"widget") {
+                return try! JSONDecoder().decode([Widget].self, from:data)
+            }
+            return []
+        }
+        set {
+            suite.set(try! JSONEncoder().encode(newValue), forKey:"widget")
+            suite.synchronize()
+        }
     }
+    
+    private static var suite:UserDefaults { return UserDefaults(suiteName:"group.VelvetRoom")! }
 }
