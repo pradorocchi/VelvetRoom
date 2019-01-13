@@ -54,7 +54,7 @@ class ChartView:SheetView {
             path.move(to:center)
             if $0.element.1 > 0 {
                 let name = CGMutablePath()
-                name.addArc(center:center, radius:130, startAngle:0, endAngle:angle + (delta / 2), clockwise:true)
+                name.addArc(center:center, radius:120, startAngle:0, endAngle:angle + (delta / 2), clockwise:true)
                 caption($0.element.0, percent:$0.element.1, point:name.currentPoint)
             }
             path.addArc(center:center, radius:100, startAngle:angle, endAngle:radius, clockwise:true)
@@ -86,9 +86,11 @@ class ChartView:SheetView {
     private func caption(_ name:String, percent:Float, point:CGPoint) {
         let mutable = NSMutableAttributedString()
         mutable.append(NSAttributedString(
-            string:name, attributes:[.font:NSFont.systemFont(ofSize:16, weight:.medium)]))
+            string:name, attributes:[.font:NSFont.systemFont(ofSize:14, weight:.medium)]))
         mutable.append(NSAttributedString(
-            string:"\n\(Int(percent * 100))%", attributes:[.font:NSFont.systemFont(ofSize:14, weight:.ultraLight)]))
+            string:" - \(Int(percent * 100))", attributes:[.font:NSFont.systemFont(ofSize:12, weight:.ultraLight)]))
+        mutable.append(NSAttributedString(
+            string:"%", attributes:[.font:NSFont.systemFont(ofSize:8, weight:.ultraLight)]))
         
         let label = NSTextField()
         label.translatesAutoresizingMaskIntoConstraints = false

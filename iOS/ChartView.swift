@@ -75,7 +75,7 @@ class ChartView:UIViewController {
             path.move(to:center)
             if $0.element.1 > 0 {
                 let name = CGMutablePath()
-                name.addArc(center:center, radius:90, startAngle:0, endAngle:angle + (delta / 2), clockwise:false)
+                name.addArc(center:center, radius:80, startAngle:0, endAngle:angle + (delta / 2), clockwise:false)
                 caption($0.element.0, percent:$0.element.1, point:name.currentPoint)
             }
             path.addArc(center:center, radius:70, startAngle:angle, endAngle:radius, clockwise:false)
@@ -107,9 +107,11 @@ class ChartView:UIViewController {
     private func caption(_ name:String, percent:Float, point:CGPoint) {
         let mutable = NSMutableAttributedString()
         mutable.append(NSAttributedString(
-            string:name, attributes:[.font:UIFont.systemFont(ofSize:14, weight:.medium)]))
+            string:name, attributes:[.font:UIFont.systemFont(ofSize:12, weight:.medium)]))
         mutable.append(NSAttributedString(
-            string:"\n\(Int(percent * 100))%", attributes:[.font:UIFont.systemFont(ofSize:12, weight:.ultraLight)]))
+            string:" - \(Int(percent * 100))", attributes:[.font:UIFont.systemFont(ofSize:10, weight:.ultraLight)]))
+        mutable.append(NSAttributedString(
+            string:"%", attributes:[.font:UIFont.systemFont(ofSize:8, weight:.ultraLight)]))
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
