@@ -3,24 +3,6 @@ import XCTest
 
 class TestCard:XCTestCase {
     private var data:Data!
-    private var oldData:Data!
-    private var oldDataPosition:Data!
-    private let oldJson = """
-{
-"positions": [],
-"contents": []
-}
-"""
-    private let oldJsonPosition = """
-{
-"positions": [{
-    "index": 1,
-    "column": 2,
-    "time": 3
-    }],
-"contents": []
-}
-"""
     private let json = """
 {
 "index": 0,
@@ -30,8 +12,6 @@ class TestCard:XCTestCase {
 """
     override func setUp() {
         data = Data(json.utf8)
-        oldData = Data(oldJson.utf8)
-        oldDataPosition = Data(oldJsonPosition.utf8)
     }
     
     func testParsing() {
@@ -121,22 +101,5 @@ class TestCard:XCTestCase {
         card.content = "hello world"
         card.content = "hello world "
         XCTAssertEqual(1, card.contents.count)
-    }
-    
-    func testParseFromOldJson() {
-        var card:Card?
-        XCTAssertNoThrow(card = try JSONDecoder().decode(Card.self, from:oldData))
-        XCTAssertNotNil(card)
-        if card != nil {
-            XCTAssertTrue(card!.positions.isEmpty)
-            XCTAssertTrue(card!.contents.isEmpty)
-        }
-    }
-    
-    func testParseFromOldJsonWithPosition() {
-        var card:Card!
-        XCTAssertNoThrow(card = try JSONDecoder().decode(Card.self, from:oldDataPosition))
-        XCTAssertFalse(card.positions.isEmpty)
-        XCTAssertEqual(1, card.index)
     }
 }

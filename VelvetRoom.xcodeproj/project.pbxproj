@@ -18,9 +18,6 @@
 		204B690021E347200025261E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FF21E347200025261E /* DropView.swift */; };
 		20804BBB21E5E6360035535D /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804BBA21E5E6360035535D /* Errors.swift */; };
 		20804BBD21E5E6470035535D /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804BBC21E5E6470035535D /* Errors.swift */; };
-		20A023A721E72E0A0070C385 /* TestOldPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A023A621E72E0A0070C385 /* TestOldPosition.swift */; };
-		20A023A921E72E230070C385 /* OldPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A023A821E72E230070C385 /* OldPosition.swift */; };
-		20A023AA21E72E230070C385 /* OldPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A023A821E72E230070C385 /* OldPosition.swift */; };
 		20B40E9D21E8756A00286E92 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40E9C21E8756A00286E92 /* CameraView.swift */; };
 		20B40E9F21E88E7D00286E92 /* PicturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40E9E21E88E7D00286E92 /* PicturesView.swift */; };
 		20B40EA121E8951F00286E92 /* PictureCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40EA021E8951F00286E92 /* PictureCellView.swift */; };
@@ -181,8 +178,6 @@
 		204B68FF21E347200025261E /* DropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
 		20804BBA21E5E6360035535D /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		20804BBC21E5E6470035535D /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		20A023A621E72E0A0070C385 /* TestOldPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOldPosition.swift; sourceTree = "<group>"; };
-		20A023A821E72E230070C385 /* OldPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldPosition.swift; sourceTree = "<group>"; };
 		20B40E9C21E8756A00286E92 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		20B40E9E21E88E7D00286E92 /* PicturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesView.swift; sourceTree = "<group>"; };
 		20B40EA021E8951F00286E92 /* PictureCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCellView.swift; sourceTree = "<group>"; };
@@ -464,7 +459,6 @@
 				DAD0C1D821C5092400E6D1C7 /* TestColumn.swift */,
 				DAD0C1DA21C509D700E6D1C7 /* TestCard.swift */,
 				DAD0C1DC21C50B8100E6D1C7 /* TestPosition.swift */,
-				20A023A621E72E0A0070C385 /* TestOldPosition.swift */,
 				DAD0C1E121C50C7300E6D1C7 /* TestContent.swift */,
 				202D692A21E23CA1009398AB /* TestSharer.swift */,
 				DAD0C1F921C52A3200E6D1C7 /* MockStorage.swift */,
@@ -489,7 +483,6 @@
 				DAD0C1D521C5090200E6D1C7 /* Card.swift */,
 				20CD59BC21E0CD6B00ADF8BC /* Clean.swift */,
 				DAD0C1DE21C50BF700E6D1C7 /* Position.swift */,
-				20A023A821E72E230070C385 /* OldPosition.swift */,
 				DAD0C1E321C50CB600E6D1C7 /* Content.swift */,
 				DA7B2AEA21C67D55003B7333 /* Template.swift */,
 				DAD0C20121C5310D00E6D1C7 /* Exception.swift */,
@@ -759,7 +752,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20A023A921E72E230070C385 /* OldPosition.swift in Sources */,
 				DAD0C1F121C5222B00E6D1C7 /* LocalStorage.swift in Sources */,
 				DAD0C1D021C5056B00E6D1C7 /* Board.swift in Sources */,
 				DA7B2AEB21C67D55003B7333 /* Template.swift in Sources */,
@@ -782,7 +774,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20A023AA21E72E230070C385 /* OldPosition.swift in Sources */,
 				DAD0C1F221C5222B00E6D1C7 /* LocalStorage.swift in Sources */,
 				DAD0C1D121C5056B00E6D1C7 /* Board.swift in Sources */,
 				DA7B2AEC21C67D55003B7333 /* Template.swift in Sources */,
@@ -814,7 +805,6 @@
 				DA1D104721CBCCAD00A8FBE9 /* TestRepository_Card.swift in Sources */,
 				DAD0C1DD21C50B8100E6D1C7 /* TestPosition.swift in Sources */,
 				DA7B2AEE21C67DBE003B7333 /* TestTemplate.swift in Sources */,
-				20A023A721E72E0A0070C385 /* TestOldPosition.swift in Sources */,
 				DAD0C1FE21C52C6600E6D1C7 /* TestSynch.swift in Sources */,
 				DAD0C1FC21C52A9D00E6D1C7 /* MockSynch.swift in Sources */,
 				DA00F0D421DA4A43002FD057 /* TestRating.swift in Sources */,
