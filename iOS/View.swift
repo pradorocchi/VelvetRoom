@@ -85,6 +85,8 @@ class View:UIViewController {
         canvasScroll.translatesAutoresizingMaskIntoConstraints = false
         canvasScroll.alwaysBounceVertical = true
         canvasScroll.alwaysBounceHorizontal = true
+        canvasScroll.showsVerticalScrollIndicator = false
+        canvasScroll.scrollIndicatorInsets = UIEdgeInsets(top:0, left:20, bottom:0, right:20)
         canvasScroll.indicatorStyle = .white
         view.addSubview(canvasScroll)
         
