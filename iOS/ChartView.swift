@@ -7,7 +7,6 @@ class ChartView:UIViewController {
     init(_ board:Board) {
         super.init(nibName:nil, bundle:nil)
         modalTransitionStyle = .crossDissolve
-        modalPresentationStyle = .overCurrentContext
         self.board = board
     }
     

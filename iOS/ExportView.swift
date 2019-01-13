@@ -7,7 +7,6 @@ class ExportView:UIViewController {
     
     init(_ board:Board) {
         super.init(nibName:nil, bundle:nil)
-        modalPresentationStyle = .overCurrentContext
         self.board = board
     }
     

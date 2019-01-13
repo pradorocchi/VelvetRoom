@@ -6,13 +6,6 @@ class CameraView:UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     private weak var display:UIView!
     private var session:AVCaptureSession!
     
-    init() {
-        super.init(nibName:nil, bundle:nil)
-        modalPresentationStyle = .overCurrentContext
-    }
-    
-    required init?(coder:NSCoder) { return nil }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .velvetShade

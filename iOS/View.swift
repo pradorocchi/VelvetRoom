@@ -34,7 +34,7 @@ class View:UIViewController {
         selected = board
         progressButton.progress = board.progress
         titleLabel.text = board.name
-        loadLeft.constant = -128
+        loadLeft.constant = -192
         progressLeft.constant = -128
         boardsRight.constant = view.bounds.width
         (canvas.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:false)
@@ -112,6 +112,14 @@ class View:UIViewController {
         newButton.imageView!.contentMode = .center
         view.addSubview(newButton)
         
+        let helpButton = UIButton()
+        helpButton.addTarget(self, action:#selector(help), for:.touchUpInside)
+        helpButton.translatesAutoresizingMaskIntoConstraints = false
+        helpButton.setImage(#imageLiteral(resourceName: "help.pdf"), for:.normal)
+        helpButton.imageView!.clipsToBounds = true
+        helpButton.imageView!.contentMode = .center
+        view.addSubview(helpButton)
+        
         let progressButton = ProgressView()
         progressButton.addTarget(self, action:#selector(progress), for:.touchUpInside)
         view.addSubview(progressButton)
@@ -156,6 +164,10 @@ class View:UIViewController {
         newButton.widthAnchor.constraint(equalToConstant:64).isActive = true
         newButton.leftAnchor.constraint(equalTo:loadButton.rightAnchor).isActive = true
         
+        helpButton.heightAnchor.constraint(equalToConstant:50).isActive = true
+        helpButton.widthAnchor.constraint(equalToConstant:64).isActive = true
+        helpButton.leftAnchor.constraint(equalTo:newButton.rightAnchor).isActive = true
+        
         loadButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
         loadButton.widthAnchor.constraint(equalToConstant:64).isActive = true
         loadButton.heightAnchor.constraint(equalToConstant:50).isActive = true
@@ -173,7 +185,7 @@ class View:UIViewController {
         
         titleLabel.heightAnchor.constraint(equalToConstant:30).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo:newButton.centerYAnchor).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo:newButton.rightAnchor, constant:32).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo:helpButton.rightAnchor, constant:32).isActive = true
         titleLabel.rightAnchor.constraint(equalTo:progressButton.leftAnchor).isActive = true
         
         boardsScroll.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
@@ -318,6 +330,11 @@ class View:UIViewController {
         canvas.addSubview(create)
         create.top.constant = root!.top.constant
         create.left.constant = root!.left.constant
+    }
+    
+    @objc private func help() {
+        UIApplication.shared.keyWindow!.endEditing(true)
+        present(HelpView(), animated:true)
     }
     
     @objc private func new() {

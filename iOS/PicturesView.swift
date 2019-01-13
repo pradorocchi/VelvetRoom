@@ -10,19 +10,12 @@ UICollectionViewDelegateFlowLayout {
     private let request = PHImageRequestOptions()
     private weak var collection:UICollectionView!
     
-    init() {
-        super.init(nibName:nil, bundle:nil)
-        modalPresentationStyle = .overCurrentContext
-        request.resizeMode = .fast
-        request.isSynchronous = false
-        request.deliveryMode = .fastFormat
-    }
-    
-    required init?(coder:NSCoder) { return nil }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .velvetShade
+        request.resizeMode = .fast
+        request.isSynchronous = false
+        request.deliveryMode = .fastFormat
         makeOutlets()
     }
     

@@ -20,7 +20,6 @@ ImportView.title="Load board";
 ImportView.description="\nDrag and drop a Velvet Room QR Code,\nor click on search to look for it.";
 ImportView.open="Search";
 ImportView.qr="Load a Velvet Room QR Code";
-HelpView.title="How to";
 HelpView.content="You can create headers and emphasise adding a #\n\n\nExample\n\n# Important\nGrab some milk on the way home.";
 Errors.unknown="An unknown error ocurred.";
 Errors.noIcloudToken="Unable to connect to iCloud.\nMake sure your iCloud account is setup on this computer and iCloud Drive is enabled.";
