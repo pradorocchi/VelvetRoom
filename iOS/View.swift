@@ -166,6 +166,7 @@ class View:UIViewController {
         newButton.widthAnchor.constraint(equalToConstant:64).isActive = true
         newButton.leftAnchor.constraint(equalTo:loadButton.rightAnchor).isActive = true
         
+        helpButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
         helpButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         helpButton.widthAnchor.constraint(equalToConstant:64).isActive = true
         helpButton.leftAnchor.constraint(equalTo:newButton.rightAnchor).isActive = true
