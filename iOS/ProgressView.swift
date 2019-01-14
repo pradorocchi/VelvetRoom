@@ -28,7 +28,6 @@ class ProgressView:UIControl {
         background.addSubview(progress)
         
         let label = UILabel()
-        label.isUserInteractionEnabled = false
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize:12, weight:.bold)
         label.textAlignment = .center

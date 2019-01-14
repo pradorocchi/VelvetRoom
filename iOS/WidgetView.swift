@@ -58,7 +58,6 @@ import NotificationCenter
     private func empty() {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.isUserInteractionEnabled = false
         label.font = .systemFont(ofSize:14, weight:.light)
         label.textColor = .black
         label.textAlignment = .center
@@ -72,7 +71,6 @@ import NotificationCenter
     private func render() {
         let name = UILabel()
         name.translatesAutoresizingMaskIntoConstraints = false
-        name.isUserInteractionEnabled = false
         name.font = .systemFont(ofSize:16, weight:.bold)
         name.textColor = .black
         effect.contentView.addSubview(name)

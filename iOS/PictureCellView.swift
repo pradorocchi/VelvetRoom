@@ -19,7 +19,6 @@ class PictureViewCell:UICollectionViewCell {
     
     private func makeOutlets() {
         let image = UIImageView()
-        image.isUserInteractionEnabled = false
         image.translatesAutoresizingMaskIntoConstraints = false
         image.clipsToBounds = true
         image.contentMode = .scaleAspectFill

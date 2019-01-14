@@ -10,7 +10,6 @@ class HelpView:UIViewController {
     private func makeOutlets() {
         let labelTitle = UILabel()
         labelTitle.translatesAutoresizingMaskIntoConstraints = false
-        labelTitle.isUserInteractionEnabled = false
         labelTitle.textColor = .velvetBlue
         labelTitle.font = .systemFont(ofSize:18, weight:.bold)
         labelTitle.text = .local("HelpView.title")
@@ -18,7 +17,6 @@ class HelpView:UIViewController {
         
         let labelVersion = UILabel()
         labelVersion.translatesAutoresizingMaskIntoConstraints = false
-        labelVersion.isUserInteractionEnabled = false
         labelVersion.textColor = .white
         labelVersion.font = .systemFont(ofSize:12, weight:.ultraLight)
         labelVersion.text = .local("HelpView.version") +
@@ -35,7 +33,6 @@ class HelpView:UIViewController {
         view.addSubview(close)
         
         let imageView = UIImageView(image:#imageLiteral(resourceName: "splash.pdf"))
-        imageView.isUserInteractionEnabled = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .center
         imageView.clipsToBounds = true

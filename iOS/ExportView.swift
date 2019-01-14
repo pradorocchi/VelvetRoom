@@ -41,7 +41,6 @@ class ExportView:UIViewController {
         
         let labelTitle = UILabel()
         labelTitle.translatesAutoresizingMaskIntoConstraints = false
-        labelTitle.isUserInteractionEnabled = false
         labelTitle.numberOfLines = 2
         labelTitle.attributedText = mutable
         view.addSubview(labelTitle)
@@ -71,7 +70,6 @@ class ExportView:UIViewController {
         view.addSubview(share)
         
         let imageView = UIImageView()
-        imageView.isUserInteractionEnabled = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 4

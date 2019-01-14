@@ -147,7 +147,6 @@ class View:UIViewController {
         
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.isUserInteractionEnabled = false
         titleLabel.font = .bold(20)
         titleLabel.textColor = .velvetBlue
         titleLabel.alpha = 0

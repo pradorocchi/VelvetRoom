@@ -11,7 +11,6 @@ class CreateView:ItemView {
         addTarget(Application.view, action:selector, for:.touchUpInside)
         
         let image = UIImageView(image:#imageLiteral(resourceName: "new.pdf"))
-        image.isUserInteractionEnabled = false
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .center
         image.clipsToBounds = true

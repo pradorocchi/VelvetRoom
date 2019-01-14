@@ -25,7 +25,6 @@ class Errors {
         self.view = view
         
         let message = UILabel()
-        message.isUserInteractionEnabled = false
         message.translatesAutoresizingMaskIntoConstraints = false
         message.font = .systemFont(ofSize:14, weight:.regular)
         message.textColor = .black

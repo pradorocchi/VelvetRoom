@@ -32,7 +32,6 @@ class NewView:UIViewController, UITextFieldDelegate {
     private func makeOutlets() {
         let labelTitle = UILabel()
         labelTitle.translatesAutoresizingMaskIntoConstraints = false
-        labelTitle.isUserInteractionEnabled = false
         labelTitle.textColor = .white
         labelTitle.font = .systemFont(ofSize:18, weight:.bold)
         labelTitle.text = .local("NewView.title")
@@ -130,7 +129,6 @@ class NewView:UIViewController, UITextFieldDelegate {
         
         let columns = UILabel()
         columns.translatesAutoresizingMaskIntoConstraints = false
-        columns.isUserInteractionEnabled = false
         columns.font = .systemFont(ofSize:12, weight:.light)
         columns.textColor = UIColor(white:1, alpha:0.6)
         view.addSubview(columns)

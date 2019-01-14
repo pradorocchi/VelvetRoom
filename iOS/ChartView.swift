@@ -27,7 +27,6 @@ class ChartView:UIViewController {
         
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.isUserInteractionEnabled = false
         title.textColor = .white
         title.font = .bold(20)
         title.text = board.name
@@ -115,7 +114,6 @@ class ChartView:UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .clear
-        label.isUserInteractionEnabled = false
         label.textColor = .white
         label.attributedText = mutable
         label.numberOfLines = 2

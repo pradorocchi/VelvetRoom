@@ -51,7 +51,6 @@ class CameraView:UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     private func makeOutlets() {
         let labelTitle = UILabel()
         labelTitle.translatesAutoresizingMaskIntoConstraints = false
-        labelTitle.isUserInteractionEnabled = false
         labelTitle.textColor = .white
         labelTitle.font = .systemFont(ofSize:14, weight:.regular)
         labelTitle.text = .local("CameraView.title")
