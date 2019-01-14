@@ -86,7 +86,7 @@ class ExportView:UIViewController {
         back.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
         
         share.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
-        share.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-50).isActive = true
+        share.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-60).isActive = true
         share.widthAnchor.constraint(equalToConstant:88).isActive = true
         share.heightAnchor.constraint(equalToConstant:30).isActive = true
         

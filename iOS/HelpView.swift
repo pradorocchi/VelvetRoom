@@ -57,7 +57,7 @@ class HelpView:UIViewController {
         labelVersion.topAnchor.constraint(equalTo:imageView.bottomAnchor).isActive = true
         labelVersion.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
         
-        text.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-20).isActive = true
+        text.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-40).isActive = true
         text.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
         text.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
         

@@ -73,7 +73,7 @@ UICollectionViewDelegateFlowLayout {
         let flow = UICollectionViewFlowLayout()
         flow.minimumLineSpacing = 1
         flow.minimumInteritemSpacing = 1
-        flow.sectionInset = UIEdgeInsets(top:1, left:1, bottom:20, right:1)
+        flow.sectionInset = UIEdgeInsets(top:1, left:1, bottom:40, right:1)
         let collection = UICollectionView(frame:.zero, collectionViewLayout:flow)
         collection.backgroundColor = .black
         collection.translatesAutoresizingMaskIntoConstraints = false

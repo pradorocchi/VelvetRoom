@@ -5,6 +5,8 @@ class View:UIViewController {
     let repository = Repository()
     let errors = Errors()
     weak var root:ItemView?
+    private var safeTop = CGFloat()
+    private var safeBottom = CGFloat()
     private(set) weak var selected:Board! { didSet { fireSchedule() } }
     private(set) weak var progressButton:ProgressView!
     private(set) weak var canvas:UIView!
@@ -19,6 +21,14 @@ class View:UIViewController {
         oldValue?.isActive = false; canvasWidth!.isActive = true } }
     private weak var canvasHeight:NSLayoutConstraint? { didSet {
         oldValue?.isActive = false; canvasHeight!.isActive = true } }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        if #available(iOS 11.0, *) {
+            super.viewSafeAreaInsetsDidChange()
+            safeTop = view.safeAreaInsets.top
+            safeBottom = view.safeAreaInsets.bottom
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -236,7 +246,7 @@ class View:UIViewController {
             let view = BoardView(board.element)
             self.boards.addSubview(view)
             
-            view.topAnchor.constraint(equalTo:top, constant:board.offset == 0 ? 60 : 10).isActive = true
+            view.topAnchor.constraint(equalTo:top, constant:board.offset == 0 ? 60 + safeTop : 10).isActive = true
             view.leftAnchor.constraint(equalTo:self.boards.leftAnchor, constant:20).isActive = true
             view.rightAnchor.constraint(equalTo:self.boards.rightAnchor, constant:20).isActive = true
             top = view.bottomAnchor
@@ -245,7 +255,7 @@ class View:UIViewController {
             emptyButton.isHidden = false
         } else {
             emptyButton.isHidden = true
-            self.boards.bottomAnchor.constraint(equalTo:top, constant:10).isActive = true
+            self.boards.bottomAnchor.constraint(equalTo:top, constant:10 + safeBottom).isActive = true
         }
         self.boards.layoutIfNeeded()
         DispatchQueue.global(qos:.background).async {
@@ -308,7 +318,7 @@ class View:UIViewController {
         var sibling = root
         while sibling != nil {
             let right = maxRight
-            var bottom = CGFloat(60)
+            var bottom = CGFloat(60 + safeTop)
             
             var child = sibling
             sibling = sibling!.sibling
@@ -325,7 +335,7 @@ class View:UIViewController {
             maxBottom = max(bottom, maxBottom)
         }
         canvasWidth = canvas.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight - 40)
-        canvasHeight = canvas.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 20)
+        canvasHeight = canvas.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 20 + safeBottom)
     }
     
     private func createCard() {
