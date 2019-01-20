@@ -25,7 +25,7 @@
 		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20DBB0AA21EB5CF8009B9AAA /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20DBB0A921EB5CF8009B9AAA /* NotificationCenter.framework */; };
-		20DBB0B421EB5CF8009B9AAA /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 20DBB0A821EB5CF8009B9AAA /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		20DBB0B421EB5CF8009B9AAA /* VelvetRoom.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 20DBB0A821EB5CF8009B9AAA /* VelvetRoom.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		20DBB0BB21EB5DB3009B9AAA /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */; };
 		20E5879321EB6544001F119A /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
 		20E5879421EB6544001F119A /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
@@ -78,9 +78,9 @@
 		DAB2709521C3CA87008F184E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709021C3CA87008F184E /* Application.swift */; };
 		DAB2709D21C3CA99008F184E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709C21C3CA99008F184E /* Repository.swift */; };
 		DAB2709F21C3CA99008F184E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709C21C3CA99008F184E /* Repository.swift */; };
-		DAB270A821C3CD7A008F184E /* libiOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A621C3CD5E008F184E /* libiOSengine.a */; };
-		DAB270A921C3CD83008F184E /* libMacOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A521C3CD50008F184E /* libMacOSengine.a */; };
-		DAB270AE21C3CE09008F184E /* libMacOSengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A521C3CD50008F184E /* libMacOSengine.a */; };
+		DAB270A821C3CD7A008F184E /* libVelvetRoom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A621C3CD5E008F184E /* libVelvetRoom.a */; };
+		DAB270A921C3CD83008F184E /* libVelvetRoom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A521C3CD50008F184E /* libVelvetRoom.a */; };
+		DAB270AE21C3CE09008F184E /* libVelvetRoom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A521C3CD50008F184E /* libVelvetRoom.a */; };
 		DAC2CDC021C8E2F000AD927B /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDBF21C8E2F000AD927B /* NewView.swift */; };
 		DAC2CDC321C8EDA700AD927B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDC221C8EDA700AD927B /* String.swift */; };
 		DAC2CDC421C8EDA700AD927B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDC221C8EDA700AD927B /* String.swift */; };
@@ -151,7 +151,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				20DBB0B421EB5CF8009B9AAA /* Widget.appex in Embed App Extensions */,
+				20DBB0B421EB5CF8009B9AAA /* VelvetRoom.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -183,7 +183,7 @@
 		20B40EA021E8951F00286E92 /* PictureCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCellView.swift; sourceTree = "<group>"; };
 		20C6F94321EA120E0069176F /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		20CD59BC21E0CD6B00ADF8BC /* Clean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clean.swift; sourceTree = "<group>"; };
-		20DBB0A821EB5CF8009B9AAA /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		20DBB0A821EB5CF8009B9AAA /* VelvetRoom.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = VelvetRoom.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		20DBB0A921EB5CF8009B9AAA /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		20DBB0B921EB5D7F009B9AAA /* Widget.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Widget.plist; sourceTree = "<group>"; };
 		20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
@@ -242,10 +242,10 @@
 		DAB270A021C3CAA5008F184E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DAB270A121C3CAD6008F184E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		DAB270A221C3CAD6008F184E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		DAB270A321C3CC91008F184E /* Velvet Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Velvet Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB270A321C3CC91008F184E /* VelvetRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VelvetRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270A421C3CC9B008F184E /* VelvetRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VelvetRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAB270A521C3CD50008F184E /* libMacOSengine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMacOSengine.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAB270A621C3CD5E008F184E /* libiOSengine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiOSengine.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB270A521C3CD50008F184E /* libVelvetRoom.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVelvetRoom.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB270A621C3CD5E008F184E /* libVelvetRoom.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVelvetRoom.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270AF21C3D421008F184E /* VelvetRoom.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = VelvetRoom.sketch; sourceTree = "<group>"; };
 		DAC2CDBF21C8E2F000AD927B /* NewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewView.swift; sourceTree = "<group>"; };
 		DAC2CDC221C8EDA700AD927B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -309,7 +309,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB270AE21C3CE09008F184E /* libMacOSengine.a in Frameworks */,
+				DAB270AE21C3CE09008F184E /* libVelvetRoom.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,7 +317,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB270A921C3CD83008F184E /* libMacOSengine.a in Frameworks */,
+				DAB270A921C3CD83008F184E /* libVelvetRoom.a in Frameworks */,
 				DAC5F1A821DA5A010039612C /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,7 +326,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB270A821C3CD7A008F184E /* libiOSengine.a in Frameworks */,
+				DAB270A821C3CD7A008F184E /* libVelvetRoom.a in Frameworks */,
 				DA865CB721DA5DDA004E6F86 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,16 +353,16 @@
 				DAC2CDC121C8ED9800AD927B /* Shared */,
 				DA7C743021C3DE9800B1F931 /* Fonts */,
 				DAB270A721C3CD7A008F184E /* Frameworks */,
-				DAB270A321C3CC91008F184E /* Velvet Room.app */,
+				DAB270A321C3CC91008F184E /* VelvetRoom.app */,
 				DAB270A421C3CC9B008F184E /* VelvetRoom.app */,
-				DAB270A521C3CD50008F184E /* libMacOSengine.a */,
-				DAB270A621C3CD5E008F184E /* libiOSengine.a */,
+				DAB270A521C3CD50008F184E /* libVelvetRoom.a */,
+				DAB270A621C3CD5E008F184E /* libVelvetRoom.a */,
 				DAB2709E21C3CA99008F184E /* Tests.xctest */,
 				DAB270AF21C3D421008F184E /* VelvetRoom.sketch */,
 				DAB270A121C3CAD6008F184E /* LICENSE */,
 				DAB270A221C3CAD6008F184E /* README.md */,
 				DAB270A021C3CAA5008F184E /* .gitignore */,
-				20DBB0A821EB5CF8009B9AAA /* Widget.appex */,
+				20DBB0A821EB5CF8009B9AAA /* VelvetRoom.appex */,
 			);
 			sourceTree = "<group>";
 		};
@@ -535,7 +535,7 @@
 			);
 			name = Widget;
 			productName = Widget;
-			productReference = 20DBB0A821EB5CF8009B9AAA /* Widget.appex */;
+			productReference = 20DBB0A821EB5CF8009B9AAA /* VelvetRoom.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		DAB2702E21C3C3B4008F184E /* MacOSengine */ = {
@@ -552,7 +552,7 @@
 			);
 			name = MacOSengine;
 			productName = MacOSengine;
-			productReference = DAB270A521C3CD50008F184E /* libMacOSengine.a */;
+			productReference = DAB270A521C3CD50008F184E /* libVelvetRoom.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		DAB2703C21C3C3DB008F184E /* iOSengine */ = {
@@ -569,7 +569,7 @@
 			);
 			name = iOSengine;
 			productName = iOSengine;
-			productReference = DAB270A621C3CD5E008F184E /* libiOSengine.a */;
+			productReference = DAB270A621C3CD5E008F184E /* libVelvetRoom.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		DAB2704721C3C3EF008F184E /* Tests */ = {
@@ -604,7 +604,7 @@
 			);
 			name = MacOS;
 			productName = MacOS;
-			productReference = DAB270A321C3CC91008F184E /* Velvet Room.app */;
+			productReference = DAB270A321C3CC91008F184E /* VelvetRoom.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DAB2706A21C3C473008F184E /* iOS */ = {
@@ -979,7 +979,6 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.iOS.Widget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1043,7 +1042,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.iOS.Widget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1060,6 +1058,7 @@
 				ENABLE_BITCODE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_NAME = VelvetRoom;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 4.2;
 			};
@@ -1072,6 +1071,7 @@
 				ENABLE_BITCODE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_NAME = VelvetRoom;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 4.2;
 			};
@@ -1132,8 +1132,6 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_MODULE_NAME = VelvetRoom;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -1187,8 +1185,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_MODULE_NAME = VelvetRoom;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -1249,8 +1245,6 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_MODULE_NAME = VelvetRoom;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1307,8 +1301,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_MODULE_NAME = VelvetRoom;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1518,8 +1510,6 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.MacOS;
-				PRODUCT_MODULE_NAME = MacOS;
-				PRODUCT_NAME = "Velvet Room";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1582,8 +1572,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.MacOS;
-				PRODUCT_MODULE_NAME = MacOS;
-				PRODUCT_NAME = "Velvet Room";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -1653,8 +1641,6 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.iOS;
-				PRODUCT_MODULE_NAME = iOS;
-				PRODUCT_NAME = VelvetRoom;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1718,8 +1704,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.iOS;
-				PRODUCT_MODULE_NAME = iOS;
-				PRODUCT_NAME = VelvetRoom;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
