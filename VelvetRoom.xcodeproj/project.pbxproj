@@ -242,8 +242,8 @@
 		DAB270A021C3CAA5008F184E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DAB270A121C3CAD6008F184E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		DAB270A221C3CAD6008F184E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		DAB270A321C3CC91008F184E /* VelvetRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VelvetRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAB270A421C3CC9B008F184E /* VelvetRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VelvetRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB270A321C3CC91008F184E /* Velvet Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Velvet Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB270A421C3CC9B008F184E /* Velvet Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Velvet Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270A521C3CD50008F184E /* libVelvetRoom.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVelvetRoom.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270A621C3CD5E008F184E /* libVelvetRoom.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVelvetRoom.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270AF21C3D421008F184E /* VelvetRoom.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = VelvetRoom.sketch; sourceTree = "<group>"; };
@@ -353,8 +353,8 @@
 				DAC2CDC121C8ED9800AD927B /* Shared */,
 				DA7C743021C3DE9800B1F931 /* Fonts */,
 				DAB270A721C3CD7A008F184E /* Frameworks */,
-				DAB270A321C3CC91008F184E /* VelvetRoom.app */,
-				DAB270A421C3CC9B008F184E /* VelvetRoom.app */,
+				DAB270A321C3CC91008F184E /* Velvet Room.app */,
+				DAB270A421C3CC9B008F184E /* Velvet Room.app */,
 				DAB270A521C3CD50008F184E /* libVelvetRoom.a */,
 				DAB270A621C3CD5E008F184E /* libVelvetRoom.a */,
 				DAB2709E21C3CA99008F184E /* Tests.xctest */,
@@ -604,7 +604,7 @@
 			);
 			name = MacOS;
 			productName = MacOS;
-			productReference = DAB270A321C3CC91008F184E /* VelvetRoom.app */;
+			productReference = DAB270A321C3CC91008F184E /* Velvet Room.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DAB2706A21C3C473008F184E /* iOS */ = {
@@ -623,7 +623,7 @@
 			);
 			name = iOS;
 			productName = iOS;
-			productReference = DAB270A421C3CC9B008F184E /* VelvetRoom.app */;
+			productReference = DAB270A421C3CC9B008F184E /* Velvet Room.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1510,6 +1510,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.MacOS;
+				PRODUCT_NAME = "Velvet Room";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1572,6 +1573,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.MacOS;
+				PRODUCT_NAME = "Velvet Room";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -1641,6 +1643,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.iOS;
+				PRODUCT_NAME = "Velvet Room";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1704,6 +1707,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.iOS;
+				PRODUCT_NAME = "Velvet Room";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
