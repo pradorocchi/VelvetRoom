@@ -25,7 +25,7 @@
 		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20DBB0AA21EB5CF8009B9AAA /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20DBB0A921EB5CF8009B9AAA /* NotificationCenter.framework */; };
-		20DBB0B421EB5CF8009B9AAA /* VelvetRoom.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 20DBB0A821EB5CF8009B9AAA /* VelvetRoom.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		20DBB0B421EB5CF8009B9AAA /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 20DBB0A821EB5CF8009B9AAA /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		20DBB0BB21EB5DB3009B9AAA /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */; };
 		20E5879321EB6544001F119A /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
 		20E5879421EB6544001F119A /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
@@ -151,7 +151,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				20DBB0B421EB5CF8009B9AAA /* VelvetRoom.appex in Embed App Extensions */,
+				20DBB0B421EB5CF8009B9AAA /* Widget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -183,7 +183,7 @@
 		20B40EA021E8951F00286E92 /* PictureCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCellView.swift; sourceTree = "<group>"; };
 		20C6F94321EA120E0069176F /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		20CD59BC21E0CD6B00ADF8BC /* Clean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clean.swift; sourceTree = "<group>"; };
-		20DBB0A821EB5CF8009B9AAA /* VelvetRoom.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = VelvetRoom.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		20DBB0A821EB5CF8009B9AAA /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		20DBB0A921EB5CF8009B9AAA /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		20DBB0B921EB5D7F009B9AAA /* Widget.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Widget.plist; sourceTree = "<group>"; };
 		20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
@@ -362,7 +362,7 @@
 				DAB270A121C3CAD6008F184E /* LICENSE */,
 				DAB270A221C3CAD6008F184E /* README.md */,
 				DAB270A021C3CAA5008F184E /* .gitignore */,
-				20DBB0A821EB5CF8009B9AAA /* VelvetRoom.appex */,
+				20DBB0A821EB5CF8009B9AAA /* Widget.appex */,
 			);
 			sourceTree = "<group>";
 		};
@@ -535,7 +535,7 @@
 			);
 			name = Widget;
 			productName = Widget;
-			productReference = 20DBB0A821EB5CF8009B9AAA /* VelvetRoom.appex */;
+			productReference = 20DBB0A821EB5CF8009B9AAA /* Widget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		DAB2702E21C3C3B4008F184E /* MacOSengine */ = {
@@ -979,6 +979,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.iOS.Widget;
+				PRODUCT_NAME = Widget;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1042,6 +1043,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.iOS.Widget;
+				PRODUCT_NAME = Widget;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
