@@ -15,8 +15,8 @@ class Alert {
     
     private func pop() {
         guard !alert.isEmpty else { return }
-        let view = UIView()
-        view.isUserInteractionEnabled = false
+        let view = UIControl()
+        view.addTarget(self, action:#selector(remove), for:.touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(white:1, alpha:0.96)
         view.layer.cornerRadius = 6
@@ -56,14 +56,18 @@ class Alert {
             view.alpha = 1
             Application.view.view.layoutIfNeeded()
         }) { _ in
-            DispatchQueue.main.asyncAfter(deadline:.now() + 8) { self.remove() }
+            DispatchQueue.main.asyncAfter(deadline:.now() + 8) { [weak view] in
+                if view != nil && view === self.view {
+                    self.remove()
+                }
+            }
         }
     }
     
-    private func remove() {
-        viewBottom!.constant = 0
+    @objc private func remove() {
+        viewBottom?.constant = 0
         UIView.animate(withDuration:0.4, animations: {
-            self.view!.alpha = 0
+            self.view?.alpha = 0
             Application.view.view.layoutIfNeeded()
         }) { _ in
             self.view?.removeFromSuperview()
