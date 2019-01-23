@@ -1,20 +1,20 @@
 import AppKit
 import VelvetRoom
 
-class Errors {
+class Alert {
     private weak var view:NSView?
     private weak var viewBottom:NSLayoutConstraint?
-    private var errors = [Error]()
+    private var alert = [Error]()
     
     func add(_ error:Error) {
-        errors.append(error)
+        alert.append(error)
         if view == nil {
             pop()
         }
     }
     
     private func pop() {
-        guard !errors.isEmpty else { return }
+        guard !alert.isEmpty else { return }
         let view = NSView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.wantsLayer = true
@@ -43,13 +43,13 @@ class Errors {
         message.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
         message.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
         
-        switch errors.removeFirst() {
-        case Exception.noIcloudToken: message.stringValue = .local("Errors.noIcloudToken")
-        case Exception.errorWhileLoadingFromIcloud: message.stringValue = .local("Errors.errorWhileLoadingFromIcloud")
-        case Exception.failedLoadingFromIcloud: message.stringValue = .local("Errors.failedLoadingFromIcloud")
-        case Exception.unableToSaveToIcloud: message.stringValue = .local("Errors.unableToSaveToIcloud")
-        case Exception.imageNotValid: message.stringValue = .local("Errors.imageNotValid")
-        default: message.stringValue = .local("Errors.unknown")
+        switch alert.removeFirst() {
+        case Exception.noIcloudToken: message.stringValue = .local("Alert.noIcloudToken")
+        case Exception.errorWhileLoadingFromIcloud: message.stringValue = .local("Alert.errorWhileLoadingFromIcloud")
+        case Exception.failedLoadingFromIcloud: message.stringValue = .local("Alert.failedLoadingFromIcloud")
+        case Exception.unableToSaveToIcloud: message.stringValue = .local("Alert.unableToSaveToIcloud")
+        case Exception.imageNotValid: message.stringValue = .local("Alert.imageNotValid")
+        default: message.stringValue = .local("Alert.unknown")
         }
         
         Application.view.contentView!.layoutSubtreeIfNeeded()

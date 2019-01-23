@@ -3,7 +3,7 @@ import VelvetRoom
 
 class View:UIViewController {
     let repository = Repository()
-    let errors = Errors()
+    let errors = Alert()
     weak var root:ItemView?
     private var safeTop = CGFloat()
     private var safeBottom = CGFloat()

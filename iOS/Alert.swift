@@ -1,20 +1,20 @@
 import UIKit
 import VelvetRoom
 
-class Errors {
+class Alert {
     private weak var view:UIView?
     private weak var viewBottom:NSLayoutConstraint?
-    private var errors = [Error]()
+    private var alert = [Error]()
     
     func add(_ error:Error) {
-        errors.append(error)
+        alert.append(error)
         if view == nil {
             pop()
         }
     }
     
     private func pop() {
-        guard !errors.isEmpty else { return }
+        guard !alert.isEmpty else { return }
         let view = UIView()
         view.isUserInteractionEnabled = false
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -41,13 +41,13 @@ class Errors {
         message.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
         message.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
         
-        switch errors.removeFirst() {
-        case Exception.noIcloudToken: message.text = .local("Errors.noIcloudToken")
-        case Exception.errorWhileLoadingFromIcloud: message.text = .local("Errors.errorWhileLoadingFromIcloud")
-        case Exception.failedLoadingFromIcloud: message.text = .local("Errors.failedLoadingFromIcloud")
-        case Exception.unableToSaveToIcloud: message.text = .local("Errors.unableToSaveToIcloud")
-        case Exception.imageNotValid: message.text = .local("Errors.imageNotValid")
-        default: message.text = .local("Errors.unknown")
+        switch alert.removeFirst() {
+        case Exception.noIcloudToken: message.text = .local("Alert.noIcloudToken")
+        case Exception.errorWhileLoadingFromIcloud: message.text = .local("Alert.errorWhileLoadingFromIcloud")
+        case Exception.failedLoadingFromIcloud: message.text = .local("Alert.failedLoadingFromIcloud")
+        case Exception.unableToSaveToIcloud: message.text = .local("Alert.unableToSaveToIcloud")
+        case Exception.imageNotValid: message.text = .local("Alert.imageNotValid")
+        default: message.text = .local("Alert.unknown")
         }
         
         Application.view.view.layoutIfNeeded()

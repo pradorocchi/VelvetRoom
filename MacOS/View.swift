@@ -3,7 +3,7 @@ import VelvetRoom
 
 class View:NSWindow {
     let repository = Repository()
-    let errors = Errors()
+    let alert = Alert()
     weak var root:ItemView?
     private(set) weak var canvas:ScrollView!
     private(set) weak var borderLeft:NSLayoutConstraint!
@@ -34,7 +34,7 @@ class View:NSWindow {
         makeOutlets()
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.select(board) } }
-        repository.error = { error in DispatchQueue.main.async { self.errors.add(error) } }
+        repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
         DispatchQueue.global(qos:.background).async { self.repository.load() }
         DispatchQueue.main.async { self.toggleList(self.listButton) }
     }
