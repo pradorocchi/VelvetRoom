@@ -61,15 +61,11 @@ class View:NSWindow {
     
     private func makeOutlets() {
         let list = ScrollView()
-        list.hasVerticalScroller = true
-        list.verticalScroller!.controlSize = .mini
         contentView!.addSubview(list)
         self.list = list
         
         let canvas = ScrollView()
-        canvas.hasVerticalScroller = true
         canvas.hasHorizontalScroller = true
-        canvas.verticalScroller!.controlSize = .mini
         canvas.horizontalScroller!.controlSize = .mini
         contentView!.addSubview(canvas)
         self.canvas = canvas
