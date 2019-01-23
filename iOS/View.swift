@@ -7,7 +7,7 @@ class View:UIViewController {
     weak var root:ItemView?
     private var safeTop = CGFloat()
     private var safeBottom = CGFloat()
-    private(set) weak var selected:Board! { didSet { fireSchedule() } }
+    private(set) weak var selected:Board? { didSet { fireSchedule() } }
     private(set) weak var progressButton:ProgressView!
     private(set) weak var canvas:UIView!
     private weak var emptyButton:UIButton!
@@ -33,9 +33,12 @@ class View:UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         makeOutlets()
-        repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.open(board) } }
         repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
+        repository.list = { boards in DispatchQueue.main.async {
+            self.list(boards)
+            self.showList()
+        } }
         listenKeyboard()
         DispatchQueue.global(qos:.background).async { self.repository.load() }
     }
@@ -72,7 +75,10 @@ class View:UIViewController {
     }
     
     func scheduleUpdate(_ board:Board? = nil) {
-        DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(board ?? self.selected) }
+        DispatchQueue.global(qos:.background).async {
+            guard let board = board ?? self.selected else { return }
+            self.repository.scheduleUpdate(board)
+        }
     }
     
     func fireSchedule() {
@@ -393,11 +399,11 @@ class View:UIViewController {
     
     @objc private func progress() {
         UIApplication.shared.keyWindow!.endEditing(true)
-        present(ChartView(selected), animated:true)
+        present(ChartView(selected!), animated:true)
     }
     
     @objc private func newColumn(_ view:CreateView) {
-        let column = ColumnView(repository.newColumn(selected))
+        let column = ColumnView(repository.newColumn(selected!))
         column.sibling = view
         if root === view {
             root = column
@@ -417,7 +423,7 @@ class View:UIViewController {
     }
     
     @objc private func newCard(_ view:CreateView) {
-        let card = CardView(try! repository.newCard(selected))
+        let card = CardView(try! repository.newCard(selected!))
         card.child = view.child
         view.child = card
         canvas.addSubview(card)
@@ -426,6 +432,6 @@ class View:UIViewController {
         canvasChanged()
         card.beginEditing()
         scheduleUpdate()
-        progressButton.progress = selected.progress
+        progressButton.progress = selected!.progress
     }
 }

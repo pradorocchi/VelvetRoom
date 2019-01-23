@@ -52,19 +52,19 @@ class CardView:EditView {
         child = after!.child
         after!.child = self
         Application.view.canvasChanged()
-        Application.view.repository.move(card, board:Application.view.selected, column:(column as! ColumnView).column,
+        Application.view.repository.move(card, board:Application.view.selected!, column:(column as! ColumnView).column,
                                          after:(after as? CardView)?.card)
         Application.view.scheduleUpdate()
-        Application.view.progressButton.progress = Application.view.selected.progress
+        Application.view.progressButton.progress = Application.view.selected!.progress
     }
     
     private func confirmDelete() {
         detach()
         DispatchQueue.global(qos:.background).async {
-            Application.view.repository.delete(self.card, board:Application.view.selected)
+            Application.view.repository.delete(self.card, board:Application.view.selected!)
             Application.view.scheduleUpdate()
             DispatchQueue.main.async {
-                Application.view.progressButton.progress = Application.view.selected.progress
+                Application.view.progressButton.progress = Application.view.selected!.progress
                 self.removeFromSuperview()
             }
         }
