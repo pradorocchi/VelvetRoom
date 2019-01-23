@@ -93,7 +93,7 @@ class View:NSWindow {
         gradient.heightAnchor.constraint(equalToConstant:72).isActive = true
         
         list.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
-        list.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
+        list.widthAnchor.constraint(equalToConstant:250).isActive = true
         list.rightAnchor.constraint(equalTo:border.leftAnchor).isActive = true
         list.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
         
@@ -168,7 +168,7 @@ class View:NSWindow {
     }
     
     private func align() {
-        var maxRight = CGFloat(36)
+        var maxRight = CGFloat(66)
         var maxBottom = CGFloat()
         var sibling = root
         while sibling != nil {
@@ -223,11 +223,23 @@ class View:NSWindow {
         makeFirstResponder(nil)
         view.selected = true
         selected = view.board
+        canvas.alphaValue = 0
         render(view.board)
         canvasChanged(0)
         deleteButton.isEnabled = true
         exportButton.isEnabled = true
         progress.progress = view.board.progress
+        if #available(OSX 10.12, *) {
+            DispatchQueue.main.async {
+                NSAnimationContext.runAnimationGroup { context in
+                    context.duration = 0.7
+                    context.allowsImplicitAnimation = true
+                    self.canvas.alphaValue = 1
+                }
+            }
+        } else {
+            canvas.alphaValue = 1
+        }
     }
     
     @objc private func newColumn(_ view:CreateView) {
@@ -278,7 +290,7 @@ class View:NSWindow {
             borderLeft.constant = 250
             Application.list.title = .local("View.hideList")
         } else {
-            borderLeft.constant = 0
+            borderLeft.constant = -30
             Application.list.title = .local("View.showList")
         }
         if #available(OSX 10.12, *) {
