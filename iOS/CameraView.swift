@@ -108,7 +108,7 @@ class CameraView:UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         if Sharer.validate(content) {
             Application.view.repository.load(content)
         } else {
-            Application.view.errors.add(Exception.imageNotValid)
+            Application.view.alert.add(Exception.imageNotValid)
         }
     }
     

@@ -13,16 +13,12 @@ class View:NSWindow {
     @IBOutlet private weak var deleteButton:NSButton!
     @IBOutlet private weak var exportButton:NSButton!
     
-    weak var selected:BoardView! {
+    private(set) weak var selected:Board? {
         willSet {
-            if let previous = selected {
-                previous.selected = false
-            }
-        }
-        didSet {
-            selected.selected = true
-            fireSchedule()
-        }
+            if let selected = self.selected {
+                view(selected)?.selected = false
+        } }
+        didSet { fireSchedule() }
     }
     
     override func cancelOperation(_:Any?) { makeFirstResponder(nil) }
@@ -35,6 +31,11 @@ class View:NSWindow {
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.select(board) } }
         repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
+        repository.refresh = { board in
+            if board === self.selected {
+                DispatchQueue.main.async { self.select(board) }
+            }
+        }
         DispatchQueue.global(qos:.background).async { self.repository.load() }
         DispatchQueue.main.async { self.toggleList(self.listButton) }
     }
@@ -53,7 +54,10 @@ class View:NSWindow {
     }
     
     func scheduleUpdate(_ board:Board? = nil) {
-        DispatchQueue.global(qos:.background).async { self.repository.scheduleUpdate(board ?? self.selected.board) }
+        DispatchQueue.global(qos:.background).async {
+            guard let board = board ?? self.selected else { return }
+            self.repository.scheduleUpdate(board)
+        }
     }
     
     func fireSchedule() {
@@ -207,20 +211,27 @@ class View:NSWindow {
     }
     
     private func select(_ board:Board) {
-        let view = list.documentView!.subviews.first { ($0 as! BoardView).board === board } as! BoardView
-        select(view:view)
-        if #available(OSX 10.12, *) {
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = 0.3
-                context.allowsImplicitAnimation = true
-                list.contentView.scrollToVisible(view.frame)
+        let boardView = view(board)!
+        select(view:boardView)
+        DispatchQueue.main.async {
+            if #available(OSX 10.12, *) {
+                NSAnimationContext.runAnimationGroup { context in
+                    context.duration = 0.3
+                    context.allowsImplicitAnimation = true
+                    self.list.contentView.scrollToVisible(boardView.frame)
+                }
             }
         }
     }
     
+    private func view(_ board:Board) -> BoardView? {
+        return list.documentView!.subviews.first(where: { ($0 as! BoardView).board === board } ) as? BoardView
+    }
+    
     @objc private func select(view:BoardView) {
         makeFirstResponder(nil)
-        selected = view
+        view.selected = true
+        selected = view.board
         render(view.board)
         canvasChanged(0)
         deleteButton.isEnabled = true
@@ -229,7 +240,7 @@ class View:NSWindow {
     }
     
     @objc private func newColumn(_ view:CreateView) {
-        let column = ColumnView(repository.newColumn(selected.board))
+        let column = ColumnView(repository.newColumn(selected!))
         column.sibling = view
         if root === view {
             root = column
@@ -249,7 +260,7 @@ class View:NSWindow {
     }
     
     @objc private func newCard(_ view:CreateView) {
-        let card = CardView(try! repository.newCard(selected.board))
+        let card = CardView(try! repository.newCard(selected!))
         card.child = view.child
         view.child = card
         canvas.documentView!.addSubview(card)
@@ -258,7 +269,7 @@ class View:NSWindow {
         canvasChanged()
         card.beginEditing()
         scheduleUpdate()
-        progress.progress = selected.board.progress
+        progress.progress = selected!.progress
     }
     
     @IBAction private func toggleSourceList(_ sender:NSMenuItem) {
@@ -290,7 +301,7 @@ class View:NSWindow {
     
     @IBAction private func play(_ sender:Any) {
         makeFirstResponder(nil)
-        beginSheet(ChartView(selected.board))
+        beginSheet(ChartView(selected!))
     }
     
     @IBAction private func newDocument(_ sender:Any) {
@@ -299,13 +310,14 @@ class View:NSWindow {
     }
     
     @IBAction private func remove(_ sender:Any) {
-        makeFirstResponder(nil)
-        selected.delete()
+        if let selected = self.selected {
+            view(selected)?.delete()
+        }
     }
     
     @IBAction private func export(_ sender:Any) {
         makeFirstResponder(nil)
-        beginSheet(ExportView(selected.board))
+        beginSheet(ExportView(selected!))
     }
     
     @IBAction private func load(_ sender:Any) {

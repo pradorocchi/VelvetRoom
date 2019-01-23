@@ -3,7 +3,7 @@ import VelvetRoom
 
 class View:UIViewController {
     let repository = Repository()
-    let errors = Alert()
+    let alert = Alert()
     weak var root:ItemView?
     private var safeTop = CGFloat()
     private var safeBottom = CGFloat()
@@ -35,7 +35,7 @@ class View:UIViewController {
         makeOutlets()
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.open(board) } }
-        repository.error = { error in DispatchQueue.main.async { self.errors.add(error) } }
+        repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
         listenKeyboard()
         DispatchQueue.global(qos:.background).async { self.repository.load() }
     }

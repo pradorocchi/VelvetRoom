@@ -61,10 +61,9 @@ class ColumnView:EditView {
             after!.sibling = self
         }
         Application.view.canvasChanged()
-        Application.view.repository.move(column, board:Application.view.selected.board,
-                                         after:(after as? ColumnView)?.column)
+        Application.view.repository.move(column, board:Application.view.selected!, after:(after as? ColumnView)?.column)
         Application.view.scheduleUpdate()
-        Application.view.progress.progress = Application.view.selected.board.progress
+        Application.view.progress.progress = Application.view.selected!.progress
     }
     
     override func drag(deltaX:CGFloat, deltaY:CGFloat) {
@@ -93,10 +92,10 @@ class ColumnView:EditView {
             child = child!.child
         }
         DispatchQueue.global(qos:.background).async {
-            Application.view.repository.delete(self.column, board:Application.view.selected.board)
+            Application.view.repository.delete(self.column, board:Application.view.selected!)
             Application.view.scheduleUpdate()
             DispatchQueue.main.async {
-                Application.view.progress.progress = Application.view.selected.board.progress
+                Application.view.progress.progress = Application.view.selected!.progress
                 self.removeFromSuperview()
             }
         }
