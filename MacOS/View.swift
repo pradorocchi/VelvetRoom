@@ -31,11 +31,6 @@ class View:NSWindow {
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.select(board) } }
         repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
-        repository.refresh = { board in
-            if board === self.selected {
-                DispatchQueue.main.async { self.select(board) }
-            }
-        }
         DispatchQueue.global(qos:.background).async { self.repository.load() }
         DispatchQueue.main.async { self.toggleList(self.listButton) }
     }

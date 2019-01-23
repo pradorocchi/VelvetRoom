@@ -3,7 +3,6 @@ import Foundation
 public class Repository {
     public var list:(([Board]) -> Void)!
     public var select:((Board) -> Void)!
-    public var refresh:((Board) -> Void)!
     public var error:((Error) -> Void)!
     var boards = [Board]()
     var account = Account()
@@ -208,7 +207,6 @@ public class Repository {
         storage.save(board)
         storage.save(account)
         listBoards()
-        refresh(board)
     }
     
     private func synchUpdates() {
