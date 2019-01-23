@@ -311,7 +311,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="Application" customModule="MacOS" customModuleProvider="target">
+                <customObject id="Voe-Tx-rLC" customClass="Application" customModule="Velvet_Room" customModuleProvider="target">
                     <connections>
                         <outlet property="list" destination="6i5-27-0d7" id="T2U-Db-K2r"/>
                     </connections>
@@ -324,7 +324,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Velvet Room" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA" customClass="View" customModule="MacOS" customModuleProvider="target">
+                    <window key="window" title="Velvet Room" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA" customClass="View" customModule="Velvet_Room" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
                         <rect key="contentRect" x="0.0" y="727" width="600" height="600"/>
@@ -381,7 +381,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="2EA9C2BE-9B88-4B0C-93A6-C23F1E8951B7" label="Progress" paletteLabel="Progress" tag="-1" sizingBehavior="auto" id="LDS-zm-AEa">
                                     <nil key="toolTip"/>
-                                    <customView key="view" id="dVc-iK-GaO" customClass="ProgressView" customModule="MacOS" customModuleProvider="target">
+                                    <customView key="view" id="dVc-iK-GaO" customClass="ProgressView" customModule="Velvet_Room" customModuleProvider="target">
                                         <rect key="frame" x="15" y="14" width="24" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <connections>
@@ -417,10 +417,22 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="C78E4529-F59D-41DF-BBAD-9F2D1CD392CD" label="Settings" paletteLabel="Settings" image="settings" sizingBehavior="auto" id="xHm-7f-PLM">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="Awu-tS-LkZ">
+                                        <rect key="frame" x="14" y="14" width="24" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="settings" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="Wf7-Dw-rsD">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="KZI-1n-q2z"/>
                                 <toolbarItem reference="1qu-sh-P4N"/>
+                                <toolbarItem reference="xHm-7f-PLM"/>
                                 <toolbarItem reference="kcB-kf-DEw"/>
                                 <toolbarItem reference="LDS-zm-AEa"/>
                                 <toolbarItem reference="MIW-Tn-3Vo"/>
@@ -459,11 +471,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="delete" width="24" height="24"/>
-        <image name="export" width="24" height="18"/>
+        <image name="delete" width="24" height="18"/>
+        <image name="export" width="24" height="24"/>
         <image name="import" width="24" height="18"/>
         <image name="listOff" width="24" height="18"/>
         <image name="listOn" width="24" height="18"/>
         <image name="new" width="24" height="18"/>
+        <image name="settings" width="24" height="18"/>
     </resources>
 </document>
