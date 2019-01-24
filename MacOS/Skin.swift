@@ -12,8 +12,11 @@ struct Skin {
     
     private static func light() -> Skin {
         var skin = Skin()
-        skin.background = .white
+        skin.background = NSColor(red:1, green:1, blue:1, alpha:1)
         skin.text = NSColor(red:0, green:0, blue:0, alpha:1)
+        skin.windowFrame = NSColor(red:0.666667, green:0.666667, blue:0.666667, alpha:1)
+        skin.windowFrameText = NSColor(red:0, green:0, blue:0, alpha:0.847059)
+        skin.selectedTextBackground = NSColor(red:0.701961, green:0.843137, blue:1, alpha:1)
         return skin
     }
     
@@ -29,7 +32,7 @@ struct Skin {
     
     private(set) var background = NSColor.textBackgroundColor
     private(set) var text = NSColor.textColor
-    private(set) var windowFrame = NSColor.windowFrameTextColor
+    private(set) var windowFrame = NSColor.windowFrameColor
     private(set) var windowFrameText = NSColor.windowFrameTextColor
     private(set) var selectedTextBackground = NSColor.selectedTextBackgroundColor
 }

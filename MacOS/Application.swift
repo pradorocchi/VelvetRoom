@@ -20,8 +20,6 @@ import AppKit
     func applicationDidFinishLaunching(_:Notification) {
         Application.view = NSApp.windows.first as? View
         Application.view.delegate = self
-        
-        print(NSColor.selectedTextBackgroundColor.usingColorSpace(.deviceRGB))
     }
     
     func applicationWillTerminate(_:Notification) {

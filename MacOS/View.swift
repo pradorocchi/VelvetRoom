@@ -121,6 +121,7 @@ class View:NSWindow {
     }
     
     private func list(_ boards:[Board]) {
+        selected = nil
         deleteButton.isEnabled = false
         exportButton.isEnabled = false
         progress.clear()
