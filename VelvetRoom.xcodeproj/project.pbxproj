@@ -25,6 +25,7 @@
 		20CADF9E21F99B8A005DC344 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9D21F99B8A005DC344 /* SettingsView.swift */; };
 		20CADFA021F9B1F1005DC344 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9F21F9B1F1005DC344 /* Appearance.swift */; };
 		20CADFA121F9B1F1005DC344 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9F21F9B1F1005DC344 /* Appearance.swift */; };
+		20CADFA521F9B8C2005DC344 /* Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADFA421F9B8C2005DC344 /* Skin.swift */; };
 		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20DBB0AA21EB5CF8009B9AAA /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20DBB0A921EB5CF8009B9AAA /* NotificationCenter.framework */; };
@@ -187,6 +188,7 @@
 		20C6F94321EA120E0069176F /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		20CADF9D21F99B8A005DC344 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		20CADF9F21F9B1F1005DC344 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		20CADFA421F9B8C2005DC344 /* Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skin.swift; sourceTree = "<group>"; };
 		20CD59BC21E0CD6B00ADF8BC /* Clean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clean.swift; sourceTree = "<group>"; };
 		20DBB0A821EB5CF8009B9AAA /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		20DBB0A921EB5CF8009B9AAA /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -415,6 +417,7 @@
 			isa = PBXGroup;
 			children = (
 				DAB2709021C3CA87008F184E /* Application.swift */,
+				20CADFA421F9B8C2005DC344 /* Skin.swift */,
 				DA7C744321C3E1C000B1F931 /* View.swift */,
 				20804BBC21E5E6470035535D /* Alert.swift */,
 				202D692621E230EC009398AB /* SheetView.swift */,
@@ -844,6 +847,7 @@
 				20804BBD21E5E6470035535D /* Alert.swift in Sources */,
 				DAFA95FD21CBDAAD00BA265C /* ItemView.swift in Sources */,
 				DA982ED921CD10540085480B /* CardView.swift in Sources */,
+				20CADFA521F9B8C2005DC344 /* Skin.swift in Sources */,
 				DA7C744421C3E1C000B1F931 /* View.swift in Sources */,
 				DA86474721C401DF00E4957B /* NSFont.swift in Sources */,
 				DAC2CDC321C8EDA700AD927B /* String.swift in Sources */,

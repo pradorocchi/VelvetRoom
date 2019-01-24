@@ -26,13 +26,19 @@ class View:NSWindow {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = .textBackgroundColor
+        backgroundColor = Application.skin.background
         makeOutlets()
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.select(board) } }
         repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
-        DispatchQueue.global(qos:.background).async { self.repository.load() }
+        DispatchQueue.global(qos:.background).async {
+            self.repository.load()
+            Application.skin = .appearance(self.repository.account.appearance)
+        }
         DispatchQueue.main.async { self.toggleList(self.listButton) }
+        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) { _ in
+            self.backgroundColor = Application.skin.background
+        }
     }
     
     func canvasChanged(_ animation:TimeInterval = 0.5) {

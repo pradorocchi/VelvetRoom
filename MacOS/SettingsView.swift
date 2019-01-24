@@ -43,7 +43,7 @@ class SettingsView:SheetView {
         
         let dark = NSButton()
         dark.target = self
-        dark.action = #selector(changeDark)
+        dark.action = #selector(makeDark)
         dark.image = NSImage(named:"dark")
         dark.imageScaling = .scaleNone
         dark.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +54,7 @@ class SettingsView:SheetView {
         
         let system = NSButton()
         system.target = self
-        system.action = #selector(changeSystem)
+        system.action = #selector(makeSystem)
         system.image = NSImage(named:"default")
         system.imageScaling = .scaleNone
         system.translatesAutoresizingMaskIntoConstraints = false
@@ -65,7 +65,7 @@ class SettingsView:SheetView {
         
         let light = NSButton()
         light.target = self
-        light.action = #selector(changeLight)
+        light.action = #selector(makeLight)
         light.image = NSImage(named:"light")
         light.imageScaling = .scaleNone
         light.translatesAutoresizingMaskIntoConstraints = false
@@ -209,25 +209,40 @@ class SettingsView:SheetView {
         changeFont(slider)
     }
     
-    @objc private func changeLight() {
+    private func changeLight() {
         light.alphaValue = 1
         dark.alphaValue = 0.3
         system.alphaValue = 0.3
-        Application.view.repository.change(.light)
     }
     
-    @objc private func changeDark() {
+    private func changeDark() {
         light.alphaValue = 0.3
         dark.alphaValue = 1
         system.alphaValue = 0.3
-        Application.view.repository.change(.dark)
     }
     
-    @objc private func changeSystem() {
+    private func changeSystem() {
         light.alphaValue = 0.3
         dark.alphaValue = 0.3
         system.alphaValue = 1
+    }
+    
+    @objc private func makeLight() {
+        changeLight()
+        Application.view.repository.change(.light)
+        Application.skin = .appearance(.light)
+    }
+    
+    @objc private func makeDark() {
+        changeDark()
+        Application.view.repository.change(.dark)
+        Application.skin = .appearance(.dark)
+    }
+    
+    @objc private func makeSystem() {
+        changeSystem()
         Application.view.repository.change(.system)
+        Application.skin = .appearance(.system)
     }
     
     @objc private func changeFont(_ slider:NSSlider) {
