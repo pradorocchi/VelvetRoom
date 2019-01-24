@@ -2,7 +2,7 @@ import AppKit
 import VelvetRoom
 
 class BoardView:NSControl, NSTextViewDelegate {
-    var selected = false { didSet { update() } }
+    var selected = false { didSet { updateSkin() } }
     private(set) weak var board:Board!
     private weak var text:TextView!
     override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:60) }
@@ -25,7 +25,7 @@ class BoardView:NSControl, NSTextViewDelegate {
         text.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:12).isActive = true
         
-        update()
+        updateSkin()
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -34,7 +34,7 @@ class BoardView:NSControl, NSTextViewDelegate {
         if event.clickCount == 2 {
             text.isEditable = true
             Application.view.makeFirstResponder(text)
-            update()
+            updateSkin()
         } else if !selected {
             sendAction(action, to:target)
         }
@@ -56,7 +56,7 @@ class BoardView:NSControl, NSTextViewDelegate {
             text.update()
         }
         Application.view.scheduleUpdate(board)
-        DispatchQueue.main.async { [weak self] in self?.update() }
+        DispatchQueue.main.async { [weak self] in self?.updateSkin() }
     }
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
@@ -71,16 +71,17 @@ class BoardView:NSControl, NSTextViewDelegate {
         return (text.string as NSString).replacingCharacters(in:range, with:replacementString ?? String()).count < 28
     }
     
-    private func update() {
+    private func updateSkin() {
         if Application.view.firstResponder === text {
-            layer!.backgroundColor = NSColor.selectedTextBackgroundColor.cgColor
+            layer!.backgroundColor = Application.skin.selectedTextBackground.cgColor
             text.alphaValue = 1
         } else if selected {
-            layer!.backgroundColor = NSColor.textColor.withAlphaComponent(0.2).cgColor
+            layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
             text.alphaValue = 0.8
         } else {
             layer!.backgroundColor = NSColor.clear.cgColor
             text.alphaValue = 0.8
         }
+        text.textColor = Application.skin.text
     }
 }

@@ -8,8 +8,8 @@ class ColumnView:EditView {
         super.init()
         text.textContainer!.size = NSSize(width:10000, height:40)
         text.font = .bold(18)
-        text.textColor = NSColor.textColor.withAlphaComponent(0.4)
         text.string = column.name
+        text.textColor = Application.skin.text.withAlphaComponent(0.4)
         text.update()
         self.column = column
     }
@@ -18,12 +18,12 @@ class ColumnView:EditView {
     
     override func beginEditing() {
         super.beginEditing()
-        text.textColor = .textColor
+        text.textColor = Application.skin.text
     }
     
     override func textDidEndEditing(_ notification:Notification) {
         column.name = text.string
-        text.textColor = NSColor.textColor.withAlphaComponent(0.4)
+        text.textColor = Application.skin.text.withAlphaComponent(0.4)
         if column.name.isEmpty {
             Application.view.makeFirstResponder(nil)
             Application.view.beginSheet(DeleteView(.local("DeleteView.column")) { [weak self] in

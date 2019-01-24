@@ -8,6 +8,8 @@ class View:NSWindow {
     private(set) weak var canvas:ScrollView!
     private(set) weak var borderLeft:NSLayoutConstraint!
     private weak var list:ScrollView!
+    private weak var gradient:NSView!
+    private weak var border:NSView!
     @IBOutlet private(set) weak var progress:ProgressView!
     @IBOutlet private weak var listButton:NSButton!
     @IBOutlet private weak var deleteButton:NSButton!
@@ -26,18 +28,18 @@ class View:NSWindow {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = Application.skin.background
         makeOutlets()
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.select(board) } }
         repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
+        updateSkin()
         DispatchQueue.global(qos:.background).async {
             self.repository.load()
             Application.skin = .appearance(self.repository.account.appearance)
         }
         DispatchQueue.main.async { self.toggleList(self.listButton) }
         NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) { _ in
-            self.backgroundColor = Application.skin.background
+            self.updateSkin()
         }
     }
     
@@ -82,16 +84,15 @@ class View:NSWindow {
         (gradient.layer as! CAGradientLayer).startPoint = CGPoint(x:0.5, y:0)
         (gradient.layer as! CAGradientLayer).endPoint = CGPoint(x:0.5, y:1)
         (gradient.layer as! CAGradientLayer).locations = [0, 1]
-        (gradient.layer as! CAGradientLayer).colors = [NSColor.textBackgroundColor.withAlphaComponent(0).cgColor,
-                                                       NSColor.textBackgroundColor.cgColor]
         gradient.wantsLayer = true
         contentView!.addSubview(gradient)
+        self.gradient = gradient
         
         let border = NSView()
         border.translatesAutoresizingMaskIntoConstraints = false
         border.wantsLayer = true
-        border.layer!.backgroundColor = NSColor.textColor.withAlphaComponent(0.2).cgColor
         contentView!.addSubview(border)
+        self.border = border
         
         gradient.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
         gradient.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
@@ -223,6 +224,13 @@ class View:NSWindow {
     
     private func view(_ board:Board) -> BoardView? {
         return list.documentView!.subviews.first(where: { ($0 as! BoardView).board === board } ) as? BoardView
+    }
+    
+    private func updateSkin() {
+        backgroundColor = Application.skin.background
+        (gradient.layer as! CAGradientLayer).colors = [Application.skin.background.withAlphaComponent(0).cgColor,
+                                                       Application.skin.background.cgColor]
+        border.layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
     }
     
     @objc private func select(view:BoardView) {

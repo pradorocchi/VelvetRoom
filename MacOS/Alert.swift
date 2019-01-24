@@ -22,7 +22,7 @@ class Alert {
         view.title = String()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.wantsLayer = true
-        view.layer!.backgroundColor = NSColor.windowFrameColor.withAlphaComponent(0.98).cgColor
+        view.layer!.backgroundColor = Application.skin.windowFrame.withAlphaComponent(0.98).cgColor
         view.layer!.cornerRadius = 6
         view.alphaValue = 0
         Application.view.contentView!.addSubview(view)
@@ -34,7 +34,7 @@ class Alert {
         message.isBezeled = false
         message.isEditable = false
         message.font = .systemFont(ofSize:16, weight:.regular)
-        message.textColor = .windowFrameTextColor
+        message.textColor = Application.skin.windowFrameText
         view.addSubview(message)
         
         viewBottom = view.bottomAnchor.constraint(equalTo:Application.view.contentView!.topAnchor)

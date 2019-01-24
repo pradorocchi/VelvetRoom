@@ -18,6 +18,8 @@ class EditView:ItemView, NSTextViewDelegate {
         text.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-10).isActive = true
         text.rightAnchor.constraint(equalTo:rightAnchor, constant:-10).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:14).isActive = true
+        
+        updateSkin()
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -65,7 +67,7 @@ class EditView:ItemView, NSTextViewDelegate {
     func beginDrag() {
         layer!.removeFromSuperlayer()
         superview!.layer!.addSublayer(layer!)
-        layer!.backgroundColor = NSColor.textColor.withAlphaComponent(0.1).cgColor
+        layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.1).cgColor
     }
     
     func endDrag(_ event:NSEvent) {
@@ -76,5 +78,9 @@ class EditView:ItemView, NSTextViewDelegate {
     func drag(deltaX:CGFloat, deltaY:CGFloat) {
         left.constant += deltaX
         top.constant += deltaY
+    }
+    
+    func updateSkin() {
+        text.textColor = Application.skin.text
     }
 }

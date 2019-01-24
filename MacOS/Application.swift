@@ -3,7 +3,7 @@ import AppKit
 @NSApplicationMain class Application:NSObject, NSApplicationDelegate, NSWindowDelegate {
     private(set) static weak var view:View!
     private(set) static weak var list:NSMenuItem!
-    static var skin = Skin.system() { didSet { NotificationCenter.default.post(name:.init("skin"), object:nil) } }
+    static var skin = Skin() { didSet { NotificationCenter.default.post(name:.init("skin"), object:nil) } }
     
     @IBOutlet private(set) weak var list:NSMenuItem! {
         get { return Application.list }
@@ -21,7 +21,7 @@ import AppKit
         Application.view = NSApp.windows.first as? View
         Application.view.delegate = self
         
-        print(NSColor.textBackgroundColor.usingColorSpace(.deviceRGB))
+        print(NSColor.selectedTextBackgroundColor.usingColorSpace(.deviceRGB))
     }
     
     func applicationWillTerminate(_:Notification) {
