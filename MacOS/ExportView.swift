@@ -17,6 +17,7 @@ class ExportView:SheetView {
         done.translatesAutoresizingMaskIntoConstraints = false
         done.isBordered = false
         done.keyEquivalent = "\u{1b}"
+        done.title = String()
         contentView!.addSubview(done)
         
         let mutable = NSMutableAttributedString()

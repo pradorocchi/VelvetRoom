@@ -92,6 +92,7 @@ class NewView:SheetView, NSTextFieldDelegate {
         none.action = #selector(selectNone)
         none.isBordered = false
         none.imageScaling = .scaleNone
+        none.title = String()
         contentView!.addSubview(none)
         self.none = none
         
@@ -102,6 +103,7 @@ class NewView:SheetView, NSTextFieldDelegate {
         single.action = #selector(selectSingle)
         single.isBordered = false
         single.imageScaling = .scaleNone
+        single.title = String()
         contentView!.addSubview(single)
         self.single = single
         
@@ -112,6 +114,7 @@ class NewView:SheetView, NSTextFieldDelegate {
         double.action = #selector(selectDouble)
         double.isBordered = false
         double.imageScaling = .scaleNone
+        double.title = String()
         contentView!.addSubview(double)
         self.double = double
         
@@ -122,6 +125,7 @@ class NewView:SheetView, NSTextFieldDelegate {
         triple.action = #selector(selectTriple)
         triple.isBordered = false
         triple.imageScaling = .scaleNone
+        triple.title = String()
         contentView!.addSubview(triple)
         self.triple = triple
         
