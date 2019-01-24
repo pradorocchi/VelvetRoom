@@ -104,4 +104,24 @@ class TestStorage:XCTestCase {
         _ = repository.rate()
         waitForExpectations(timeout:1)
     }
+    
+    func testAppearanceSavesAccount() {
+        let expect = expectation(description:String())
+        storage.onSaveAccount = {
+            XCTAssertEqual(.dark, self.repository.account.appearance)
+            expect.fulfill()
+        }
+        repository.change(.dark)
+        waitForExpectations(timeout:1)
+    }
+    
+    func testFontSavesAccount() {
+        let expect = expectation(description:String())
+        storage.onSaveAccount = {
+            XCTAssertEqual(30, self.repository.account.font)
+            expect.fulfill()
+        }
+        repository.change(30)
+        waitForExpectations(timeout:1)
+    }
 }

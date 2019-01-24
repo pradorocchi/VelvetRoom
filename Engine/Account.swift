@@ -1,11 +1,11 @@
 import Foundation
 
-struct Account:Codable {
+public struct Account:Codable {
+    public var appearance = Appearance.system
+    public var font = 14
     var boards = [String]()
     var rates = [Date]()
-    var appearance = Appearance.system
     var rateTries = 0
-    var font = 14
     
     public init() { }
     

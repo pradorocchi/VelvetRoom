@@ -4,8 +4,8 @@ public class Repository {
     public var list:(([Board]) -> Void)!
     public var select:((Board) -> Void)!
     public var error:((Error) -> Void)!
+    public internal(set) var account = Account()
     var boards = [Board]()
-    var account = Account()
     var storage:Storage = LocalStorage()
     var synch:Synch = CloudSynch()
     var wait = 1.0
@@ -127,6 +127,16 @@ public class Repository {
             }
             return $0
         }
+    }
+    
+    public func change(_ appearance:Appearance) {
+        account.appearance = appearance
+        storage.save(account)
+    }
+    
+    public func change(_ font:Int) {
+        account.font = font
+        storage.save(account)
     }
     
     public func scheduleUpdate(_ board:Board) {

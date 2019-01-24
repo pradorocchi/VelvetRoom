@@ -43,7 +43,7 @@ class SettingsView:SheetView {
         
         let dark = NSButton()
         dark.target = self
-        dark.action = #selector(end)
+        dark.action = #selector(changeDark)
         dark.image = NSImage(named:"dark")
         dark.imageScaling = .scaleNone
         dark.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +54,7 @@ class SettingsView:SheetView {
         
         let system = NSButton()
         system.target = self
-        system.action = #selector(end)
+        system.action = #selector(changeSystem)
         system.image = NSImage(named:"default")
         system.imageScaling = .scaleNone
         system.translatesAutoresizingMaskIntoConstraints = false
@@ -65,7 +65,7 @@ class SettingsView:SheetView {
         
         let light = NSButton()
         light.target = self
-        light.action = #selector(end)
+        light.action = #selector(changeLight)
         light.image = NSImage(named:"light")
         light.imageScaling = .scaleNone
         light.translatesAutoresizingMaskIntoConstraints = false
@@ -129,9 +129,11 @@ class SettingsView:SheetView {
         self.font = font
         
         let slider = NSSlider()
+        slider.target = self
+        slider.action = #selector(changeFont(_:))
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.minValue = 8
-        slider.maxValue = 30
+        slider.maxValue = 40
         contentView!.addSubview(slider)
         
         let done = NSButton()
@@ -196,5 +198,40 @@ class SettingsView:SheetView {
         done.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-20).isActive = true
         done.widthAnchor.constraint(equalToConstant:92).isActive = true
         done.heightAnchor.constraint(equalToConstant:34).isActive = true
+        
+        switch Application.view.repository.account.appearance {
+        case .light: changeLight()
+        case .dark: changeDark()
+        case .system: changeSystem()
+        }
+        
+        slider.integerValue = Application.view.repository.account.font
+        changeFont(slider)
+    }
+    
+    @objc private func changeLight() {
+        light.alphaValue = 1
+        dark.alphaValue = 0.3
+        system.alphaValue = 0.3
+        Application.view.repository.change(.light)
+    }
+    
+    @objc private func changeDark() {
+        light.alphaValue = 0.3
+        dark.alphaValue = 1
+        system.alphaValue = 0.3
+        Application.view.repository.change(.dark)
+    }
+    
+    @objc private func changeSystem() {
+        light.alphaValue = 0.3
+        dark.alphaValue = 0.3
+        system.alphaValue = 1
+        Application.view.repository.change(.system)
+    }
+    
+    @objc private func changeFont(_ slider:NSSlider) {
+        self.font.stringValue = "\(slider.integerValue)"
+        Application.view.repository.change(slider.integerValue)
     }
 }
