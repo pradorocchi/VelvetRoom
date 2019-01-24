@@ -5,6 +5,7 @@ class SettingsView:SheetView {
     private weak var dark:NSButton!
     private weak var system:NSButton!
     private weak var light:NSButton!
+    private weak var font:NSTextField!
     
     override init() {
         super.init()
@@ -73,6 +74,66 @@ class SettingsView:SheetView {
         contentView!.addSubview(light)
         self.light = light
         
+        let darkTitle = NSTextField()
+        darkTitle.translatesAutoresizingMaskIntoConstraints = false
+        darkTitle.backgroundColor = .clear
+        darkTitle.isBezeled = false
+        darkTitle.isEditable = false
+        darkTitle.font = .systemFont(ofSize:12, weight:.light)
+        darkTitle.textColor = .white
+        darkTitle.alignment = .center
+        darkTitle.stringValue = .local("SettingsView.darkTitle")
+        contentView!.addSubview(darkTitle)
+        
+        let systemTitle = NSTextField()
+        systemTitle.translatesAutoresizingMaskIntoConstraints = false
+        systemTitle.backgroundColor = .clear
+        systemTitle.isBezeled = false
+        systemTitle.isEditable = false
+        systemTitle.font = .systemFont(ofSize:12, weight:.light)
+        systemTitle.textColor = .white
+        systemTitle.alignment = .center
+        systemTitle.stringValue = .local("SettingsView.systemTitle")
+        contentView!.addSubview(systemTitle)
+        
+        let lightTitle = NSTextField()
+        lightTitle.translatesAutoresizingMaskIntoConstraints = false
+        lightTitle.backgroundColor = .clear
+        lightTitle.isBezeled = false
+        lightTitle.isEditable = false
+        lightTitle.font = .systemFont(ofSize:12, weight:.light)
+        lightTitle.textColor = .white
+        lightTitle.alignment = .center
+        lightTitle.stringValue = .local("SettingsView.lightTitle")
+        contentView!.addSubview(lightTitle)
+        
+        let fontTitle = NSTextField()
+        fontTitle.translatesAutoresizingMaskIntoConstraints = false
+        fontTitle.backgroundColor = .clear
+        fontTitle.isBezeled = false
+        fontTitle.isEditable = false
+        fontTitle.font = .systemFont(ofSize:16, weight:.medium)
+        fontTitle.textColor = .white
+        fontTitle.stringValue = .local("SettingsView.fontTitle")
+        contentView!.addSubview(fontTitle)
+        
+        let font = NSTextField()
+        font.translatesAutoresizingMaskIntoConstraints = false
+        font.backgroundColor = .clear
+        font.isBezeled = false
+        font.isEditable = false
+        font.font = .systemFont(ofSize:16, weight:.medium)
+        font.textColor = .white
+        font.alignment = .right
+        contentView!.addSubview(font)
+        self.font = font
+        
+        let slider = NSSlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.minValue = 8
+        slider.maxValue = 30
+        contentView!.addSubview(slider)
+        
         let done = NSButton()
         done.image = NSImage(named:"button")
         done.target = self
@@ -111,6 +172,25 @@ class SettingsView:SheetView {
         light.topAnchor.constraint(equalTo:system.topAnchor).isActive = true
         light.widthAnchor.constraint(equalToConstant:50).isActive = true
         light.heightAnchor.constraint(equalToConstant:50).isActive = true
+        
+        systemTitle.centerXAnchor.constraint(equalTo:system.centerXAnchor).isActive = true
+        systemTitle.topAnchor.constraint(equalTo:system.bottomAnchor, constant:5).isActive = true
+        
+        darkTitle.centerXAnchor.constraint(equalTo:dark.centerXAnchor).isActive = true
+        darkTitle.topAnchor.constraint(equalTo:systemTitle.topAnchor).isActive = true
+        
+        lightTitle.centerXAnchor.constraint(equalTo:light.centerXAnchor).isActive = true
+        lightTitle.topAnchor.constraint(equalTo:systemTitle.topAnchor).isActive = true
+        
+        fontTitle.topAnchor.constraint(equalTo:systemTitle.bottomAnchor, constant:150).isActive = true
+        fontTitle.leftAnchor.constraint(equalTo:appearanceTitle.leftAnchor).isActive = true
+        
+        font.topAnchor.constraint(equalTo:fontTitle.topAnchor).isActive = true
+        font.rightAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:200).isActive = true
+        
+        slider.topAnchor.constraint(equalTo:fontTitle.bottomAnchor, constant:20).isActive = true
+        slider.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
+        slider.widthAnchor.constraint(equalToConstant:400).isActive = true
         
         done.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
         done.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-20).isActive = true
