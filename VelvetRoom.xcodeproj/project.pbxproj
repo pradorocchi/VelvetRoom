@@ -22,6 +22,7 @@
 		20B40E9F21E88E7D00286E92 /* PicturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40E9E21E88E7D00286E92 /* PicturesView.swift */; };
 		20B40EA121E8951F00286E92 /* PictureCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40EA021E8951F00286E92 /* PictureCellView.swift */; };
 		20C6F94421EA120E0069176F /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C6F94321EA120E0069176F /* ExportView.swift */; };
+		20CADF9E21F99B8A005DC344 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9D21F99B8A005DC344 /* SettingsView.swift */; };
 		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20DBB0AA21EB5CF8009B9AAA /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20DBB0A921EB5CF8009B9AAA /* NotificationCenter.framework */; };
@@ -182,6 +183,7 @@
 		20B40E9E21E88E7D00286E92 /* PicturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesView.swift; sourceTree = "<group>"; };
 		20B40EA021E8951F00286E92 /* PictureCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCellView.swift; sourceTree = "<group>"; };
 		20C6F94321EA120E0069176F /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
+		20CADF9D21F99B8A005DC344 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		20CD59BC21E0CD6B00ADF8BC /* Clean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clean.swift; sourceTree = "<group>"; };
 		20DBB0A821EB5CF8009B9AAA /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		20DBB0A921EB5CF8009B9AAA /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -425,6 +427,7 @@
 				DA1544E221D2752600B9D9F7 /* DeleteView.swift */,
 				202D692821E231EF009398AB /* ExportView.swift */,
 				204B68FD21E338B10025261E /* ImportView.swift */,
+				20CADF9D21F99B8A005DC344 /* SettingsView.swift */,
 				202D0CF221EB3ED2002B2181 /* HelpView.swift */,
 				204B68FF21E347200025261E /* DropView.swift */,
 				DA16E00021CE8AFF00D21C7A /* TextView.swift */,
@@ -846,6 +849,7 @@
 				DA1ABDA921C9AFD500CE1462 /* ScrollView.swift in Sources */,
 				DA4C2AC521D4F4CB004988B4 /* ProgressView.swift in Sources */,
 				202D692921E231EF009398AB /* ExportView.swift in Sources */,
+				20CADF9E21F99B8A005DC344 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

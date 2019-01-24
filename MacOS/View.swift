@@ -328,6 +328,11 @@ class View:NSWindow {
         beginSheet(ImportView())
     }
     
+    @IBAction private func settings(_ sender:Any) {
+        makeFirstResponder(nil)
+        beginSheet(SettingsView())
+    }
+    
     @IBAction private func showHelp(_ sender:Any?) {
         HelpView().makeKeyAndOrderFront(nil)
     }

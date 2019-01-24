@@ -7,6 +7,7 @@ class ProgressView:NSControl {
     } }
     private weak var label:NSTextField!
     private weak var width:NSLayoutConstraint!
+    private weak var background:NSView!
     
     override func mouseDown(with event:NSEvent) {
         if !label.isHidden {
@@ -21,7 +22,9 @@ class ProgressView:NSControl {
         background.wantsLayer = true
         background.layer!.cornerRadius = 2
         background.layer!.backgroundColor = NSColor.velvetBlue.withAlphaComponent(0.4).cgColor
+        background.layer!.borderWidth = 1
         addSubview(background)
+        self.background = background
         
         let progress = NSView()
         progress.translatesAutoresizingMaskIntoConstraints = false
@@ -60,6 +63,7 @@ class ProgressView:NSControl {
     func clear() {
         label.isHidden = true
         animate(0)
+        background.layer!.borderColor = NSColor.clear.cgColor
     }
     
     private func animate(_ value:CGFloat) {
@@ -69,6 +73,7 @@ class ProgressView:NSControl {
                 context.duration = 1
                 context.allowsImplicitAnimation = true
                 layoutSubtreeIfNeeded()
+                background.layer!.borderColor = NSColor.velvetBlue.cgColor
             }
         }
     }

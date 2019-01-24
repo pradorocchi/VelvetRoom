@@ -11,7 +11,7 @@ class ExportView:SheetView {
         
         let done = NSButton()
         done.target = self
-        done.action = #selector(self.end)
+        done.action = #selector(end)
         done.image = NSImage(named:"delete")
         done.imageScaling = .scaleNone
         done.translatesAutoresizingMaskIntoConstraints = false
