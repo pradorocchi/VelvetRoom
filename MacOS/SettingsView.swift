@@ -6,6 +6,11 @@ class SettingsView:SheetView {
     private weak var system:NSButton!
     private weak var light:NSButton!
     private weak var font:NSTextField!
+    private weak var appearanceTitle:NSTextField!
+    private weak var darkTitle:NSTextField!
+    private weak var systemTitle:NSTextField!
+    private weak var lightTitle:NSTextField!
+    private weak var fontTitle:NSTextField!
     
     override init() {
         super.init()
@@ -37,9 +42,9 @@ class SettingsView:SheetView {
         appearanceTitle.isBezeled = false
         appearanceTitle.isEditable = false
         appearanceTitle.font = .systemFont(ofSize:16, weight:.medium)
-        appearanceTitle.textColor = .white
         appearanceTitle.stringValue = .local("SettingsView.appearanceTitle")
         contentView!.addSubview(appearanceTitle)
+        self.appearanceTitle = appearanceTitle
         
         let dark = NSButton()
         dark.target = self
@@ -80,10 +85,10 @@ class SettingsView:SheetView {
         darkTitle.isBezeled = false
         darkTitle.isEditable = false
         darkTitle.font = .systemFont(ofSize:12, weight:.light)
-        darkTitle.textColor = .white
         darkTitle.alignment = .center
         darkTitle.stringValue = .local("SettingsView.darkTitle")
         contentView!.addSubview(darkTitle)
+        self.darkTitle = darkTitle
         
         let systemTitle = NSTextField()
         systemTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -91,10 +96,10 @@ class SettingsView:SheetView {
         systemTitle.isBezeled = false
         systemTitle.isEditable = false
         systemTitle.font = .systemFont(ofSize:12, weight:.light)
-        systemTitle.textColor = .white
         systemTitle.alignment = .center
         systemTitle.stringValue = .local("SettingsView.systemTitle")
         contentView!.addSubview(systemTitle)
+        self.systemTitle = systemTitle
         
         let lightTitle = NSTextField()
         lightTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -102,10 +107,10 @@ class SettingsView:SheetView {
         lightTitle.isBezeled = false
         lightTitle.isEditable = false
         lightTitle.font = .systemFont(ofSize:12, weight:.light)
-        lightTitle.textColor = .white
         lightTitle.alignment = .center
         lightTitle.stringValue = .local("SettingsView.lightTitle")
         contentView!.addSubview(lightTitle)
+        self.lightTitle = lightTitle
         
         let fontTitle = NSTextField()
         fontTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -113,9 +118,9 @@ class SettingsView:SheetView {
         fontTitle.isBezeled = false
         fontTitle.isEditable = false
         fontTitle.font = .systemFont(ofSize:16, weight:.medium)
-        fontTitle.textColor = .white
         fontTitle.stringValue = .local("SettingsView.fontTitle")
         contentView!.addSubview(fontTitle)
+        self.fontTitle = fontTitle
         
         let font = NSTextField()
         font.translatesAutoresizingMaskIntoConstraints = false
@@ -123,7 +128,6 @@ class SettingsView:SheetView {
         font.isBezeled = false
         font.isEditable = false
         font.font = .systemFont(ofSize:16, weight:.medium)
-        font.textColor = .white
         font.alignment = .right
         contentView!.addSubview(font)
         self.font = font
@@ -207,6 +211,38 @@ class SettingsView:SheetView {
         
         slider.integerValue = Application.view.repository.account.font
         font.stringValue = "\(slider.integerValue)"
+        updateSkin(0)
+        
+        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) {
+            [weak self] _ in
+            self?.updateSkin(2)
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func updateSkin(_ animation:TimeInterval) {
+        if #available(OSX 10.12, *) {
+            NSAnimationContext.runAnimationGroup { context in
+                context.duration = animation
+                context.allowsImplicitAnimation = true
+                performAnimateSkin()
+            }
+        } else {
+            performAnimateSkin()
+        }
+    }
+    
+    private func performAnimateSkin() {
+        contentView!.layer!.backgroundColor = Application.skin.background.cgColor
+        appearanceTitle.textColor = Application.skin.text
+        darkTitle.textColor = Application.skin.text
+        systemTitle.textColor = Application.skin.text
+        lightTitle.textColor = Application.skin.text
+        fontTitle.textColor = Application.skin.text
+        font.textColor = Application.skin.text
     }
     
     private func changeLight() {
