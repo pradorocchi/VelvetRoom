@@ -182,7 +182,6 @@ class View:NSWindow {
         while sibling != nil {
             let right = maxRight
             var bottom = CGFloat(56)
-            
             var child = sibling
             sibling = sibling!.sibling
             while child != nil {

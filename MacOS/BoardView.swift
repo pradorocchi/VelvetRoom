@@ -5,7 +5,7 @@ class BoardView:NSControl, NSTextViewDelegate {
     var selected = false { didSet { updateSkin() } }
     private(set) weak var board:Board!
     private weak var text:TextView!
-    override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:60) }
+    override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:85) }
     
     init(_ board:Board) {
         super.init(frame:.zero)
@@ -14,8 +14,8 @@ class BoardView:NSControl, NSTextViewDelegate {
         self.board = board
         
         let text = TextView()
-        text.textContainer!.size = NSSize(width:250, height:30)
-        text.font = .light(13)
+        text.textContainer!.size = NSSize(width:250, height:CGFloat(Application.view.repository.account.font + 16))
+        text.font = .light(CGFloat(Application.view.repository.account.font - 1))
         text.delegate = self
         text.string = board.name
         text.update()
@@ -72,8 +72,10 @@ class BoardView:NSControl, NSTextViewDelegate {
     }
     
     private func updateSkin() {
+        text.textColor = Application.skin.text
         if Application.view.firstResponder === text {
-            layer!.backgroundColor = Application.skin.selectedTextBackground.cgColor
+            layer!.backgroundColor = .black
+            text.textColor = .white
             text.alphaValue = 1
         } else if selected {
             layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
@@ -82,6 +84,5 @@ class BoardView:NSControl, NSTextViewDelegate {
             layer!.backgroundColor = NSColor.clear.cgColor
             text.alphaValue = 0.8
         }
-        text.textColor = Application.skin.text
     }
 }

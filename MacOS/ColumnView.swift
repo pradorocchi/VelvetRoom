@@ -6,8 +6,8 @@ class ColumnView:EditView {
     
     init(_ column:Column) {
         super.init()
-        text.textContainer!.size = NSSize(width:10000, height:40)
-        text.font = .bold(18)
+        text.textContainer!.size = NSSize(width:10000, height:CGFloat(Application.view.repository.account.font + 46))
+        text.font = .bold(CGFloat(Application.view.repository.account.font + 6))
         text.string = column.name
         text.textColor = Application.skin.text.withAlphaComponent(0.4)
         text.update()

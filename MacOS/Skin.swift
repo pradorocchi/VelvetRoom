@@ -12,27 +12,18 @@ struct Skin {
     
     private static func light() -> Skin {
         var skin = Skin()
-        skin.background = NSColor(red:1, green:1, blue:1, alpha:1)
-        skin.text = NSColor(red:0, green:0, blue:0, alpha:1)
-        skin.windowFrame = NSColor(red:0.666667, green:0.666667, blue:0.666667, alpha:1)
-        skin.windowFrameText = NSColor(red:0, green:0, blue:0, alpha:0.847059)
-        skin.selectedTextBackground = NSColor(red:0.701961, green:0.843137, blue:1, alpha:1)
+        skin.background = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        skin.text = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         return skin
     }
     
     private static func dark() -> Skin {
         var skin = Skin()
-        skin.background = NSColor(red:0.117647, green:0.117647, blue:0.117647, alpha:1)
-        skin.text = NSColor(red:1, green:1, blue:1, alpha:1)
-        skin.windowFrame = NSColor(red:0.666667, green:0.666667, blue:0.666667, alpha:1)
-        skin.windowFrameText = NSColor(red:1, green:1, blue:1, alpha:0.847059)
-        skin.selectedTextBackground = NSColor(red:0.247059, green:0.388235, blue:0.545098, alpha:1)
+        skin.background = #colorLiteral(red: 0.1215686275, green: 0.1450980392, blue: 0.1647058824, alpha: 1)
+        skin.text = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return skin
     }
     
     private(set) var background = NSColor.textBackgroundColor
     private(set) var text = NSColor.textColor
-    private(set) var windowFrame = NSColor.windowFrameColor
-    private(set) var windowFrameText = NSColor.windowFrameTextColor
-    private(set) var selectedTextBackground = NSColor.selectedTextBackgroundColor
 }

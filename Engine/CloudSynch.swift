@@ -20,7 +20,6 @@ class CloudSynch:Synch {
                     monitor.start(queue:LocalStorage.queue)
                     monitor.pathUpdateHandler = {
                         self.network = $0.status == .satisfied
-                        print(self.network)
                     }
                     self.monitor = monitor
                 }
@@ -84,7 +83,7 @@ class CloudSynch:Synch {
     }
     
     private func fetch() {
-        if Date().timeIntervalSince1970 - lastFetch > 5,
+        if Date().timeIntervalSince1970 - lastFetch > 3,
             let account = NSUbiquitousKeyValueStore.default.dictionary(
             forKey:"velvetroom.boards") as? [String:TimeInterval] {
             lastFetch = Date().timeIntervalSince1970

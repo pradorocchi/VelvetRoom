@@ -7,7 +7,7 @@ class CardView:EditView {
     init(_ card:Card) {
         super.init()
         text.textContainer!.size = NSSize(width:400, height:1000000)
-        text.font = .light(14)
+        text.font = .light(CGFloat(Application.view.repository.account.font))
         text.string = card.content
         text.update()
         self.card = card

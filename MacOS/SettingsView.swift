@@ -133,7 +133,7 @@ class SettingsView:SheetView {
         slider.action = #selector(changeFont(_:))
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.minValue = 8
-        slider.maxValue = 40
+        slider.maxValue = 32
         contentView!.addSubview(slider)
         
         let done = NSButton()
@@ -206,7 +206,7 @@ class SettingsView:SheetView {
         }
         
         slider.integerValue = Application.view.repository.account.font
-        changeFont(slider)
+        font.stringValue = "\(slider.integerValue)"
     }
     
     private func changeLight() {
@@ -246,7 +246,7 @@ class SettingsView:SheetView {
     }
     
     @objc private func changeFont(_ slider:NSSlider) {
-        self.font.stringValue = "\(slider.integerValue)"
+        font.stringValue = "\(slider.integerValue)"
         Application.view.repository.change(slider.integerValue)
     }
 }
