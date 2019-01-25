@@ -43,7 +43,7 @@ class ChartView:UIViewController {
         done.titleLabel!.font = .systemFont(ofSize:15, weight:.medium)
         view.addSubview(done)
         
-        title.leftAnchor.constraint(equalTo:view.leftAnchor, constant:32).isActive = true
+        title.leftAnchor.constraint(equalTo:view.leftAnchor, constant:30).isActive = true
         title.heightAnchor.constraint(equalToConstant:30).isActive = true
         
         back.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
