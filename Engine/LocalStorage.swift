@@ -18,13 +18,13 @@ class LocalStorage:Storage {
     
     func save(_ account:Account) {
         LocalStorage.queue.async {
-            try! (try! JSONEncoder().encode(account)).write(to:self.accountUrl)
+            try! (try! JSONEncoder().encode(account)).write(to:self.accountUrl, options:.atomic)
         }
     }
     
     func save(_ board:Board) {
         LocalStorage.queue.async {
-            try! (try! JSONEncoder().encode(board)).write(to:LocalStorage.url(board.id))
+            try! (try! JSONEncoder().encode(board)).write(to:LocalStorage.url(board.id), options:.atomic)
         }
     }
     
