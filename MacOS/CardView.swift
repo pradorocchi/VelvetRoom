@@ -19,9 +19,7 @@ class CardView:EditView {
         card.content = text.string
         if card.content.isEmpty {
             Application.view.makeFirstResponder(nil)
-            Application.view.beginSheet(DeleteView(.local("DeleteView.card")) { [weak self] in
-                self?.confirmDelete()
-            })
+            confirmDelete()
         } else {
             text.string = card.content
             text.update()
