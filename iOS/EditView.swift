@@ -9,7 +9,7 @@ class EditView:ItemView, UITextViewDelegate {
     
     override init() {
         super.init()
-        layer.cornerRadius = 6
+        layer.cornerRadius = 4
         
         let dragGesture = UIPanGestureRecognizer(target:self, action:#selector(drag(_:)))
         addGestureRecognizer(dragGesture)

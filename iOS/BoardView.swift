@@ -8,7 +8,7 @@ class BoardView:UIControl, UITextViewDelegate {
     private weak var text:TextView!
     private weak var delete:UIButton!
     private weak var export:UIButton!
-    override var intrinsicContentSize:CGSize { return CGSize(width:UIView.noIntrinsicMetric, height:54) }
+    override var intrinsicContentSize:CGSize { return CGSize(width:UIView.noIntrinsicMetric, height:70) }
     
     init(_ board:Board) {
         super.init(frame:.zero)
@@ -21,7 +21,7 @@ class BoardView:UIControl, UITextViewDelegate {
         self.board = board
         
         let text = TextView()
-        text.font = .systemFont(ofSize:14, weight:.bold)
+        text.font = .systemFont(ofSize:CGFloat(Application.view.repository.account.font), weight:.bold)
         text.delegate = self
         text.text = board.name
         text.textContainer.maximumNumberOfLines = 1
@@ -50,7 +50,6 @@ class BoardView:UIControl, UITextViewDelegate {
         text.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:12).isActive = true
         text.rightAnchor.constraint(equalTo:delete.leftAnchor, constant:-10).isActive = true
-        text.heightAnchor.constraint(equalToConstant:22).isActive = true
         
         delete.topAnchor.constraint(equalTo:topAnchor).isActive = true
         delete.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true

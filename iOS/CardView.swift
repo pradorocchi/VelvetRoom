@@ -6,7 +6,7 @@ class CardView:EditView {
     
     init(_ card:Card) {
         super.init()
-        text.font = .light(14)
+        text.font = .light(CGFloat(Application.view.repository.account.font))
         text.text = card.content
         text.onDelete = {
             if !self.text.text.isEmpty {

@@ -226,7 +226,7 @@ class View:UIViewController {
         
         titleLabel.heightAnchor.constraint(equalToConstant:30).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo:newButton.centerYAnchor).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo:settingsButton.rightAnchor, constant:32).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo:settingsButton.rightAnchor, constant:30).isActive = true
         titleLabel.rightAnchor.constraint(equalTo:progressButton.leftAnchor).isActive = true
         
         boardsScroll.topAnchor.constraint(equalTo:view.topAnchor).isActive = true

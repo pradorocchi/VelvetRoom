@@ -151,7 +151,7 @@ class SettingsView:UIViewController {
         }
         
         slider.value = Float(Application.view.repository.account.font)
-        font.text = "\(Application.view.repository.account.font)"
+        font.text = "\(Int(slider.value))"
         
         if Application.view.repository.account.appearance == .light {
             changeLight()

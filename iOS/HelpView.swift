@@ -3,7 +3,7 @@ import UIKit
 class HelpView:UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .velvetShade
+        view.backgroundColor = Application.skin.over
         makeOutlets()
     }
     
@@ -17,7 +17,7 @@ class HelpView:UIViewController {
         
         let labelVersion = UILabel()
         labelVersion.translatesAutoresizingMaskIntoConstraints = false
-        labelVersion.textColor = .white
+        labelVersion.textColor = Application.skin.text
         labelVersion.font = .systemFont(ofSize:12, weight:.ultraLight)
         labelVersion.text = .local("HelpView.version") +
             (Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)
@@ -39,7 +39,7 @@ class HelpView:UIViewController {
         view.addSubview(imageView)
         
         let text = TextView()
-        text.font = .light(14)
+        text.font = .light(CGFloat(Application.view.repository.account.font))
         text.text = .local("HelpView.content")
         view.addSubview(text)
         

@@ -6,14 +6,14 @@ class ColumnView:EditView {
     
     init(_ column:Column) {
         super.init()
-        text.font = .bold(20)
+        text.font = .bold(CGFloat(Application.view.repository.account.font + 6))
         text.alpha = 0.4
         text.text = column.name
         text.textContainer.maximumNumberOfLines = 1
         text.onDelete = { if !self.text.text.isEmpty { self.askDelete() } }
         self.column = column
         
-        text.heightAnchor.constraint(equalToConstant:24).isActive = true
+//        text.heightAnchor.constraint(equalToConstant:24).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }
