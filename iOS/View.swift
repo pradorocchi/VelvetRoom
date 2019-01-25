@@ -140,14 +140,6 @@ class View:UIViewController {
         newButton.imageView!.contentMode = .center
         view.addSubview(newButton)
         
-        let helpButton = UIButton()
-        helpButton.addTarget(self, action:#selector(help), for:.touchUpInside)
-        helpButton.translatesAutoresizingMaskIntoConstraints = false
-        helpButton.setImage(#imageLiteral(resourceName: "help.pdf"), for:.normal)
-        helpButton.imageView!.clipsToBounds = true
-        helpButton.imageView!.contentMode = .center
-        view.addSubview(helpButton)
-        
         let settingsButton = UIButton()
         settingsButton.addTarget(self, action:#selector(settings), for:.touchUpInside)
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
@@ -155,6 +147,14 @@ class View:UIViewController {
         settingsButton.imageView!.clipsToBounds = true
         settingsButton.imageView!.contentMode = .center
         view.addSubview(settingsButton)
+        
+        let helpButton = UIButton()
+        helpButton.addTarget(self, action:#selector(help), for:.touchUpInside)
+        helpButton.translatesAutoresizingMaskIntoConstraints = false
+        helpButton.setImage(#imageLiteral(resourceName: "help.pdf"), for:.normal)
+        helpButton.imageView!.clipsToBounds = true
+        helpButton.imageView!.contentMode = .center
+        view.addSubview(helpButton)
         
         let progressButton = ProgressView()
         progressButton.addTarget(self, action:#selector(progress), for:.touchUpInside)
@@ -202,12 +202,12 @@ class View:UIViewController {
         helpButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
         helpButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         helpButton.widthAnchor.constraint(equalToConstant:64).isActive = true
-        helpButton.leftAnchor.constraint(equalTo:newButton.rightAnchor).isActive = true
+        helpButton.leftAnchor.constraint(equalTo:settingsButton.rightAnchor).isActive = true
         
         settingsButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
         settingsButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         settingsButton.widthAnchor.constraint(equalToConstant:64).isActive = true
-        settingsButton.leftAnchor.constraint(equalTo:helpButton.rightAnchor).isActive = true
+        settingsButton.leftAnchor.constraint(equalTo:newButton.rightAnchor).isActive = true
         
         loadButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
         loadButton.widthAnchor.constraint(equalToConstant:64).isActive = true
@@ -226,7 +226,7 @@ class View:UIViewController {
         
         titleLabel.heightAnchor.constraint(equalToConstant:30).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo:newButton.centerYAnchor).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo:settingsButton.rightAnchor, constant:30).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo:helpButton.rightAnchor, constant:30).isActive = true
         titleLabel.rightAnchor.constraint(equalTo:progressButton.leftAnchor).isActive = true
         
         boardsScroll.topAnchor.constraint(equalTo:view.topAnchor).isActive = true

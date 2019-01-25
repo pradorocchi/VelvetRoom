@@ -22,7 +22,7 @@ class DeleteView:UIViewController {
         let blur = UIVisualEffectView(effect:UIBlurEffect(style:.dark))
         blur.translatesAutoresizingMaskIntoConstraints = false
         blur.isUserInteractionEnabled = false
-        blur.alpha = 0.94
+        blur.alpha = 0.96
         view.addSubview(blur)
         
         let back = UIControl()

@@ -32,14 +32,14 @@
                                     <constraint firstAttribute="height" constant="50" id="R3c-f0-lfU"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help" translatesAutoresizingMaskIntoConstraints="NO" id="dSY-Jh-KAa">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="dSY-Jh-KAa">
                                 <rect key="frame" x="128" y="20" width="64" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="3v7-69-KSC"/>
                                     <constraint firstAttribute="width" constant="64" id="UDy-wJ-3d9"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="EIE-uT-2Qz">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help" translatesAutoresizingMaskIntoConstraints="NO" id="EIE-uT-2Qz">
                                 <rect key="frame" x="192" y="20" width="64" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="FBE-It-NOc"/>

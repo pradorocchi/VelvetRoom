@@ -3,7 +3,7 @@ import UIKit
 class ProgressView:UIControl {
     var progress:Float = 0 { didSet {
         width.constant = CGFloat(progress) * 24
-        UIView.animate(withDuration:1) { self.layoutIfNeeded() }
+        UIView.animate(withDuration:1) { [weak self] in self?.layoutIfNeeded() }
     } }
     override var isSelected:Bool { didSet { update() } }
     override var isHighlighted:Bool { didSet { update() } }
@@ -19,6 +19,8 @@ class ProgressView:UIControl {
         background.backgroundColor = UIColor.velvetBlue.withAlphaComponent(0.4)
         background.clipsToBounds = true
         background.isUserInteractionEnabled = false
+        background.layer.borderWidth = 1
+        background.layer.borderColor = UIColor.velvetBlue.cgColor
         addSubview(background)
         
         let progress = UIView()
