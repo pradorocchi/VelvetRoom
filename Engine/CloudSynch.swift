@@ -9,6 +9,7 @@ class CloudSynch:Synch {
     private var started = false
     private var network = true
     private var monitor:Any?
+    private var lastFetch = TimeInterval()
     
     func start() {
         LocalStorage.queue.async {
@@ -19,6 +20,7 @@ class CloudSynch:Synch {
                     monitor.start(queue:LocalStorage.queue)
                     monitor.pathUpdateHandler = {
                         self.network = $0.status == .satisfied
+                        print(self.network)
                     }
                     self.monitor = monitor
                 }
@@ -76,12 +78,16 @@ class CloudSynch:Synch {
         if started && FileManager.default.ubiquityIdentityToken == nil {
             started = false
             error(Exception.noIcloudToken)
+        } else {
+            fetch()
         }
     }
     
     private func fetch() {
-        if let account = NSUbiquitousKeyValueStore.default.dictionary(
+        if Date().timeIntervalSince1970 - lastFetch > 5,
+            let account = NSUbiquitousKeyValueStore.default.dictionary(
             forKey:"velvetroom.boards") as? [String:TimeInterval] {
+            lastFetch = Date().timeIntervalSince1970
             notification(account)
         }
     }
