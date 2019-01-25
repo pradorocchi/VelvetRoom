@@ -32,13 +32,15 @@ class View:NSWindow {
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.select(board) } }
         repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
-        updateSkin()
+        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) { _ in
+            self.updateSkin()
+        }
         DispatchQueue.global(qos:.background).async {
             self.repository.load()
             Application.skin = .appearance(self.repository.account.appearance)
         }
-        DispatchQueue.main.async { self.toggleList(self.listButton) }
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) { _ in
+        DispatchQueue.main.async {
+            self.toggleList(self.listButton)
             self.updateSkin()
         }
     }
@@ -231,6 +233,7 @@ class View:NSWindow {
         (gradient.layer as! CAGradientLayer).colors = [Application.skin.background.withAlphaComponent(0).cgColor,
                                                        Application.skin.background.cgColor]
         border.layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
+        canvas.horizontalScroller!.knobStyle = Application.skin.scroller
     }
     
     @objc private func select(view:BoardView) {
@@ -245,6 +248,7 @@ class View:NSWindow {
         progress.progress = view.board.progress
         if #available(OSX 10.12, *) {
             DispatchQueue.main.async {
+                self.canvas.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
                 NSAnimationContext.runAnimationGroup { context in
                     context.duration = 0.7
                     context.allowsImplicitAnimation = true

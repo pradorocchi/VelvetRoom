@@ -16,6 +16,8 @@
 		202D693021E23D9B009398AB /* Sharer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692C21E23D2B009398AB /* Sharer.swift */; };
 		204B68FE21E338B10025261E /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FD21E338B10025261E /* ImportView.swift */; };
 		204B690021E347200025261E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FF21E347200025261E /* DropView.swift */; };
+		205A65A121FB081100F59461 /* Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A65A021FB081100F59461 /* Skin.swift */; };
+		205A65A321FB133D00F59461 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A65A221FB133D00F59461 /* SettingsView.swift */; };
 		20804BBB21E5E6360035535D /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804BBA21E5E6360035535D /* Alert.swift */; };
 		20804BBD21E5E6470035535D /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804BBC21E5E6470035535D /* Alert.swift */; };
 		20B40E9D21E8756A00286E92 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40E9C21E8756A00286E92 /* CameraView.swift */; };
@@ -181,6 +183,8 @@
 		202D692C21E23D2B009398AB /* Sharer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sharer.swift; sourceTree = "<group>"; };
 		204B68FD21E338B10025261E /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		204B68FF21E347200025261E /* DropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
+		205A65A021FB081100F59461 /* Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skin.swift; sourceTree = "<group>"; };
+		205A65A221FB133D00F59461 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		20804BBA21E5E6360035535D /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		20804BBC21E5E6470035535D /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		20B40E9C21E8756A00286E92 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -380,6 +384,7 @@
 			children = (
 				DAB2708221C3CA7C008F184E /* Application.swift */,
 				DAD7B78021D654E3003396B1 /* View.swift */,
+				205A65A021FB081100F59461 /* Skin.swift */,
 				20804BBA21E5E6360035535D /* Alert.swift */,
 				20EC12DA21E4F63A00375670 /* GradientView.swift */,
 				20B40E9C21E8756A00286E92 /* CameraView.swift */,
@@ -388,6 +393,7 @@
 				20C6F94321EA120E0069176F /* ExportView.swift */,
 				DAD7B78821D660E6003396B1 /* NewView.swift */,
 				DA88A21C21D8DB6000144E39 /* DeleteView.swift */,
+				205A65A221FB133D00F59461 /* SettingsView.swift */,
 				DA00F0D121DA3C92002FD057 /* ChartView.swift */,
 				202D0CF421EB4D71002B2181 /* HelpView.swift */,
 				20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */,
@@ -885,12 +891,14 @@
 				DAD7B78921D660E6003396B1 /* NewView.swift in Sources */,
 				DA0A146C21D779B600CF4BDD /* BoardView.swift in Sources */,
 				DA0A147221D77A7700CF4BDD /* TextStorage.swift in Sources */,
+				205A65A121FB081100F59461 /* Skin.swift in Sources */,
 				DA0A146E21D77A2A00CF4BDD /* TextView.swift in Sources */,
 				DAD7B78121D654E3003396B1 /* View.swift in Sources */,
 				DAADDD6821D8E8D60038F85F /* ItemView.swift in Sources */,
 				DAADDD6C21D8E96B0038F85F /* EditView.swift in Sources */,
 				202D0CF521EB4D71002B2181 /* HelpView.swift in Sources */,
 				20B40E9D21E8756A00286E92 /* CameraView.swift in Sources */,
+				205A65A321FB133D00F59461 /* SettingsView.swift in Sources */,
 				DA88A21D21D8DB6000144E39 /* DeleteView.swift in Sources */,
 				DA0A147021D77A6A00CF4BDD /* TextLayout.swift in Sources */,
 				DAADDD7021D8EA680038F85F /* CardView.swift in Sources */,

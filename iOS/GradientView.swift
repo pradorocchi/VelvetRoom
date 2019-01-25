@@ -10,8 +10,16 @@ class GradientView:UIView {
         (layer as! CAGradientLayer).startPoint = CGPoint(x:0.5, y:0)
         (layer as! CAGradientLayer).endPoint = CGPoint(x:0.5, y:1)
         (layer as! CAGradientLayer).locations = [0, 1]
-        (layer as! CAGradientLayer).colors = [UIColor(white:0, alpha:0.95).cgColor, UIColor.clear.cgColor]
+        updateSkin()
+        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) { _ in
+            self.updateSkin()
+        }
     }
     
     required init?(coder:NSCoder) { return nil }
+    
+    private func updateSkin() {
+        (layer as! CAGradientLayer).colors = [Application.skin.background.withAlphaComponent(0.95).cgColor,
+                                              Application.skin.background.withAlphaComponent(0).cgColor]
+    }
 }

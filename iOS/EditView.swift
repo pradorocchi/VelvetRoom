@@ -57,7 +57,7 @@ class EditView:ItemView, UITextViewDelegate {
         dragY = 0
         longGesture.isEnabled = false
         superview!.bringSubviewToFront(self)
-        backgroundColor = .velvetShade
+        backgroundColor = Application.skin.over
     }
     
     func endDrag() {

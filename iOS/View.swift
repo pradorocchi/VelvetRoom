@@ -13,6 +13,7 @@ class View:UIViewController {
     private weak var emptyButton:UIButton!
     private weak var titleLabel:UILabel!
     private weak var boards:UIView!
+    private weak var canvasScroll:UIScrollView!
     private weak var boardsBottom:NSLayoutConstraint! { willSet { newValue.isActive = true } }
     private weak var boardsRight:NSLayoutConstraint! { willSet { newValue.isActive = true } }
     private weak var loadLeft:NSLayoutConstraint! { willSet { newValue.isActive = true } }
@@ -39,15 +40,22 @@ class View:UIViewController {
             self.list(boards)
             self.showList()
         } }
+        updateSkin()
+        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) { _ in
+            self.updateSkin()
+        }
         listenKeyboard()
-        DispatchQueue.global(qos:.background).async { self.repository.load() }
+        DispatchQueue.global(qos:.background).async {
+            self.repository.load()
+            Application.skin = .appearance(self.repository.account.appearance)
+        }
     }
     
     func open(_ board:Board) {
         selected = board
         progressButton.progress = board.progress
         titleLabel.text = board.name
-        loadLeft.constant = -192
+        loadLeft.constant = -256
         progressLeft.constant = -128
         boardsRight.constant = view.bounds.width
         (canvas.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:false)
@@ -89,7 +97,8 @@ class View:UIViewController {
         let boardsScroll = UIScrollView()
         boardsScroll.translatesAutoresizingMaskIntoConstraints = false
         boardsScroll.alwaysBounceVertical = true
-        boardsScroll.indicatorStyle = .white
+        boardsScroll.showsVerticalScrollIndicator = false
+        boardsScroll.showsHorizontalScrollIndicator = false
         view.addSubview(boardsScroll)
         
         let boards = UIView()
@@ -105,14 +114,15 @@ class View:UIViewController {
         canvasScroll.scrollIndicatorInsets = UIEdgeInsets(top:0, left:20, bottom:0, right:20)
         canvasScroll.indicatorStyle = .white
         view.addSubview(canvasScroll)
+        self.canvasScroll = canvasScroll
         
         let canvas = UIView()
         canvas.translatesAutoresizingMaskIntoConstraints = false
         canvasScroll.addSubview(canvas)
         self.canvas = canvas
         
-        let bar = GradientView()
-        view.addSubview(bar)
+        let gradient = GradientView()
+        view.addSubview(gradient)
         
         let loadButton = UIButton()
         loadButton.addTarget(self, action:#selector(load(_:)), for:.touchUpInside)
@@ -137,6 +147,14 @@ class View:UIViewController {
         helpButton.imageView!.clipsToBounds = true
         helpButton.imageView!.contentMode = .center
         view.addSubview(helpButton)
+        
+        let settingsButton = UIButton()
+        settingsButton.addTarget(self, action:#selector(settings), for:.touchUpInside)
+        settingsButton.translatesAutoresizingMaskIntoConstraints = false
+        settingsButton.setImage(#imageLiteral(resourceName: "settings.pdf"), for:.normal)
+        settingsButton.imageView!.clipsToBounds = true
+        settingsButton.imageView!.contentMode = .center
+        view.addSubview(settingsButton)
         
         let progressButton = ProgressView()
         progressButton.addTarget(self, action:#selector(progress), for:.touchUpInside)
@@ -172,10 +190,10 @@ class View:UIViewController {
         view.addSubview(emptyButton)
         self.emptyButton = emptyButton
         
-        bar.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        bar.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        bar.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
-        bar.heightAnchor.constraint(equalToConstant:60).isActive = true
+        gradient.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
+        gradient.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+        gradient.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        gradient.heightAnchor.constraint(equalToConstant:60).isActive = true
         
         newButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         newButton.widthAnchor.constraint(equalToConstant:64).isActive = true
@@ -185,6 +203,11 @@ class View:UIViewController {
         helpButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         helpButton.widthAnchor.constraint(equalToConstant:64).isActive = true
         helpButton.leftAnchor.constraint(equalTo:newButton.rightAnchor).isActive = true
+        
+        settingsButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
+        settingsButton.heightAnchor.constraint(equalToConstant:50).isActive = true
+        settingsButton.widthAnchor.constraint(equalToConstant:64).isActive = true
+        settingsButton.leftAnchor.constraint(equalTo:helpButton.rightAnchor).isActive = true
         
         loadButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
         loadButton.widthAnchor.constraint(equalToConstant:64).isActive = true
@@ -203,7 +226,7 @@ class View:UIViewController {
         
         titleLabel.heightAnchor.constraint(equalToConstant:30).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo:newButton.centerYAnchor).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo:helpButton.rightAnchor, constant:32).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo:settingsButton.rightAnchor, constant:32).isActive = true
         titleLabel.rightAnchor.constraint(equalTo:progressButton.leftAnchor).isActive = true
         
         boardsScroll.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
@@ -353,9 +376,19 @@ class View:UIViewController {
         create.left.constant = root!.left.constant
     }
     
+    private func updateSkin() {
+        view.backgroundColor = Application.skin.background
+        canvasScroll.indicatorStyle = Application.skin.scroll
+    }
+    
     @objc private func help() {
         UIApplication.shared.keyWindow!.endEditing(true)
         present(HelpView(), animated:true)
+    }
+    
+    @objc private func settings() {
+        UIApplication.shared.keyWindow!.endEditing(true)
+        present(SettingsView(), animated:true)
     }
     
     @objc private func new() {

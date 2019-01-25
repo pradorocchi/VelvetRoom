@@ -131,14 +131,15 @@ class NewView:UIViewController, UITextFieldDelegate {
         columns.translatesAutoresizingMaskIntoConstraints = false
         columns.font = .systemFont(ofSize:12, weight:.light)
         columns.textColor = UIColor(white:1, alpha:0.6)
+        columns.text = " "
         view.addSubview(columns)
         self.columns = columns
         
-        labelTitle.leftAnchor.constraint(equalTo:view.leftAnchor, constant:25).isActive = true
+        labelTitle.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
         
         field.topAnchor.constraint(equalTo:labelTitle.bottomAnchor, constant:30).isActive = true
-        field.leftAnchor.constraint(equalTo:view.leftAnchor, constant:25).isActive = true
-        field.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-25).isActive = true
+        field.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
+        field.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
         field.heightAnchor.constraint(equalToConstant:44).isActive = true
         
         border.leftAnchor.constraint(equalTo:field.leftAnchor).isActive = true

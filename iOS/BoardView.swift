@@ -90,13 +90,13 @@ class BoardView:UIControl, UITextViewDelegate {
     private func update() {
         if text.isFirstResponder {
             backgroundColor = .clear
-            text.textColor = .white
+            text.textColor = Application.skin.text
         } else if isHighlighted || isSelected {
             backgroundColor = .velvetBlue
             text.textColor = .black
         } else {
-            backgroundColor = .velvetShade
-            text.textColor = .white
+            backgroundColor = Application.skin.over
+            text.textColor = Application.skin.text
         }
     }
     

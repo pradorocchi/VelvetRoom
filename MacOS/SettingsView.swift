@@ -11,6 +11,8 @@ class SettingsView:SheetView {
     private weak var systemTitle:NSTextField!
     private weak var lightTitle:NSTextField!
     private weak var fontTitle:NSTextField!
+    private weak var slider:NSSlider?
+    private weak var timer:Timer!
     
     override init() {
         super.init()
@@ -138,7 +140,11 @@ class SettingsView:SheetView {
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.minValue = 8
         slider.maxValue = 32
+        if #available(OSX 10.12.2, *) {
+            slider.trackFillColor = .velvetBlue
+        }
         contentView!.addSubview(slider)
+        self.slider = slider
         
         let done = NSButton()
         done.image = NSImage(named:"button")
@@ -211,7 +217,7 @@ class SettingsView:SheetView {
         
         slider.integerValue = Application.view.repository.account.font
         font.stringValue = "\(slider.integerValue)"
-        updateSkin(0)
+        updateSkin()
         
         NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) {
             [weak self] _ in
@@ -223,7 +229,7 @@ class SettingsView:SheetView {
         NotificationCenter.default.removeObserver(self)
     }
     
-    private func updateSkin(_ animation:TimeInterval) {
+    private func updateSkin(_ animation:TimeInterval = 0) {
         if #available(OSX 10.12, *) {
             NSAnimationContext.runAnimationGroup { context in
                 context.duration = animation
@@ -283,6 +289,15 @@ class SettingsView:SheetView {
     
     @objc private func changeFont(_ slider:NSSlider) {
         font.stringValue = "\(slider.integerValue)"
-        Application.view.repository.change(slider.integerValue)
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval:1, target:self, selector:#selector(save), userInfo:nil, repeats:false)
+    }
+    
+    @objc private func save() {
+        guard
+            timer?.isValid == true,
+            let font = slider?.integerValue
+        else { return }
+        Application.view.repository.change(font)
     }
 }

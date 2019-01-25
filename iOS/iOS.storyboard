@@ -39,6 +39,13 @@
                                     <constraint firstAttribute="width" constant="64" id="UDy-wJ-3d9"/>
                                 </constraints>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="EIE-uT-2Qz">
+                                <rect key="frame" x="192" y="20" width="64" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="FBE-It-NOc"/>
+                                    <constraint firstAttribute="width" constant="64" id="nu9-3n-Ah2"/>
+                                </constraints>
+                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="dfb-n6-KhJ">
                                 <rect key="frame" x="137.5" y="283.5" width="100" height="100"/>
                                 <constraints>
@@ -51,6 +58,8 @@
                         <constraints>
                             <constraint firstItem="dSY-Jh-KAa" firstAttribute="leading" secondItem="Pxk-Zl-b9S" secondAttribute="trailing" id="0DO-qE-t7e"/>
                             <constraint firstItem="79M-gC-lri" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="6wA-jd-FBZ"/>
+                            <constraint firstItem="EIE-uT-2Qz" firstAttribute="leading" secondItem="dSY-Jh-KAa" secondAttribute="trailing" id="HtL-Uv-DhJ"/>
+                            <constraint firstItem="EIE-uT-2Qz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="TAq-nA-sn9"/>
                             <constraint firstItem="dfb-n6-KhJ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Vtg-FB-3Jb"/>
                             <constraint firstItem="dSY-Jh-KAa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="XVe-IS-lqr"/>
                             <constraint firstItem="dfb-n6-KhJ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="f7h-Du-9yA"/>
@@ -70,6 +79,7 @@
         <image name="help" width="24" height="18"/>
         <image name="import" width="24" height="18"/>
         <image name="new" width="24" height="18"/>
+        <image name="settings" width="24" height="18"/>
         <image name="splash" width="100" height="100"/>
     </resources>
 </document>
