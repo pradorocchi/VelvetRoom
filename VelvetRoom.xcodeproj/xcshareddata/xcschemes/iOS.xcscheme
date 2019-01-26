@@ -20,6 +20,34 @@
                ReferencedContainer = "container:VelvetRoom.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DAB2703C21C3C3DB008F184E"
+               BuildableName = "libVelvetRoom.a"
+               BlueprintName = "iOSengine"
+               ReferencedContainer = "container:VelvetRoom.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "20DBB0A721EB5CF8009B9AAA"
+               BuildableName = "iOSWidget.appex"
+               BlueprintName = "iOSWidget"
+               ReferencedContainer = "container:VelvetRoom.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

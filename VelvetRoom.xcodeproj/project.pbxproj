@@ -14,10 +14,19 @@
 		202D692B21E23CA1009398AB /* TestSharer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692A21E23CA1009398AB /* TestSharer.swift */; };
 		202D692F21E23D9B009398AB /* Sharer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692C21E23D2B009398AB /* Sharer.swift */; };
 		202D693021E23D9B009398AB /* Sharer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692C21E23D2B009398AB /* Sharer.swift */; };
+		2044021F21FC9E3800D191BA /* libVelvetRoom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2044021821FC9DE800D191BA /* libVelvetRoom.a */; };
+		2044022221FC9EF400D191BA /* libVelvetRoom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2044021921FC9DE800D191BA /* libVelvetRoom.a */; };
+		2044022521FCA10200D191BA /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2044021D21FC9DE800D191BA /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2044022621FCA10A00D191BA /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 209EDF7D21FC9C3900905989 /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2044022821FCA11A00D191BA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2044022721FCA11A00D191BA /* CloudKit.framework */; };
+		2044022A21FCA11F00D191BA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2044022921FCA11F00D191BA /* CloudKit.framework */; };
+		2044022C21FCA20900D191BA /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2044022B21FCA20900D191BA /* NotificationCenter.framework */; };
+		2044022E21FCA21C00D191BA /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2044022D21FCA21C00D191BA /* NotificationCenter.framework */; };
 		204B68FE21E338B10025261E /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FD21E338B10025261E /* ImportView.swift */; };
 		204B690021E347200025261E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FF21E347200025261E /* DropView.swift */; };
 		205A65A121FB081100F59461 /* Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A65A021FB081100F59461 /* Skin.swift */; };
 		205A65A321FB133D00F59461 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A65A221FB133D00F59461 /* SettingsView.swift */; };
+		2061170B21FC9BA3007A2C84 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2061170A21FC9BA2007A2C84 /* WidgetView.swift */; };
 		20804BBB21E5E6360035535D /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804BBA21E5E6360035535D /* Alert.swift */; };
 		20804BBD21E5E6470035535D /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804BBC21E5E6470035535D /* Alert.swift */; };
 		20B40E9D21E8756A00286E92 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40E9C21E8756A00286E92 /* CameraView.swift */; };
@@ -31,8 +40,6 @@
 		20CADFA721F9CB93005DC344 /* TestRepository_Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADFA621F9CB93005DC344 /* TestRepository_Account.swift */; };
 		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
-		20DBB0AA21EB5CF8009B9AAA /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20DBB0A921EB5CF8009B9AAA /* NotificationCenter.framework */; };
-		20DBB0B421EB5CF8009B9AAA /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 20DBB0A821EB5CF8009B9AAA /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		20DBB0BB21EB5DB3009B9AAA /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */; };
 		20E5879321EB6544001F119A /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
 		20E5879421EB6544001F119A /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
@@ -66,7 +73,6 @@
 		DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FD2CF21C40AB500F366B9 /* BoardView.swift */; };
 		DA86474521C3FDE500E4957B /* ColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86474421C3FDE500E4957B /* ColumnView.swift */; };
 		DA86474721C401DF00E4957B /* NSFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86474621C401DF00E4957B /* NSFont.swift */; };
-		DA865CB721DA5DDA004E6F86 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA865CB621DA5DDA004E6F86 /* CloudKit.framework */; };
 		DA86AB3F21D0F884007DFFEE /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86AB3E21D0F884007DFFEE /* EditView.swift */; };
 		DA88A21D21D8DB6000144E39 /* DeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88A21C21D8DB6000144E39 /* DeleteView.swift */; };
 		DA982ED921CD10540085480B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA982ED821CD10540085480B /* CardView.swift */; };
@@ -81,17 +87,13 @@
 		DAB2708721C3CA7C008F184E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2708221C3CA7C008F184E /* Application.swift */; };
 		DAB2709121C3CA87008F184E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708A21C3CA87008F184E /* Localizable.strings */; };
 		DAB2709221C3CA87008F184E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708C21C3CA87008F184E /* Assets.xcassets */; };
-		DAB2709321C3CA87008F184E /* MacOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708D21C3CA87008F184E /* MacOS.storyboard */; };
+		DAB2709321C3CA87008F184E /* Mac.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708D21C3CA87008F184E /* Mac.storyboard */; };
 		DAB2709521C3CA87008F184E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709021C3CA87008F184E /* Application.swift */; };
 		DAB2709D21C3CA99008F184E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709C21C3CA99008F184E /* Repository.swift */; };
 		DAB2709F21C3CA99008F184E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709C21C3CA99008F184E /* Repository.swift */; };
-		DAB270A821C3CD7A008F184E /* libVelvetRoom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A621C3CD5E008F184E /* libVelvetRoom.a */; };
-		DAB270A921C3CD83008F184E /* libVelvetRoom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A521C3CD50008F184E /* libVelvetRoom.a */; };
-		DAB270AE21C3CE09008F184E /* libVelvetRoom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB270A521C3CD50008F184E /* libVelvetRoom.a */; };
 		DAC2CDC021C8E2F000AD927B /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDBF21C8E2F000AD927B /* NewView.swift */; };
 		DAC2CDC321C8EDA700AD927B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDC221C8EDA700AD927B /* String.swift */; };
 		DAC2CDC421C8EDA700AD927B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDC221C8EDA700AD927B /* String.swift */; };
-		DAC5F1A821DA5A010039612C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC5F1A721DA5A000039612C /* CloudKit.framework */; };
 		DAD0C1CE21C5036200E6D1C7 /* TestBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */; };
 		DAD0C1D021C5056B00E6D1C7 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CF21C5056B00E6D1C7 /* Board.swift */; };
 		DAD0C1D121C5056B00E6D1C7 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C1CF21C5056B00E6D1C7 /* Board.swift */; };
@@ -135,6 +137,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2044022021FC9E4200D191BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAB2702521C3C394008F184E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAB2702E21C3C3B4008F184E;
+			remoteInfo = Macengine;
+		};
+		2044022321FC9EFF00D191BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAB2702521C3C394008F184E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAB2703C21C3C3DB008F184E;
+			remoteInfo = iOSengine;
+		};
+		2061170121FC97D3007A2C84 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAB2702521C3C394008F184E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 206116F321FC97D3007A2C84;
+			remoteInfo = Widget;
+		};
 		20DBB0B221EB5CF8009B9AAA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DAB2702521C3C394008F184E /* Project object */;
@@ -152,13 +175,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		2061170721FC97D3007A2C84 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2044022621FCA10A00D191BA /* Widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		20DBB0B821EB5CF8009B9AAA /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				20DBB0B421EB5CF8009B9AAA /* Widget.appex in Embed App Extensions */,
+				2044022521FCA10200D191BA /* Widget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,12 +215,26 @@
 		202D692821E231EF009398AB /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		202D692A21E23CA1009398AB /* TestSharer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSharer.swift; sourceTree = "<group>"; };
 		202D692C21E23D2B009398AB /* Sharer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sharer.swift; sourceTree = "<group>"; };
+		2044021821FC9DE800D191BA /* libVelvetRoom.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVelvetRoom.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2044021921FC9DE800D191BA /* libVelvetRoom.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVelvetRoom.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2044021A21FC9DE800D191BA /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2044021B21FC9DE800D191BA /* Velvet Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Velvet Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2044021C21FC9DE800D191BA /* Velvet Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Velvet Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2044021D21FC9DE800D191BA /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2044022721FCA11A00D191BA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		2044022921FCA11F00D191BA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		2044022B21FCA20900D191BA /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk/System/Library/Frameworks/NotificationCenter.framework; sourceTree = DEVELOPER_DIR; };
+		2044022D21FCA21C00D191BA /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		204B68FD21E338B10025261E /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		204B68FF21E347200025261E /* DropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
 		205A65A021FB081100F59461 /* Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skin.swift; sourceTree = "<group>"; };
 		205A65A221FB133D00F59461 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		2061170A21FC9BA2007A2C84 /* WidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
+		2061170C21FC9BC0007A2C84 /* MacWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacWidget.entitlements; sourceTree = "<group>"; };
+		2061170D21FC9BC0007A2C84 /* MacWidget.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MacWidget.plist; sourceTree = "<group>"; };
 		20804BBA21E5E6360035535D /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		20804BBC21E5E6470035535D /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		209EDF7D21FC9C3900905989 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		20B40E9C21E8756A00286E92 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		20B40E9E21E88E7D00286E92 /* PicturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesView.swift; sourceTree = "<group>"; };
 		20B40EA021E8951F00286E92 /* PictureCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCellView.swift; sourceTree = "<group>"; };
@@ -196,9 +244,7 @@
 		20CADFA421F9B8C2005DC344 /* Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skin.swift; sourceTree = "<group>"; };
 		20CADFA621F9CB93005DC344 /* TestRepository_Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository_Account.swift; sourceTree = "<group>"; };
 		20CD59BC21E0CD6B00ADF8BC /* Clean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clean.swift; sourceTree = "<group>"; };
-		20DBB0A821EB5CF8009B9AAA /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		20DBB0A921EB5CF8009B9AAA /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		20DBB0B921EB5D7F009B9AAA /* Widget.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Widget.plist; sourceTree = "<group>"; };
+		20DBB0B921EB5D7F009B9AAA /* iOSWidget.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = iOSWidget.plist; sourceTree = "<group>"; };
 		20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		20DBB0BC21EB5EB2009B9AAA /* iOSWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOSWidget.entitlements; sourceTree = "<group>"; };
 		20E5879221EB6544001F119A /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
@@ -229,7 +275,6 @@
 		DA7FD2CF21C40AB500F366B9 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		DA86474421C3FDE500E4957B /* ColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnView.swift; sourceTree = "<group>"; };
 		DA86474621C401DF00E4957B /* NSFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSFont.swift; sourceTree = "<group>"; };
-		DA865CB621DA5DDA004E6F86 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		DA86AB3E21D0F884007DFFEE /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		DA88A21C21D8DB6000144E39 /* DeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteView.swift; sourceTree = "<group>"; };
 		DA982ED821CD10540085480B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -245,24 +290,18 @@
 		DAB2708321C3CA7C008F184E /* iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iOS.plist; sourceTree = "<group>"; };
 		DAB2708B21C3CA87008F184E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DAB2708C21C3CA87008F184E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DAB2708D21C3CA87008F184E /* MacOS.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MacOS.storyboard; sourceTree = "<group>"; };
-		DAB2708E21C3CA87008F184E /* MacOS.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = MacOS.entitlements; sourceTree = "<group>"; };
-		DAB2708F21C3CA87008F184E /* MacOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MacOS.plist; sourceTree = "<group>"; };
+		DAB2708D21C3CA87008F184E /* Mac.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Mac.storyboard; sourceTree = "<group>"; };
+		DAB2708E21C3CA87008F184E /* Mac.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Mac.entitlements; sourceTree = "<group>"; };
+		DAB2708F21C3CA87008F184E /* Mac.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Mac.plist; sourceTree = "<group>"; };
 		DAB2709021C3CA87008F184E /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		DAB2709721C3CA90008F184E /* Tests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Tests.plist; sourceTree = "<group>"; };
 		DAB2709C21C3CA99008F184E /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
-		DAB2709E21C3CA99008F184E /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270A021C3CAA5008F184E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DAB270A121C3CAD6008F184E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		DAB270A221C3CAD6008F184E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		DAB270A321C3CC91008F184E /* Velvet Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Velvet Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAB270A421C3CC9B008F184E /* Velvet Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Velvet Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAB270A521C3CD50008F184E /* libVelvetRoom.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVelvetRoom.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAB270A621C3CD5E008F184E /* libVelvetRoom.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVelvetRoom.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB270AF21C3D421008F184E /* VelvetRoom.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = VelvetRoom.sketch; sourceTree = "<group>"; };
 		DAC2CDBF21C8E2F000AD927B /* NewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewView.swift; sourceTree = "<group>"; };
 		DAC2CDC221C8EDA700AD927B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		DAC5F1A721DA5A000039612C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		DAC5F1A921DA5D170039612C /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		DAD0C1CD21C5036200E6D1C7 /* TestBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBoard.swift; sourceTree = "<group>"; };
 		DAD0C1CF21C5056B00E6D1C7 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
@@ -296,11 +335,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		206116F121FC97D3007A2C84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2044022E21FCA21C00D191BA /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		20DBB0A521EB5CF8009B9AAA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20DBB0AA21EB5CF8009B9AAA /* NotificationCenter.framework in Frameworks */,
+				2044022C21FCA20900D191BA /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,7 +369,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB270AE21C3CE09008F184E /* libVelvetRoom.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,8 +376,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB270A921C3CD83008F184E /* libVelvetRoom.a in Frameworks */,
-				DAC5F1A821DA5A010039612C /* CloudKit.framework in Frameworks */,
+				2044021F21FC9E3800D191BA /* libVelvetRoom.a in Frameworks */,
+				2044022A21FCA11F00D191BA /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,14 +385,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB270A821C3CD7A008F184E /* libVelvetRoom.a in Frameworks */,
-				DA865CB721DA5DDA004E6F86 /* CloudKit.framework in Frameworks */,
+				2044022221FC9EF400D191BA /* libVelvetRoom.a in Frameworks */,
+				2044022821FCA11A00D191BA /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2044021E21FC9E3800D191BA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2044022B21FCA20900D191BA /* NotificationCenter.framework */,
+				2044022D21FCA21C00D191BA /* NotificationCenter.framework */,
+				2044022921FCA11F00D191BA /* CloudKit.framework */,
+				2044022721FCA11A00D191BA /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DA7C743021C3DE9800B1F931 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,21 +418,22 @@
 			children = (
 				DAB2709B21C3CA99008F184E /* Engine */,
 				DAB2709621C3CA90008F184E /* Tests */,
-				DAB2708921C3CA87008F184E /* MacOS */,
+				DAB2708921C3CA87008F184E /* Mac */,
 				DAB2707D21C3CA7C008F184E /* iOS */,
 				DAC2CDC121C8ED9800AD927B /* Shared */,
 				DA7C743021C3DE9800B1F931 /* Fonts */,
-				DAB270A721C3CD7A008F184E /* Frameworks */,
-				DAB270A321C3CC91008F184E /* Velvet Room.app */,
-				DAB270A421C3CC9B008F184E /* Velvet Room.app */,
-				DAB270A521C3CD50008F184E /* libVelvetRoom.a */,
-				DAB270A621C3CD5E008F184E /* libVelvetRoom.a */,
-				DAB2709E21C3CA99008F184E /* Tests.xctest */,
-				DAB270AF21C3D421008F184E /* VelvetRoom.sketch */,
-				DAB270A121C3CAD6008F184E /* LICENSE */,
+				2044021E21FC9E3800D191BA /* Frameworks */,
+				2044021C21FC9DE800D191BA /* Velvet Room.app */,
+				2044021921FC9DE800D191BA /* libVelvetRoom.a */,
+				2044021821FC9DE800D191BA /* libVelvetRoom.a */,
+				2044021B21FC9DE800D191BA /* Velvet Room.app */,
+				209EDF7D21FC9C3900905989 /* Widget.appex */,
+				2044021D21FC9DE800D191BA /* Widget.appex */,
+				2044021A21FC9DE800D191BA /* Tests.xctest */,
 				DAB270A221C3CAD6008F184E /* README.md */,
+				DAB270A121C3CAD6008F184E /* LICENSE */,
+				DAB270AF21C3D421008F184E /* VelvetRoom.sketch */,
 				DAB270A021C3CAA5008F184E /* .gitignore */,
-				20DBB0A821EB5CF8009B9AAA /* Widget.appex */,
 			);
 			sourceTree = "<group>";
 		};
@@ -411,7 +469,7 @@
 				DAD7B78421D65712003396B1 /* UIColor.swift */,
 				DAD7B78621D65BFE003396B1 /* UIFont.swift */,
 				DAB2707E21C3CA7C008F184E /* Localizable.strings */,
-				20DBB0B921EB5D7F009B9AAA /* Widget.plist */,
+				20DBB0B921EB5D7F009B9AAA /* iOSWidget.plist */,
 				DAB2708021C3CA7C008F184E /* iOS.storyboard */,
 				DAB2708321C3CA7C008F184E /* iOS.plist */,
 				20DBB0BC21EB5EB2009B9AAA /* iOSWidget.entitlements */,
@@ -421,7 +479,7 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		DAB2708921C3CA87008F184E /* MacOS */ = {
+		DAB2708921C3CA87008F184E /* Mac */ = {
 			isa = PBXGroup;
 			children = (
 				DAB2709021C3CA87008F184E /* Application.swift */,
@@ -450,13 +508,16 @@
 				DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */,
 				DA86474621C401DF00E4957B /* NSFont.swift */,
 				DA2B491621C9187B00BABE86 /* NSColor.swift */,
+				2061170A21FC9BA2007A2C84 /* WidgetView.swift */,
 				DAB2708A21C3CA87008F184E /* Localizable.strings */,
-				DAB2708D21C3CA87008F184E /* MacOS.storyboard */,
-				DAB2708F21C3CA87008F184E /* MacOS.plist */,
-				DAB2708E21C3CA87008F184E /* MacOS.entitlements */,
+				DAB2708D21C3CA87008F184E /* Mac.storyboard */,
+				DAB2708F21C3CA87008F184E /* Mac.plist */,
+				2061170D21FC9BC0007A2C84 /* MacWidget.plist */,
+				2061170C21FC9BC0007A2C84 /* MacWidget.entitlements */,
+				DAB2708E21C3CA87008F184E /* Mac.entitlements */,
 				DAB2708C21C3CA87008F184E /* Assets.xcassets */,
 			);
-			path = MacOS;
+			path = Mac;
 			sourceTree = "<group>";
 		};
 		DAB2709621C3CA90008F184E /* Tests */ = {
@@ -509,16 +570,6 @@
 			path = Engine;
 			sourceTree = "<group>";
 		};
-		DAB270A721C3CD7A008F184E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DA865CB621DA5DDA004E6F86 /* CloudKit.framework */,
-				DAC5F1A721DA5A000039612C /* CloudKit.framework */,
-				20DBB0A921EB5CF8009B9AAA /* NotificationCenter.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		DAC2CDC121C8ED9800AD927B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,9 +591,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		20DBB0A721EB5CF8009B9AAA /* iOS Widget */ = {
+		206116F321FC97D3007A2C84 /* MacWidget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 20DBB0B721EB5CF8009B9AAA /* Build configuration list for PBXNativeTarget "iOS Widget" */;
+			buildConfigurationList = 2061170421FC97D3007A2C84 /* Build configuration list for PBXNativeTarget "MacWidget" */;
+			buildPhases = (
+				206116F021FC97D3007A2C84 /* Sources */,
+				206116F121FC97D3007A2C84 /* Frameworks */,
+				206116F221FC97D3007A2C84 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacWidget;
+			productName = Widget;
+			productReference = 209EDF7D21FC9C3900905989 /* Widget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		20DBB0A721EB5CF8009B9AAA /* iOSWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 20DBB0B721EB5CF8009B9AAA /* Build configuration list for PBXNativeTarget "iOSWidget" */;
 			buildPhases = (
 				20DBB0A421EB5CF8009B9AAA /* Sources */,
 				20DBB0A521EB5CF8009B9AAA /* Frameworks */,
@@ -552,14 +620,14 @@
 			);
 			dependencies = (
 			);
-			name = "iOS Widget";
+			name = iOSWidget;
 			productName = Widget;
-			productReference = 20DBB0A821EB5CF8009B9AAA /* Widget.appex */;
+			productReference = 2044021D21FC9DE800D191BA /* Widget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		DAB2702E21C3C3B4008F184E /* MacOSengine */ = {
+		DAB2702E21C3C3B4008F184E /* Macengine */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DAB2703621C3C3B4008F184E /* Build configuration list for PBXNativeTarget "MacOSengine" */;
+			buildConfigurationList = DAB2703621C3C3B4008F184E /* Build configuration list for PBXNativeTarget "Macengine" */;
 			buildPhases = (
 				DAB2702B21C3C3B4008F184E /* Headers */,
 				DAB2702C21C3C3B4008F184E /* Sources */,
@@ -569,9 +637,9 @@
 			);
 			dependencies = (
 			);
-			name = MacOSengine;
+			name = Macengine;
 			productName = MacOSengine;
-			productReference = DAB270A521C3CD50008F184E /* libVelvetRoom.a */;
+			productReference = 2044021821FC9DE800D191BA /* libVelvetRoom.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		DAB2703C21C3C3DB008F184E /* iOSengine */ = {
@@ -588,7 +656,7 @@
 			);
 			name = iOSengine;
 			productName = iOSengine;
-			productReference = DAB270A621C3CD5E008F184E /* libVelvetRoom.a */;
+			productReference = 2044021921FC9DE800D191BA /* libVelvetRoom.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		DAB2704721C3C3EF008F184E /* Tests */ = {
@@ -606,24 +674,27 @@
 			);
 			name = Tests;
 			productName = Tests;
-			productReference = DAB2709E21C3CA99008F184E /* Tests.xctest */;
+			productReference = 2044021A21FC9DE800D191BA /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		DAB2705621C3C45E008F184E /* MacOS */ = {
+		DAB2705621C3C45E008F184E /* Mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DAB2706421C3C460008F184E /* Build configuration list for PBXNativeTarget "MacOS" */;
+			buildConfigurationList = DAB2706421C3C460008F184E /* Build configuration list for PBXNativeTarget "Mac" */;
 			buildPhases = (
 				DAB2705321C3C45E008F184E /* Sources */,
 				DAB2705421C3C45E008F184E /* Frameworks */,
 				DAB2705521C3C45E008F184E /* Resources */,
+				2061170721FC97D3007A2C84 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2044022121FC9E4200D191BA /* PBXTargetDependency */,
+				2061170221FC97D3007A2C84 /* PBXTargetDependency */,
 			);
-			name = MacOS;
+			name = Mac;
 			productName = MacOS;
-			productReference = DAB270A321C3CC91008F184E /* Velvet Room.app */;
+			productReference = 2044021B21FC9DE800D191BA /* Velvet Room.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DAB2706A21C3C473008F184E /* iOS */ = {
@@ -638,11 +709,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				2044022421FC9EFF00D191BA /* PBXTargetDependency */,
 				20DBB0B321EB5CF8009B9AAA /* PBXTargetDependency */,
 			);
 			name = iOS;
 			productName = iOS;
-			productReference = DAB270A421C3CC9B008F184E /* Velvet Room.app */;
+			productReference = 2044021C21FC9DE800D191BA /* Velvet Room.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -654,6 +726,10 @@
 				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1010;
 				TargetAttributes = {
+					206116F321FC97D3007A2C84 = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
+					};
 					20DBB0A721EB5CF8009B9AAA = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
@@ -706,17 +782,25 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DAB2702E21C3C3B4008F184E /* MacOSengine */,
+				DAB2702E21C3C3B4008F184E /* Macengine */,
 				DAB2703C21C3C3DB008F184E /* iOSengine */,
 				DAB2704721C3C3EF008F184E /* Tests */,
-				DAB2705621C3C45E008F184E /* MacOS */,
+				DAB2705621C3C45E008F184E /* Mac */,
 				DAB2706A21C3C473008F184E /* iOS */,
-				20DBB0A721EB5CF8009B9AAA /* iOS Widget */,
+				20DBB0A721EB5CF8009B9AAA /* iOSWidget */,
+				206116F321FC97D3007A2C84 /* MacWidget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		206116F221FC97D3007A2C84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		20DBB0A621EB5CF8009B9AAA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -736,7 +820,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA7C743921C3DE9800B1F931 /* SFMono-Bold.otf in Resources */,
-				DAB2709321C3CA87008F184E /* MacOS.storyboard in Resources */,
+				DAB2709321C3CA87008F184E /* Mac.storyboard in Resources */,
 				DAB2709221C3CA87008F184E /* Assets.xcassets in Resources */,
 				DA7C743721C3DE9800B1F931 /* SFMono-Light.otf in Resources */,
 				DAB2709121C3CA87008F184E /* Localizable.strings in Resources */,
@@ -758,6 +842,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		206116F021FC97D3007A2C84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2061170B21FC9BA3007A2C84 /* WidgetView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		20DBB0A421EB5CF8009B9AAA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -911,14 +1003,29 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2044022121FC9E4200D191BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAB2702E21C3C3B4008F184E /* Macengine */;
+			targetProxy = 2044022021FC9E4200D191BA /* PBXContainerItemProxy */;
+		};
+		2044022421FC9EFF00D191BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAB2703C21C3C3DB008F184E /* iOSengine */;
+			targetProxy = 2044022321FC9EFF00D191BA /* PBXContainerItemProxy */;
+		};
+		2061170221FC97D3007A2C84 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 206116F321FC97D3007A2C84 /* MacWidget */;
+			targetProxy = 2061170121FC97D3007A2C84 /* PBXContainerItemProxy */;
+		};
 		20DBB0B321EB5CF8009B9AAA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 20DBB0A721EB5CF8009B9AAA /* iOS Widget */;
+			target = 20DBB0A721EB5CF8009B9AAA /* iOSWidget */;
 			targetProxy = 20DBB0B221EB5CF8009B9AAA /* PBXContainerItemProxy */;
 		};
 		DAB2704F21C3C3EF008F184E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DAB2702E21C3C3B4008F184E /* MacOSengine */;
+			target = DAB2702E21C3C3B4008F184E /* Macengine */;
 			targetProxy = DAB2704E21C3C3EF008F184E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -943,6 +1050,146 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2061170521FC97D3007A2C84 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Mac/MacWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 7AMWG3RLHN;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Mac/MacWidget.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.MacOS.Widget;
+				PRODUCT_NAME = Widget;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		2061170621FC97D3007A2C84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Mac/MacWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7AMWG3RLHN;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Mac/MacWidget.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.MacOS.Widget;
+				PRODUCT_NAME = Widget;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
 		20DBB0B521EB5CF8009B9AAA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -995,7 +1242,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = iOS/Widget.plist;
+				INFOPLIST_FILE = iOS/iOSWidget.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1060,7 +1307,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = iOS/Widget.plist;
+				INFOPLIST_FILE = iOS/iOSWidget.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1478,6 +1725,7 @@
 		DAB2706521C3C460008F184E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1507,7 +1755,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = MacOS/MacOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Mac/Mac.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1529,7 +1777,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = MacOS/MacOS.plist;
+				INFOPLIST_FILE = Mac/Mac.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1548,6 +1796,7 @@
 		DAB2706621C3C460008F184E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1577,7 +1826,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = MacOS/MacOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Mac/Mac.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1593,7 +1842,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = MacOS/MacOS.plist;
+				INFOPLIST_FILE = Mac/Mac.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1747,7 +1996,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		20DBB0B721EB5CF8009B9AAA /* Build configuration list for PBXNativeTarget "iOS Widget" */ = {
+		2061170421FC97D3007A2C84 /* Build configuration list for PBXNativeTarget "MacWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2061170521FC97D3007A2C84 /* Debug */,
+				2061170621FC97D3007A2C84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		20DBB0B721EB5CF8009B9AAA /* Build configuration list for PBXNativeTarget "iOSWidget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				20DBB0B521EB5CF8009B9AAA /* Debug */,
@@ -1765,7 +2023,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DAB2703621C3C3B4008F184E /* Build configuration list for PBXNativeTarget "MacOSengine" */ = {
+		DAB2703621C3C3B4008F184E /* Build configuration list for PBXNativeTarget "Macengine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAB2703721C3C3B4008F184E /* Debug */,
@@ -1792,7 +2050,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DAB2706421C3C460008F184E /* Build configuration list for PBXNativeTarget "MacOS" */ = {
+		DAB2706421C3C460008F184E /* Build configuration list for PBXNativeTarget "Mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAB2706521C3C460008F184E /* Debug */,
