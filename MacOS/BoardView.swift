@@ -15,7 +15,7 @@ class BoardView:NSControl, NSTextViewDelegate {
         
         let text = TextView()
         text.textContainer!.size = NSSize(width:250, height:CGFloat(Application.view.repository.account.font + 16))
-        text.font = .light(CGFloat(Application.view.repository.account.font - 1))
+        text.font = .bold(CGFloat(Application.view.repository.account.font))
         text.delegate = self
         text.string = board.name
         text.update()
