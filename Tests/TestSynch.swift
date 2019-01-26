@@ -56,6 +56,7 @@ class TestSynch:XCTestCase {
         }
         let board = Board()
         board.name = "hello world"
+        repository.load()
         repository.wait = 0
         board.name = "lorem ipsum"
         repository.scheduleUpdate(board)
@@ -72,6 +73,7 @@ class TestSynch:XCTestCase {
         }
         let board = Board()
         board.id = "some"
+        repository.load()
         repository.wait = 0
         repository.boards = [board]
         repository.scheduleUpdate(board)

@@ -54,6 +54,7 @@ class TestStorage:XCTestCase {
             XCTAssertEqual("lorem ipsum", item.name)
             expect.fulfill()
         }
+        repository.load()
         repository.wait = 0
         board.name = "lorem ipsum"
         repository.scheduleUpdate(board)
@@ -68,6 +69,7 @@ class TestStorage:XCTestCase {
             XCTAssertEqual("lorem ipsum", item.name)
             expect.fulfill()
         }
+        repository.load()
         repository.wait = 0
         board.name = "some"
         repository.scheduleUpdate(board)

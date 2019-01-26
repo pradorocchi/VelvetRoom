@@ -8,17 +8,19 @@ public class Repository {
     var boards = [Board]()
     var storage:Storage = LocalStorage()
     var synch:Synch = CloudSynch()
+    var group:Group = WidgetGroup()
     var wait = 1.0
+    private var sorted:[Board] {
+        return boards.sorted { $0.name.compare($1.name, options:.caseInsensitive) == .orderedAscending } }
     private let timer = DispatchSource.makeTimerSource(queue:.global(qos:.background))
     
-    public init() {
-        timer.resume()
-    }
+    public init() { }
     
     public func load() {
+        timer.resume()
         account = (try? storage.account()) ?? account
         account.boards.forEach { id in boards.append(storage.board(id)) }
-        listBoards()
+        listAndShare()
         synchBoards()
     }
     
@@ -38,7 +40,7 @@ public class Repository {
         storage.save(account)
         update(board)
         
-        listBoards()
+        listAndShare()
         select(board)
     }
     
@@ -102,7 +104,7 @@ public class Repository {
         storage.save(account)
         storage.delete(board)
         synchUpdates()
-        listBoards()
+        listAndShare()
     }
     
     public func delete(_ column:Column, board:Board) {
@@ -132,13 +134,13 @@ public class Repository {
     public func change(_ appearance:Appearance) {
         account.appearance = appearance
         storage.save(account)
-        listBoards()
+        list(sorted)
     }
     
     public func change(_ font:Int) {
         account.font = font
         storage.save(account)
-        listBoards()
+        list(sorted)
     }
     
     public func scheduleUpdate(_ board:Board) {
@@ -185,10 +187,6 @@ public class Repository {
         synchUpdates()
     }
     
-    private func listBoards() {
-        list(boards.sorted { $0.name.compare($1.name, options:.caseInsensitive) == .orderedAscending })
-    }
-    
     private func add(_ template:Template, board:Board) {
         switch template {
         case .triple: board.columns = [column("Backlog"), column("Active"), column("Done")]
@@ -218,7 +216,13 @@ public class Repository {
         boards.append(board)
         storage.save(board)
         storage.save(account)
-        listBoards()
+        listAndShare()
+    }
+    
+    private func listAndShare() {
+        let sorted = self.sorted
+        list(sorted)
+        group.share(sorted)
     }
     
     private func synchUpdates() {

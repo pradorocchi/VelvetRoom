@@ -45,6 +45,13 @@
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20DBB0BB21EB5DB3009B9AAA /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */; };
 		20E5879321EB6544001F119A /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
+		20E7023121FCAAF700327236 /* libVelvetRoom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2044021821FC9DE800D191BA /* libVelvetRoom.a */; };
+		20E7023321FCAB2B00327236 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E7023221FCAB2B00327236 /* Group.swift */; };
+		20E7023421FCAB2B00327236 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E7023221FCAB2B00327236 /* Group.swift */; };
+		20E7023621FCAB4D00327236 /* TestGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E7023521FCAB4D00327236 /* TestGroup.swift */; };
+		20E7023821FCAC4600327236 /* MockGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E7023721FCAC4600327236 /* MockGroup.swift */; };
+		20E7023A21FCACB400327236 /* WidgetGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E7023921FCACB400327236 /* WidgetGroup.swift */; };
+		20E7023B21FCACB400327236 /* WidgetGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E7023921FCACB400327236 /* WidgetGroup.swift */; };
 		20EC12DB21E4F63A00375670 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EC12DA21E4F63A00375670 /* GradientView.swift */; };
 		DA00F0D221DA3C92002FD057 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA00F0D121DA3C92002FD057 /* ChartView.swift */; };
 		DA00F0D421DA4A43002FD057 /* TestRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA00F0D321DA4A43002FD057 /* TestRating.swift */; };
@@ -250,6 +257,10 @@
 		20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		20DBB0BC21EB5EB2009B9AAA /* iOSWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOSWidget.entitlements; sourceTree = "<group>"; };
 		20E5879221EB6544001F119A /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
+		20E7023221FCAB2B00327236 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		20E7023521FCAB4D00327236 /* TestGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGroup.swift; sourceTree = "<group>"; };
+		20E7023721FCAC4600327236 /* MockGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGroup.swift; sourceTree = "<group>"; };
+		20E7023921FCACB400327236 /* WidgetGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetGroup.swift; sourceTree = "<group>"; };
 		20EC12DA21E4F63A00375670 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		DA00F0D121DA3C92002FD057 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		DA00F0D321DA4A43002FD057 /* TestRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRating.swift; sourceTree = "<group>"; };
@@ -371,6 +382,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20E7023121FCAAF700327236 /* libVelvetRoom.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +543,7 @@
 				DA00F0D321DA4A43002FD057 /* TestRating.swift */,
 				DAD0C1FF21C52C8500E6D1C7 /* TestStorage.swift */,
 				DAD0C1FD21C52C6600E6D1C7 /* TestSynch.swift */,
+				20E7023521FCAB4D00327236 /* TestGroup.swift */,
 				DA7B2AE621C67982003B7333 /* TestList.swift */,
 				DA7B2AE821C67C3E003B7333 /* TestSelect.swift */,
 				DA7B2AED21C67DBE003B7333 /* TestTemplate.swift */,
@@ -543,6 +556,7 @@
 				202D692A21E23CA1009398AB /* TestSharer.swift */,
 				DAD0C1F921C52A3200E6D1C7 /* MockStorage.swift */,
 				DAD0C1FB21C52A9D00E6D1C7 /* MockSynch.swift */,
+				20E7023721FCAC4600327236 /* MockGroup.swift */,
 				DAB2709721C3CA90008F184E /* Tests.plist */,
 			);
 			path = Tests;
@@ -555,6 +569,8 @@
 				202D692C21E23D2B009398AB /* Sharer.swift */,
 				DAD0C1ED21C521D600E6D1C7 /* Storage.swift */,
 				DAD0C1F321C5279500E6D1C7 /* Synch.swift */,
+				20E7023221FCAB2B00327236 /* Group.swift */,
+				20E7023921FCACB400327236 /* WidgetGroup.swift */,
 				DAD0C1F021C5222B00E6D1C7 /* LocalStorage.swift */,
 				DAD0C1F621C528C400E6D1C7 /* CloudSynch.swift */,
 				DAD0C1E821C515AC00E6D1C7 /* Account.swift */,
@@ -875,6 +891,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD0C1F121C5222B00E6D1C7 /* LocalStorage.swift in Sources */,
+				20E7023321FCAB2B00327236 /* Group.swift in Sources */,
 				DAD0C1D021C5056B00E6D1C7 /* Board.swift in Sources */,
 				DA7B2AEB21C67D55003B7333 /* Template.swift in Sources */,
 				DAB2709D21C3CA99008F184E /* Repository.swift in Sources */,
@@ -888,6 +905,7 @@
 				20CADFA021F9B1F1005DC344 /* Appearance.swift in Sources */,
 				DAD0C1E421C50CB600E6D1C7 /* Content.swift in Sources */,
 				DAD0C20221C5310D00E6D1C7 /* Exception.swift in Sources */,
+				20E7023A21FCACB400327236 /* WidgetGroup.swift in Sources */,
 				DAD0C1E921C515AC00E6D1C7 /* Account.swift in Sources */,
 				DAD0C1F721C528C400E6D1C7 /* CloudSynch.swift in Sources */,
 			);
@@ -898,6 +916,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD0C1F221C5222B00E6D1C7 /* LocalStorage.swift in Sources */,
+				20E7023421FCAB2B00327236 /* Group.swift in Sources */,
 				DAD0C1D121C5056B00E6D1C7 /* Board.swift in Sources */,
 				DA7B2AEC21C67D55003B7333 /* Template.swift in Sources */,
 				DAB2709F21C3CA99008F184E /* Repository.swift in Sources */,
@@ -911,6 +930,7 @@
 				20CADFA121F9B1F1005DC344 /* Appearance.swift in Sources */,
 				DAD0C1E521C50CB600E6D1C7 /* Content.swift in Sources */,
 				DAD0C20321C5310D00E6D1C7 /* Exception.swift in Sources */,
+				20E7023B21FCACB400327236 /* WidgetGroup.swift in Sources */,
 				DAD0C1EA21C515AC00E6D1C7 /* Account.swift in Sources */,
 				DAD0C1F821C528C400E6D1C7 /* CloudSynch.swift in Sources */,
 			);
@@ -923,6 +943,7 @@
 				DA7B2AE921C67C3E003B7333 /* TestSelect.swift in Sources */,
 				DAD0C1D921C5092400E6D1C7 /* TestColumn.swift in Sources */,
 				202D692B21E23CA1009398AB /* TestSharer.swift in Sources */,
+				20E7023821FCAC4600327236 /* MockGroup.swift in Sources */,
 				DAD0C20021C52C8500E6D1C7 /* TestStorage.swift in Sources */,
 				DA65DA6F21D1327100E74011 /* TestRepository_Column.swift in Sources */,
 				DAD0C1CE21C5036200E6D1C7 /* TestBoard.swift in Sources */,
@@ -939,6 +960,7 @@
 				DA7B2AE721C67982003B7333 /* TestList.swift in Sources */,
 				DAD0C1EC21C51B1400E6D1C7 /* TestAccount.swift in Sources */,
 				DAD0C1E721C50F0900E6D1C7 /* TestRepository_Board.swift in Sources */,
+				20E7023621FCAB4D00327236 /* TestGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

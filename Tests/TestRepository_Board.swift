@@ -40,6 +40,7 @@ class TestRepository_Board:XCTestCase {
         let expect = expectation(description:String())
         let time = Date().timeIntervalSince1970
         let board = Board()
+        repository.load()
         repository.boards = [board]
         repository.wait = 0
         repository.scheduleUpdate(board)
@@ -54,6 +55,7 @@ class TestRepository_Board:XCTestCase {
         let expect = expectation(description:String())
         let time = Date().timeIntervalSince1970
         let board = Board()
+        repository.load()
         repository.boards = [board]
         repository.wait = 100
         repository.scheduleUpdate(board)
