@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DAB2706A21C3C473008F184E"
+               BlueprintIdentifier = "DAB2705621C3C45E008F184E"
                BuildableName = "Velvet Room.app"
-               BlueprintName = "iOS"
+               BlueprintName = "Mac"
                ReferencedContainer = "container:VelvetRoom.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DAB2703C21C3C3DB008F184E"
+               BlueprintIdentifier = "DAB2702E21C3C3B4008F184E"
                BuildableName = "libVelvetRoom.a"
-               BlueprintName = "iOSengine"
+               BlueprintName = "Macengine"
                ReferencedContainer = "container:VelvetRoom.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,9 +42,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "20DBB0A721EB5CF8009B9AAA"
+               BlueprintIdentifier = "206116F321FC97D3007A2C84"
                BuildableName = "Widget.appex"
-               BlueprintName = "iOSWidget"
+               BlueprintName = "MacWidget"
                ReferencedContainer = "container:VelvetRoom.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -56,13 +56,24 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DAB2704721C3C3EF008F184E"
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
+               ReferencedContainer = "container:VelvetRoom.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DAB2706A21C3C473008F184E"
+            BlueprintIdentifier = "DAB2705621C3C45E008F184E"
             BuildableName = "Velvet Room.app"
-            BlueprintName = "iOS"
+            BlueprintName = "Mac"
             ReferencedContainer = "container:VelvetRoom.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -83,9 +94,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DAB2706A21C3C473008F184E"
+            BlueprintIdentifier = "DAB2705621C3C45E008F184E"
             BuildableName = "Velvet Room.app"
-            BlueprintName = "iOS"
+            BlueprintName = "Mac"
             ReferencedContainer = "container:VelvetRoom.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -102,9 +113,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DAB2706A21C3C473008F184E"
+            BlueprintIdentifier = "DAB2705621C3C45E008F184E"
             BuildableName = "Velvet Room.app"
-            BlueprintName = "iOS"
+            BlueprintName = "Mac"
             ReferencedContainer = "container:VelvetRoom.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
