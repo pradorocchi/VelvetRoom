@@ -200,7 +200,7 @@
 		20DBB0A921EB5CF8009B9AAA /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		20DBB0B921EB5D7F009B9AAA /* Widget.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Widget.plist; sourceTree = "<group>"; };
 		20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
-		20DBB0BC21EB5EB2009B9AAA /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
+		20DBB0BC21EB5EB2009B9AAA /* iOSWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOSWidget.entitlements; sourceTree = "<group>"; };
 		20E5879221EB6544001F119A /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		20EC12DA21E4F63A00375670 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		DA00F0D121DA3C92002FD057 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
@@ -414,7 +414,7 @@
 				20DBB0B921EB5D7F009B9AAA /* Widget.plist */,
 				DAB2708021C3CA7C008F184E /* iOS.storyboard */,
 				DAB2708321C3CA7C008F184E /* iOS.plist */,
-				20DBB0BC21EB5EB2009B9AAA /* Widget.entitlements */,
+				20DBB0BC21EB5EB2009B9AAA /* iOSWidget.entitlements */,
 				DAC5F1A921DA5D170039612C /* iOS.entitlements */,
 				DAB2708121C3CA7C008F184E /* Assets.xcassets */,
 			);
@@ -540,9 +540,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		20DBB0A721EB5CF8009B9AAA /* Widget */ = {
+		20DBB0A721EB5CF8009B9AAA /* iOS Widget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 20DBB0B721EB5CF8009B9AAA /* Build configuration list for PBXNativeTarget "Widget" */;
+			buildConfigurationList = 20DBB0B721EB5CF8009B9AAA /* Build configuration list for PBXNativeTarget "iOS Widget" */;
 			buildPhases = (
 				20DBB0A421EB5CF8009B9AAA /* Sources */,
 				20DBB0A521EB5CF8009B9AAA /* Frameworks */,
@@ -552,7 +552,7 @@
 			);
 			dependencies = (
 			);
-			name = Widget;
+			name = "iOS Widget";
 			productName = Widget;
 			productReference = 20DBB0A821EB5CF8009B9AAA /* Widget.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -711,7 +711,7 @@
 				DAB2704721C3C3EF008F184E /* Tests */,
 				DAB2705621C3C45E008F184E /* MacOS */,
 				DAB2706A21C3C473008F184E /* iOS */,
-				20DBB0A721EB5CF8009B9AAA /* Widget */,
+				20DBB0A721EB5CF8009B9AAA /* iOS Widget */,
 			);
 		};
 /* End PBXProject section */
@@ -913,7 +913,7 @@
 /* Begin PBXTargetDependency section */
 		20DBB0B321EB5CF8009B9AAA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 20DBB0A721EB5CF8009B9AAA /* Widget */;
+			target = 20DBB0A721EB5CF8009B9AAA /* iOS Widget */;
 			targetProxy = 20DBB0B221EB5CF8009B9AAA /* PBXContainerItemProxy */;
 		};
 		DAB2704F21C3C3EF008F184E /* PBXTargetDependency */ = {
@@ -974,7 +974,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = iOS/Widget.entitlements;
+				CODE_SIGN_ENTITLEMENTS = iOS/iOSWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -1045,7 +1045,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = iOS/Widget.entitlements;
+				CODE_SIGN_ENTITLEMENTS = iOS/iOSWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -1747,7 +1747,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		20DBB0B721EB5CF8009B9AAA /* Build configuration list for PBXNativeTarget "Widget" */ = {
+		20DBB0B721EB5CF8009B9AAA /* Build configuration list for PBXNativeTarget "iOS Widget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				20DBB0B521EB5CF8009B9AAA /* Debug */,
