@@ -2,40 +2,17 @@ import AppKit
 import NotificationCenter
 
 @objc(WidgetView) class WidgetView:NSViewController, NCWidgetProviding {
-    private weak var effect:NSVisualEffectView!
-//    private weak var name:UILabel!
+    private weak var name:NSTextField!
     private weak var charts:NSView?
     private var items = [Widget]()
     private var index = Int()
     
+    override func loadView() { view = NSView() }
+    
     override func viewDidLoad() {
-        super.viewDidLoad()/*
-        let effect:NSVisualEffectView
-        if #available(iOSApplicationExtension 10.0, *) {
-            effect = UIVisualEffectView(effect:UIVibrancyEffect.widgetPrimary())
-        } else {
-            effect = UIVisualEffectView(effect:UIVibrancyEffect.notificationCenter())
-        }
-        effect.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(effect)
-        self.effect = effect
-        
-        let button = UIControl()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action:#selector(open), for:.touchUpInside)
-        button.addTarget(self, action:#selector(highlight), for:.touchDown)
-        button.addTarget(self, action:#selector(unhighlight), for:[.touchUpOutside, .touchUpInside, .touchCancel])
-        effect.contentView.addSubview(button)
-        
-        effect.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        effect.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        effect.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
-        effect.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
-        
-        button.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        button.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        button.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
-        button.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true*/
+        super.viewDidLoad()
+        preferredContentSize = NSSize(width:0, height:300)
+        view.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func widgetPerformUpdate(completionHandler:(@escaping(NCUpdateResult) -> Void)) {
@@ -55,17 +32,19 @@ import NotificationCenter
         }
     }
     
-    private func empty() {/*
-        let label = UILabel()
+    private func empty() {
+        let label = NSTextField()
+        label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize:14, weight:.light)
-        label.textColor = .black
-        label.textAlignment = .center
-        label.text = "No boards created."
-        effect.contentView.addSubview(label)
+        label.isBezeled = false
+        label.isEditable = false
+        label.font = .systemFont(ofSize:16, weight:.ultraLight)
+        label.alignment = .center
+        label.stringValue = "No boards created"
+        view.addSubview(label)
         
         label.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
-        label.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true*/
+        label.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
     }
     
     private func render() {/*
@@ -145,13 +124,6 @@ import NotificationCenter
             left = bar.rightAnchor
         }
         charts.rightAnchor.constraint(equalTo:left).isActive = true*/
-    }
-    
-    @objc private func highlight() { view.alphaValue = 0.15 }
-    @objc private func unhighlight() { view.alphaValue = 1 }
-    
-    @objc private func open() {
-        extensionContext?.open(URL(string:"velvetroom:")!, completionHandler:nil)
     }
     
     @objc private func showNext() {
