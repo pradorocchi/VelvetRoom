@@ -1,6 +1,7 @@
 import Foundation
 
 public class Repository {
+    static let queue = DispatchQueue(label:String(), qos:.background, target:.global(qos:.background))
     public var list:(([Board]) -> Void)!
     public var select:((Board) -> Void)!
     public var error:((Error) -> Void)!
@@ -42,13 +43,11 @@ public class Repository {
         update(board)
         
         list(boards)
-        group.share(boards)
         select(board)
     }
     
     public func newColumn(_ board:Board) -> Column {
         board.columns.append(column(String()))
-        group.share(boards)
         return board.columns.last!
     }
     
@@ -59,7 +58,6 @@ public class Repository {
         let card = Card()
         board.cards.append(card)
         move(card, board:board, column:0, index:0)
-        group.share(boards)
         return card
     }
     
@@ -78,7 +76,6 @@ public class Repository {
             index = after + 1
         }
         move(card, board:board, column:board.columns.firstIndex { $0 === column }!, index:index)
-        group.share(boards)
     }
     
     public func move(_ column:Column, board:Board, after:Column? = nil) {
@@ -101,7 +98,6 @@ public class Repository {
                 }
             }
         }
-        group.share(boards)
     }
     
     public func delete(_ board:Board) {
@@ -111,7 +107,6 @@ public class Repository {
         storage.delete(board)
         synchUpdates()
         list(boards)
-        group.share(boards)
     }
     
     public func delete(_ column:Column, board:Board) {
@@ -230,6 +225,7 @@ public class Repository {
     
     private func synchUpdates() {
         synch.save(boards.reduce(into:[:], { result, board in result[board.id] = board.updated } ))
+        group.share(boards)
     }
     
     private func column(_ name:String) -> Column {

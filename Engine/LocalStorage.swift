@@ -3,7 +3,6 @@ import Foundation
 class LocalStorage:Storage {
     private static let url = FileManager.default.urls(for:.documentDirectory, in:.userDomainMask)[0]
     private let accountUrl = LocalStorage.url("Account")
-    private let queue = DispatchQueue(label:String(), qos:.background, target:.global(qos:.background))
     
     class func url(_ id:String) -> URL { return url.appendingPathComponent(id + ".velvet") }
     
@@ -17,19 +16,19 @@ class LocalStorage:Storage {
     }
     
     func save(_ account:Account) {
-        queue.async {
+        Repository.queue.async {
             try! (try! JSONEncoder().encode(account)).write(to:self.accountUrl, options:.atomic)
         }
     }
     
     func save(_ board:Board) {
-        queue.async {
+        Repository.queue.async {
             try! (try! JSONEncoder().encode(board)).write(to:LocalStorage.url(board.id), options:.atomic)
         }
     }
     
     func delete(_ board:Board) {
-        queue.async {
+        Repository.queue.async {
             if FileManager.default.fileExists(atPath:LocalStorage.url(board.id).path) {
                 try! FileManager.default.removeItem(at:LocalStorage.url(board.id))
             }

@@ -10,15 +10,14 @@ class CloudSynch:Synch {
     private var network = true
     private var monitor:Any?
     private var lastFetch = TimeInterval()
-    private let queue = DispatchQueue(label:String(), qos:.background, target:.global(qos:.background))
     
     func start() {
-        queue.async {
+        Repository.queue.async {
             self.register()
             if #available(iOS 12.0, *) {
                 if #available(OSX 10.14, *) {
                     let monitor = NWPathMonitor()
-                    monitor.start(queue:self.queue)
+                    monitor.start(queue:Repository.queue)
                     monitor.pathUpdateHandler = {
                         self.network = $0.status == .satisfied
                     }
@@ -29,7 +28,7 @@ class CloudSynch:Synch {
     }
     
     func load(_ id:String) {
-        queue.async {
+        Repository.queue.async {
             CKContainer(identifier:"iCloud.VelvetRoom").publicCloudDatabase.fetch(withRecordID:.init(recordName:id))
             { record, error in
                 if error != nil {
@@ -47,7 +46,7 @@ class CloudSynch:Synch {
     
     func save(_ account:[String:TimeInterval]) {
         if started {
-            queue.async {
+            Repository.queue.async {
                 NSUbiquitousKeyValueStore.default.set(account, forKey:"velvetroom.boards")
                 NSUbiquitousKeyValueStore.default.synchronize()
             }
@@ -56,7 +55,7 @@ class CloudSynch:Synch {
     
     func save(_ board:Board) {
         if started && network {
-            queue.async {
+            Repository.queue.async {
                 let record = CKRecord(recordType:"Board", recordID:.init(recordName:board.id))
                 record["json"] = CKAsset(fileURL:LocalStorage.url(board.id))
                 let operation = CKModifyRecordsOperation(recordsToSave:[record])

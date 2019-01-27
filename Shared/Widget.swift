@@ -27,5 +27,5 @@ struct Widget:Codable {
         }
     }
     
-    private static var suite:UserDefaults { return UserDefaults(suiteName:"group.VelvetRoom")! }
+    private static let suite = UserDefaults(suiteName:"group.VelvetRoom")!
 }

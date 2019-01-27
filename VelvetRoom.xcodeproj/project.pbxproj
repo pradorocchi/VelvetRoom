@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20253E7D21FCA7EB00EF42CB /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
 		20253E7E21FCA7F600EF42CB /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
 		20253E7F21FCA7F600EF42CB /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
 		202D0CF321EB3ED2002B2181 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D0CF221EB3ED2002B2181 /* HelpView.swift */; };
@@ -32,6 +31,8 @@
 		2061170B21FC9BA3007A2C84 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2061170A21FC9BA2007A2C84 /* WidgetView.swift */; };
 		20804BBB21E5E6360035535D /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804BBA21E5E6360035535D /* Alert.swift */; };
 		20804BBD21E5E6470035535D /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804BBC21E5E6470035535D /* Alert.swift */; };
+		20938C9921FDA8F600EB84DA /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
+		20938C9A21FDA8F700EB84DA /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
 		20B40E9D21E8756A00286E92 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40E9C21E8756A00286E92 /* CameraView.swift */; };
 		20B40E9F21E88E7D00286E92 /* PicturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40E9E21E88E7D00286E92 /* PicturesView.swift */; };
 		20B40EA121E8951F00286E92 /* PictureCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40EA021E8951F00286E92 /* PictureCellView.swift */; };
@@ -44,7 +45,6 @@
 		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20DBB0BB21EB5DB3009B9AAA /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */; };
-		20E5879321EB6544001F119A /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E5879221EB6544001F119A /* Widget.swift */; };
 		20E7023121FCAAF700327236 /* libVelvetRoom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2044021821FC9DE800D191BA /* libVelvetRoom.a */; };
 		20E7023321FCAB2B00327236 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E7023221FCAB2B00327236 /* Group.swift */; };
 		20E7023421FCAB2B00327236 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E7023221FCAB2B00327236 /* Group.swift */; };
@@ -892,6 +892,7 @@
 			files = (
 				DAD0C1F121C5222B00E6D1C7 /* LocalStorage.swift in Sources */,
 				20E7023321FCAB2B00327236 /* Group.swift in Sources */,
+				20938C9A21FDA8F700EB84DA /* Widget.swift in Sources */,
 				DAD0C1D021C5056B00E6D1C7 /* Board.swift in Sources */,
 				DA7B2AEB21C67D55003B7333 /* Template.swift in Sources */,
 				DAB2709D21C3CA99008F184E /* Repository.swift in Sources */,
@@ -917,6 +918,7 @@
 			files = (
 				DAD0C1F221C5222B00E6D1C7 /* LocalStorage.swift in Sources */,
 				20E7023421FCAB2B00327236 /* Group.swift in Sources */,
+				20938C9921FDA8F600EB84DA /* Widget.swift in Sources */,
 				DAD0C1D121C5056B00E6D1C7 /* Board.swift in Sources */,
 				DA7B2AEC21C67D55003B7333 /* Template.swift in Sources */,
 				DAB2709F21C3CA99008F184E /* Repository.swift in Sources */,
@@ -995,7 +997,6 @@
 				DA4C2AC521D4F4CB004988B4 /* ProgressView.swift in Sources */,
 				202D692921E231EF009398AB /* ExportView.swift in Sources */,
 				20CADF9E21F99B8A005DC344 /* SettingsView.swift in Sources */,
-				20253E7D21FCA7EB00EF42CB /* Widget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1028,7 +1029,6 @@
 				DA88A21D21D8DB6000144E39 /* DeleteView.swift in Sources */,
 				DA0A147021D77A6A00CF4BDD /* TextLayout.swift in Sources */,
 				DAADDD7021D8EA680038F85F /* CardView.swift in Sources */,
-				20E5879321EB6544001F119A /* Widget.swift in Sources */,
 				DAD7B78521D65712003396B1 /* UIColor.swift in Sources */,
 				20804BBB21E5E6360035535D /* Alert.swift in Sources */,
 			);

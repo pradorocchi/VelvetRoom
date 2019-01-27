@@ -286,9 +286,6 @@ class View:UIViewController {
             self.boards.bottomAnchor.constraint(equalTo:top, constant:10 + safeBottom).isActive = true
         }
         self.boards.layoutIfNeeded()
-        DispatchQueue.global(qos:.background).async {
-            Widget.items = boards.map { Widget(name:$0.name, columns:$0.chart.map { $0.1 } ) }
-        }
     }
     
     private func listenKeyboard() {

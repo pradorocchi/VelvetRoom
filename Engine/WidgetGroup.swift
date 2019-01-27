@@ -1,9 +1,9 @@
 import Foundation
 
 class WidgetGroup:Group {
-    private let queue = DispatchQueue(label:String(), qos:.background, target:.global(qos:.background))
-    
     func share(_ boards:[Board]) {
-        
+        Repository.queue.async {
+            Widget.items = boards.map { Widget(name:$0.name, columns:$0.chart.map { $0.1 } ) }
+        }
     }
 }
