@@ -20,7 +20,8 @@ public class Repository {
         timer.resume()
         account = (try? storage.account()) ?? account
         account.boards.forEach { id in boards.append(storage.board(id)) }
-        listAndShare()
+        list(sorted)
+        group.share(sorted)
         synchBoards()
     }
     
@@ -40,12 +41,14 @@ public class Repository {
         storage.save(account)
         update(board)
         
-        listAndShare()
+        list(sorted)
+        group.share(sorted)
         select(board)
     }
     
     public func newColumn(_ board:Board) -> Column {
         board.columns.append(column(String()))
+        group.share(sorted)
         return board.columns.last!
     }
     
@@ -56,6 +59,7 @@ public class Repository {
         let card = Card()
         board.cards.append(card)
         move(card, board:board, column:0, index:0)
+        group.share(sorted)
         return card
     }
     
@@ -74,6 +78,7 @@ public class Repository {
             index = after + 1
         }
         move(card, board:board, column:board.columns.firstIndex { $0 === column }!, index:index)
+        group.share(sorted)
     }
     
     public func move(_ column:Column, board:Board, after:Column? = nil) {
@@ -96,6 +101,7 @@ public class Repository {
                 }
             }
         }
+        group.share(sorted)
     }
     
     public func delete(_ board:Board) {
@@ -104,7 +110,8 @@ public class Repository {
         storage.save(account)
         storage.delete(board)
         synchUpdates()
-        listAndShare()
+        list(sorted)
+        group.share(sorted)
     }
     
     public func delete(_ column:Column, board:Board) {
@@ -216,11 +223,6 @@ public class Repository {
         boards.append(board)
         storage.save(board)
         storage.save(account)
-        listAndShare()
-    }
-    
-    private func listAndShare() {
-        let sorted = self.sorted
         list(sorted)
         group.share(sorted)
     }

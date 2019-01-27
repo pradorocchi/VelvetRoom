@@ -45,4 +45,39 @@ class TestGroup:XCTestCase {
         mock.loaded(Board())
         waitForExpectations(timeout:1)
     }
+    
+    func testNewColumnShares() {
+        let expect = expectation(description:String())
+        group.onShare = { expect.fulfill() }
+        _ = repository.newColumn(Board())
+        waitForExpectations(timeout:1)
+    }
+    
+    func testNewCardShares() {
+        let expect = expectation(description:String())
+        group.onShare = { expect.fulfill() }
+        let board = Board()
+        board.columns = [Column()]
+        _ = try! repository.newCard(board)
+        waitForExpectations(timeout:1)
+    }
+    
+    func testMoveCardShares() {
+        let expect = expectation(description:String())
+        group.onShare = { expect.fulfill() }
+        let board = Board()
+        board.columns = [Column()]
+        board.cards = [Card()]
+        repository.move(board.cards.first!, board:board, column:board.columns.first!)
+        waitForExpectations(timeout:1)
+    }
+    
+    func testMoveColumnShares() {
+        let expect = expectation(description:String())
+        group.onShare = { expect.fulfill() }
+        let board = Board()
+        board.columns = [Column()]
+        repository.move(board.columns.first!, board:board)
+        waitForExpectations(timeout:1)
+    }
 }
