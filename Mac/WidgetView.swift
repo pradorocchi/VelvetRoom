@@ -47,50 +47,58 @@ import NotificationCenter
         label.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
     }
     
-    private func render() {/*
-        let name = UILabel()
+    private func render() {
+        let name = NSTextField()
+        name.backgroundColor = .clear
         name.translatesAutoresizingMaskIntoConstraints = false
+        name.isBezeled = false
+        name.isEditable = false
         name.font = .systemFont(ofSize:16, weight:.bold)
-        name.textColor = .black
-        effect.contentView.addSubview(name)
+        name.alignment = .center
+        view.addSubview(name)
         self.name = name
         
-        let nextButton = UIButton()
-        nextButton.addTarget(self, action:#selector(showNext), for:.touchUpInside)
+        let nextButton = NSButton()
         nextButton.translatesAutoresizingMaskIntoConstraints = false
-        nextButton.setTitle("▼", for:[])
-        nextButton.setTitleColor(#colorLiteral(red: 0.231372549, green: 0.7215686275, blue: 1, alpha: 1), for:.normal)
-        nextButton.setTitleColor(.black, for:.highlighted)
-        nextButton.titleLabel!.font = .systemFont(ofSize:10, weight:.light)
-        nextButton.titleEdgeInsets = UIEdgeInsets(top:0, left:0, bottom:0, right:100)
-        effect.contentView.addSubview(nextButton)
+        nextButton.image = NSImage(named:"next")
+        nextButton.setButtonType(.momentaryChange)
+        nextButton.imageScaling = .scaleNone
+        nextButton.isBordered = false
+        nextButton.title = String()
+        nextButton.keyEquivalent = String(Character(UnicodeScalar(NSRightArrowFunctionKey)!))
+        nextButton.target = self
+        nextButton.action = #selector(showNext)
+        view.addSubview(nextButton)
         
-        let prevButton = UIButton()
-        prevButton.addTarget(self, action:#selector(showPrev), for:.touchUpInside)
-        prevButton.translatesAutoresizingMaskIntoConstraints = false
-        prevButton.setTitle("▲", for:[])
-        prevButton.setTitleColor(#colorLiteral(red: 0.231372549, green: 0.7215686275, blue: 1, alpha: 1), for:.normal)
-        prevButton.setTitleColor(.black, for:.highlighted)
-        prevButton.titleLabel!.font = .systemFont(ofSize:10, weight:.light)
-        prevButton.titleEdgeInsets = UIEdgeInsets(top:0, left:0, bottom:0, right:100)
-        effect.contentView.addSubview(prevButton)
+        let previousButton = NSButton()
+        previousButton.translatesAutoresizingMaskIntoConstraints = false
+        previousButton.image = NSImage(named:"previous")
+        previousButton.setButtonType(.momentaryChange)
+        previousButton.imageScaling = .scaleNone
+        previousButton.isBordered = false
+        previousButton.title = String()
+        previousButton.keyEquivalent = String(Character(UnicodeScalar(NSLeftArrowFunctionKey)!))
+        previousButton.target = self
+        previousButton.action = #selector(showPrevious)
+        view.addSubview(previousButton)
         
-        name.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
-        name.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
+        name.leftAnchor.constraint(equalTo:previousButton.rightAnchor).isActive = true
+        name.rightAnchor.constraint(equalTo:nextButton.leftAnchor).isActive = true
+        name.centerYAnchor.constraint(equalTo:view.topAnchor, constant:20).isActive = true
         
-        nextButton.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        nextButton.topAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
-        nextButton.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
-        nextButton.widthAnchor.constraint(equalToConstant:150).isActive = true
+        nextButton.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
+        nextButton.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-8).isActive = true
+        nextButton.widthAnchor.constraint(equalToConstant:50).isActive = true
+        nextButton.heightAnchor.constraint(equalToConstant:40).isActive = true
         
-        prevButton.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        prevButton.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        prevButton.bottomAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
-        prevButton.widthAnchor.constraint(equalToConstant:150).isActive = true*/
+        previousButton.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
+        previousButton.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+        previousButton.widthAnchor.constraint(equalToConstant:50).isActive = true
+        previousButton.heightAnchor.constraint(equalToConstant:40).isActive = true
     }
     
-    private func display() {/*
-        name.text = items[index].name
+    private func display() {
+        name.stringValue = items[index].name/*
         self.charts?.removeFromSuperview()
         
         let charts = UIView()
@@ -132,7 +140,7 @@ import NotificationCenter
         display()
     }
     
-    @objc private func showPrev() {
+    @objc private func showPrevious() {
         index = index > 0 ? index - 1 : items.count - 1
         Widget.index = index
         display()
