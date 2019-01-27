@@ -18,7 +18,7 @@ class Alert {
         let view = UIControl()
         view.addTarget(self, action:#selector(remove), for:.touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(white:1, alpha:0.96)
+        view.backgroundColor = UIColor(red:0.76, green:0.77, blue:0.78, alpha:0.94)
         view.layer.cornerRadius = 6
         view.alpha = 0
         Application.view.view.addSubview(view)
