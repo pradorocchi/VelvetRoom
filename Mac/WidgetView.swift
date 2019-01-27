@@ -3,7 +3,7 @@ import NotificationCenter
 
 @objc(WidgetView) class WidgetView:NSViewController, NCWidgetProviding {
     private weak var name:NSTextField!
-    private weak var charts:NSView?
+    private weak var chart:NSView?
     private var items = [Widget]()
     private var index = Int()
     
@@ -11,7 +11,7 @@ import NotificationCenter
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        preferredContentSize = NSSize(width:0, height:300)
+        preferredContentSize = NSSize(width:0, height:320)
         view.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -53,7 +53,7 @@ import NotificationCenter
         name.translatesAutoresizingMaskIntoConstraints = false
         name.isBezeled = false
         name.isEditable = false
-        name.font = .systemFont(ofSize:16, weight:.bold)
+        name.font = .systemFont(ofSize:18, weight:.regular)
         name.alignment = .center
         view.addSubview(name)
         self.name = name
@@ -98,40 +98,52 @@ import NotificationCenter
     }
     
     private func display() {
-        name.stringValue = items[index].name/*
-        self.charts?.removeFromSuperview()
+        name.stringValue = items[index].name
+        self.chart?.removeFromSuperview()
+        let chart = NSView()
+        chart.wantsLayer = true
+        chart.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(chart)
+        self.chart = chart
         
-        let charts = UIView()
-        charts.isUserInteractionEnabled = false
-        charts.translatesAutoresizingMaskIntoConstraints = false
-        effect.contentView.addSubview(charts)
-        self.charts = charts
+        var angle = CGFloat()
+        let center = CGPoint(x:view.bounds.midX - 8, y:view.bounds.midY - 20)
         
-        charts.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
-        charts.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        charts.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-40).isActive = true
+        let maskPath = CGMutablePath()
+        maskPath.addArc(center:center, radius:105, startAngle:0.001, endAngle:0, clockwise:false)
+        let mask = CAShapeLayer()
+        mask.frame = view.bounds
+        mask.path = maskPath
+        mask.lineWidth = 30
+        mask.strokeColor = NSColor.black.cgColor
+        mask.fillColor = NSColor.clear.cgColor
+        chart.layer!.mask = mask
         
-        var left = charts.leftAnchor
-        let longest = items[index].columns.reduce(Float()) { max($0, $1) }
         items[index].columns.enumerated().forEach {
-            let bar = UIView()
-            bar.translatesAutoresizingMaskIntoConstraints = false
-            bar.isUserInteractionEnabled = false
-            bar.backgroundColor = $0.offset == items[index].columns.count - 1 ? #colorLiteral(red: 0.231372549, green: 0.7215686275, blue: 1, alpha: 1) : #colorLiteral(red: 0.231372549, green: 0.7215686275, blue: 1, alpha: 1).withAlphaComponent(0.3)
-            bar.layer.cornerRadius = 4
-            bar.layer.borderWidth = 1
-            bar.layer.borderColor = UIColor(white:0, alpha:0.1).cgColor
-            charts.addSubview(bar)
-            
-            bar.leftAnchor.constraint(equalTo:left, constant:5).isActive = true
-            bar.topAnchor.constraint(equalTo:charts.topAnchor, constant:-5).isActive = true
-            bar.heightAnchor.constraint(equalTo:charts.heightAnchor,
-                                        multiplier:CGFloat($0.element / longest),
-                                        constant:25).isActive = true
-            bar.widthAnchor.constraint(equalToConstant:22).isActive = true
-            left = bar.rightAnchor
+            let delta = .pi * -2 * CGFloat($0.element)
+            let radius = delta + angle
+            let path = CGMutablePath()
+            path.move(to:center)
+            path.addArc(center:center, radius:120, startAngle:angle, endAngle:radius, clockwise:true)
+            path.closeSubpath()
+            let layer = CAShapeLayer()
+            layer.frame = view.bounds
+            layer.path = path
+            layer.lineWidth = 4
+            layer.strokeColor = NSColor.black.cgColor
+            if $0.offset == items[index].columns.count - 1 {
+                layer.fillColor = NSColor.velvetBlue.cgColor
+            } else {
+                layer.fillColor = NSColor.velvetBlue.withAlphaComponent(0.2).cgColor
+            }
+            chart.layer!.addSublayer(layer)
+            angle = radius
         }
-        charts.rightAnchor.constraint(equalTo:left).isActive = true*/
+        
+        chart.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
+        chart.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
+        chart.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+        chart.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
     }
     
     @objc private func showNext() {
