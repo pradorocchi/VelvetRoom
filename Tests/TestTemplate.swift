@@ -8,6 +8,7 @@ class TestTemplate:XCTestCase {
         repository = Repository()
         repository.storage = MockStorage()
         repository.synch = MockSynch()
+        repository.group = MockGroup()
         repository.list = { _ in }
         repository.select = { _ in }
     }

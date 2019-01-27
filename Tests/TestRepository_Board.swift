@@ -8,6 +8,7 @@ class TestRepository_Board:XCTestCase {
         repository = Repository()
         repository.storage = MockStorage()
         repository.synch = MockSynch()
+        repository.group = MockGroup()
         repository.list = { _ in }
         repository.select = { _ in }
     }
@@ -85,6 +86,40 @@ class TestRepository_Board:XCTestCase {
         board.id = "hello world"
         repository.boards = [board]
         repository.delete(board)
+        waitForExpectations(timeout:1)
+    }
+    
+    func testSortedAfterLoad() {
+        let a = Board()
+        let b = Board()
+        a.name = "A"
+        b.name = "B"
+        repository.boards = [b, a]
+        repository.load()
+        XCTAssertEqual("A", repository.boards[0].name)
+        XCTAssertEqual("B", repository.boards[1].name)
+    }
+    
+    func testSortedAfterSynch() {
+        let expect = expectation(description:String())
+        let a = Board()
+        let b = Board()
+        a.name = "A"
+        a.id = "a"
+        b.name = "B"
+        b.id = "b"
+        repository.boards = [b]
+        let group = MockGroup()
+        repository.group = group
+        group.onShare = {
+            XCTAssertEqual("A", self.repository.boards[0].name)
+            XCTAssertEqual("B", self.repository.boards[1].name)
+            expect.fulfill()
+        }
+        let mock = MockSynch()
+        repository.synch = mock
+        repository.synchBoards()
+        mock.loaded(a)
         waitForExpectations(timeout:1)
     }
 }

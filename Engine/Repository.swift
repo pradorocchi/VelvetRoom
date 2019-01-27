@@ -10,8 +10,6 @@ public class Repository {
     var synch:Synch = CloudSynch()
     var group:Group = WidgetGroup()
     var wait = 1.0
-    private var sorted:[Board] {
-        return boards.sorted { $0.name.compare($1.name, options:.caseInsensitive) == .orderedAscending } }
     private let timer = DispatchSource.makeTimerSource(queue:.global(qos:.background))
     
     public init() { }
@@ -20,8 +18,9 @@ public class Repository {
         timer.resume()
         account = (try? storage.account()) ?? account
         account.boards.forEach { id in boards.append(storage.board(id)) }
-        list(sorted)
-        group.share(sorted)
+        boards.sort { $0.name.compare($1.name, options:.caseInsensitive) == .orderedAscending }
+        list(boards)
+        group.share(boards)
         synchBoards()
     }
     
@@ -37,18 +36,19 @@ public class Repository {
         add(template, board:board)
         
         boards.append(board)
+        boards.sort { $0.name.compare($1.name, options:.caseInsensitive) == .orderedAscending }
         account.boards.append(board.id)
         storage.save(account)
         update(board)
         
-        list(sorted)
-        group.share(sorted)
+        list(boards)
+        group.share(boards)
         select(board)
     }
     
     public func newColumn(_ board:Board) -> Column {
         board.columns.append(column(String()))
-        group.share(sorted)
+        group.share(boards)
         return board.columns.last!
     }
     
@@ -59,7 +59,7 @@ public class Repository {
         let card = Card()
         board.cards.append(card)
         move(card, board:board, column:0, index:0)
-        group.share(sorted)
+        group.share(boards)
         return card
     }
     
@@ -78,7 +78,7 @@ public class Repository {
             index = after + 1
         }
         move(card, board:board, column:board.columns.firstIndex { $0 === column }!, index:index)
-        group.share(sorted)
+        group.share(boards)
     }
     
     public func move(_ column:Column, board:Board, after:Column? = nil) {
@@ -101,7 +101,7 @@ public class Repository {
                 }
             }
         }
-        group.share(sorted)
+        group.share(boards)
     }
     
     public func delete(_ board:Board) {
@@ -110,8 +110,8 @@ public class Repository {
         storage.save(account)
         storage.delete(board)
         synchUpdates()
-        list(sorted)
-        group.share(sorted)
+        list(boards)
+        group.share(boards)
     }
     
     public func delete(_ column:Column, board:Board) {
@@ -141,13 +141,13 @@ public class Repository {
     public func change(_ appearance:Appearance) {
         account.appearance = appearance
         storage.save(account)
-        list(sorted)
+        list(boards)
     }
     
     public func change(_ font:Int) {
         account.font = font
         storage.save(account)
-        list(sorted)
+        list(boards)
     }
     
     public func scheduleUpdate(_ board:Board) {
@@ -221,10 +221,11 @@ public class Repository {
         }
         boards.removeAll { $0.id == board.id }
         boards.append(board)
+        boards.sort { $0.name.compare($1.name, options:.caseInsensitive) == .orderedAscending }
         storage.save(board)
         storage.save(account)
-        list(sorted)
-        group.share(sorted)
+        list(boards)
+        group.share(boards)
     }
     
     private func synchUpdates() {

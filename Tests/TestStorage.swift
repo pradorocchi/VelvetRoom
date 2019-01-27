@@ -9,6 +9,7 @@ class TestStorage:XCTestCase {
         storage = MockStorage()
         repository = Repository()
         repository.synch = MockSynch()
+        repository.group = MockGroup()
         repository.storage = storage
         repository.list = { _ in }
         repository.select = { _ in }
