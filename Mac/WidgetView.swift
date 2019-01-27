@@ -114,7 +114,7 @@ import NotificationCenter
         let mask = CAShapeLayer()
         mask.frame = view.bounds
         mask.path = maskPath
-        mask.lineWidth = 30
+        mask.lineWidth = 36
         mask.strokeColor = NSColor.black.cgColor
         mask.fillColor = NSColor.clear.cgColor
         chart.layer!.mask = mask
@@ -139,6 +139,16 @@ import NotificationCenter
             chart.layer!.addSublayer(layer)
             angle = radius
         }
+        
+        let path = CGMutablePath()
+        path.addArc(center:center, radius:88, startAngle:0.001, endAngle:0, clockwise:false)
+        let layer = CAShapeLayer()
+        layer.frame = view.bounds
+        layer.path = path
+        layer.lineWidth = 4
+        layer.strokeColor = NSColor.black.cgColor
+        layer.fillColor = NSColor.clear.cgColor
+        chart.layer!.addSublayer(layer)
         
         chart.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
         chart.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
