@@ -132,7 +132,6 @@ import NotificationCenter
             
             previousButton.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
             previousButton.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
-            
         } else {
             name.font = .systemFont(ofSize:18, weight:.medium)
             name.centerYAnchor.constraint(equalTo:nextButton.centerYAnchor).isActive = true

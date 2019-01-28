@@ -6,9 +6,10 @@ class BoardView:UIControl, UITextViewDelegate {
     override var isHighlighted:Bool { didSet { update() } }
     private(set) weak var board:Board!
     private weak var text:TextView!
+    private weak var date:UILabel!
     private weak var delete:UIButton!
     private weak var export:UIButton!
-    override var intrinsicContentSize:CGSize { return CGSize(width:UIView.noIntrinsicMetric, height:70) }
+    override var intrinsicContentSize:CGSize { return CGSize(width:UIView.noIntrinsicMetric, height:60) }
     
     init(_ board:Board) {
         super.init(frame:.zero)
@@ -29,6 +30,17 @@ class BoardView:UIControl, UITextViewDelegate {
         addSubview(text)
         self.text = text
         
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium
+        formatter.dateStyle = .short
+        
+        let date = UILabel()
+        date.translatesAutoresizingMaskIntoConstraints = false
+        date.font = .systemFont(ofSize:10, weight:.light)
+        date.text = formatter.string(from:Date(timeIntervalSince1970:board.updated))
+        addSubview(date)
+        self.date = date
+        
         let delete = UIButton()
         delete.addTarget(self, action:#selector(remove), for:.touchUpInside)
         delete.translatesAutoresizingMaskIntoConstraints = false
@@ -47,9 +59,12 @@ class BoardView:UIControl, UITextViewDelegate {
         addSubview(export)
         self.export = export
         
-        text.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
+        text.centerYAnchor.constraint(equalTo:centerYAnchor, constant:-6).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:12).isActive = true
         text.rightAnchor.constraint(equalTo:delete.leftAnchor, constant:-10).isActive = true
+        
+        date.leftAnchor.constraint(equalTo:text.leftAnchor, constant:6).isActive = true
+        date.topAnchor.constraint(equalTo:text.bottomAnchor, constant:-2).isActive = true
         
         delete.topAnchor.constraint(equalTo:topAnchor).isActive = true
         delete.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
@@ -90,12 +105,17 @@ class BoardView:UIControl, UITextViewDelegate {
         if text.isFirstResponder {
             backgroundColor = .clear
             text.textColor = Application.skin.text
+            date.isHidden = true
         } else if isHighlighted || isSelected {
             backgroundColor = .velvetBlue
             text.textColor = .black
+            date.textColor = .black
+            date.isHidden = false
         } else {
             backgroundColor = Application.skin.over
             text.textColor = Application.skin.text
+            date.textColor = Application.skin.text
+            date.isHidden = false
         }
     }
     
