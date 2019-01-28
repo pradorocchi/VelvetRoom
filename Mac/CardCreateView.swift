@@ -3,7 +3,6 @@ import AppKit
 class CardCreateView:CreateView {
     override init(_ selector:Selector) {
         super.init(selector)
-        
         let button = NSButton()
         button.title = String()
         button.translatesAutoresizingMaskIntoConstraints = false

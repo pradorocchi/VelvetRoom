@@ -99,12 +99,29 @@ import NotificationCenter
     
     private func display() {
         name.stringValue = items[index].name
-        self.chart?.removeFromSuperview()
+        let chart = newChart()
+        if #available(OSX 10.12, *) {
+            chart.alphaValue = 0
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 1
+                context.allowsImplicitAnimation = true
+                chart.alphaValue = 1
+                self.chart?.alphaValue = 0
+            }) {
+                self.chart?.removeFromSuperview()
+                self.chart = chart
+            }
+        } else {
+            self.chart?.removeFromSuperview()
+            self.chart = chart
+        }
+    }
+    
+    private func newChart() -> NSView {
         let chart = NSView()
         chart.wantsLayer = true
         chart.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(chart)
-        self.chart = chart
         
         var angle = CGFloat()
         let center = CGPoint(x:view.bounds.midX - 8, y:view.bounds.midY - 20)
@@ -154,6 +171,7 @@ import NotificationCenter
         chart.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
         chart.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
         chart.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        return chart
     }
     
     @objc private func showNext() {
