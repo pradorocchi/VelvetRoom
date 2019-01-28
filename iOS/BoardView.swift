@@ -68,12 +68,12 @@ class BoardView:UIControl, UITextViewDelegate {
         
         delete.topAnchor.constraint(equalTo:topAnchor).isActive = true
         delete.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
-        delete.rightAnchor.constraint(equalTo:export.leftAnchor).isActive = true
+        delete.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
         delete.widthAnchor.constraint(equalToConstant:54).isActive = true
         
         export.topAnchor.constraint(equalTo:topAnchor).isActive = true
         export.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
-        export.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
+        export.rightAnchor.constraint(equalTo:delete.leftAnchor).isActive = true
         export.widthAnchor.constraint(equalToConstant:54).isActive = true
         
         update()
