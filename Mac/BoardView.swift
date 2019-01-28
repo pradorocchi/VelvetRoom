@@ -4,13 +4,17 @@ import VelvetRoom
 class BoardView:NSControl, NSTextViewDelegate {
     var selected = false { didSet { updateSkin() } }
     private(set) weak var board:Board!
+    private weak var date:NSTextField!
     private weak var text:TextView!
+    private let dateFormatter = DateFormatter()
     override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:85) }
     
     init(_ board:Board) {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
+        dateFormatter.timeStyle = .short
+        dateFormatter.dateStyle = .short
         self.board = board
         
         let text = TextView()
@@ -22,8 +26,20 @@ class BoardView:NSControl, NSTextViewDelegate {
         addSubview(text)
         self.text = text
         
-        text.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
+        let date = NSTextField()
+        date.translatesAutoresizingMaskIntoConstraints = false
+        date.backgroundColor = .clear
+        date.isBezeled = false
+        date.isEditable = false
+        date.font = .systemFont(ofSize:10, weight:.light)
+        addSubview(date)
+        self.date = date
+        
+        text.centerYAnchor.constraint(equalTo:centerYAnchor, constant:-8).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:12).isActive = true
+        
+        date.topAnchor.constraint(equalTo:text.bottomAnchor, constant:-1).isActive = true
+        date.leftAnchor.constraint(equalTo:text.leftAnchor, constant:4).isActive = true
         
         updateSkin()
     }
@@ -73,16 +89,21 @@ class BoardView:NSControl, NSTextViewDelegate {
     
     private func updateSkin() {
         text.textColor = Application.skin.text
+        date.textColor = Application.skin.text
+        date.stringValue = dateFormatter.string(from:Date(timeIntervalSince1970:board.updated))
         if Application.view.firstResponder === text {
             layer!.backgroundColor = .black
             text.textColor = .white
             text.alphaValue = 1
+            date.alphaValue = 0
         } else if selected {
             layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
             text.alphaValue = 0.8
+            date.alphaValue = 0.8
         } else {
             layer!.backgroundColor = NSColor.clear.cgColor
             text.alphaValue = 0.8
+            date.alphaValue = 0.8
         }
     }
 }

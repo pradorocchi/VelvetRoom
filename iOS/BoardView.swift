@@ -31,7 +31,7 @@ class BoardView:UIControl, UITextViewDelegate {
         self.text = text
         
         let formatter = DateFormatter()
-        formatter.timeStyle = .medium
+        formatter.timeStyle = .short
         formatter.dateStyle = .short
         
         let date = UILabel()
