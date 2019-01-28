@@ -7,8 +7,7 @@ struct Widget:Codable {
     static var index:Int {
         get {
             return suite.integer(forKey:"index")
-        }
-        set {
+        } set {
             suite.set(newValue, forKey:"index")
             suite.synchronize()
         }
@@ -20,12 +19,11 @@ struct Widget:Codable {
                 return try! JSONDecoder().decode([Widget].self, from:data)
             }
             return []
-        }
-        set {
+        } set {
             suite.set(try! JSONEncoder().encode(newValue), forKey:"widget")
             suite.synchronize()
         }
     }
     
-    private static let suite = UserDefaults(suiteName:"group.VelvetRoom")!
+    private static let suite = UserDefaults(suiteName:"7AMWG3RLHN.group.VelvetRoom")!
 }
