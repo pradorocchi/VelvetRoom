@@ -3,16 +3,20 @@ import NotificationCenter
 
 @objc(WidgetView) class WidgetView:UIViewController, NCWidgetProviding {
     private weak var effect:UIVisualEffectView!
-    private weak var name:UILabel!
-    private weak var charts:UIView?
+    private weak var chart:UIView?
+    private weak var name:UILabel?
+    private weak var nextButton:UIButton?
+    private weak var previousButton:UIButton?
     private var items = [Widget]()
     private var index = Int()
+    private var compact = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let effect:UIVisualEffectView
         if #available(iOSApplicationExtension 10.0, *) {
-            effect = UIVisualEffectView(effect:UIVibrancyEffect.widgetPrimary())
+            effect = UIVisualEffectView(effect:UIVibrancyEffect.widgetSecondary())
+            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         } else {
             effect = UIVisualEffectView(effect:UIVibrancyEffect.notificationCenter())
         }
@@ -55,13 +59,27 @@ import NotificationCenter
         }
     }
     
+    @available(iOSApplicationExtension 10.0, *)
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode:NCWidgetDisplayMode, withMaximumSize maxSize:CGSize) {
+        preferredContentSize = CGSize(width:maxSize.width, height:min(maxSize.height, 280))
+        compact = activeDisplayMode == .compact
+        name?.removeFromSuperview()
+        nextButton?.removeFromSuperview()
+        previousButton?.removeFromSuperview()
+        chart?.removeFromSuperview()
+        if !items.isEmpty {
+            render()
+            display()
+        }
+    }
+    
     private func empty() {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize:14, weight:.light)
+        label.font = .systemFont(ofSize:16, weight:.ultraLight)
         label.textColor = .black
         label.textAlignment = .center
-        label.text = "No boards created."
+        label.text = "No boards created"
         effect.contentView.addSubview(label)
         
         label.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
@@ -71,80 +89,150 @@ import NotificationCenter
     private func render() {
         let name = UILabel()
         name.translatesAutoresizingMaskIntoConstraints = false
-        name.font = .systemFont(ofSize:16, weight:.bold)
         name.textColor = .black
+        name.textAlignment = .center
+        name.alpha = 0
         effect.contentView.addSubview(name)
         self.name = name
         
         let nextButton = UIButton()
         nextButton.addTarget(self, action:#selector(showNext), for:.touchUpInside)
         nextButton.translatesAutoresizingMaskIntoConstraints = false
-        nextButton.setTitle("▼", for:[])
-        nextButton.setTitleColor(#colorLiteral(red: 0.231372549, green: 0.7215686275, blue: 1, alpha: 1), for:.normal)
-        nextButton.setTitleColor(.black, for:.highlighted)
-        nextButton.titleLabel!.font = .systemFont(ofSize:10, weight:.light)
-        nextButton.titleEdgeInsets = UIEdgeInsets(top:0, left:0, bottom:0, right:100)
-        effect.contentView.addSubview(nextButton)
+        nextButton.setImage(#imageLiteral(resourceName: "next.pdf"), for:.normal)
+        nextButton.imageView!.clipsToBounds = true
+        nextButton.imageView!.contentMode = .center
+        nextButton.alpha = 0
+        view.addSubview(nextButton)
+        self.nextButton = nextButton
         
-        let prevButton = UIButton()
-        prevButton.addTarget(self, action:#selector(showPrev), for:.touchUpInside)
-        prevButton.translatesAutoresizingMaskIntoConstraints = false
-        prevButton.setTitle("▲", for:[])
-        prevButton.setTitleColor(#colorLiteral(red: 0.231372549, green: 0.7215686275, blue: 1, alpha: 1), for:.normal)
-        prevButton.setTitleColor(.black, for:.highlighted)
-        prevButton.titleLabel!.font = .systemFont(ofSize:10, weight:.light)
-        prevButton.titleEdgeInsets = UIEdgeInsets(top:0, left:0, bottom:0, right:100)
-        effect.contentView.addSubview(prevButton)
+        let previousButton = UIButton()
+        previousButton.addTarget(self, action:#selector(showPrevious), for:.touchUpInside)
+        previousButton.translatesAutoresizingMaskIntoConstraints = false
+        previousButton.setImage(#imageLiteral(resourceName: "previous.pdf"), for:.normal)
+        previousButton.imageView!.clipsToBounds = true
+        previousButton.imageView!.contentMode = .center
+        previousButton.alpha = 0
+        view.addSubview(previousButton)
+        self.previousButton = previousButton
         
-        name.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
-        name.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
+        nextButton.widthAnchor.constraint(equalToConstant:60).isActive = true
+        nextButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         
-        nextButton.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        nextButton.topAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
-        nextButton.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
-        nextButton.widthAnchor.constraint(equalToConstant:150).isActive = true
+        previousButton.widthAnchor.constraint(equalToConstant:60).isActive = true
+        previousButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         
-        prevButton.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        prevButton.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        prevButton.bottomAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
-        prevButton.widthAnchor.constraint(equalToConstant:150).isActive = true
+        if compact {
+            name.font = .systemFont(ofSize:14, weight:.regular)
+            name.leftAnchor.constraint(equalTo:previousButton.leftAnchor).isActive = true
+            name.rightAnchor.constraint(equalTo:nextButton.rightAnchor).isActive = true
+            name.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
+            
+            nextButton.leftAnchor.constraint(equalTo:previousButton.rightAnchor, constant:100).isActive = true
+            nextButton.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
+            
+            previousButton.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+            previousButton.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
+            
+        } else {
+            name.font = .systemFont(ofSize:18, weight:.medium)
+            name.centerYAnchor.constraint(equalTo:nextButton.centerYAnchor).isActive = true
+            name.leftAnchor.constraint(equalTo:previousButton.rightAnchor).isActive = true
+            name.rightAnchor.constraint(equalTo:nextButton.leftAnchor).isActive = true
+            
+            nextButton.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
+            nextButton.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+            
+            previousButton.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
+            previousButton.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+        }
+        
+        UIView.animate(withDuration:1) { [weak self] in
+            self?.name?.alpha = 1
+            self?.nextButton?.alpha = 1
+            self?.previousButton?.alpha = 1
+        }
     }
     
     private func display() {
-        name.text = items[index].name
-        self.charts?.removeFromSuperview()
-        
-        let charts = UIView()
-        charts.isUserInteractionEnabled = false
-        charts.translatesAutoresizingMaskIntoConstraints = false
-        effect.contentView.addSubview(charts)
-        self.charts = charts
-        
-        charts.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
-        charts.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        charts.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-40).isActive = true
-        
-        var left = charts.leftAnchor
-        let longest = items[index].columns.reduce(Float()) { max($0, $1) }
-        items[index].columns.enumerated().forEach {
-            let bar = UIView()
-            bar.translatesAutoresizingMaskIntoConstraints = false
-            bar.isUserInteractionEnabled = false
-            bar.backgroundColor = $0.offset == items[index].columns.count - 1 ? #colorLiteral(red: 0.231372549, green: 0.7215686275, blue: 1, alpha: 1) : #colorLiteral(red: 0.231372549, green: 0.7215686275, blue: 1, alpha: 1).withAlphaComponent(0.3)
-            bar.layer.cornerRadius = 4
-            bar.layer.borderWidth = 1
-            bar.layer.borderColor = UIColor(white:0, alpha:0.1).cgColor
-            charts.addSubview(bar)
-            
-            bar.leftAnchor.constraint(equalTo:left, constant:5).isActive = true
-            bar.topAnchor.constraint(equalTo:charts.topAnchor, constant:-5).isActive = true
-            bar.heightAnchor.constraint(equalTo:charts.heightAnchor,
-                                        multiplier:CGFloat($0.element / longest),
-                                        constant:25).isActive = true
-            bar.widthAnchor.constraint(equalToConstant:22).isActive = true
-            left = bar.rightAnchor
+        name?.text = items[index].name
+        let chart = newChart()
+        UIView.animate(withDuration:1, animations: { [weak self] in
+            chart.alpha = 1
+            self?.chart?.alpha = 0
+        }) { [weak self] _ in
+            self?.chart?.removeFromSuperview()
+            self?.chart = chart
         }
-        charts.rightAnchor.constraint(equalTo:left).isActive = true
+    }
+    
+    private func newChart() -> UIView {
+        let center:CGPoint
+        let radius:CGFloat
+        let extra:CGFloat
+        
+        if compact {
+            center = CGPoint(x:view.bounds.width - 55, y:47)
+            radius = 20
+            extra = 0
+        } else {
+            center = CGPoint(x:view.bounds.midX, y:160)
+            radius = 50
+            extra = 20
+        }
+        
+        let chart = UIView()
+        chart.alpha = 0
+        chart.isUserInteractionEnabled = false
+        chart.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(chart)
+        
+        var angle = CGFloat()
+        let maskPath = CGMutablePath()
+        maskPath.addArc(center:center, radius:radius + ((16 + extra) / 2),
+                        startAngle:0.001, endAngle:0, clockwise:false)
+        let mask = CAShapeLayer()
+        mask.frame = view.bounds
+        mask.path = maskPath
+        mask.lineWidth = 18 + extra
+        mask.strokeColor = UIColor.black.cgColor
+        mask.fillColor = UIColor.clear.cgColor
+        chart.layer.mask = mask
+        
+        items[index].columns.enumerated().forEach {
+            let delta = .pi * 2 * CGFloat($0.element)
+            let current = delta + angle
+            let path = CGMutablePath()
+            path.move(to:center)
+            path.addArc(center:center, radius:radius + 16 + extra, startAngle:angle, endAngle:current, clockwise:false)
+            path.closeSubpath()
+            let layer = CAShapeLayer()
+            layer.frame = view.bounds
+            layer.path = path
+            layer.lineWidth = 2
+            layer.strokeColor = UIColor.black.cgColor
+            if $0.offset == items[index].columns.count - 1 {
+                layer.fillColor = UIColor.velvetBlue.cgColor
+            } else {
+                layer.fillColor = UIColor.velvetBlue.withAlphaComponent(0.2).cgColor
+            }
+            chart.layer.addSublayer(layer)
+            angle = current
+        }
+        
+        let path = CGMutablePath()
+        path.addArc(center:center, radius:radius, startAngle:0.001, endAngle:0, clockwise:false)
+        let layer = CAShapeLayer()
+        layer.frame = view.bounds
+        layer.path = path
+        layer.lineWidth = 2
+        layer.strokeColor = UIColor.black.cgColor
+        chart.layer.addSublayer(layer)
+        
+        chart.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
+        chart.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
+        chart.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+        chart.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        return chart
     }
     
     @objc private func highlight() { view.alpha = 0.15 }
@@ -160,7 +248,7 @@ import NotificationCenter
         display()
     }
     
-    @objc private func showPrev() {
+    @objc private func showPrevious() {
         index = index > 0 ? index - 1 : items.count - 1
         Widget.index = index
         display()

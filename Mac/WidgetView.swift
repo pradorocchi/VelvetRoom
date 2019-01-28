@@ -84,7 +84,7 @@ import NotificationCenter
         
         name.leftAnchor.constraint(equalTo:previousButton.rightAnchor).isActive = true
         name.rightAnchor.constraint(equalTo:nextButton.leftAnchor).isActive = true
-        name.centerYAnchor.constraint(equalTo:view.topAnchor, constant:20).isActive = true
+        name.centerYAnchor.constraint(equalTo:nextButton.centerYAnchor).isActive = true
         
         nextButton.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
         nextButton.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-8).isActive = true
@@ -164,7 +164,6 @@ import NotificationCenter
         layer.path = path
         layer.lineWidth = 4
         layer.strokeColor = NSColor.black.cgColor
-        layer.fillColor = NSColor.clear.cgColor
         chart.layer!.addSublayer(layer)
         
         chart.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
