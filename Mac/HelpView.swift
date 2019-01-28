@@ -4,7 +4,7 @@ class HelpView:NSWindow {
     override var canBecomeKey:Bool { return true }
     
     init() {
-        super.init(contentRect:NSRect(x:0, y:0, width:540, height:250), styleMask:
+        super.init(contentRect:NSRect(x:0, y:0, width:540, height:320), styleMask:
             [.unifiedTitleAndToolbar, .fullSizeContentView, .closable, .titled], backing:.buffered, defer:false)
         isReleasedWhenClosed = false
         titlebarAppearsTransparent = true

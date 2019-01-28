@@ -204,7 +204,7 @@ class View:NSWindow {
     
     private func createCard() {
         guard !(root is CreateView), !(root!.child is CreateView) else { return }
-        let create = CreateView(#selector(newCard(_:)))
+        let create = CardCreateView(#selector(newCard(_:)))
         create.child = root!.child
         root!.child = create
         canvas.documentView!.addSubview(create)
