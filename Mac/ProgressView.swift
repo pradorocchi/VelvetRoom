@@ -1,36 +1,25 @@
 import AppKit
 
-class ProgressView:NSControl {
+class ProgressView:NSView {
     var progress:Float = 0 { didSet {
         label.isHidden = false
         animate(CGFloat(progress) * bounds.width)
     } }
     private weak var label:NSTextField!
     private weak var width:NSLayoutConstraint!
-    private weak var background:NSView!
     
-    override func mouseDown(with event:NSEvent) {
-        if !label.isHidden {
-            sendAction(action, to:target)
-        }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        let background = NSView()
-        background.translatesAutoresizingMaskIntoConstraints = false
-        background.wantsLayer = true
-        background.layer!.cornerRadius = 2
-        background.layer!.backgroundColor = NSColor.velvetBlue.withAlphaComponent(0.4).cgColor
-        background.layer!.borderWidth = 1
-        addSubview(background)
-        self.background = background
+    init() {
+        super.init(frame:.zero)
+        translatesAutoresizingMaskIntoConstraints = false
+        wantsLayer = true
+        layer!.cornerRadius = 2
+        layer!.borderWidth = 1
         
         let progress = NSView()
         progress.translatesAutoresizingMaskIntoConstraints = false
         progress.wantsLayer = true
         progress.layer!.backgroundColor = NSColor.velvetBlue.cgColor
-        background.addSubview(progress)
+        addSubview(progress)
         
         let label = NSTextField()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -45,25 +34,23 @@ class ProgressView:NSControl {
         addSubview(label)
         self.label = label
         
-        background.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
-        background.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
-        background.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
-        background.heightAnchor.constraint(equalToConstant:18).isActive = true
-        
         progress.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         progress.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
-        progress.heightAnchor.constraint(equalTo:background.heightAnchor).isActive = true
+        progress.heightAnchor.constraint(equalTo:heightAnchor).isActive = true
         width = progress.widthAnchor.constraint(equalToConstant:0)
         width.isActive = true
         
         label.centerYAnchor.constraint(equalTo:centerYAnchor, constant:-1).isActive = true
         label.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        
+        heightAnchor.constraint(equalToConstant:18).isActive = true
     }
+    
+    required init?(coder:NSCoder) { return nil }
     
     func clear() {
         label.isHidden = true
         animate(0)
-        background.layer!.borderColor = NSColor.clear.cgColor
     }
     
     private func animate(_ value:CGFloat) {
@@ -73,7 +60,6 @@ class ProgressView:NSControl {
                 context.duration = 1
                 context.allowsImplicitAnimation = true
                 layoutSubtreeIfNeeded()
-                background.layer!.borderColor = NSColor.velvetBlue.cgColor
             }
         }
     }

@@ -13,12 +13,13 @@ class BoardView:NSControl, NSTextViewDelegate {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
+        layer!.cornerRadius = 6
         dateFormatter.timeStyle = .short
         dateFormatter.dateStyle = .short
         self.board = board
         
         let text = TextView()
-        text.textContainer!.size = NSSize(width:250, height:CGFloat(Application.view.repository.account.font + 16))
+        text.textContainer!.size = NSSize(width:235, height:CGFloat(Application.view.repository.account.font + 16))
         text.font = .bold(CGFloat(Application.view.repository.account.font))
         text.delegate = self
         text.string = board.name
@@ -36,7 +37,7 @@ class BoardView:NSControl, NSTextViewDelegate {
         self.date = date
         
         text.centerYAnchor.constraint(equalTo:centerYAnchor, constant:-8).isActive = true
-        text.leftAnchor.constraint(equalTo:leftAnchor, constant:12).isActive = true
+        text.leftAnchor.constraint(equalTo:leftAnchor, constant:20).isActive = true
         
         date.topAnchor.constraint(equalTo:text.bottomAnchor, constant:-1).isActive = true
         date.leftAnchor.constraint(equalTo:text.leftAnchor, constant:4).isActive = true
@@ -84,7 +85,7 @@ class BoardView:NSControl, NSTextViewDelegate {
     }
     
     func textView(_:NSTextView, shouldChangeTextIn range:NSRange, replacementString:String?) -> Bool {
-        return (text.string as NSString).replacingCharacters(in:range, with:replacementString ?? String()).count < 28
+        return (text.string as NSString).replacingCharacters(in:range, with:replacementString ?? String()).count < 26
     }
     
     private func updateSkin() {

@@ -323,10 +323,10 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Velvet Room" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA" customClass="View" customModule="Velvet_Room" customModuleProvider="target">
+                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="Velvet Room" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="documentWindow" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA" customClass="View" customModule="Velvet_Room" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
-                        <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES" fullScreenDisallowsTiling="YES"/>
                         <rect key="contentRect" x="0.0" y="727" width="600" height="600"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="600" height="600"/>
@@ -364,7 +364,7 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="KZI-1n-q2z"/>
+                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="KZI-1n-q2z" userLabel="Flex"/>
                                 <toolbarItem implicitItemIdentifier="56E71E3B-60A1-4A9A-84F4-D5B88BD98297" label="List" paletteLabel="List" image="listOff" sizingBehavior="auto" id="1qu-sh-P4N">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="6hB-Rg-9L8">
@@ -378,16 +378,6 @@
                                             <action selector="toggleList:" target="IQv-IB-iLA" id="89V-74-MuP"/>
                                         </connections>
                                     </button>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="2EA9C2BE-9B88-4B0C-93A6-C23F1E8951B7" label="Progress" paletteLabel="Progress" tag="-1" sizingBehavior="auto" id="LDS-zm-AEa">
-                                    <nil key="toolTip"/>
-                                    <customView key="view" id="dVc-iK-GaO" customClass="ProgressView" customModule="Velvet_Room" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="14" width="24" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <connections>
-                                            <action selector="play:" target="IQv-IB-iLA" id="bkQ-7B-TOy"/>
-                                        </connections>
-                                    </customView>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="54741872-1325-41DF-8375-6D7A66039348" label="Export" paletteLabel="Export" image="export" sizingBehavior="auto" id="MIW-Tn-3Vo">
                                     <nil key="toolTip"/>
@@ -431,13 +421,24 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="E5603EC3-221D-4354-B988-2E1716D8F75C" label="Search" paletteLabel="Search" image="search" sizingBehavior="auto" id="Kmn-p4-Lr1">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="lqS-jY-oGD">
+                                        <rect key="frame" x="10" y="14" width="24" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="search" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="ddr-y7-CRn">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="KZI-1n-q2z"/>
                                 <toolbarItem reference="1qu-sh-P4N"/>
                                 <toolbarItem reference="xHm-7f-PLM"/>
+                                <toolbarItem reference="Kmn-p4-Lr1"/>
                                 <toolbarItem reference="kcB-kf-DEw"/>
-                                <toolbarItem reference="LDS-zm-AEa"/>
                                 <toolbarItem reference="MIW-Tn-3Vo"/>
                                 <toolbarItem reference="LuM-kZ-gHJ"/>
                                 <toolbarItem reference="0K5-pA-w2U"/>
@@ -448,7 +449,6 @@
                             <outlet property="deleteButton" destination="g3I-fJ-Wch" id="IoL-g9-NFL"/>
                             <outlet property="exportButton" destination="tts-xe-5IT" id="v9C-CF-AnF"/>
                             <outlet property="listButton" destination="6hB-Rg-9L8" id="1t5-Ge-ACe"/>
-                            <outlet property="progress" destination="dVc-iK-GaO" id="IMy-Nw-1Da"/>
                         </connections>
                     </window>
                     <connections>
@@ -462,7 +462,7 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" sceneMemberID="viewController">
+                <viewController showSeguePresentationStyle="single" id="XfG-lQ-9wD" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -474,12 +474,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="delete" width="24" height="24"/>
+        <image name="delete" width="24" height="18"/>
         <image name="export" width="24" height="18"/>
         <image name="import" width="24" height="18"/>
         <image name="listOff" width="24" height="18"/>
         <image name="listOn" width="24" height="18"/>
         <image name="new" width="24" height="18"/>
+        <image name="search" width="24" height="18"/>
         <image name="settings" width="24" height="18"/>
     </resources>
 </document>
