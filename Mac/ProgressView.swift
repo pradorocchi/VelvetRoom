@@ -1,9 +1,32 @@
 import AppKit
 
 class ProgressView:NSView {
+    private weak var marker:NSLayoutXAxisAnchor!
+    private var slices = [ProgressSliceView]()
+    
     var chart = [(String, Float)]() { didSet {
-        subviews.forEach { $0.removeFromSuperview() }
-        animate(chart.map { $0.1 }, left:leftAnchor)
+        while chart.count < slices.count { slices.removeLast().removeFromSuperview() }
+        while chart.count > slices.count {
+            let slice = ProgressSliceView()
+            addSubview(slice)
+            slice.topAnchor.constraint(equalTo:topAnchor).isActive = true
+            slice.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
+            slice.leftAnchor.constraint(
+                equalTo:slices.isEmpty ? marker : slices.last!.rightAnchor, constant:2).isActive = true
+            slices.append(slice)
+        }
+        layoutSubtreeIfNeeded()
+        chart.enumerated().forEach {
+            slices[$0.offset].width?.isActive = false
+            slices[$0.offset].width = slices[$0.offset].widthAnchor.constraint(equalTo:widthAnchor, multiplier:
+                CGFloat($0.element.1))
+            slices[$0.offset].width!.isActive = true
+        }
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 1
+            context.allowsImplicitAnimation = true
+            layoutSubtreeIfNeeded()
+        }) { }
     } }
     
     init() {
@@ -13,31 +36,13 @@ class ProgressView:NSView {
         layer!.backgroundColor = NSColor.clear.cgColor
         layer!.cornerRadius = 2
         heightAnchor.constraint(equalToConstant:18).isActive = true
+        
+        let marker = NSView()
+        marker.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(marker)
+        marker.leftAnchor.constraint(equalTo:leftAnchor, constant:-2).isActive = true
+        self.marker = marker.leftAnchor
     }
     
     required init?(coder:NSCoder) { return nil }
-    
-    private func animate(_ chart:[Float], left:NSLayoutXAxisAnchor) {
-        guard let current = chart.first else { return }
-        let view = NSView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.wantsLayer = true
-        if chart.count == 1 {
-            view.layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.3).cgColor
-        } else {
-            view.layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
-        }
-        addSubview(view)
-        
-        view.topAnchor.constraint(equalTo:topAnchor).isActive = true
-        view.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
-        view.leftAnchor.constraint(equalTo:left, constant:1).isActive = true
-        view.layoutSubtreeIfNeeded()
-        view.widthAnchor.constraint(equalTo:widthAnchor, multiplier:CGFloat(current)).isActive = true
-        NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.3
-            context.allowsImplicitAnimation = true
-            layoutSubtreeIfNeeded()
-        }) { [weak self] in self?.animate(Array(chart.dropFirst()), left:view.rightAnchor) }
-    }
 }
