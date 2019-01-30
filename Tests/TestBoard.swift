@@ -27,67 +27,6 @@ class TestBoard:XCTestCase {
         XCTAssertTrue(board.cards.isEmpty)
     }
     
-    func testProgressNoColumns() {
-        let board = Board()
-        XCTAssertEqual(0, board.progress)
-    }
-    
-    func testProgressOneColumnNoCards() {
-        let board = Board()
-        board.columns = [Column()]
-        XCTAssertEqual(0, board.progress)
-    }
-    
-    func testProgressOneColumnWithCards() {
-        let board = Board()
-        let cardA = Card()
-        let cardB = Card()
-        cardA.column = 0
-        cardB.column = 0
-        board.columns = [Column()]
-        board.cards = [cardA, cardB]
-        XCTAssertEqual(1, board.progress)
-    }
-    
-    func testProgressTwoColumnNoCards() {
-        let board = Board()
-        board.columns = [Column(), Column()]
-        XCTAssertEqual(0, board.progress)
-    }
-    
-    func testProgressTwoColumnsWithCards() {
-        let board = Board()
-        let cardA = Card()
-        let cardB = Card()
-        cardA.column = 0
-        cardB.column = 1
-        board.columns = [Column(), Column()]
-        board.cards = [cardA, cardB]
-        XCTAssertEqual(0.5, board.progress)
-    }
-    
-    func testProgressThreeColumnsWithCards() {
-        let board = Board()
-        let cardA = Card()
-        let cardB = Card()
-        cardA.column = 0
-        cardB.column = 0
-        board.columns = [Column(), Column(), Column()]
-        board.cards = [cardA, cardB]
-        XCTAssertEqual(0, board.progress)
-    }
-    
-    func testProgressThreeColumnsWithCardsCompleted() {
-        let board = Board()
-        let cardA = Card()
-        let cardB = Card()
-        cardA.column = 2
-        cardB.column = 2
-        board.columns = [Column(), Column(), Column()]
-        board.cards = [cardA, cardB]
-        XCTAssertEqual(1, board.progress)
-    }
-    
     func testChartNoColumns() {
         let board = Board()
         XCTAssertTrue(board.chart.isEmpty)
