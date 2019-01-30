@@ -52,7 +52,6 @@
 		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20DBB0BB21EB5DB3009B9AAA /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */; };
-		20E3E9C32201B127006D8FC1 /* ProgressSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E3E9C22201B127006D8FC1 /* ProgressSliceView.swift */; };
 		20E7023121FCAAF700327236 /* libVelvetRoom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2044021821FC9DE800D191BA /* libVelvetRoom.a */; };
 		20E7023321FCAB2B00327236 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E7023221FCAB2B00327236 /* Group.swift */; };
 		20E7023421FCAB2B00327236 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E7023221FCAB2B00327236 /* Group.swift */; };
@@ -267,7 +266,6 @@
 		20DBB0B921EB5D7F009B9AAA /* iOSWidget.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = iOSWidget.plist; sourceTree = "<group>"; };
 		20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		20DBB0BC21EB5EB2009B9AAA /* iOSWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOSWidget.entitlements; sourceTree = "<group>"; };
-		20E3E9C22201B127006D8FC1 /* ProgressSliceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSliceView.swift; sourceTree = "<group>"; };
 		20E7023221FCAB2B00327236 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		20E7023521FCAB4D00327236 /* TestGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGroup.swift; sourceTree = "<group>"; };
 		20E7023721FCAC4600327236 /* MockGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGroup.swift; sourceTree = "<group>"; };
@@ -513,7 +511,6 @@
 				20804BBC21E5E6470035535D /* Alert.swift */,
 				202D692621E230EC009398AB /* SheetView.swift */,
 				DA4C2AC421D4F4CB004988B4 /* ProgressView.swift */,
-				20E3E9C22201B127006D8FC1 /* ProgressSliceView.swift */,
 				DAFA95FC21CBDAAD00BA265C /* ItemView.swift */,
 				DAFA95FE21CBDC2C00BA265C /* CreateView.swift */,
 				20BFF18A21FEDF9600DA249A /* CardCreateView.swift */,
@@ -1012,7 +1009,6 @@
 				DA1544E321D2752600B9D9F7 /* DeleteView.swift in Sources */,
 				2068853021FF18B700C45303 /* Widget.swift in Sources */,
 				DA6A986C21CEA70000C18C7F /* TextLayout.swift in Sources */,
-				20E3E9C32201B127006D8FC1 /* ProgressSliceView.swift in Sources */,
 				DA1ABDA921C9AFD500CE1462 /* ScrollView.swift in Sources */,
 				20BFF18B21FEDF9600DA249A /* CardCreateView.swift in Sources */,
 				DA4C2AC521D4F4CB004988B4 /* ProgressView.swift in Sources */,

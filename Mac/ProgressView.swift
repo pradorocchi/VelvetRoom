@@ -2,12 +2,12 @@ import AppKit
 
 class ProgressView:NSView {
     private weak var marker:NSLayoutXAxisAnchor!
-    private var slices = [ProgressSliceView]()
+    private var slices = [Slice]()
     
     var chart = [(String, Float)]() { didSet {
         while chart.count < slices.count { slices.removeLast().removeFromSuperview() }
         while chart.count > slices.count {
-            let slice = ProgressSliceView()
+            let slice = Slice()
             addSubview(slice)
             slice.topAnchor.constraint(equalTo:topAnchor).isActive = true
             slice.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
@@ -42,6 +42,19 @@ class ProgressView:NSView {
         addSubview(marker)
         marker.leftAnchor.constraint(equalTo:leftAnchor, constant:-2).isActive = true
         self.marker = marker.leftAnchor
+    }
+    
+    required init?(coder:NSCoder) { return nil }
+}
+
+private class Slice:NSView {
+    var width:NSLayoutConstraint?
+    
+    init() {
+        super.init(frame:.zero)
+        translatesAutoresizingMaskIntoConstraints = false
+        wantsLayer = true
+        layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
     }
     
     required init?(coder:NSCoder) { return nil }
