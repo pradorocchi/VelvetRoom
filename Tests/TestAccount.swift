@@ -2,23 +2,7 @@ import XCTest
 @testable import VelvetRoom
 
 class TestAccount:XCTestCase {
-    func testParsingOld() {
-        let json = """
-{
-"boards": ["lorem ipsum"],
-"rates": [],
-"rateTries": 1
-}
-"""
-        let account = try! JSONDecoder().decode(Account.self, from:Data(json.utf8))
-        XCTAssertEqual("lorem ipsum", account.boards.first!)
-        XCTAssertTrue(account.rates.isEmpty)
-        XCTAssertEqual(1, account.rateTries)
-        XCTAssertEqual(14, account.font)
-        XCTAssertEqual(.system, account.appearance)
-    }
-    
-    func testParsingNew() {
+    func testParsing() {
         let json = """
 {
 "boards": ["lorem ipsum"],

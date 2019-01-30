@@ -2,8 +2,8 @@ import XCTest
 @testable import VelvetRoom
 
 class TestBoard:XCTestCase {
-    private var data:Data!
-    private let json = """
+    func testParsing() {
+        let json = """
 {
 "id": "lorem ipsum",
 "created": 123.0,
@@ -13,12 +13,7 @@ class TestBoard:XCTestCase {
 "cards": []
 }
 """
-    override func setUp() {
-        data = Data(json.utf8)
-    }
-    
-    func testParsing() {
-        let board = try! JSONDecoder().decode(Board.self, from:data)
+        let board = try! JSONDecoder().decode(Board.self, from:Data(json.utf8))
         XCTAssertEqual("lorem ipsum", board.id)
         XCTAssertEqual(123, board.created)
         XCTAssertEqual(345, board.updated)

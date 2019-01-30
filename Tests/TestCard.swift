@@ -2,20 +2,15 @@ import XCTest
 @testable import VelvetRoom
 
 class TestCard:XCTestCase {
-    private var data:Data!
-    private let json = """
+    func testParsing() {
+        let json = """
 {
 "index": 0,
 "positions": [],
 "contents": []
 }
 """
-    override func setUp() {
-        data = Data(json.utf8)
-    }
-    
-    func testParsing() {
-        let card = try! JSONDecoder().decode(Card.self, from:data)
+        let card = try! JSONDecoder().decode(Card.self, from:Data(json.utf8))
         XCTAssertTrue(card.positions.isEmpty)
         XCTAssertTrue(card.contents.isEmpty)
     }
