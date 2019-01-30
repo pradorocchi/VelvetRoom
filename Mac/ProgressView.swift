@@ -1,66 +1,43 @@
 import AppKit
 
 class ProgressView:NSView {
-    var progress:Float = 0 { didSet {
-        label.isHidden = false
-        animate(CGFloat(progress) * bounds.width)
+    var chart = [(String, Float)]() { didSet {
+        subviews.forEach { $0.removeFromSuperview() }
+        animate(chart.map { $0.1 }, left:leftAnchor)
     } }
-    private weak var label:NSTextField!
-    private weak var width:NSLayoutConstraint!
     
     init() {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
+        layer!.backgroundColor = NSColor.clear.cgColor
         layer!.cornerRadius = 2
-        layer!.borderWidth = 1
-        
-        let progress = NSView()
-        progress.translatesAutoresizingMaskIntoConstraints = false
-        progress.wantsLayer = true
-        progress.layer!.backgroundColor = NSColor.velvetBlue.cgColor
-        addSubview(progress)
-        
-        let label = NSTextField()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .clear
-        label.isBezeled = false
-        label.isEditable = false
-        label.font = .systemFont(ofSize:12, weight:.bold)
-        label.alignment = .center
-        label.textColor = .black
-        label.stringValue = "%"
-        label.isHidden = true
-        addSubview(label)
-        self.label = label
-        
-        progress.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
-        progress.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
-        progress.heightAnchor.constraint(equalTo:heightAnchor).isActive = true
-        width = progress.widthAnchor.constraint(equalToConstant:0)
-        width.isActive = true
-        
-        label.centerYAnchor.constraint(equalTo:centerYAnchor, constant:-1).isActive = true
-        label.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
-        
         heightAnchor.constraint(equalToConstant:18).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }
     
-    func clear() {
-        label.isHidden = true
-        animate(0)
-    }
-    
-    private func animate(_ value:CGFloat) {
-        width.constant = value
-        if #available(OSX 10.12, *) {
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = 1
-                context.allowsImplicitAnimation = true
-                layoutSubtreeIfNeeded()
-            }
+    private func animate(_ chart:[Float], left:NSLayoutXAxisAnchor) {
+        guard let current = chart.first else { return }
+        let view = NSView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.wantsLayer = true
+        if chart.count == 1 {
+            view.layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.3).cgColor
+        } else {
+            view.layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
         }
+        addSubview(view)
+        
+        view.topAnchor.constraint(equalTo:topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
+        view.leftAnchor.constraint(equalTo:left, constant:1).isActive = true
+        view.layoutSubtreeIfNeeded()
+        view.widthAnchor.constraint(equalTo:widthAnchor, multiplier:CGFloat(current)).isActive = true
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.3
+            context.allowsImplicitAnimation = true
+            layoutSubtreeIfNeeded()
+        }) { [weak self] in self?.animate(Array(chart.dropFirst()), left:view.rightAnchor) }
     }
 }

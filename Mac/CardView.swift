@@ -56,7 +56,7 @@ class CardView:EditView {
         Application.view.repository.move(card, board:Application.view.selected!, column:(column as! ColumnView).column,
                                          after:(after as? CardView)?.card)
         Application.view.scheduleUpdate()
-        Application.view.progress.progress = Application.view.selected!.progress
+        Application.view.progress.chart = Application.view.selected!.chart
     }
     
     private func confirmDelete() {
@@ -65,7 +65,7 @@ class CardView:EditView {
             Application.view.repository.delete(self.card, board:Application.view.selected!)
             Application.view.scheduleUpdate()
             DispatchQueue.main.async {
-                Application.view.progress.progress = Application.view.selected!.progress
+                Application.view.progress.chart = Application.view.selected!.chart
                 self.removeFromSuperview()
             }
         }

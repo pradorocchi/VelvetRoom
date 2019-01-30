@@ -122,7 +122,7 @@ class View:NSWindow {
         selected = nil
         deleteButton.isEnabled = false
         exportButton.isEnabled = false
-        progress.clear()
+        progress.chart = []
         canvas.removeSubviews()
         list.removeSubviews()
         var top = list.documentView!.topAnchor
@@ -228,8 +228,6 @@ class View:NSWindow {
         backgroundColor = Application.skin.background
         (gradient.layer as! CAGradientLayer).colors = [Application.skin.background.withAlphaComponent(0).cgColor,
                                                        Application.skin.background.cgColor]
-        progress.layer!.borderColor = Application.skin.text.withAlphaComponent(0.2).cgColor
-        progress.layer!.backgroundColor = Application.skin.background.cgColor
         canvas.horizontalScroller!.knobStyle = Application.skin.scroller
     }
     
@@ -242,7 +240,7 @@ class View:NSWindow {
         canvasChanged(0)
         deleteButton.isEnabled = true
         exportButton.isEnabled = true
-        progress.progress = view.board.progress
+        progress.chart = Application.view.selected!.chart
         if #available(OSX 10.12, *) {
             DispatchQueue.main.async {
                 self.canvas.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
@@ -287,7 +285,7 @@ class View:NSWindow {
         canvasChanged()
         card.beginEditing()
         scheduleUpdate()
-        progress.progress = selected!.progress
+        progress.chart = selected!.chart
     }
     
     @IBAction private func toggleSourceList(_ sender:NSMenuItem) {
