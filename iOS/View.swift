@@ -112,6 +112,7 @@ class View:UIViewController {
         canvasScroll.alwaysBounceHorizontal = true
         canvasScroll.showsVerticalScrollIndicator = false
         canvasScroll.indicatorStyle = .white
+        canvasScroll.scrollIndicatorInsets = UIEdgeInsets(top:0, left:8, bottom:0, right:2)
         view.addSubview(canvasScroll)
         self.canvasScroll = canvasScroll
         
@@ -264,7 +265,7 @@ class View:UIViewController {
         emptyButton.heightAnchor.constraint(equalToConstant:30).isActive = true
         
         progress.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-2).isActive = true
-        progress.leftAnchor.constraint(equalTo:view.leftAnchor, constant:4).isActive = true
+        progress.leftAnchor.constraint(equalTo:view.leftAnchor, constant:10).isActive = true
         progress.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-10).isActive = true
         
         if #available(iOS 11.0, *) {
