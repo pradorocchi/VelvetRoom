@@ -195,13 +195,11 @@ class NewView:SheetView, NSTextFieldDelegate {
     
     private func moveSelector(_ left:CGFloat) {
         selectorLeft.constant = left
-        if #available(OSX 10.12, *) {
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = 0.35
-                context.allowsImplicitAnimation = true
-                contentView!.layoutSubtreeIfNeeded()
-            }
-        }
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.35
+            context.allowsImplicitAnimation = true
+            contentView!.layoutSubtreeIfNeeded()
+        }, completionHandler:nil)
     }
     
     @objc private func selectNone() {

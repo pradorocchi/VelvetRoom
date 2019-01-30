@@ -49,13 +49,11 @@ class View:NSWindow {
         createCard()
         canvas.documentView!.layoutSubtreeIfNeeded()
         align()
-        if #available(OSX 10.12, *) {
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = animation
-                context.allowsImplicitAnimation = true
-                canvas.documentView!.layoutSubtreeIfNeeded()
-            }
-        }
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = animation
+            context.allowsImplicitAnimation = true
+            canvas.documentView!.layoutSubtreeIfNeeded()
+        }, completionHandler:nil)
     }
     
     func scheduleUpdate(_ board:Board? = nil) {
@@ -212,13 +210,11 @@ class View:NSWindow {
         let boardView = view(board)!
         select(view:boardView)
         DispatchQueue.main.async {
-            if #available(OSX 10.12, *) {
-                NSAnimationContext.runAnimationGroup { context in
-                    context.duration = 0.3
-                    context.allowsImplicitAnimation = true
-                    self.list.contentView.scrollToVisible(boardView.frame)
-                }
-            }
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 0.3
+                context.allowsImplicitAnimation = true
+                self.list.contentView.scrollToVisible(boardView.frame)
+            }, completionHandler:nil)
         }
     }
     
@@ -244,17 +240,13 @@ class View:NSWindow {
         exportButton.isEnabled = true
         chartButton.isEnabled = true
         progress.chart = Application.view.selected!.chart
-        if #available(OSX 10.12, *) {
-            DispatchQueue.main.async {
-                self.canvas.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
-                NSAnimationContext.runAnimationGroup { context in
-                    context.duration = 0.7
-                    context.allowsImplicitAnimation = true
-                    self.canvas.alphaValue = 1
-                }
-            }
-        } else {
-            canvas.alphaValue = 1
+        DispatchQueue.main.async {
+            self.canvas.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 0.7
+                context.allowsImplicitAnimation = true
+                self.canvas.alphaValue = 1
+            }, completionHandler:nil)
         }
     }
     
@@ -309,13 +301,11 @@ class View:NSWindow {
             listRight.constant = -30
             Application.list.title = .local("View.showList")
         }
-        if #available(OSX 10.12, *) {
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = 1
-                context.allowsImplicitAnimation = true
-                contentView!.layoutSubtreeIfNeeded()
-            }
-        }
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 1
+            context.allowsImplicitAnimation = true
+            contentView!.layoutSubtreeIfNeeded()
+        }, completionHandler:nil)
     }
     
     @IBAction private func play(_ sender:Any) {

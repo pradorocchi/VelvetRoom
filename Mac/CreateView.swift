@@ -23,14 +23,12 @@ class CreateView:ItemView {
     
     override func mouseDown(with:NSEvent) {
         sendAction(action, to:Application.view)
-        if #available(OSX 10.12, *) {
-            NSAnimationContext.runAnimationGroup( { context in
-                context.duration = 0.2
-                context.allowsImplicitAnimation = true
-                alphaValue = 0.2
-            } ) {
-                self.alphaValue = 1
-            }
+        NSAnimationContext.runAnimationGroup( { context in
+            context.duration = 0.2
+            context.allowsImplicitAnimation = true
+            alphaValue = 0.2
+        } ) { [weak self] in
+            self?.alphaValue = 1
         }
     }
 }

@@ -100,18 +100,13 @@ import NotificationCenter
     private func display() {
         name.stringValue = items[index].name
         let chart = newChart()
-        if #available(OSX 10.12, *) {
-            chart.alphaValue = 0
-            NSAnimationContext.runAnimationGroup({ context in
-                context.duration = 1
-                context.allowsImplicitAnimation = true
-                chart.alphaValue = 1
-                self.chart?.alphaValue = 0
-            }) {
-                self.chart?.removeFromSuperview()
-                self.chart = chart
-            }
-        } else {
+        chart.alphaValue = 0
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 1
+            context.allowsImplicitAnimation = true
+            chart.alphaValue = 1
+            self.chart?.alphaValue = 0
+        }) {
             self.chart?.removeFromSuperview()
             self.chart = chart
         }

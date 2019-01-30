@@ -58,17 +58,15 @@ class Alert {
         
         Application.view.contentView!.layoutSubtreeIfNeeded()
         viewBottom!.constant = 100
-        if #available(OSX 10.12, *) {
-            NSAnimationContext.runAnimationGroup({ context in
-                context.duration = 0.6
-                context.allowsImplicitAnimation = true
-                view.alphaValue = 1
-                Application.view.contentView!.layoutSubtreeIfNeeded()
-            }) {
-                DispatchQueue.main.asyncAfter(deadline:.now() + 8) { [weak view] in
-                    if view != nil && view === self.view {
-                        self.remove()
-                    }
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.6
+            context.allowsImplicitAnimation = true
+            view.alphaValue = 1
+            Application.view.contentView!.layoutSubtreeIfNeeded()
+        }) {
+            DispatchQueue.main.asyncAfter(deadline:.now() + 8) { [weak view] in
+                if view != nil && view === self.view {
+                    self.remove()
                 }
             }
         }
@@ -76,16 +74,14 @@ class Alert {
     
     @objc private func remove() {
         viewBottom?.constant = 0
-        if #available(OSX 10.12, *) {
-            NSAnimationContext.runAnimationGroup({ context in
-                context.duration = 0.6
-                context.allowsImplicitAnimation = true
-                view?.alphaValue = 0
-                Application.view.contentView!.layoutSubtreeIfNeeded()
-            }) {
-                self.view?.removeFromSuperview()
-                self.pop()
-            }
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.6
+            context.allowsImplicitAnimation = true
+            view?.alphaValue = 0
+            Application.view.contentView!.layoutSubtreeIfNeeded()
+        }) {
+            self.view?.removeFromSuperview()
+            self.pop()
         }
     }
 }

@@ -230,25 +230,17 @@ class SettingsView:SheetView {
     }
     
     private func updateSkin(_ animation:TimeInterval = 0) {
-        if #available(OSX 10.12, *) {
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = animation
-                context.allowsImplicitAnimation = true
-                performAnimateSkin()
-            }
-        } else {
-            performAnimateSkin()
-        }
-    }
-    
-    private func performAnimateSkin() {
-        contentView!.layer!.backgroundColor = Application.skin.background.cgColor
-        appearanceTitle.textColor = Application.skin.text
-        darkTitle.textColor = Application.skin.text
-        systemTitle.textColor = Application.skin.text
-        lightTitle.textColor = Application.skin.text
-        fontTitle.textColor = Application.skin.text
-        font.textColor = Application.skin.text
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = animation
+            context.allowsImplicitAnimation = true
+            contentView!.layer!.backgroundColor = Application.skin.background.cgColor
+            appearanceTitle.textColor = Application.skin.text
+            darkTitle.textColor = Application.skin.text
+            systemTitle.textColor = Application.skin.text
+            lightTitle.textColor = Application.skin.text
+            fontTitle.textColor = Application.skin.text
+            font.textColor = Application.skin.text
+        }, completionHandler:nil)
     }
     
     private func changeLight() {
