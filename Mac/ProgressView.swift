@@ -26,14 +26,13 @@ class ProgressView:NSView {
             context.duration = 1
             context.allowsImplicitAnimation = true
             layoutSubtreeIfNeeded()
-        }) { }
+        }, completionHandler:nil)
     } }
     
     init() {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
-        layer!.backgroundColor = NSColor.clear.cgColor
         layer!.cornerRadius = 2
         heightAnchor.constraint(equalToConstant:18).isActive = true
         

@@ -8,7 +8,7 @@ class View:UIViewController {
     private var safeTop = CGFloat()
     private var safeBottom = CGFloat()
     private(set) weak var selected:Board? { didSet { fireSchedule() } }
-    private(set) weak var progressButton:ProgressView!
+    private(set) weak var progress:ProgressView!
     private(set) weak var canvas:UIView!
     private weak var emptyButton:UIButton!
     private weak var titleLabel:UILabel!
@@ -17,7 +17,7 @@ class View:UIViewController {
     private weak var boardsBottom:NSLayoutConstraint! { willSet { newValue.isActive = true } }
     private weak var boardsRight:NSLayoutConstraint! { willSet { newValue.isActive = true } }
     private weak var loadLeft:NSLayoutConstraint! { willSet { newValue.isActive = true } }
-    private weak var progressLeft:NSLayoutConstraint! { willSet { newValue.isActive = true } }
+    private weak var chartLeft:NSLayoutConstraint! { willSet { newValue.isActive = true } }
     private weak var canvasWidth:NSLayoutConstraint? { didSet {
         oldValue?.isActive = false; canvasWidth!.isActive = true } }
     private weak var canvasHeight:NSLayoutConstraint? { didSet {
@@ -53,10 +53,10 @@ class View:UIViewController {
     
     func open(_ board:Board) {
         selected = board
-        progressButton.progress = board.progress
+        progress.chart = board.chart
         titleLabel.text = board.name
         loadLeft.constant = -256
-        progressLeft.constant = -128
+        chartLeft.constant = -128
         boardsRight.constant = view.bounds.width
         (canvas.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:false)
         canvas.alpha = 0
@@ -111,7 +111,6 @@ class View:UIViewController {
         canvasScroll.alwaysBounceVertical = true
         canvasScroll.alwaysBounceHorizontal = true
         canvasScroll.showsVerticalScrollIndicator = false
-        canvasScroll.scrollIndicatorInsets = UIEdgeInsets(top:0, left:20, bottom:0, right:20)
         canvasScroll.indicatorStyle = .white
         view.addSubview(canvasScroll)
         self.canvasScroll = canvasScroll
@@ -156,10 +155,13 @@ class View:UIViewController {
         helpButton.imageView!.contentMode = .center
         view.addSubview(helpButton)
         
-        let progressButton = ProgressView()
-        progressButton.addTarget(self, action:#selector(progress), for:.touchUpInside)
-        view.addSubview(progressButton)
-        self.progressButton = progressButton
+        let chartButton = UIButton()
+        chartButton.addTarget(self, action:#selector(chart), for:.touchUpInside)
+        chartButton.translatesAutoresizingMaskIntoConstraints = false
+        chartButton.setImage(#imageLiteral(resourceName: "chart.pdf"), for:.normal)
+        chartButton.imageView!.clipsToBounds = true
+        chartButton.imageView!.contentMode = .center
+        view.addSubview(chartButton)
         
         let listButton = UIButton()
         listButton.addTarget(self, action:#selector(showList), for:.touchUpInside)
@@ -190,6 +192,10 @@ class View:UIViewController {
         view.addSubview(emptyButton)
         self.emptyButton = emptyButton
         
+        let progress = ProgressView()
+        view.addSubview(progress)
+        self.progress = progress
+        
         gradient.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
         gradient.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
         gradient.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
@@ -214,20 +220,20 @@ class View:UIViewController {
         loadButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         loadLeft = loadButton.leftAnchor.constraint(equalTo:view.leftAnchor)
         
-        progressButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
-        progressButton.heightAnchor.constraint(equalToConstant:50).isActive = true
-        progressButton.widthAnchor.constraint(equalToConstant:64).isActive = true
-        progressLeft = progressButton.leftAnchor.constraint(equalTo:view.rightAnchor)
+        chartButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
+        chartButton.heightAnchor.constraint(equalToConstant:50).isActive = true
+        chartButton.widthAnchor.constraint(equalToConstant:64).isActive = true
+        chartLeft = chartButton.leftAnchor.constraint(equalTo:view.rightAnchor)
         
         listButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
-        listButton.leftAnchor.constraint(equalTo:progressButton.rightAnchor).isActive = true
+        listButton.leftAnchor.constraint(equalTo:chartButton.rightAnchor).isActive = true
         listButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         listButton.widthAnchor.constraint(equalToConstant:64).isActive = true
         
         titleLabel.heightAnchor.constraint(equalToConstant:30).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo:newButton.centerYAnchor).isActive = true
         titleLabel.leftAnchor.constraint(equalTo:helpButton.rightAnchor, constant:30).isActive = true
-        titleLabel.rightAnchor.constraint(equalTo:progressButton.leftAnchor).isActive = true
+        titleLabel.rightAnchor.constraint(equalTo:chartButton.leftAnchor).isActive = true
         
         boardsScroll.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
         boardsScroll.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
@@ -256,6 +262,10 @@ class View:UIViewController {
         emptyButton.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
         emptyButton.widthAnchor.constraint(equalToConstant:88).isActive = true
         emptyButton.heightAnchor.constraint(equalToConstant:30).isActive = true
+        
+        progress.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-2).isActive = true
+        progress.leftAnchor.constraint(equalTo:view.leftAnchor, constant:4).isActive = true
+        progress.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-10).isActive = true
         
         if #available(iOS 11.0, *) {
             boardsScroll.contentInsetAdjustmentBehavior = .never
@@ -415,9 +425,9 @@ class View:UIViewController {
     
     @objc private func showList() {
         UIApplication.shared.keyWindow!.endEditing(true)
-        progressButton.progress = 0
+        progress.chart = []
         loadLeft.constant = 0
-        progressLeft.constant = 0
+        chartLeft.constant = 0
         boardsRight.constant = 0
         UIView.animate(withDuration:0.4, animations: {
             self.view.layoutIfNeeded()
@@ -427,7 +437,7 @@ class View:UIViewController {
         }
     }
     
-    @objc private func progress() {
+    @objc private func chart() {
         UIApplication.shared.keyWindow!.endEditing(true)
         present(ChartView(selected!), animated:true)
     }
@@ -462,6 +472,6 @@ class View:UIViewController {
         canvasChanged()
         card.beginEditing()
         scheduleUpdate()
-        progressButton.progress = selected!.progress
+        progress.chart = selected!.chart
     }
 }
