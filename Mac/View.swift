@@ -13,6 +13,7 @@ class View:NSWindow {
     @IBOutlet private weak var listButton:NSButton!
     @IBOutlet private weak var deleteButton:NSButton!
     @IBOutlet private weak var exportButton:NSButton!
+    @IBOutlet private weak var chartButton:NSButton!
     
     private(set) weak var selected:Board? {
         willSet {
@@ -105,7 +106,7 @@ class View:NSWindow {
         listRight.isActive = true
         
         progress.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:80).isActive = true
-        progress.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-240).isActive = true
+        progress.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-272).isActive = true
         progress.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:10).isActive = true
         
         canvas.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
@@ -122,6 +123,7 @@ class View:NSWindow {
         selected = nil
         deleteButton.isEnabled = false
         exportButton.isEnabled = false
+        chartButton.isEnabled = false
         progress.chart = []
         canvas.removeSubviews()
         list.removeSubviews()
@@ -240,6 +242,7 @@ class View:NSWindow {
         canvasChanged(0)
         deleteButton.isEnabled = true
         exportButton.isEnabled = true
+        chartButton.isEnabled = true
         progress.chart = Application.view.selected!.chart
         if #available(OSX 10.12, *) {
             DispatchQueue.main.async {

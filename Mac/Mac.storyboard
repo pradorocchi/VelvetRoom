@@ -421,6 +421,20 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="3EAB42FE-63FA-4F5D-BBE8-3330E89EE6D9" label="Chart" paletteLabel="Chart" image="chart" sizingBehavior="auto" id="ZFe-Og-caU">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="adc-78-Mft">
+                                        <rect key="frame" x="7" y="14" width="24" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="chart" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="uVu-eP-4dV">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="play:" target="IQv-IB-iLA" id="TIg-Iv-m1v"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="E5603EC3-221D-4354-B988-2E1716D8F75C" label="Search" paletteLabel="Search" image="search" sizingBehavior="auto" id="Kmn-p4-Lr1">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="lqS-jY-oGD">
@@ -439,12 +453,14 @@
                                 <toolbarItem reference="xHm-7f-PLM"/>
                                 <toolbarItem reference="Kmn-p4-Lr1"/>
                                 <toolbarItem reference="kcB-kf-DEw"/>
+                                <toolbarItem reference="ZFe-Og-caU"/>
                                 <toolbarItem reference="MIW-Tn-3Vo"/>
                                 <toolbarItem reference="LuM-kZ-gHJ"/>
                                 <toolbarItem reference="0K5-pA-w2U"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
+                            <outlet property="chartButton" destination="adc-78-Mft" id="PiD-a5-2s0"/>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                             <outlet property="deleteButton" destination="g3I-fJ-Wch" id="IoL-g9-NFL"/>
                             <outlet property="exportButton" destination="tts-xe-5IT" id="v9C-CF-AnF"/>
@@ -474,8 +490,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chart" width="24" height="18"/>
         <image name="delete" width="24" height="18"/>
-        <image name="export" width="24" height="18"/>
+        <image name="export" width="24" height="24"/>
         <image name="import" width="24" height="18"/>
         <image name="listOff" width="24" height="18"/>
         <image name="listOn" width="24" height="18"/>
