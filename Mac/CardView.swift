@@ -37,8 +37,8 @@ class CardView:EditView {
         var column = Application.view.root
         while column!.sibling is ColumnView {
             guard
-                column!.sibling!.left.constant < event.locationInWindow.x - Application.view.listRight.constant
-                    + Application.view.canvas.documentVisibleRect.origin.x
+                column!.sibling!.left.constant < event.locationInWindow.x -
+                    Application.view.listLeft.constant + Application.view.canvas.documentVisibleRect.origin.x
             else { break }
             column = column!.sibling
         }

@@ -7,9 +7,10 @@ class View:NSWindow {
     weak var root:ItemView?
     private(set) weak var canvas:ScrollView!
     private(set) weak var progress:ProgressView!
-    private(set) weak var listRight:NSLayoutConstraint!
+    private(set) weak var listLeft:NSLayoutConstraint!
     private weak var list:ScrollView!
-    private weak var gradient:NSView!
+    private weak var gradientTop:NSView!
+    private weak var gradientLeft:NSView!
     @IBOutlet private weak var listButton:NSButton!
     @IBOutlet private weak var deleteButton:NSButton!
     @IBOutlet private weak var exportButton:NSButton!
@@ -68,47 +69,62 @@ class View:NSWindow {
     }
     
     private func makeOutlets() {
-        let list = ScrollView()
-        contentView!.addSubview(list)
-        self.list = list
-        
         let canvas = ScrollView()
         canvas.hasHorizontalScroller = true
         canvas.horizontalScroller!.controlSize = .mini
         contentView!.addSubview(canvas)
         self.canvas = canvas
         
-        let gradient = NSView()
-        gradient.translatesAutoresizingMaskIntoConstraints = false
-        gradient.layer = CAGradientLayer()
-        (gradient.layer as! CAGradientLayer).startPoint = CGPoint(x:0.5, y:0)
-        (gradient.layer as! CAGradientLayer).endPoint = CGPoint(x:0.5, y:1)
-        (gradient.layer as! CAGradientLayer).locations = [0, 1]
-        gradient.wantsLayer = true
-        contentView!.addSubview(gradient)
-        self.gradient = gradient
+        let gradientLeft = NSView()
+        gradientLeft.translatesAutoresizingMaskIntoConstraints = false
+        gradientLeft.layer = CAGradientLayer()
+        (gradientLeft.layer as! CAGradientLayer).startPoint = CGPoint(x:0, y:0.5)
+        (gradientLeft.layer as! CAGradientLayer).endPoint = CGPoint(x:1, y:0.5)
+        (gradientLeft.layer as! CAGradientLayer).locations = [0, 0.7, 1]
+        gradientLeft.wantsLayer = true
+        contentView!.addSubview(gradientLeft)
+        self.gradientLeft = gradientLeft
+        
+        let list = ScrollView()
+        contentView!.addSubview(list)
+        self.list = list
+        
+        let gradientTop = NSView()
+        gradientTop.translatesAutoresizingMaskIntoConstraints = false
+        gradientTop.layer = CAGradientLayer()
+        (gradientTop.layer as! CAGradientLayer).startPoint = CGPoint(x:0.5, y:0)
+        (gradientTop.layer as! CAGradientLayer).endPoint = CGPoint(x:0.5, y:1)
+        (gradientTop.layer as! CAGradientLayer).locations = [0, 1]
+        gradientTop.wantsLayer = true
+        contentView!.addSubview(gradientTop)
+        self.gradientTop = gradientTop
         
         let progress = ProgressView()
         self.progress = progress
         contentView!.addSubview(progress)
         
-        gradient.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
-        gradient.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
-        gradient.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
-        gradient.heightAnchor.constraint(equalToConstant:72).isActive = true
+        gradientTop.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
+        gradientTop.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
+        gradientTop.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
+        gradientTop.heightAnchor.constraint(equalToConstant:72).isActive = true
+        
+        gradientLeft.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
+        gradientLeft.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
+        gradientLeft.leftAnchor.constraint(equalTo:list.leftAnchor).isActive = true
+        gradientLeft.widthAnchor.constraint(equalToConstant:320).isActive = true
         
         list.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
         list.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
         list.widthAnchor.constraint(equalToConstant:250).isActive = true
-        listRight = list.rightAnchor.constraint(equalTo:contentView!.leftAnchor)
-        listRight.isActive = true
+        listLeft = list.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:-280)
+        listLeft.isActive = true
         
         progress.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:80).isActive = true
         progress.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-272).isActive = true
         progress.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:10).isActive = true
         
         canvas.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
-        canvas.leftAnchor.constraint(equalTo:list.rightAnchor).isActive = true
+        canvas.leftAnchor.constraint(equalTo:list.leftAnchor).isActive = true
         canvas.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-1).isActive = true
         canvas.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-1).isActive = true
         canvas.documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:canvas.bottomAnchor).isActive = true
@@ -174,7 +190,7 @@ class View:NSWindow {
     }
     
     private func align() {
-        var maxRight = CGFloat(66)
+        var maxRight = CGFloat(316)
         var maxBottom = CGFloat()
         var sibling = root
         while sibling != nil {
@@ -224,8 +240,11 @@ class View:NSWindow {
     
     private func updateSkin() {
         backgroundColor = Application.skin.background
-        (gradient.layer as! CAGradientLayer).colors = [Application.skin.background.withAlphaComponent(0).cgColor,
+        (gradientTop.layer as! CAGradientLayer).colors = [Application.skin.background.withAlphaComponent(0).cgColor,
                                                        Application.skin.background.cgColor]
+        (gradientLeft.layer as! CAGradientLayer).colors = [Application.skin.background.cgColor,
+                                                           Application.skin.background.withAlphaComponent(0.9).cgColor,
+                                                           Application.skin.background.withAlphaComponent(0).cgColor]
         canvas.horizontalScroller!.knobStyle = Application.skin.scroller
     }
     
@@ -295,10 +314,10 @@ class View:NSWindow {
     
     @IBAction private func toggleList(_ listButton:NSButton) {
         if listButton.state == .on {
-            listRight.constant = 250
+            listLeft.constant = 0
             Application.list.title = .local("View.hideList")
         } else {
-            listRight.constant = -30
+            listLeft.constant = -280
             Application.list.title = .local("View.showList")
         }
         NSAnimationContext.runAnimationGroup({ context in
