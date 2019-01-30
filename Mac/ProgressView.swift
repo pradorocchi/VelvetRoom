@@ -20,6 +20,7 @@ class ProgressView:NSView {
             views.append(view)
         }
         layoutSubtreeIfNeeded()
+        widths.forEach({ $0.isActive = false })
         items.enumerated().forEach {
             widths.append(views[$0.offset].widthAnchor.constraint(equalTo:widthAnchor, multiplier:CGFloat($0.element)))
             widths.last!.isActive = true
