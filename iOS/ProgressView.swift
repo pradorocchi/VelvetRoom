@@ -4,7 +4,6 @@ class ProgressView:UIView {
     private weak var marker:NSLayoutXAxisAnchor!
     private var views = [UIView]()
     private var widths = [NSLayoutConstraint]()
-    
     var chart = [(String, Float)]() { didSet {
         let items = chart.compactMap({ $0.1 > 0 ? $0.1 : nil })
         while items.count < views.count { views.removeLast().removeFromSuperview() }
