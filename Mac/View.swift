@@ -11,7 +11,9 @@ class View:NSWindow {
     private weak var list:ScrollView!
     private weak var gradientTop:NSView!
     private weak var gradientLeft:NSView!
+    private weak var search:SearchView!
     @IBOutlet private weak var listButton:NSButton!
+    @IBOutlet private weak var searchButton:NSButton!
     @IBOutlet private weak var deleteButton:NSButton!
     @IBOutlet private weak var exportButton:NSButton!
     @IBOutlet private weak var chartButton:NSButton!
@@ -26,6 +28,8 @@ class View:NSWindow {
     
     override func cancelOperation(_:Any?) { makeFirstResponder(nil) }
     override func mouseDown(with:NSEvent) { makeFirstResponder(nil) }
+    
+    deinit { NotificationCenter.default.removeObserver(self) }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -103,6 +107,10 @@ class View:NSWindow {
         self.progress = progress
         contentView!.addSubview(progress)
         
+        let search = SearchView()
+        contentView!.addSubview(search)
+        self.search = search
+        
         gradientTop.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
         gradientTop.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
         gradientTop.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
@@ -130,12 +138,15 @@ class View:NSWindow {
         canvas.documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:canvas.bottomAnchor).isActive = true
         canvas.documentView!.rightAnchor.constraint(greaterThanOrEqualTo:canvas.rightAnchor).isActive = true
         
+        search.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
+        
         contentView!.layoutSubtreeIfNeeded()
     }
     
     private func list(_ boards:[Board]) {
         selected = nil
         deleteButton.isEnabled = false
+        searchButton.isEnabled = false
         exportButton.isEnabled = false
         chartButton.isEnabled = false
         progress.chart = []
@@ -256,6 +267,7 @@ class View:NSWindow {
         render(view.board)
         canvasChanged(0)
         deleteButton.isEnabled = true
+        searchButton.isEnabled = true
         exportButton.isEnabled = true
         chartButton.isEnabled = true
         progress.chart = Application.view.selected!.chart
@@ -356,6 +368,11 @@ class View:NSWindow {
     @IBAction private func settings(_ sender:Any) {
         makeFirstResponder(nil)
         beginSheet(SettingsView())
+    }
+    
+    @IBAction private func activeSearch(_ sender:Any) {
+        makeFirstResponder(nil)
+        search.active()
     }
     
     @IBAction private func showHelp(_ sender:Any?) {

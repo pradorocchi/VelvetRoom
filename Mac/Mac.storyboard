@@ -444,6 +444,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="activeSearch:" target="IQv-IB-iLA" id="Scz-qR-Uzm"/>
+                                        </connections>
                                     </button>
                                 </toolbarItem>
                             </allowedToolbarItems>
@@ -465,6 +468,7 @@
                             <outlet property="deleteButton" destination="g3I-fJ-Wch" id="IoL-g9-NFL"/>
                             <outlet property="exportButton" destination="tts-xe-5IT" id="v9C-CF-AnF"/>
                             <outlet property="listButton" destination="6hB-Rg-9L8" id="1t5-Ge-ACe"/>
+                            <outlet property="searchButton" destination="lqS-jY-oGD" id="ZBl-3Y-HKx"/>
                         </connections>
                     </window>
                     <connections>

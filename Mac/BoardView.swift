@@ -84,10 +84,6 @@ class BoardView:NSControl, NSTextViewDelegate {
         return false
     }
     
-    func textView(_:NSTextView, shouldChangeTextIn range:NSRange, replacementString:String?) -> Bool {
-        return (text.string as NSString).replacingCharacters(in:range, with:replacementString ?? String()).count < 26
-    }
-    
     private func updateSkin() {
         text.textColor = Application.skin.text
         date.textColor = Application.skin.text
