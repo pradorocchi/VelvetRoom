@@ -327,9 +327,9 @@
                     <window key="window" title="Velvet Room" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="documentWindow" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA" customClass="View" customModule="Velvet_Room" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES" fullScreenDisallowsTiling="YES"/>
-                        <rect key="contentRect" x="0.0" y="727" width="350" height="300"/>
+                        <rect key="contentRect" x="0.0" y="727" width="350" height="200"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="350" height="300"/>
+                        <value key="minSize" type="size" width="350" height="200"/>
                         <toolbar key="toolbar" implicitIdentifier="0EF9E741-92DF-4035-BE2B-BFA6AA2034CD" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="small" id="ert-1v-Elu">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="D2276672-4A5C-43DF-A158-35DA6E6D7C4A" label="New" paletteLabel="New" image="new" sizingBehavior="auto" id="0K5-pA-w2U">
@@ -473,20 +473,20 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="100" y="255"/>
+            <point key="canvasLocation" x="100" y="224"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController showSeguePresentationStyle="single" id="XfG-lQ-9wD" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="350" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="100" y="743"/>
+            <point key="canvasLocation" x="325" y="831"/>
         </scene>
     </scenes>
     <resources>
