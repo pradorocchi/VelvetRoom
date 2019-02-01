@@ -2,7 +2,8 @@ import AppKit
 
 class SearchView:NSView, NSTextViewDelegate {
     private weak var bottom:NSLayoutConstraint! { didSet { bottom.isActive = true } }
-    private(set) weak var field:TextView!
+    private(set) weak var text:TextView!
+    private(set) weak var highlighter:NSView?
     
     init() {
         super.init(frame:.zero)
@@ -17,13 +18,13 @@ class SearchView:NSView, NSTextViewDelegate {
         image.imageScaling = .scaleNone
         addSubview(image)
         
-        let field = TextView()
-        field.textContainer!.size = NSSize(width:280, height:40)
-        field.font = .light(18)
-        field.delegate = self
-        field.update()
-        self.field = field
-        addSubview(field)
+        let text = TextView()
+        text.textContainer!.size = NSSize(width:360, height:40)
+        text.font = .light(18)
+        text.delegate = self
+        text.update()
+        self.text = text
+        addSubview(text)
         
         let done = NSButton()
         done.target = self
@@ -44,8 +45,8 @@ class SearchView:NSView, NSTextViewDelegate {
         image.leftAnchor.constraint(equalTo:leftAnchor, constant:4).isActive = true
         image.widthAnchor.constraint(equalToConstant:36).isActive = true
         
-        field.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
-        field.leftAnchor.constraint(equalTo:image.rightAnchor).isActive = true
+        text.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
+        text.leftAnchor.constraint(equalTo:image.rightAnchor).isActive = true
         
         done.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         done.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
@@ -68,6 +69,17 @@ class SearchView:NSView, NSTextViewDelegate {
         bottom.isActive = true
     }
     
+    func textDidBeginEditing(_ notification: Notification) {
+        if self.highlighter == nil {
+            let highlighter = NSView()
+            highlighter.wantsLayer = true
+            highlighter.layer!.backgroundColor = NSColor.velvetBlue.cgColor
+            highlighter.layer!.cornerRadius = 4
+            Application.view.canvas.contentView.addSubview(highlighter, positioned:.below, relativeTo:nil)
+            self.highlighter = highlighter
+        }
+    }
+    
     func textDidEndEditing(_:Notification) {
         unactive()
     }
@@ -80,33 +92,60 @@ class SearchView:NSView, NSTextViewDelegate {
         return false
     }
     
+    func textDidChange(_:Notification) {
+        var range:Range<String.Index>!
+        guard let view = Application.view.canvas.documentView!.subviews.first (where: {
+            guard
+                let view = $0 as? EditView,
+                let textRange = view.text.string.range(of:text.string, options:.caseInsensitive)
+            else { return false }
+            range = textRange
+            return true
+        }) as? EditView else { return highlighter!.frame = .zero }
+        var frame = Application.view.canvas.contentView.convert(view.text.layoutManager!.boundingRect(forGlyphRange:
+            NSRange(range, in:view.text.string), in:view.text.textContainer!), from:view.text)
+        frame.origin.x -= 8
+        frame.size.width += 16
+        highlighter!.frame = frame
+        frame.origin.x -= Application.view.contentView!.bounds.midX
+        frame.origin.y -= Application.view.contentView!.bounds.midY
+        frame.size.width = Application.view.contentView!.bounds.width
+        frame.size.height = Application.view.contentView!.bounds.height
+        Application.view.canvas.contentView.scrollToVisible(frame)
+    }
+    
     func active() {
+        
+        
         bottom.constant = 100
-        field.isEditable = true
+        text.isEditable = true
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.4
             context.allowsImplicitAnimation = true
             superview!.layoutSubtreeIfNeeded()
         }) {
-            Application.view.makeFirstResponder(self.field)
+            Application.view.makeFirstResponder(self.text)
         }
     }
     
     func unactive() {
         bottom.constant = 0
-        field.isEditable = false
+        text.isEditable = false
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.4
+            context.duration = 0.6
             context.allowsImplicitAnimation = true
+            highlighter?.alphaValue = 0
             superview!.layoutSubtreeIfNeeded()
         }) {
-            self.field.string = String()
+            self.highlighter?.removeFromSuperview()
+            self.text.string = String()
         }
     }
     
     private func updateSkin() {
         layer!.backgroundColor = Application.skin.background.cgColor
         layer!.borderColor = Application.skin.text.withAlphaComponent(0.3).cgColor
+        text.textColor = Application.skin.text
     }
     
     @objc private func done() {
