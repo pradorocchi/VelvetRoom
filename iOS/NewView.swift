@@ -9,8 +9,9 @@ class NewView:UIViewController, UITextFieldDelegate {
     private weak var double:UIButton!
     private weak var triple:UIButton!
     private weak var columns:UILabel!
-    private weak var selectorX:NSLayoutConstraint!
-    private var template:Template!
+    private weak var selector:UIView!
+    private weak var selectorX:NSLayoutConstraint?
+    private var template = Template.none
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,7 @@ class NewView:UIViewController, UITextFieldDelegate {
         labelTitle.textColor = .white
         labelTitle.font = .systemFont(ofSize:18, weight:.bold)
         labelTitle.text = .local("NewView.title")
+        labelTitle.textAlignment = .center
         view.addSubview(labelTitle)
         
         let field = UITextField()
@@ -61,12 +63,14 @@ class NewView:UIViewController, UITextFieldDelegate {
         view.addSubview(border)
         
         let cancel = UIButton()
+        cancel.layer.cornerRadius = 4
+        cancel.backgroundColor = UIColor(white:1, alpha:0.1)
         cancel.addTarget(self, action:#selector(self.cancel), for:.touchUpInside)
         cancel.translatesAutoresizingMaskIntoConstraints = false
         cancel.setTitle(.local("NewView.cancel"), for:[])
         cancel.setTitleColor(UIColor(white:1, alpha:0.6), for:.normal)
         cancel.setTitleColor(UIColor(white:1, alpha:0.15), for:.highlighted)
-        cancel.titleLabel!.font = .systemFont(ofSize:15, weight:.regular)
+        cancel.titleLabel!.font = .systemFont(ofSize:13, weight:.medium)
         view.addSubview(cancel)
         
         let create = UIButton()
@@ -77,7 +81,7 @@ class NewView:UIViewController, UITextFieldDelegate {
         create.setTitle(.local("NewView.create"), for:[])
         create.setTitleColor(.black, for:.normal)
         create.setTitleColor(UIColor(white:0, alpha:0.2), for:.highlighted)
-        create.titleLabel!.font = .systemFont(ofSize:15, weight:.medium)
+        create.titleLabel!.font = .systemFont(ofSize:13, weight:.medium)
         view.addSubview(create)
         
         let selector = UIView()
@@ -86,6 +90,7 @@ class NewView:UIViewController, UITextFieldDelegate {
         selector.translatesAutoresizingMaskIntoConstraints = false
         selector.layer.cornerRadius = 4
         view.addSubview(selector)
+        self.selector = selector
         
         let none = UIButton()
         none.addTarget(self, action:#selector(selectNone), for:.touchUpInside)
@@ -135,7 +140,7 @@ class NewView:UIViewController, UITextFieldDelegate {
         view.addSubview(columns)
         self.columns = columns
         
-        labelTitle.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
+        labelTitle.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
         
         field.topAnchor.constraint(equalTo:labelTitle.bottomAnchor, constant:30).isActive = true
         field.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
@@ -148,20 +153,20 @@ class NewView:UIViewController, UITextFieldDelegate {
         border.heightAnchor.constraint(equalToConstant:1).isActive = true
         
         cancel.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
-        cancel.topAnchor.constraint(equalTo:columns.bottomAnchor, constant:60).isActive = true
-        cancel.widthAnchor.constraint(equalToConstant:88).isActive = true
+        cancel.centerYAnchor.constraint(equalTo:labelTitle.centerYAnchor).isActive  = true
+        cancel.widthAnchor.constraint(equalToConstant:70).isActive = true
         cancel.heightAnchor.constraint(equalToConstant:30).isActive = true
         
         create.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
-        create.topAnchor.constraint(equalTo:cancel.topAnchor).isActive = true
-        create.widthAnchor.constraint(equalToConstant:88).isActive = true
+        create.centerYAnchor.constraint(equalTo:labelTitle.centerYAnchor).isActive = true
+        create.widthAnchor.constraint(equalToConstant:70).isActive = true
         create.heightAnchor.constraint(equalToConstant:30).isActive = true
         
         selector.widthAnchor.constraint(equalToConstant:44).isActive = true
         selector.heightAnchor.constraint(equalToConstant:44).isActive = true
         selector.centerYAnchor.constraint(equalTo:none.centerYAnchor).isActive = true
-        selectorX = selector.centerXAnchor.constraint(equalTo:view.leftAnchor, constant:-100)
-        selectorX.isActive = true
+        selectorX = selector.centerXAnchor.constraint(equalTo:triple.centerXAnchor)
+        selectorX!.isActive = true
         
         none.topAnchor.constraint(equalTo:border.bottomAnchor, constant:30).isActive = true
         none.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
@@ -193,8 +198,10 @@ class NewView:UIViewController, UITextFieldDelegate {
         }
     }
     
-    private func moveSelector(_ left:CGFloat) {
-        selectorX.constant = left
+    private func moveSelector(_ view:UIView) {
+        selectorX?.isActive = false
+        selectorX = selector.centerXAnchor.constraint(equalTo:view.centerXAnchor)
+        selectorX!.isActive = true
         UIView.animate(withDuration:0.3) { [weak self] in self?.view.layoutIfNeeded() }
     }
     
@@ -220,7 +227,7 @@ class NewView:UIViewController, UITextFieldDelegate {
         single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         double.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         triple.imageView!.tintColor = UIColor(white:1, alpha:0.2)
-        moveSelector(none.frame.midX)
+        moveSelector(none)
     }
     
     @objc private func selectSingle() {
@@ -230,7 +237,7 @@ class NewView:UIViewController, UITextFieldDelegate {
         single.imageView!.tintColor = .black
         double.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         triple.imageView!.tintColor = UIColor(white:1, alpha:0.2)
-        moveSelector(single.frame.midX)
+        moveSelector(single)
     }
     
     @objc private func selectDouble() {
@@ -240,7 +247,7 @@ class NewView:UIViewController, UITextFieldDelegate {
         single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         double.imageView!.tintColor = .black
         triple.imageView!.tintColor = UIColor(white:1, alpha:0.2)
-        moveSelector(double.frame.midX)
+        moveSelector(double)
     }
     
     @objc private func selectTriple() {
@@ -250,6 +257,6 @@ class NewView:UIViewController, UITextFieldDelegate {
         single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         double.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         triple.imageView!.tintColor = .black
-        moveSelector(triple.frame.midX)
+        moveSelector(triple)
     }
 }

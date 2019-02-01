@@ -51,6 +51,13 @@ class View:UIViewController {
         }
     }
     
+    override func viewWillTransition(to size:CGSize, with coordinator:UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to:size, with:coordinator)
+        if boardsRight.constant > 0 {
+            boardsRight.constant = size.width
+        }
+    }
+    
     func open(_ board:Board) {
         selected = board
         progress.chart = board.chart

@@ -5,6 +5,7 @@ import AVFoundation
 class CameraView:UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     private weak var display:UIView!
     private var session:AVCaptureSession!
+    override var supportedInterfaceOrientations:UIInterfaceOrientationMask { return .portrait }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,10 +18,10 @@ class CameraView:UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         let session = AVCaptureSession()
         session.sessionPreset = .hd1280x720
+        self.session = session
         let preview = AVCaptureVideoPreviewLayer(session:session)
         preview.videoGravity = .resizeAspectFill
         preview.frame = display.bounds
-        self.session = session
         
         let device:AVCaptureDevice?
         if #available(iOS 10.0, *) {

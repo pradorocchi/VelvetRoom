@@ -6,7 +6,7 @@ class PicturesView:UIViewController, UICollectionViewDelegate, UICollectionViewD
 UICollectionViewDelegateFlowLayout {
     private var caching:PHCachingImageManager?
     private var items:PHFetchResult<PHAsset>?
-    private var size:CGSize!
+    private var size = CGSize.zero
     private let request = PHImageRequestOptions()
     private weak var collection:UICollectionView!
     
@@ -21,11 +21,14 @@ UICollectionViewDelegateFlowLayout {
     
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
-        let width = view.bounds.width + 1
-        let itemSize = (width / floor(width / 100)) - 2
-        size = CGSize(width:itemSize, height:itemSize)
-        (collection.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = size
+        updateSize(view.bounds.width)
         checkAuth()
+    }
+    
+    override func viewWillTransition(to size:CGSize, with coordinator:UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to:size, with:coordinator)
+        updateSize(size.width)
+        collection.collectionViewLayout.invalidateLayout()
     }
     
     func collectionView(_:UICollectionView, numberOfItemsInSection:Int) -> Int { return items?.count ?? 0 }
@@ -51,6 +54,12 @@ UICollectionViewDelegateFlowLayout {
             else { return }
             self?.read(image)
         }
+    }
+    
+    private func updateSize(_ width:CGFloat) {
+        let itemSize = ((width + 1) / floor((width + 1) / 100)) - 2
+        size = CGSize(width:itemSize, height:itemSize)
+        (collection.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = size
     }
     
     private func makeOutlets() {

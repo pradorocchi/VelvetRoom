@@ -18,7 +18,7 @@ class HelpView:UIViewController {
         let labelVersion = UILabel()
         labelVersion.translatesAutoresizingMaskIntoConstraints = false
         labelVersion.textColor = Application.skin.text
-        labelVersion.font = .systemFont(ofSize:12, weight:.ultraLight)
+        labelVersion.font = .light(12)
         labelVersion.text = .local("HelpView.version") +
             (Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)
         labelVersion.textAlignment = .center
@@ -46,12 +46,12 @@ class HelpView:UIViewController {
         labelTitle.centerYAnchor.constraint(equalTo:close.centerYAnchor).isActive = true
         labelTitle.leftAnchor.constraint(equalTo:close.rightAnchor).isActive = true
         
-        imageView.topAnchor.constraint(equalTo:labelTitle.bottomAnchor, constant:100).isActive = true
+        imageView.bottomAnchor.constraint(equalTo:labelVersion.topAnchor).isActive = true
         imageView.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
         imageView.widthAnchor.constraint(equalToConstant:100).isActive = true
         imageView.heightAnchor.constraint(equalToConstant:100).isActive = true
         
-        labelVersion.topAnchor.constraint(equalTo:imageView.bottomAnchor).isActive = true
+        labelVersion.bottomAnchor.constraint(equalTo:text.topAnchor, constant:-100).isActive = true
         labelVersion.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
         
         text.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-40).isActive = true
