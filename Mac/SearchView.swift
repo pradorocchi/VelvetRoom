@@ -1,6 +1,6 @@
 import AppKit
 
-class SearchView:NSView {
+class SearchView:NSView, NSTextViewDelegate {
     private weak var bottom:NSLayoutConstraint! { didSet { bottom.isActive = true } }
     private(set) weak var field:TextView!
     
@@ -18,13 +18,23 @@ class SearchView:NSView {
         addSubview(image)
         
         let field = TextView()
-        
         field.textContainer!.size = NSSize(width:280, height:40)
-        field.font = .light(22)
-        field.string = "hello world"
+        field.font = .light(18)
+        field.delegate = self
         field.update()
         self.field = field
         addSubview(field)
+        
+        let done = NSButton()
+        done.target = self
+        done.action = #selector(self.done)
+        done.image = NSImage(named:"delete")
+        done.imageScaling = .scaleNone
+        done.translatesAutoresizingMaskIntoConstraints = false
+        done.isBordered = false
+        done.keyEquivalent = "\u{1b}"
+        done.title = String()
+        addSubview(done)
         
         widthAnchor.constraint(equalToConstant:450).isActive = true
         heightAnchor.constraint(equalToConstant:60).isActive = true
@@ -36,6 +46,11 @@ class SearchView:NSView {
         
         field.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         field.leftAnchor.constraint(equalTo:image.rightAnchor).isActive = true
+        
+        done.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
+        done.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
+        done.widthAnchor.constraint(equalToConstant:24).isActive = true
+        done.heightAnchor.constraint(equalToConstant:18).isActive = true
         
         updateSkin()
         NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) { _ in
@@ -53,6 +68,18 @@ class SearchView:NSView {
         bottom.isActive = true
     }
     
+    func textDidEndEditing(_:Notification) {
+        unactive()
+    }
+    
+    func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
+        if (command == #selector(NSResponder.insertNewline(_:))) {
+            Application.view.makeFirstResponder(nil)
+            return true
+        }
+        return false
+    }
+    
     func active() {
         bottom.constant = 100
         field.isEditable = true
@@ -65,8 +92,24 @@ class SearchView:NSView {
         }
     }
     
+    func unactive() {
+        bottom.constant = 0
+        field.isEditable = false
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.4
+            context.allowsImplicitAnimation = true
+            superview!.layoutSubtreeIfNeeded()
+        }) {
+            self.field.string = String()
+        }
+    }
+    
     private func updateSkin() {
         layer!.backgroundColor = Application.skin.background.cgColor
         layer!.borderColor = Application.skin.text.withAlphaComponent(0.3).cgColor
+    }
+    
+    @objc private func done() {
+        Application.view.makeFirstResponder(nil)
     }
 }

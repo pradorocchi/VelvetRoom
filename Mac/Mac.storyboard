@@ -405,6 +405,8 @@
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="search" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="ddr-y7-CRn">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent">f</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="activeSearch:" target="IQv-IB-iLA" id="Scz-qR-Uzm"/>
