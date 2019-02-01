@@ -34,13 +34,14 @@ class ProgressView:UIView {
         isUserInteractionEnabled = false
         clipsToBounds = true
         layer.cornerRadius = 2
-        heightAnchor.constraint(equalToConstant:4).isActive = true
         
         let marker = UIView()
         marker.translatesAutoresizingMaskIntoConstraints = false
         addSubview(marker)
         marker.leftAnchor.constraint(equalTo:leftAnchor, constant:-2).isActive = true
         self.marker = marker.leftAnchor
+        
+        heightAnchor.constraint(equalToConstant:10).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }
