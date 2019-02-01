@@ -143,7 +143,7 @@ class SearchView:NSView, NSTextViewDelegate {
     }
     
     private func updateSkin() {
-        layer!.backgroundColor = Application.skin.background.cgColor
+        layer!.backgroundColor = Application.skin.background.withAlphaComponent(0.9).cgColor
         layer!.borderColor = Application.skin.text.withAlphaComponent(0.3).cgColor
         text.textColor = Application.skin.text
     }
