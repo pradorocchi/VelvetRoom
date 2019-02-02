@@ -136,13 +136,11 @@ public class Repository {
     public func change(_ appearance:Appearance) {
         account.appearance = appearance
         storage.save(account)
-        list(boards)
     }
     
     public func change(_ font:Int) {
         account.font = font
         storage.save(account)
-        list(boards)
     }
     
     public func scheduleUpdate(_ board:Board) {
