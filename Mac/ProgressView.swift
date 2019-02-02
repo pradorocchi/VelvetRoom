@@ -11,7 +11,6 @@ class ProgressView:NSView {
             let view = NSView()
             view.translatesAutoresizingMaskIntoConstraints = false
             view.wantsLayer = true
-            view.layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
             addSubview(view)
             view.topAnchor.constraint(equalTo:topAnchor).isActive = true
             view.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
@@ -19,6 +18,7 @@ class ProgressView:NSView {
                 equalTo:views.isEmpty ? marker : views.last!.rightAnchor, constant:2).isActive = true
             views.append(view)
         }
+        updateSkin()
         layoutSubtreeIfNeeded()
         widths.forEach({ $0.isActive = false })
         items.enumerated().forEach {
@@ -44,7 +44,19 @@ class ProgressView:NSView {
         addSubview(marker)
         marker.leftAnchor.constraint(equalTo:leftAnchor, constant:-2).isActive = true
         self.marker = marker.leftAnchor
+        
+        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
+            self.updateSkin()
+        }
     }
     
     required init?(coder:NSCoder) { return nil }
+    
+    deinit { NotificationCenter.default.removeObserver(self) }
+    
+    private func updateSkin() {
+        views.forEach {
+            $0.layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
+        }
+    }
 }

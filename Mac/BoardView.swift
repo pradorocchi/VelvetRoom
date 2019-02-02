@@ -19,11 +19,7 @@ class BoardView:NSControl, NSTextViewDelegate {
         self.board = board
         
         let text = TextView()
-        text.textContainer!.size = NSSize(width:235, height:CGFloat(Application.view.repository.account.font + 16))
-        text.font = .bold(CGFloat(Application.view.repository.account.font))
         text.delegate = self
-        text.string = board.name
-        text.update()
         addSubview(text)
         self.text = text
         
@@ -43,6 +39,9 @@ class BoardView:NSControl, NSTextViewDelegate {
         date.leftAnchor.constraint(equalTo:text.leftAnchor, constant:4).isActive = true
         
         updateSkin()
+        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
+            self.updateSkin()
+        }
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -70,7 +69,6 @@ class BoardView:NSControl, NSTextViewDelegate {
             delete()
         } else {
             text.string = board.name
-            text.update()
         }
         Application.view.scheduleUpdate(board)
         DispatchQueue.main.async { [weak self] in self?.updateSkin() }
@@ -102,5 +100,9 @@ class BoardView:NSControl, NSTextViewDelegate {
             text.alphaValue = 0.8
             date.alphaValue = 0.8
         }
+        text.setNeedsDisplay(text.bounds)
+        text.textContainer!.size = NSSize(width:235, height:Application.skin.font + 16)
+        text.font = .bold(Application.skin.font)
+        text.string = board.name
     }
 }

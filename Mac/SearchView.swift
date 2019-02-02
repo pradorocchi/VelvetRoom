@@ -22,7 +22,6 @@ class SearchView:NSView, NSTextViewDelegate {
         text.textContainer!.size = NSSize(width:365, height:40)
         text.font = .light(18)
         text.delegate = self
-        text.update()
         self.text = text
         addSubview(text)
         
@@ -54,7 +53,7 @@ class SearchView:NSView, NSTextViewDelegate {
         done.heightAnchor.constraint(equalToConstant:24).isActive = true
         
         updateSkin()
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) { _ in
+        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
             self.updateSkin()
         }
     }

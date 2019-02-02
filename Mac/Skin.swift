@@ -2,12 +2,15 @@ import AppKit
 import VelvetRoom
 
 struct Skin {
-    static func appearance(_ appearance:Appearance) -> Skin {
+    static func appearance(_ appearance:Appearance, font:Int) -> Skin {
+        var skin:Skin
         switch appearance {
-        case .system: return Skin()
-        case .light: return light()
-        case .dark: return dark()
+        case .system: skin = Skin()
+        case .light: skin = light()
+        case .dark: skin = dark()
         }
+        skin.font = CGFloat(font)
+        return skin
     }
     
     private static func light() -> Skin {
@@ -29,4 +32,5 @@ struct Skin {
     private(set) var background = NSColor.textBackgroundColor
     private(set) var text = NSColor.textColor
     private(set) var scroller = NSScroller.KnobStyle.default
+    var font = CGFloat(14)
 }

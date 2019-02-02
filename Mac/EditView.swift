@@ -18,8 +18,9 @@ class EditView:ItemView, NSTextViewDelegate {
         text.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-10).isActive = true
         text.rightAnchor.constraint(equalTo:rightAnchor, constant:-10).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:14).isActive = true
-        
-        updateSkin()
+        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
+            self.updateSkin()
+        }
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -81,6 +82,6 @@ class EditView:ItemView, NSTextViewDelegate {
     }
     
     func updateSkin() {
-        text.textColor = Application.skin.text
+        text.setNeedsDisplay(text.bounds)
     }
 }

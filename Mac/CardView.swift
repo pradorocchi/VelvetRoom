@@ -7,10 +7,8 @@ class CardView:EditView {
     init(_ card:Card) {
         super.init()
         text.textContainer!.size = NSSize(width:400, height:1000000)
-        text.font = .light(CGFloat(Application.view.repository.account.font))
-        text.string = card.content
-        text.update()
         self.card = card
+        updateSkin()
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -22,7 +20,6 @@ class CardView:EditView {
             confirmDelete()
         } else {
             text.string = card.content
-            text.update()
         }
         super.textDidEndEditing(notification)
     }
@@ -57,6 +54,13 @@ class CardView:EditView {
                                          after:(after as? CardView)?.card)
         Application.view.scheduleUpdate()
         Application.view.progress.chart = Application.view.selected!.chart
+    }
+    
+    override func updateSkin() {
+        text.textColor = Application.skin.text
+        text.font = .light(Application.skin.font)
+        text.string = card.content
+        super.updateSkin()
     }
     
     private func confirmDelete() {

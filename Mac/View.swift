@@ -37,12 +37,13 @@ class View:NSWindow {
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.select(board) } }
         repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) { _ in
+        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
             self.updateSkin()
+            DispatchQueue.main.async { self.canvasChanged(0) }
         }
         DispatchQueue.global(qos:.background).async {
             self.repository.load()
-            Application.skin = .appearance(self.repository.account.appearance)
+            Application.skin = .appearance(self.repository.account.appearance, font:self.repository.account.font)
         }
         DispatchQueue.main.async {
             self.toggleList(self.listButton)
@@ -226,7 +227,7 @@ class View:NSWindow {
     }
     
     private func createCard() {
-        guard !(root is CreateView), !(root!.child is CreateView) else { return }
+        guard root != nil, !(root is CreateView), !(root!.child is CreateView) else { return }
         let create = CardCreateView(#selector(newCard(_:)))
         create.child = root!.child
         root!.child = create

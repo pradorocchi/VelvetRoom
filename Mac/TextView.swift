@@ -3,6 +3,7 @@ import AppKit
 class TextView:NSTextView {
     private weak var width:NSLayoutConstraint!
     private weak var height:NSLayoutConstraint!
+    override var string:String { didSet { adjustConstraints() } }
     override var font:NSFont? {
         didSet {
             let storage = textStorage as! TextStorage
@@ -51,7 +52,7 @@ class TextView:NSTextView {
     
     override func didChangeText() {
         super.didChangeText()
-        update()
+        adjustConstraints()
     }
     
     override func resignFirstResponder() -> Bool {
@@ -61,7 +62,7 @@ class TextView:NSTextView {
         return super.resignFirstResponder()
     }
     
-    func update() {
+    private func adjustConstraints() {
         layoutManager!.ensureLayout(for:textContainer!)
         let size = layoutManager!.usedRect(for:textContainer!).size
         width.constant = size.width + 4

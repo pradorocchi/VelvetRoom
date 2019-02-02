@@ -26,11 +26,11 @@ import AppKit
         Application.view.fireSchedule()
     }
     
-    func windowWillBeginSheet(_ notification: Notification) {
+    func windowWillBeginSheet(_:Notification) {
         Application.view.menu!.items.forEach { $0.isEnabled = false }
     }
     
-    func windowDidEndSheet(_ notification: Notification) {
+    func windowDidEndSheet(_:Notification) {
         Application.view.menu!.items.forEach { $0.isEnabled = true }
     }
     

@@ -41,7 +41,7 @@ class View:UIViewController {
             self.showList()
         } }
         updateSkin()
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) { _ in
+        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
             self.updateSkin()
         }
         listenKeyboard()

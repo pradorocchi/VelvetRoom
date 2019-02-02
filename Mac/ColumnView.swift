@@ -6,12 +6,8 @@ class ColumnView:EditView {
     
     init(_ column:Column) {
         super.init()
-        text.textContainer!.size = NSSize(width:10000, height:CGFloat(Application.view.repository.account.font + 46))
-        text.font = .bold(CGFloat(Application.view.repository.account.font + 6))
-        text.string = column.name
-        text.textColor = Application.skin.text.withAlphaComponent(0.4)
-        text.update()
         self.column = column
+        updateSkin()
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -31,7 +27,6 @@ class ColumnView:EditView {
             })
         } else {
             text.string = column.name
-            text.update()
         }
         super.textDidEndEditing(notification)
     }
@@ -74,6 +69,14 @@ class ColumnView:EditView {
             child!.top.constant += deltaY
             child = child!.child
         }
+    }
+    
+    override func updateSkin() {
+        text.textColor = Application.skin.text.withAlphaComponent(0.4)
+        text.textContainer!.size = NSSize(width:10000, height:Application.skin.font + 46)
+        text.font = .bold(Application.skin.font + 6)
+        text.string = column.name
+        super.updateSkin()
     }
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {

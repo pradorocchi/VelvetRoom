@@ -214,12 +214,11 @@ class SettingsView:SheetView {
         case .system: changeSystem()
         }
         
-        slider.integerValue = Application.view.repository.account.font
+        slider.integerValue = Int(Application.skin.font)
         font.stringValue = "\(slider.integerValue)"
         updateSkin()
         
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) {
-            [weak self] _ in
+        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { [weak self] _ in
             self?.updateSkin(2)
         }
     }
@@ -263,19 +262,19 @@ class SettingsView:SheetView {
     @objc private func makeLight() {
         changeLight()
         Application.view.repository.change(.light)
-        Application.skin = .appearance(.light)
+        Application.skin = .appearance(.light, font:slider!.integerValue)
     }
     
     @objc private func makeDark() {
         changeDark()
         Application.view.repository.change(.dark)
-        Application.skin = .appearance(.dark)
+        Application.skin = .appearance(.dark, font:slider!.integerValue)
     }
     
     @objc private func makeSystem() {
         changeSystem()
         Application.view.repository.change(.system)
-        Application.skin = .appearance(.system)
+        Application.skin = .appearance(.system, font:slider!.integerValue)
     }
     
     @objc private func changeFont(_ slider:NSSlider) {
@@ -290,5 +289,6 @@ class SettingsView:SheetView {
             let font = slider?.integerValue
         else { return }
         Application.view.repository.change(font)
+        Application.skin.font = CGFloat(font)
     }
 }
