@@ -8,7 +8,7 @@ class ImportView:SheetView {
         let done = NSButton()
         done.target = self
         done.action = #selector(end)
-        done.image = NSImage(named:"delete")
+        done.image = NSImage(named:"close")
         done.imageScaling = .scaleNone
         done.translatesAutoresizingMaskIntoConstraints = false
         done.isBordered = false
@@ -66,7 +66,7 @@ class ImportView:SheetView {
         done.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:20).isActive = true
         done.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:20).isActive = true
         done.widthAnchor.constraint(equalToConstant:24).isActive = true
-        done.heightAnchor.constraint(equalToConstant:18).isActive = true
+        done.heightAnchor.constraint(equalToConstant:24).isActive = true
         
         title.leftAnchor.constraint(equalTo:done.rightAnchor, constant:10).isActive = true
         title.topAnchor.constraint(equalTo:done.topAnchor).isActive = true

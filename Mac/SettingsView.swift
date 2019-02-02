@@ -16,11 +16,10 @@ class SettingsView:SheetView {
     
     override init() {
         super.init()
-        
         let close = NSButton()
         close.target = self
         close.action = #selector(end)
-        close.image = NSImage(named:"delete")
+        close.image = NSImage(named:"close")
         close.imageScaling = .scaleNone
         close.translatesAutoresizingMaskIntoConstraints = false
         close.isBordered = false
@@ -162,7 +161,7 @@ class SettingsView:SheetView {
         close.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:20).isActive = true
         close.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:20).isActive = true
         close.widthAnchor.constraint(equalToConstant:24).isActive = true
-        close.heightAnchor.constraint(equalToConstant:18).isActive = true
+        close.heightAnchor.constraint(equalToConstant:24).isActive = true
         
         title.leftAnchor.constraint(equalTo:close.rightAnchor, constant:10).isActive = true
         title.centerYAnchor.constraint(equalTo:close.centerYAnchor).isActive = true

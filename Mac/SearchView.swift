@@ -19,7 +19,7 @@ class SearchView:NSView, NSTextViewDelegate {
         addSubview(image)
         
         let text = TextView()
-        text.textContainer!.size = NSSize(width:360, height:40)
+        text.textContainer!.size = NSSize(width:365, height:40)
         text.font = .light(18)
         text.delegate = self
         text.update()
@@ -29,7 +29,7 @@ class SearchView:NSView, NSTextViewDelegate {
         let done = NSButton()
         done.target = self
         done.action = #selector(self.done)
-        done.image = NSImage(named:"delete")
+        done.image = NSImage(named:"close")
         done.imageScaling = .scaleNone
         done.translatesAutoresizingMaskIntoConstraints = false
         done.isBordered = false
@@ -49,9 +49,9 @@ class SearchView:NSView, NSTextViewDelegate {
         text.leftAnchor.constraint(equalTo:image.rightAnchor).isActive = true
         
         done.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
-        done.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
+        done.rightAnchor.constraint(equalTo:rightAnchor, constant:-15).isActive = true
         done.widthAnchor.constraint(equalToConstant:24).isActive = true
-        done.heightAnchor.constraint(equalToConstant:18).isActive = true
+        done.heightAnchor.constraint(equalToConstant:24).isActive = true
         
         updateSkin()
         NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:OperationQueue.main) { _ in
@@ -115,8 +115,6 @@ class SearchView:NSView, NSTextViewDelegate {
     }
     
     func active() {
-        
-        
         bottom.constant = 100
         text.isEditable = true
         NSAnimationContext.runAnimationGroup({ context in
@@ -143,8 +141,8 @@ class SearchView:NSView, NSTextViewDelegate {
     }
     
     private func updateSkin() {
-        layer!.backgroundColor = Application.skin.background.withAlphaComponent(0.9).cgColor
-        layer!.borderColor = Application.skin.text.withAlphaComponent(0.3).cgColor
+        layer!.backgroundColor = Application.skin.background.withAlphaComponent(0.95).cgColor
+        layer!.borderColor = Application.skin.text.withAlphaComponent(0.2).cgColor
         text.textColor = Application.skin.text
     }
     
