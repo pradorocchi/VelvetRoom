@@ -2,7 +2,7 @@ import UIKit
 
 class TextView:UITextView {
     var onDelete:(() -> Void)!
-    private weak var deleteButton:UIButton!
+    private(set) weak var deleteButton:UIButton!
     override var font:UIFont? {
         didSet {
             let storage = textStorage as! TextStorage

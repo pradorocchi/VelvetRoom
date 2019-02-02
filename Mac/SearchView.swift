@@ -3,7 +3,7 @@ import AppKit
 class SearchView:NSView, NSTextViewDelegate {
     private(set) weak var text:TextView!
     private(set) weak var highlighter:NSView?
-    private weak var bottom:NSLayoutConstraint! { didSet { bottom.isActive = true } }
+    private weak var bottom:NSLayoutConstraint!
     
     init() {
         super.init(frame:.zero)
@@ -139,7 +139,7 @@ class SearchView:NSView, NSTextViewDelegate {
     
     @objc private func updateSkin() {
         layer!.backgroundColor = Application.skin.background.withAlphaComponent(0.95).cgColor
-        layer!.borderColor = Application.skin.text.withAlphaComponent(0.2).cgColor
+        layer!.borderColor = Application.skin.text.withAlphaComponent(0.25).cgColor
         text.textColor = Application.skin.text
     }
     

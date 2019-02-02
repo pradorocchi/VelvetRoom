@@ -10,6 +10,7 @@ class View:UIViewController {
     private(set) weak var selected:Board? { didSet { fireSchedule() } }
     private(set) weak var progress:ProgressView!
     private(set) weak var canvas:UIView!
+    private weak var search:SearchView!
     private weak var emptyButton:UIButton!
     private weak var titleLabel:UILabel!
     private weak var boards:UIView!
@@ -63,7 +64,7 @@ class View:UIViewController {
         progress.chart = board.chart
         titleLabel.text = board.name
         loadLeft.constant = -256
-        chartLeft.constant = -128
+        chartLeft.constant = -192
         boardsRight.constant = view.bounds.width
         (canvas.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:false)
         canvas.alpha = 0
@@ -170,6 +171,14 @@ class View:UIViewController {
         chartButton.imageView!.contentMode = .center
         view.addSubview(chartButton)
         
+        let searchButton = UIButton()
+        searchButton.addTarget(self, action:#selector(beginSearch), for:.touchUpInside)
+        searchButton.translatesAutoresizingMaskIntoConstraints = false
+        searchButton.setImage(#imageLiteral(resourceName: "search.pdf"), for:.normal)
+        searchButton.imageView!.clipsToBounds = true
+        searchButton.imageView!.contentMode = .center
+        view.addSubview(searchButton)
+        
         let listButton = UIButton()
         listButton.addTarget(self, action:#selector(showList), for:.touchUpInside)
         listButton.translatesAutoresizingMaskIntoConstraints = false
@@ -203,6 +212,10 @@ class View:UIViewController {
         view.addSubview(progress)
         self.progress = progress
         
+        let search = SearchView()
+        view.addSubview(search)
+        self.search = search
+        
         gradient.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
         gradient.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
         gradient.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
@@ -232,8 +245,13 @@ class View:UIViewController {
         chartButton.widthAnchor.constraint(equalToConstant:64).isActive = true
         chartLeft = chartButton.leftAnchor.constraint(equalTo:view.rightAnchor)
         
+        searchButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
+        searchButton.leftAnchor.constraint(equalTo:chartButton.rightAnchor).isActive = true
+        searchButton.heightAnchor.constraint(equalToConstant:50).isActive = true
+        searchButton.widthAnchor.constraint(equalToConstant:64).isActive = true
+        
         listButton.topAnchor.constraint(equalTo:newButton.topAnchor).isActive = true
-        listButton.leftAnchor.constraint(equalTo:chartButton.rightAnchor).isActive = true
+        listButton.leftAnchor.constraint(equalTo:searchButton.rightAnchor).isActive = true
         listButton.heightAnchor.constraint(equalToConstant:50).isActive = true
         listButton.widthAnchor.constraint(equalToConstant:64).isActive = true
         
@@ -273,6 +291,9 @@ class View:UIViewController {
         progress.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-10).isActive = true
         progress.leftAnchor.constraint(equalTo:view.leftAnchor, constant:5).isActive = true
         progress.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-5).isActive = true
+        
+        search.leftAnchor.constraint(equalTo:view.leftAnchor, constant:10).isActive = true
+        search.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-10).isActive = true
         
         if #available(iOS 11.0, *) {
             boardsScroll.contentInsetAdjustmentBehavior = .never
@@ -442,6 +463,11 @@ class View:UIViewController {
         }) { _ in
             self.canvas.subviews.forEach { $0.removeFromSuperview() }
         }
+    }
+    
+    @objc private func beginSearch() {
+        UIApplication.shared.keyWindow!.endEditing(true)
+        search.active()
     }
     
     @objc private func chart() {

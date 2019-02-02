@@ -142,10 +142,10 @@ class SettingsView:UIViewController {
         
         if #available(iOS 11.0, *) {
             labelTitle.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant:20).isActive = true
-            done.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor, constant:-40).isActive = true
+            done.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor, constant:-20).isActive = true
         } else {
             labelTitle.topAnchor.constraint(equalTo:view.topAnchor, constant:20).isActive = true
-            done.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-40).isActive = true
+            done.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-20).isActive = true
         }
         
         slider.value = Float(Application.view.repository.account.font)

@@ -64,14 +64,15 @@ class ChartView:UIViewController {
         chart.heightAnchor.constraint(equalToConstant:300).isActive = true
         
         done.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
-        done.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-50).isActive = true
         done.widthAnchor.constraint(equalToConstant:88).isActive = true
         done.heightAnchor.constraint(equalToConstant:30).isActive = true
         
         if #available(iOS 11.0, *) {
             title.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant:10).isActive = true
+            done.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor, constant:-20).isActive = true
         } else {
             title.topAnchor.constraint(equalTo:view.topAnchor, constant:10).isActive = true
+            done.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-20).isActive = true
         }
     }
     
