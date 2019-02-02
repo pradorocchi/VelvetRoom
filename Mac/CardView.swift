@@ -78,7 +78,7 @@ class CardView:EditView {
     
     private func detach() {
         if let parent = Application.view.canvas.documentView!.subviews.first(
-            where: {($0 as! ItemView).child === self }) as? ItemView {
+            where: {($0 as? ItemView)?.child === self }) as? ItemView {
             parent.child = child
             Application.view.canvasChanged()
         }

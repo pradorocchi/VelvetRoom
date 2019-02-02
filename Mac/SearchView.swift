@@ -9,7 +9,7 @@ class SearchView:NSView, NSTextViewDelegate {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
-        layer!.cornerRadius = 4
+        layer!.cornerRadius = 6
         layer!.borderWidth = 1
         
         let image = NSImageView()
@@ -66,17 +66,6 @@ class SearchView:NSView, NSTextViewDelegate {
         bottom.isActive = true
     }
     
-    func textDidBeginEditing(_ notification: Notification) {
-        if self.highlighter == nil {
-            let highlighter = NSView()
-            highlighter.wantsLayer = true
-            highlighter.layer!.backgroundColor = NSColor.velvetBlue.cgColor
-            highlighter.layer!.cornerRadius = 4
-            Application.view.canvas.contentView.addSubview(highlighter, positioned:.below, relativeTo:nil)
-            self.highlighter = highlighter
-        }
-    }
-    
     func textDidEndEditing(_:Notification) {
         unactive()
     }
@@ -90,6 +79,15 @@ class SearchView:NSView, NSTextViewDelegate {
     }
     
     func textDidChange(_:Notification) {
+        if self.highlighter == nil {
+            let highlighter = NSView()
+            highlighter.wantsLayer = true
+            highlighter.layer!.backgroundColor = NSColor.velvetBlue.cgColor
+            highlighter.layer!.cornerRadius = 4
+            Application.view.canvas.contentView.addSubview(highlighter, positioned:.below, relativeTo:nil)
+            self.highlighter = highlighter
+        }
+        
         var range:Range<String.Index>!
         guard let view = Application.view.canvas.documentView!.subviews.first (where: {
             guard
@@ -101,10 +99,10 @@ class SearchView:NSView, NSTextViewDelegate {
         }) as? EditView else { return highlighter!.frame = .zero }
         var frame = Application.view.canvas.contentView.convert(view.text.layoutManager!.boundingRect(forGlyphRange:
             NSRange(range, in:view.text.string), in:view.text.textContainer!), from:view.text)
-        frame.origin.x -= 8
-        frame.size.width += 16
+        frame.origin.x -= 10
+        frame.size.width += 20
         highlighter!.frame = frame
-        frame.origin.x -= Application.view.contentView!.bounds.midX
+        frame.origin.x -= (Application.view.contentView!.bounds.width - frame.size.width) / 2
         frame.origin.y -= Application.view.contentView!.bounds.midY
         frame.size.width = Application.view.contentView!.bounds.width
         frame.size.height = Application.view.contentView!.bounds.height
@@ -139,7 +137,7 @@ class SearchView:NSView, NSTextViewDelegate {
     
     @objc private func updateSkin() {
         layer!.backgroundColor = Application.skin.background.withAlphaComponent(0.95).cgColor
-        layer!.borderColor = Application.skin.text.withAlphaComponent(0.25).cgColor
+        layer!.borderColor = Application.skin.text.withAlphaComponent(0.3).cgColor
         text.textColor = Application.skin.text
     }
     
