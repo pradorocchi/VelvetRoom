@@ -2,6 +2,14 @@ import AppKit
 import VelvetRoom
 
 struct Skin {
+    static func add(_ observer:Any, selector:Selector) {
+        NotificationCenter.default.addObserver(observer, selector:selector, name:.init("skin"), object:nil)
+    }
+    
+    static func post() {
+        DispatchQueue.main.async { NotificationCenter.default.post(name:.init("skin"), object:nil) }
+    }
+    
     static func appearance(_ appearance:Appearance, font:Int) -> Skin {
         var skin:Skin
         switch appearance {

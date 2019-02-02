@@ -38,13 +38,13 @@ class BoardView:NSControl, NSTextViewDelegate {
         date.topAnchor.constraint(equalTo:text.bottomAnchor, constant:-1).isActive = true
         date.leftAnchor.constraint(equalTo:text.leftAnchor, constant:4).isActive = true
         
+        Skin.add(self, selector:#selector(updateSkin))
         updateSkin()
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
-            self.updateSkin()
-        }
     }
     
     required init?(coder:NSCoder) { return nil }
+    
+    deinit { NotificationCenter.default.removeObserver(self) }
     
     override func mouseDown(with event:NSEvent) {
         if event.clickCount == 2 {
@@ -82,7 +82,7 @@ class BoardView:NSControl, NSTextViewDelegate {
         return false
     }
     
-    private func updateSkin() {
+    @objc private func updateSkin() {
         text.textColor = Application.skin.text
         date.textColor = Application.skin.text
         date.stringValue = dateFormatter.string(from:Date(timeIntervalSince1970:board.updated))

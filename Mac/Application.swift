@@ -3,7 +3,7 @@ import AppKit
 @NSApplicationMain class Application:NSObject, NSApplicationDelegate, NSWindowDelegate {
     private(set) static weak var view:View!
     private(set) static weak var list:NSMenuItem!
-    static var skin = Skin() { didSet { NotificationCenter.default.post(name:.init("skin"), object:nil) } }
+    static var skin = Skin() { didSet { Skin.post() } }
     
     @IBOutlet private(set) weak var list:NSMenuItem! {
         get { return Application.list }

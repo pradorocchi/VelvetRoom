@@ -217,19 +217,14 @@ class SettingsView:SheetView {
         slider.integerValue = Int(Application.skin.font)
         font.stringValue = "\(slider.integerValue)"
         updateSkin()
-        
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { [weak self] _ in
-            self?.updateSkin(2)
-        }
+        Skin.add(self, selector:#selector(updateSkin))
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
+    deinit { NotificationCenter.default.removeObserver(self) }
     
-    private func updateSkin(_ animation:TimeInterval = 0) {
+    @objc private func updateSkin() {
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = animation
+            context.duration = 0.5
             context.allowsImplicitAnimation = true
             contentView!.layer!.backgroundColor = Application.skin.background.cgColor
             appearanceTitle.textColor = Application.skin.text

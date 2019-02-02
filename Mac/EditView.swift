@@ -18,12 +18,12 @@ class EditView:ItemView, NSTextViewDelegate {
         text.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-10).isActive = true
         text.rightAnchor.constraint(equalTo:rightAnchor, constant:-10).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:14).isActive = true
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
-            self.updateSkin()
-        }
+        Skin.add(self, selector:#selector(updateSkin))
     }
     
     required init?(coder:NSCoder) { return nil }
+    
+    deinit { NotificationCenter.default.removeObserver(self) }
     
     override func mouseDown(with event:NSEvent) {
         if event.clickCount == 2 {
@@ -81,7 +81,7 @@ class EditView:ItemView, NSTextViewDelegate {
         top.constant += deltaY
     }
     
-    func updateSkin() {
+    @objc func updateSkin() {
         text.setNeedsDisplay(text.bounds)
     }
 }

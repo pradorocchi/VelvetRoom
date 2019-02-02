@@ -1,9 +1,9 @@
 import AppKit
 
 class SearchView:NSView, NSTextViewDelegate {
-    private weak var bottom:NSLayoutConstraint! { didSet { bottom.isActive = true } }
     private(set) weak var text:TextView!
     private(set) weak var highlighter:NSView?
+    private weak var bottom:NSLayoutConstraint! { didSet { bottom.isActive = true } }
     
     init() {
         super.init(frame:.zero)
@@ -53,9 +53,7 @@ class SearchView:NSView, NSTextViewDelegate {
         done.heightAnchor.constraint(equalToConstant:24).isActive = true
         
         updateSkin()
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
-            self.updateSkin()
-        }
+        Skin.add(self, selector:#selector(updateSkin))
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -139,7 +137,7 @@ class SearchView:NSView, NSTextViewDelegate {
         }
     }
     
-    private func updateSkin() {
+    @objc private func updateSkin() {
         layer!.backgroundColor = Application.skin.background.withAlphaComponent(0.95).cgColor
         layer!.borderColor = Application.skin.text.withAlphaComponent(0.2).cgColor
         text.textColor = Application.skin.text

@@ -37,17 +37,14 @@ class View:NSWindow {
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.select(board) } }
         repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
-            self.updateSkin()
-            DispatchQueue.main.async { self.canvasChanged(0) }
-        }
-        DispatchQueue.global(qos:.background).async {
-            self.repository.load()
-            Application.skin = .appearance(self.repository.account.appearance, font:self.repository.account.font)
-        }
+        Skin.add(self, selector:#selector(updateSkin))
         DispatchQueue.main.async {
             self.toggleList(self.listButton)
             self.updateSkin()
+            DispatchQueue.global(qos:.background).async {
+                self.repository.load()
+                Application.skin = .appearance(self.repository.account.appearance, font:self.repository.account.font)
+            }
         }
     }
     
@@ -250,7 +247,7 @@ class View:NSWindow {
         return list.documentView!.subviews.first(where: { ($0 as! BoardView).board === board } ) as? BoardView
     }
     
-    private func updateSkin() {
+    @objc private func updateSkin() {
         backgroundColor = Application.skin.background
         (gradientTop.layer as! CAGradientLayer).colors = [Application.skin.background.withAlphaComponent(0).cgColor,
                                                        Application.skin.background.cgColor]
@@ -258,6 +255,7 @@ class View:NSWindow {
                                                            Application.skin.background.withAlphaComponent(0.9).cgColor,
                                                            Application.skin.background.withAlphaComponent(0).cgColor]
         canvas.horizontalScroller!.knobStyle = Application.skin.scroller
+        DispatchQueue.main.async { if self.selected != nil { self.canvasChanged(0) } }
     }
     
     @objc private func select(view:BoardView) {

@@ -45,16 +45,14 @@ class ProgressView:NSView {
         marker.leftAnchor.constraint(equalTo:leftAnchor, constant:-2).isActive = true
         self.marker = marker.leftAnchor
         
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
-            self.updateSkin()
-        }
+        Skin.add(self, selector:#selector(updateSkin))
     }
     
     required init?(coder:NSCoder) { return nil }
     
     deinit { NotificationCenter.default.removeObserver(self) }
     
-    private func updateSkin() {
+    @objc private func updateSkin() {
         views.forEach {
             $0.layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
         }
