@@ -11,7 +11,7 @@ class SettingsView:SheetView {
     private weak var systemTitle:NSTextField!
     private weak var lightTitle:NSTextField!
     private weak var fontTitle:NSTextField!
-    private weak var slider:NSSlider?
+    private weak var slider:NSSlider!
     private weak var timer:Timer!
     
     override init() {
@@ -135,7 +135,7 @@ class SettingsView:SheetView {
         
         let slider = NSSlider()
         slider.target = self
-        slider.action = #selector(changeFont(_:))
+        slider.action = #selector(changeFont)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.minValue = 8
         slider.maxValue = 32
@@ -257,19 +257,19 @@ class SettingsView:SheetView {
     @objc private func makeLight() {
         changeLight()
         Application.view.repository.change(.light)
-        Application.skin = .appearance(.light, font:slider!.integerValue)
+        Application.skin = .appearance(.light, font:slider.integerValue)
     }
     
     @objc private func makeDark() {
         changeDark()
         Application.view.repository.change(.dark)
-        Application.skin = .appearance(.dark, font:slider!.integerValue)
+        Application.skin = .appearance(.dark, font:slider.integerValue)
     }
     
     @objc private func makeSystem() {
         changeSystem()
         Application.view.repository.change(.system)
-        Application.skin = .appearance(.system, font:slider!.integerValue)
+        Application.skin = .appearance(.system, font:slider.integerValue)
     }
     
     @objc private func changeFont(_ slider:NSSlider) {
@@ -279,11 +279,8 @@ class SettingsView:SheetView {
     }
     
     @objc private func save() {
-        guard
-            timer?.isValid == true,
-            let font = slider?.integerValue
-        else { return }
-        Application.view.repository.change(font)
-        Application.skin.font = CGFloat(font)
+        guard timer?.isValid == true else { return }
+        Application.view.repository.change(slider.integerValue)
+        Application.skin.font = CGFloat(slider.integerValue)
     }
 }

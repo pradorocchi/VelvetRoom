@@ -2,8 +2,8 @@ import UIKit
 import VelvetRoom
 
 class BoardView:UIControl, UITextViewDelegate {
-    override var isSelected:Bool { didSet { update() } }
-    override var isHighlighted:Bool { didSet { update() } }
+    override var isSelected:Bool { didSet { updateSkin() } }
+    override var isHighlighted:Bool { didSet { updateSkin() } }
     private(set) weak var board:Board!
     private weak var text:TextView!
     private weak var date:UILabel!
@@ -76,7 +76,7 @@ class BoardView:UIControl, UITextViewDelegate {
         export.rightAnchor.constraint(equalTo:delete.leftAnchor).isActive = true
         export.widthAnchor.constraint(equalToConstant:54).isActive = true
         
-        update()
+        updateSkin()
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -88,8 +88,8 @@ class BoardView:UIControl, UITextViewDelegate {
         delete.isHidden = false
         export.isHidden = false
         Application.view.scheduleUpdate(board)
-        DispatchQueue.main.async {
-            self.update()
+        DispatchQueue.main.async { [weak self] in
+            self?.updateSkin()
         }
     }
     
@@ -101,7 +101,7 @@ class BoardView:UIControl, UITextViewDelegate {
         return true
     }
     
-    private func update() {
+    @objc private func updateSkin() {
         if text.isFirstResponder {
             backgroundColor = .clear
             text.textColor = Application.skin.text
@@ -122,8 +122,9 @@ class BoardView:UIControl, UITextViewDelegate {
     @objc private func remove() {
         UIApplication.shared.keyWindow!.endEditing(true)
         Application.view.present(DeleteView {
-            DispatchQueue.global(qos:.background).async {
-                Application.view.repository.delete(self.board)
+            DispatchQueue.global(qos:.background).async { [weak self] in
+                guard let board = self?.board else { return }
+                Application.view.repository.delete(board)
             }
         }, animated:true)
     }
@@ -153,6 +154,6 @@ class BoardView:UIControl, UITextViewDelegate {
         export.isHidden = true
         text.isUserInteractionEnabled = true
         text.becomeFirstResponder()
-        update()
+        updateSkin()
     }
 }

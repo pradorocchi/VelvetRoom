@@ -6,7 +6,7 @@ class CardView:EditView {
     
     init(_ card:Card) {
         super.init()
-        text.textContainer!.size = NSSize(width:400, height:1000000)
+        text.textContainer!.size = NSSize(width:420, height:1000000)
         self.card = card
         updateSkin()
     }

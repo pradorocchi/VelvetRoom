@@ -9,18 +9,15 @@ class SettingsView:UIViewController {
     private weak var labelDark:UILabel!
     private weak var labelFont:UILabel!
     private weak var font:UILabel!
+    private weak var slider:UISlider!
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
+    deinit { NotificationCenter.default.removeObserver(self) }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         makeOutlets()
         updateSkin()
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
-            self.updateSkin(1.5)
-        }
+        Skin.add(self, selector:#selector(updateSkin))
     }
     
     private func makeOutlets() {
@@ -87,14 +84,15 @@ class SettingsView:UIViewController {
         self.font = font
         
         let slider = UISlider()
-        slider.addTarget(self, action:#selector(changeFont(_:)), for:.valueChanged)
-        slider.addTarget(self, action:#selector(saveFont(_:)), for:[.touchUpInside, .touchUpOutside, .touchCancel])
+        slider.addTarget(self, action:#selector(changeFont), for:.valueChanged)
+        slider.addTarget(self, action:#selector(saveFont), for:[.touchUpInside, .touchUpOutside, .touchCancel])
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.minimumValue = 8
         slider.maximumValue = 32
         slider.minimumTrackTintColor = .velvetBlue
         slider.maximumTrackTintColor = UIColor(white:0.6, alpha:0.3)
         view.addSubview(slider)
+        self.slider = slider
         
         let done = UIButton()
         done.layer.cornerRadius = 4
@@ -160,18 +158,6 @@ class SettingsView:UIViewController {
         }
     }
     
-    private func updateSkin(_ animation:TimeInterval = 0) {
-        UIView.animate(withDuration:animation) { [weak self] in
-            self?.view.backgroundColor = Application.skin.background
-            self?.labelTitle.textColor = Application.skin.text
-            self?.labelAppearance.textColor = Application.skin.text
-            self?.labelDark.textColor = Application.skin.text
-            self?.labelLight.textColor = Application.skin.text
-            self?.labelFont.textColor = Application.skin.text
-            self?.font.textColor = Application.skin.text
-        }
-    }
-    
     private func changeDark() {
         dark.alpha = 1
         light.alpha = 0.3
@@ -182,28 +168,40 @@ class SettingsView:UIViewController {
         light.alpha = 1
     }
     
+    @objc private func updateSkin() {
+        UIView.animate(withDuration:0.6) { [weak self] in
+            self?.view.backgroundColor = Application.skin.background
+            self?.labelTitle.textColor = Application.skin.text
+            self?.labelAppearance.textColor = Application.skin.text
+            self?.labelDark.textColor = Application.skin.text
+            self?.labelLight.textColor = Application.skin.text
+            self?.labelFont.textColor = Application.skin.text
+            self?.font.textColor = Application.skin.text
+        }
+    }
+    
     @objc private func close() {
         view.isUserInteractionEnabled = false
         presentingViewController!.dismiss(animated:true)
     }
     
-    @objc private func changeFont(_ slider:UISlider) {
+    @objc private func changeFont() {
         font.text = "\(Int(slider.value))"
     }
     
-    @objc private func saveFont(_ slider:UISlider) {
+    @objc private func saveFont() {
         Application.view.repository.change(Int(slider.value))
     }
     
     @objc private func makeDark() {
         changeDark()
         Application.view.repository.change(.dark)
-        Application.skin = .appearance(.dark)
+        Application.skin = .appearance(.dark, font:Int(slider.value))
     }
     
     @objc private func makeLight() {
         changeLight()
         Application.view.repository.change(.light)
-        Application.skin = .appearance(.light)
+        Application.skin = .appearance(.light, font:Int(slider.value))
     }
 }

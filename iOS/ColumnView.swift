@@ -10,10 +10,11 @@ class ColumnView:EditView {
         text.alpha = 0.4
         text.text = column.name
         text.textContainer.maximumNumberOfLines = 1
-        text.onDelete = { if !self.text.text.isEmpty { self.askDelete() } }
+        text.onDelete = { [weak self] in
+            guard self?.text.text.isEmpty == false else { return }
+            self?.askDelete()
+        }
         self.column = column
-        
-//        text.heightAnchor.constraint(equalToConstant:24).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -84,7 +85,7 @@ class ColumnView:EditView {
     }
     
     private func askDelete() {
-        Application.view.present(DeleteView { self.confirmDelete() }, animated:true)
+        Application.view.present(DeleteView { [weak self] in self?.confirmDelete() }, animated:true)
     }
     
     private func confirmDelete() {
@@ -94,12 +95,13 @@ class ColumnView:EditView {
             child!.removeFromSuperview()
             child = child!.child
         }
-        DispatchQueue.global(qos:.background).async {
-            Application.view.repository.delete(self.column, board:Application.view.selected!)
+        DispatchQueue.global(qos:.background).async { [weak self] in
+            guard let column = self?.column else { return }
+            Application.view.repository.delete(column, board:Application.view.selected!)
             Application.view.scheduleUpdate()
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 Application.view.progress.chart = Application.view.selected!.chart
-                self.removeFromSuperview()
+                self?.removeFromSuperview()
             }
         }
     }

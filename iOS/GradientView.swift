@@ -11,14 +11,14 @@ class GradientView:UIView {
         (layer as! CAGradientLayer).endPoint = CGPoint(x:0.5, y:1)
         (layer as! CAGradientLayer).locations = [0, 1]
         updateSkin()
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
-            self.updateSkin()
-        }
+        Skin.add(self, selector:#selector(updateSkin))
     }
     
     required init?(coder:NSCoder) { return nil }
     
-    private func updateSkin() {
+    deinit { NotificationCenter.default.removeObserver(self) }
+    
+    @objc private func updateSkin() {
         (layer as! CAGradientLayer).colors = [Application.skin.background.withAlphaComponent(0.95).cgColor,
                                               Application.skin.background.withAlphaComponent(0).cgColor]
     }

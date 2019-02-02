@@ -8,10 +8,9 @@ class CardView:EditView {
         super.init()
         text.font = .light(CGFloat(Application.view.repository.account.font))
         text.text = card.content
-        text.onDelete = {
-            if !self.text.text.isEmpty {
-                Application.view.present(DeleteView { self.confirmDelete() }, animated:true)
-            }
+        text.onDelete = { [weak self] in
+            guard self?.text.text.isEmpty == false else { return }
+            Application.view.present(DeleteView { [weak self] in self?.confirmDelete() }, animated:true)
         }
         self.card = card
     }
@@ -60,12 +59,13 @@ class CardView:EditView {
     
     private func confirmDelete() {
         detach()
-        DispatchQueue.global(qos:.background).async {
-            Application.view.repository.delete(self.card, board:Application.view.selected!)
+        DispatchQueue.global(qos:.background).async { [weak self] in
+            guard let card = self?.card else { return }
+            Application.view.repository.delete(card, board:Application.view.selected!)
             Application.view.scheduleUpdate()
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 Application.view.progress.chart = Application.view.selected!.chart
-                self.removeFromSuperview()
+                self?.removeFromSuperview()
             }
         }
     }

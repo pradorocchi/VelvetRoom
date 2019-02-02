@@ -23,6 +23,8 @@ class View:UIViewController {
     private weak var canvasHeight:NSLayoutConstraint? { didSet {
         oldValue?.isActive = false; canvasHeight!.isActive = true } }
     
+    deinit { NotificationCenter.default.removeObserver(self) }
+    
     override func viewSafeAreaInsetsDidChange() {
         if #available(iOS 11.0, *) {
             super.viewSafeAreaInsetsDidChange()
@@ -41,13 +43,11 @@ class View:UIViewController {
             self.showList()
         } }
         updateSkin()
-        NotificationCenter.default.addObserver(forName:.init("skin"), object:nil, queue:.main) { _ in
-            self.updateSkin()
-        }
+        Skin.add(self, selector:#selector(updateSkin))
         listenKeyboard()
         DispatchQueue.global(qos:.background).async {
             self.repository.load()
-            Application.skin = .appearance(self.repository.account.appearance)
+            Application.skin = .appearance(self.repository.account.appearance, font:self.repository.account.font)
         }
     }
     
@@ -390,7 +390,7 @@ class View:UIViewController {
         create.left.constant = root!.left.constant
     }
     
-    private func updateSkin() {
+    @objc private func updateSkin() {
         view.backgroundColor = Application.skin.background
         canvasScroll.indicatorStyle = Application.skin.scroll
     }

@@ -2,7 +2,7 @@ import UIKit
 
 @UIApplicationMain class Application:UIResponder, UIApplicationDelegate {
     private(set) static weak var view:View!
-    static var skin = Skin() { didSet { NotificationCenter.default.post(name:.init("skin"), object:nil) } }
+    static var skin = Skin() { didSet { Skin.post() } }
     var window:UIWindow?
     
     func application(_:UIApplication, didFinishLaunchingWithOptions:[UIApplication.LaunchOptionsKey:Any]?) -> Bool {
