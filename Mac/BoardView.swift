@@ -58,8 +58,9 @@ class BoardView:NSControl, NSTextViewDelegate {
     
     func delete() {
         Application.view.makeFirstResponder(nil)
-        Application.view.beginSheet(DeleteView(.local("DeleteView.board")) {
-            Application.view.repository.delete(self.board)
+        Application.view.beginSheet(DeleteView(.local("DeleteView.board")) { [weak self] in
+            guard let board = self?.board else { return }
+            Application.view.repository.delete(board)
         })
     }
     

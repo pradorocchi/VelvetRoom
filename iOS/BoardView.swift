@@ -26,7 +26,7 @@ class BoardView:UIControl, UITextViewDelegate {
         text.delegate = self
         text.text = board.name
         text.textContainer.maximumNumberOfLines = 1
-        text.onDelete = { self.remove() }
+        text.onDelete = { [weak self] in self?.remove() }
         addSubview(text)
         self.text = text
         
@@ -61,7 +61,7 @@ class BoardView:UIControl, UITextViewDelegate {
         
         text.centerYAnchor.constraint(equalTo:centerYAnchor, constant:-6).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:12).isActive = true
-        text.rightAnchor.constraint(equalTo:delete.leftAnchor, constant:-10).isActive = true
+        text.rightAnchor.constraint(equalTo:export.leftAnchor, constant:-10).isActive = true
         
         date.leftAnchor.constraint(equalTo:text.leftAnchor, constant:6).isActive = true
         date.topAnchor.constraint(equalTo:text.bottomAnchor, constant:-2).isActive = true
@@ -77,9 +77,12 @@ class BoardView:UIControl, UITextViewDelegate {
         export.widthAnchor.constraint(equalToConstant:54).isActive = true
         
         updateSkin()
+        Skin.add(self, selector:#selector(updateSkin))
     }
     
     required init?(coder:NSCoder) { return nil }
+    
+    deinit { NotificationCenter.default.removeObserver(self) }
     
     func textViewDidEndEditing(_:UITextView) {
         text.isUserInteractionEnabled = false

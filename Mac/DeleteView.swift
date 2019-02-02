@@ -2,6 +2,7 @@ import AppKit
 
 class DeleteView:SheetView {
     private let onConfirm:(() -> Void)
+    
     init(_ name:String, onConfirm:@escaping(() -> Void)) {
         self.onConfirm = onConfirm
         super.init()

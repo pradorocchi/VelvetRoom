@@ -20,8 +20,9 @@ class ExportView:UIViewController {
     
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
-        DispatchQueue.global(qos:.background).async {
-            let cgImage = Sharer.export(self.board)
+        DispatchQueue.global(qos:.background).async { [weak self] in
+            guard let board = self?.board else { return }
+            let cgImage = Sharer.export(board)
             let image = UIImage(cgImage:cgImage)
             DispatchQueue.main.async { [weak self] in
                 self?.imageView.image = image

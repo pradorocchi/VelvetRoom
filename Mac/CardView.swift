@@ -65,12 +65,13 @@ class CardView:EditView {
     
     private func confirmDelete() {
         detach()
-        DispatchQueue.global(qos:.background).async {
-            Application.view.repository.delete(self.card, board:Application.view.selected!)
+        DispatchQueue.global(qos:.background).async { [weak self] in
+            guard let card = self?.card else { return }
+            Application.view.repository.delete(card, board:Application.view.selected!)
             Application.view.scheduleUpdate()
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 Application.view.progress.chart = Application.view.selected!.chart
-                self.removeFromSuperview()
+                self?.removeFromSuperview()
             }
         }
     }

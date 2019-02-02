@@ -106,9 +106,9 @@ import NotificationCenter
             context.allowsImplicitAnimation = true
             chart.alphaValue = 1
             self.chart?.alphaValue = 0
-        }) {
-            self.chart?.removeFromSuperview()
-            self.chart = chart
+        }) { [weak self] in
+            self?.chart?.removeFromSuperview()
+            self?.chart = chart
         }
     }
     

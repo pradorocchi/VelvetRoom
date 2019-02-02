@@ -94,12 +94,13 @@ class ColumnView:EditView {
             child!.removeFromSuperview()
             child = child!.child
         }
-        DispatchQueue.global(qos:.background).async {
-            Application.view.repository.delete(self.column, board:Application.view.selected!)
+        DispatchQueue.global(qos:.background).async { [weak self] in
+            guard let column = self?.column else { return }
+            Application.view.repository.delete(column, board:Application.view.selected!)
             Application.view.scheduleUpdate()
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 Application.view.progress.chart = Application.view.selected!.chart
-                self.removeFromSuperview()
+                self?.removeFromSuperview()
             }
         }
     }

@@ -213,8 +213,9 @@ class NewView:UIViewController, UITextFieldDelegate {
     @objc private func create() {
         field.resignFirstResponder()
         let name = field.text!
-        DispatchQueue.global(qos:.background).async {
-            Application.view.repository.newBoard(name, template:self.template)
+        DispatchQueue.global(qos:.background).async { [weak self] in
+            guard let template = self?.template else { return }
+            Application.view.repository.newBoard(name, template:template)
         }
         presentingViewController!.dismiss(animated:true)
         if Application.view.repository.rate() { if #available(iOS 10.3, *) { SKStoreReviewController.requestReview() } }
