@@ -36,6 +36,7 @@ class View:UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Widget.group = "group.VelvetRoom"
         makeOutlets()
         repository.select = { board in DispatchQueue.main.async { self.open(board) } }
         repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
