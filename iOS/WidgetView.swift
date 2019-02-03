@@ -3,20 +3,17 @@ import NotificationCenter
 
 @objc(WidgetView) class WidgetView:UIViewController, NCWidgetProviding {
     private weak var effect:UIVisualEffectView!
-    private weak var chart:UIView?
-    private weak var name:UILabel?
-    private weak var nextButton:UIButton?
-    private weak var previousButton:UIButton?
-    private var items = [Widget]()
+    private weak var name:UILabel!
+    private weak var display:UIView?
+    private var items = [(String,[WidgetItem])]()
     private var index = Int()
-    private var compact = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         Widget.group = "group.VelvetRoom"
         let effect:UIVisualEffectView
         if #available(iOSApplicationExtension 10.0, *) {
-            effect = UIVisualEffectView(effect:UIVibrancyEffect.widgetSecondary())
+            effect = UIVisualEffectView(effect:UIVibrancyEffect.widgetPrimary())
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         } else {
             effect = UIVisualEffectView(effect:UIVibrancyEffect.notificationCenter())
@@ -44,33 +41,28 @@ import NotificationCenter
     }
     
     func widgetPerformUpdate(completionHandler:(@escaping(NCUpdateResult) -> Void)) {
-        items = Widget.items
-        if !items.isEmpty {
+        items = Widget.items.map { ($0, $1) }.sorted {
+            $0.0.compare($1.0, options:.caseInsensitive) == .orderedAscending }
+        if items.isEmpty {
+            empty()
+            completionHandler(.noData)
+        } else {
             index = Widget.index
             if index >= items.count {
                 index = 0
                 Widget.index = index
             }
             render()
-            display()
+            update()
             completionHandler(.newData)
-        } else {
-            empty()
-            completionHandler(.noData)
         }
     }
     
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode:NCWidgetDisplayMode, withMaximumSize maxSize:CGSize) {
-        preferredContentSize = CGSize(width:maxSize.width, height:min(maxSize.height, 280))
-        compact = activeDisplayMode == .compact
-        name?.removeFromSuperview()
-        nextButton?.removeFromSuperview()
-        previousButton?.removeFromSuperview()
-        chart?.removeFromSuperview()
+        preferredContentSize = maxSize
         if !items.isEmpty {
-            render()
-            display()
+            update()
         }
     }
     
@@ -85,14 +77,14 @@ import NotificationCenter
         
         label.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
         label.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
+        preferredContentSize.height = 50
     }
     
     private func render() {
         let name = UILabel()
         name.translatesAutoresizingMaskIntoConstraints = false
         name.textColor = .black
-        name.textAlignment = .center
-        name.alpha = 0
+        name.font = .systemFont(ofSize:20, weight:.bold)
         effect.contentView.addSubview(name)
         self.name = name
         
@@ -102,9 +94,7 @@ import NotificationCenter
         nextButton.setImage(#imageLiteral(resourceName: "next.pdf"), for:.normal)
         nextButton.imageView!.clipsToBounds = true
         nextButton.imageView!.contentMode = .center
-        nextButton.alpha = 0
         view.addSubview(nextButton)
-        self.nextButton = nextButton
         
         let previousButton = UIButton()
         previousButton.addTarget(self, action:#selector(showPrevious), for:.touchUpInside)
@@ -112,127 +102,118 @@ import NotificationCenter
         previousButton.setImage(#imageLiteral(resourceName: "previous.pdf"), for:.normal)
         previousButton.imageView!.clipsToBounds = true
         previousButton.imageView!.contentMode = .center
-        previousButton.alpha = 0
         view.addSubview(previousButton)
-        self.previousButton = previousButton
+        
+        name.topAnchor.constraint(equalTo:view.topAnchor, constant:33).isActive = true
+        name.leftAnchor.constraint(equalTo:view.leftAnchor, constant:70).isActive = true
+        name.rightAnchor.constraint(equalTo:previousButton.leftAnchor).isActive = true
         
         nextButton.widthAnchor.constraint(equalToConstant:60).isActive = true
         nextButton.heightAnchor.constraint(equalToConstant:50).isActive = true
+        nextButton.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        nextButton.centerYAnchor.constraint(equalTo:name.centerYAnchor).isActive = true
         
         previousButton.widthAnchor.constraint(equalToConstant:60).isActive = true
         previousButton.heightAnchor.constraint(equalToConstant:50).isActive = true
-        
-        if compact {
-            name.font = .systemFont(ofSize:14, weight:.regular)
-            name.leftAnchor.constraint(equalTo:previousButton.leftAnchor).isActive = true
-            name.rightAnchor.constraint(equalTo:nextButton.rightAnchor).isActive = true
-            name.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
-            
-            nextButton.leftAnchor.constraint(equalTo:previousButton.rightAnchor, constant:100).isActive = true
-            nextButton.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
-            
-            previousButton.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-            previousButton.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
-        } else {
-            name.font = .systemFont(ofSize:18, weight:.medium)
-            name.centerYAnchor.constraint(equalTo:nextButton.centerYAnchor).isActive = true
-            name.leftAnchor.constraint(equalTo:previousButton.rightAnchor).isActive = true
-            name.rightAnchor.constraint(equalTo:nextButton.leftAnchor).isActive = true
-            
-            nextButton.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-            nextButton.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
-            
-            previousButton.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-            previousButton.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        }
-        
-        UIView.animate(withDuration:1) { [weak self] in
-            self?.name?.alpha = 1
-            self?.nextButton?.alpha = 1
-            self?.previousButton?.alpha = 1
-        }
+        previousButton.rightAnchor.constraint(equalTo:nextButton.leftAnchor).isActive = true
+        previousButton.centerYAnchor.constraint(equalTo:name.centerYAnchor).isActive = true
     }
     
-    private func display() {
-        name?.text = items[index].name
-        let chart = newChart()
-        UIView.animate(withDuration:1, animations: { [weak self] in
-            chart.alpha = 1
-            self?.chart?.alpha = 0
+    private func update() {
+        name.text = items[index].0
+        let display = newDisplay()
+        display.alpha = 0
+        UIView.animate(withDuration:0.3, animations: { [weak self] in
+            display.alpha = 1
+            self?.display?.alpha = 0
         }) { [weak self] _ in
-            self?.chart?.removeFromSuperview()
-            self?.chart = chart
+            self?.display?.removeFromSuperview()
+            self?.display = display
         }
     }
     
-    private func newChart() -> UIView {
-        let center:CGPoint
-        let radius:CGFloat
-        let extra:CGFloat
-        
-        if compact {
-            center = CGPoint(x:view.bounds.width - 55, y:47)
-            radius = 20
-            extra = 0
-        } else {
-            center = CGPoint(x:view.bounds.midX, y:160)
-            radius = 50
-            extra = 20
-        }
+    private func newDisplay() -> UIView {
+        let display = UIView()
+        display.translatesAutoresizingMaskIntoConstraints = false
+        display.isUserInteractionEnabled = false
+        view.addSubview(display)
         
         let chart = UIView()
-        chart.alpha = 0
         chart.isUserInteractionEnabled = false
         chart.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(chart)
+        display.addSubview(chart)
         
         var angle = CGFloat()
+        
         let maskPath = CGMutablePath()
-        maskPath.addArc(center:center, radius:radius + ((16 + extra) / 2),
-                        startAngle:0.001, endAngle:0, clockwise:false)
+        maskPath.addArc(center:CGPoint(x:26, y:26), radius:19, startAngle:0.001, endAngle:0, clockwise:false)
         let mask = CAShapeLayer()
         mask.frame = view.bounds
         mask.path = maskPath
-        mask.lineWidth = 18 + extra
+        mask.lineWidth = 10
         mask.strokeColor = UIColor.black.cgColor
         mask.fillColor = UIColor.clear.cgColor
         chart.layer.mask = mask
         
-        items[index].columns.enumerated().forEach {
-            let delta = .pi * 2 * CGFloat($0.element)
-            let current = delta + angle
+        var top = CGFloat(130)
+        
+        items[index].1.enumerated().forEach {
+            let delta = .pi * 2 * CGFloat($0.element.percent)
+            let radius = delta + angle
             let path = CGMutablePath()
-            path.move(to:center)
-            path.addArc(center:center, radius:radius + 16 + extra, startAngle:angle, endAngle:current, clockwise:false)
+            path.move(to:CGPoint(x:26, y:26))
+            path.addArc(center:CGPoint(x:26, y:26), radius:25, startAngle:angle, endAngle:radius, clockwise:false)
             path.closeSubpath()
             let layer = CAShapeLayer()
             layer.frame = view.bounds
             layer.path = path
-            layer.lineWidth = 2
+            layer.lineWidth = 0.5
             layer.strokeColor = UIColor.black.cgColor
-            if $0.offset == items[index].columns.count - 1 {
+            if $0.offset == items[index].1.count - 1 {
                 layer.fillColor = UIColor.velvetBlue.cgColor
             } else {
-                layer.fillColor = UIColor.velvetBlue.withAlphaComponent(0.2).cgColor
+                layer.fillColor = UIColor(white:1, alpha:0.6).cgColor
             }
             chart.layer.addSublayer(layer)
-            angle = current
+            angle = radius
+            
+            let column = UILabel()
+            column.translatesAutoresizingMaskIntoConstraints = false
+            column.textColor = .black
+            column.font = .systemFont(ofSize:13, weight:.light)
+            column.text = $0.element.name
+            display.addSubview(column)
+            
+            let progress = UIView()
+            progress.translatesAutoresizingMaskIntoConstraints = false
+            progress.backgroundColor = UIColor(cgColor:layer.fillColor!)
+            progress.layer.cornerRadius = 3
+            progress.isUserInteractionEnabled = false
+            display.addSubview(progress)
+            
+            column.topAnchor.constraint(equalTo:display.topAnchor, constant:top).isActive = true
+            column.leftAnchor.constraint(equalTo:display.leftAnchor, constant:12).isActive = true
+            column.rightAnchor.constraint(equalTo:progress.leftAnchor).isActive = true
+            
+            progress.heightAnchor.constraint(equalToConstant:12).isActive = true
+            progress.centerYAnchor.constraint(equalTo:column.centerYAnchor).isActive = true
+            progress.rightAnchor.constraint(equalTo:display.rightAnchor, constant:-12).isActive = true
+            progress.widthAnchor.constraint(
+                equalToConstant:(view.bounds.width - 120) * CGFloat($0.element.percent)).isActive = true
+            
+            top += 30
         }
+        preferredContentSize.height = top + 5
+        display.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
+        display.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
+        display.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+        display.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
         
-        let path = CGMutablePath()
-        path.addArc(center:center, radius:radius, startAngle:0.001, endAngle:0, clockwise:false)
-        let layer = CAShapeLayer()
-        layer.frame = view.bounds
-        layer.path = path
-        layer.lineWidth = 2
-        layer.strokeColor = UIColor.black.cgColor
-        chart.layer.addSublayer(layer)
-        
-        chart.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        chart.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
-        chart.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        chart.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
-        return chart
+        chart.topAnchor.constraint(equalTo:display.topAnchor, constant:20).isActive = true
+        chart.leftAnchor.constraint(equalTo:display.leftAnchor, constant:10).isActive = true
+        chart.widthAnchor.constraint(equalToConstant:52).isActive = true
+        chart.heightAnchor.constraint(equalToConstant:52).isActive = true
+        return display
     }
     
     @objc private func highlight() { view.alpha = 0.15 }
@@ -245,12 +226,12 @@ import NotificationCenter
     @objc private func showNext() {
         index = index < items.count - 1 ? index + 1 : 0
         Widget.index = index
-        display()
+        update()
     }
     
     @objc private func showPrevious() {
         index = index > 0 ? index - 1 : items.count - 1
         Widget.index = index
-        display()
+        update()
     }
 }
