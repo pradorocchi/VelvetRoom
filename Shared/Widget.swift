@@ -1,8 +1,7 @@
 import Foundation
 
 public struct Widget {
-    public static var group = String() { didSet { suite = UserDefaults(suiteName:group)! } }
-    private static var suite = UserDefaults.standard
+    private static var suite = UserDefaults(suiteName:try! JSONDecoder().decode([String:String].self, from:try! Data(contentsOf:Bundle.main.url(forResource:"Config", withExtension:"json")!))["widget"])!
     
     static var index:Int {
         get {

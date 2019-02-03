@@ -33,7 +33,6 @@ class View:NSWindow {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        Widget.group = "7AMWG3RLHN.group.VelvetRoom"
         makeOutlets()
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.select(board) } }

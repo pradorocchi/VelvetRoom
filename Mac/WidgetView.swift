@@ -11,7 +11,6 @@ import NotificationCenter
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Widget.group = "7AMWG3RLHN.group.VelvetRoom"
         view.translatesAutoresizingMaskIntoConstraints = false
         preferredContentSize = NSSize(width:0, height:50)
     }

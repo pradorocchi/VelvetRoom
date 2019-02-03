@@ -40,6 +40,10 @@
 		205BE61322072B820020817A /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205BE61222072B820020817A /* CanvasView.swift */; };
 		20804BBB21E5E6360035535D /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804BBA21E5E6360035535D /* Alert.swift */; };
 		20804BBD21E5E6470035535D /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804BBC21E5E6470035535D /* Alert.swift */; };
+		2088914D220746DC00E8ABD6 /* Config.json in Resources */ = {isa = PBXBuildFile; fileRef = 2088914C220746DC00E8ABD6 /* Config.json */; };
+		2088914E220746DC00E8ABD6 /* Config.json in Resources */ = {isa = PBXBuildFile; fileRef = 2088914C220746DC00E8ABD6 /* Config.json */; };
+		20889150220748F400E8ABD6 /* Config.json in Resources */ = {isa = PBXBuildFile; fileRef = 2088914F220748F400E8ABD6 /* Config.json */; };
+		20889151220748F400E8ABD6 /* Config.json in Resources */ = {isa = PBXBuildFile; fileRef = 2088914F220748F400E8ABD6 /* Config.json */; };
 		20938C9B21FDB59000EB84DA /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2061170A21FC9BA2007A2C84 /* WidgetView.swift */; };
 		20938C9E21FDCB4F00EB84DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708C21C3CA87008F184E /* Assets.xcassets */; };
 		20938C9F21FDD4A400EB84DA /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B491621C9187B00BABE86 /* NSColor.swift */; };
@@ -259,6 +263,8 @@
 		2061170D21FC9BC0007A2C84 /* MacWidget.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MacWidget.plist; sourceTree = "<group>"; };
 		20804BBA21E5E6360035535D /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		20804BBC21E5E6470035535D /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		2088914C220746DC00E8ABD6 /* Config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Config.json; sourceTree = "<group>"; };
+		2088914F220748F400E8ABD6 /* Config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Config.json; sourceTree = "<group>"; };
 		20959D5B2206058A002FE165 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		209EDF7D21FC9C3900905989 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		20B40E9C21E8756A00286E92 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -497,6 +503,7 @@
 				DAD7B78421D65712003396B1 /* UIColor.swift */,
 				DAD7B78621D65BFE003396B1 /* UIFont.swift */,
 				20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */,
+				2088914F220748F400E8ABD6 /* Config.json */,
 				DAB2707E21C3CA7C008F184E /* Localizable.strings */,
 				20DBB0B921EB5D7F009B9AAA /* iOSWidget.plist */,
 				DAB2708021C3CA7C008F184E /* iOS.storyboard */,
@@ -541,6 +548,7 @@
 				DA86474621C401DF00E4957B /* NSFont.swift */,
 				DA2B491621C9187B00BABE86 /* NSColor.swift */,
 				2061170A21FC9BA2007A2C84 /* WidgetView.swift */,
+				2088914C220746DC00E8ABD6 /* Config.json */,
 				DAB2708A21C3CA87008F184E /* Localizable.strings */,
 				DAB2708D21C3CA87008F184E /* Mac.storyboard */,
 				DAB2708F21C3CA87008F184E /* Mac.plist */,
@@ -844,6 +852,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20938C9E21FDCB4F00EB84DA /* Assets.xcassets in Resources */,
+				2088914E220746DC00E8ABD6 /* Config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -852,6 +861,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20BFF18C21FEEC0E00DA249A /* Assets.xcassets in Resources */,
+				20889151220748F400E8ABD6 /* Config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -867,6 +877,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA7C743921C3DE9800B1F931 /* SFMono-Bold.otf in Resources */,
+				2088914D220746DC00E8ABD6 /* Config.json in Resources */,
 				DAB2709321C3CA87008F184E /* Mac.storyboard in Resources */,
 				DAB2709221C3CA87008F184E /* Assets.xcassets in Resources */,
 				DA7C743721C3DE9800B1F931 /* SFMono-Light.otf in Resources */,
@@ -879,6 +890,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA7C743A21C3DE9800B1F931 /* SFMono-Bold.otf in Resources */,
+				20889150220748F400E8ABD6 /* Config.json in Resources */,
 				DAB2708421C3CA7C008F184E /* Localizable.strings in Resources */,
 				DAB2708621C3CA7C008F184E /* Assets.xcassets in Resources */,
 				DA7C743821C3DE9800B1F931 /* SFMono-Light.otf in Resources */,

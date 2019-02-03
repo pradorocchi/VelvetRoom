@@ -10,7 +10,6 @@ import NotificationCenter
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Widget.group = "group.VelvetRoom"
         let effect:UIVisualEffectView
         if #available(iOSApplicationExtension 10.0, *) {
             effect = UIVisualEffectView(effect:UIVibrancyEffect.widgetPrimary())
