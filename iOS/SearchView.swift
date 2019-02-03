@@ -100,11 +100,10 @@ class SearchView:UIView, UITextViewDelegate {
         frame.size.width += 20
         highlighter!.frame = frame
         
-        let height = Application.view.canvas.superview!.bounds.height - 20
         frame.origin.x -= (Application.view.view.bounds.width - frame.size.width) / 2
-        frame.origin.y -= height / 2
+        frame.origin.y -= (Application.view.canvas.superview!.bounds.height - 20) / 2
         frame.size.width = Application.view.view.bounds.width
-        frame.size.height = height
+        frame.size.height = Application.view.canvas.superview!.bounds.height - 20
         (Application.view.canvas.superview as! UIScrollView).scrollRectToVisible(frame, animated:true)
     }
     

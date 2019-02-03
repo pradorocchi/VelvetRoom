@@ -389,7 +389,7 @@ class View:UIViewController {
                 child!.left.constant = right
                 child!.top.constant = bottom
                 
-                bottom += child!.bounds.height + 10
+                bottom += child!.bounds.height + 30
                 maxRight = max(maxRight, right + child!.bounds.width + 45)
                 
                 child = child!.child

@@ -29,7 +29,7 @@ class EditView:ItemView, UITextViewDelegate {
         text.rightAnchor.constraint(equalTo:rightAnchor, constant:-16).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:16).isActive = true
         text.widthAnchor.constraint(lessThanOrEqualToConstant:
-            Application.view.view.frame.width < 600 ? 250 : 420).isActive = true
+            Application.view.view.frame.width < 600 ? 220 : 420).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }
