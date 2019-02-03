@@ -106,7 +106,11 @@ class SearchView:NSView, NSTextViewDelegate {
         frame.origin.y -= Application.view.contentView!.bounds.midY
         frame.size.width = Application.view.contentView!.bounds.width
         frame.size.height = Application.view.contentView!.bounds.height
-        Application.view.canvas.contentView.scrollToVisible(frame)
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.4
+            context.allowsImplicitAnimation = true
+            Application.view.canvas.contentView.scrollToVisible(frame)
+        }, completionHandler:nil)
     }
     
     func active() {
