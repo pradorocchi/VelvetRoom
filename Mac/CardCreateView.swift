@@ -17,6 +17,6 @@ class CardCreateView:CreateView {
     required init?(coder:NSCoder) { return nil }
     
     @objc private func shortcut() {
-        sendAction(action, to:Application.view)
+        Application.view.perform(selector)
     }
 }

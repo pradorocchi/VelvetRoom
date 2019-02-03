@@ -1,10 +1,10 @@
 import AppKit
 
-class ItemView:NSControl {
+class ItemView:NSView {
     weak var sibling:ItemView?
     weak var child:ItemView?
-    private(set) weak var left:NSLayoutConstraint! { didSet { left.isActive = true } }
-    private(set) weak var top:NSLayoutConstraint! { didSet { top.isActive = true } }
+    private(set) weak var left:NSLayoutConstraint!
+    private(set) weak var top:NSLayoutConstraint!
     
     init() {
         super.init(frame:.zero)
@@ -18,6 +18,8 @@ class ItemView:NSControl {
         if let superview = superview {
             left = leftAnchor.constraint(equalTo:superview.leftAnchor)
             top = topAnchor.constraint(equalTo:superview.topAnchor)
+            left.isActive = true
+            top.isActive = true
         }
     }
 }
