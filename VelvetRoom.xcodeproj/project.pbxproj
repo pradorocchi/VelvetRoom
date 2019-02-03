@@ -37,6 +37,7 @@
 		205BE60F2206EBCE0020817A /* WidgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205BE60D2206EBCE0020817A /* WidgetItem.swift */; };
 		205BE6102206EBCE0020817A /* WidgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205BE60D2206EBCE0020817A /* WidgetItem.swift */; };
 		205BE6112206EBCE0020817A /* WidgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205BE60D2206EBCE0020817A /* WidgetItem.swift */; };
+		205BE61322072B820020817A /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205BE61222072B820020817A /* CanvasView.swift */; };
 		20804BBB21E5E6360035535D /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804BBA21E5E6360035535D /* Alert.swift */; };
 		20804BBD21E5E6470035535D /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804BBC21E5E6470035535D /* Alert.swift */; };
 		20938C9B21FDB59000EB84DA /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2061170A21FC9BA2007A2C84 /* WidgetView.swift */; };
@@ -252,6 +253,7 @@
 		205BE6052206E5DD0020817A /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		205BE60A2206EAE50020817A /* WidgetGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetGroup.swift; sourceTree = "<group>"; };
 		205BE60D2206EBCE0020817A /* WidgetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetItem.swift; sourceTree = "<group>"; };
+		205BE61222072B820020817A /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		2061170A21FC9BA2007A2C84 /* WidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		2061170C21FC9BC0007A2C84 /* MacWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacWidget.entitlements; sourceTree = "<group>"; };
 		2061170D21FC9BC0007A2C84 /* MacWidget.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MacWidget.plist; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 				202D692621E230EC009398AB /* SheetView.swift */,
 				DA4C2AC421D4F4CB004988B4 /* ProgressView.swift */,
 				20531BFC2202ED1A00D6551C /* SearchView.swift */,
+				205BE61222072B820020817A /* CanvasView.swift */,
 				DAFA95FC21CBDAAD00BA265C /* ItemView.swift */,
 				DAFA95FE21CBDC2C00BA265C /* CreateView.swift */,
 				20BFF18A21FEDF9600DA249A /* CardCreateView.swift */,
@@ -995,6 +998,7 @@
 			files = (
 				DAFA95FF21CBDC2C00BA265C /* CreateView.swift in Sources */,
 				204B68FE21E338B10025261E /* ImportView.swift in Sources */,
+				205BE61322072B820020817A /* CanvasView.swift in Sources */,
 				DA53931021D2CB6F00482FCA /* TextStorage.swift in Sources */,
 				DA86AB3F21D0F884007DFFEE /* EditView.swift in Sources */,
 				DA86474521C3FDE500E4957B /* ColumnView.swift in Sources */,

@@ -5,7 +5,7 @@ class View:NSWindow {
     let repository = Repository()
     let alert = Alert()
     weak var root:ItemView?
-    private(set) weak var canvas:ScrollView!
+    private(set) weak var canvas:CanvasView!
     private(set) weak var progress:ProgressView!
     private(set) weak var listLeft:NSLayoutConstraint!
     private weak var list:ScrollView!
@@ -72,9 +72,7 @@ class View:NSWindow {
     }
     
     private func makeOutlets() {
-        let canvas = ScrollView()
-        canvas.hasHorizontalScroller = true
-        canvas.horizontalScroller!.controlSize = .mini
+        let canvas = CanvasView()
         contentView!.addSubview(canvas)
         self.canvas = canvas
         
@@ -134,8 +132,6 @@ class View:NSWindow {
         canvas.leftAnchor.constraint(equalTo:list.leftAnchor).isActive = true
         canvas.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-1).isActive = true
         canvas.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-1).isActive = true
-        canvas.documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:canvas.bottomAnchor).isActive = true
-        canvas.documentView!.rightAnchor.constraint(greaterThanOrEqualTo:canvas.rightAnchor).isActive = true
         
         search.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
         

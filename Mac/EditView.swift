@@ -2,7 +2,6 @@ import AppKit
 
 class EditView:ItemView, NSTextViewDelegate {
     private(set) weak var text:TextView!
-    private var dragging = false
     
     override init() {
         super.init()
@@ -24,32 +23,6 @@ class EditView:ItemView, NSTextViewDelegate {
     required init?(coder:NSCoder) { return nil }
     
     deinit { NotificationCenter.default.removeObserver(self) }
-    
-    override func mouseDown(with event:NSEvent) {
-        if event.clickCount == 2 {
-            beginEditing()
-        }
-    }
-    
-    override func mouseDragged(with event:NSEvent) {
-        if !text.isEditable {
-            if dragging {
-                drag(deltaX:event.deltaX, deltaY:event.deltaY)
-                NSCursor.pointingHand.set()
-            } else {
-                dragging = true
-                beginDrag()
-                Application.view.makeFirstResponder(nil)
-            }
-        }
-    }
-    
-    override func mouseUp(with:NSEvent) {
-        if dragging {
-            dragging = false
-            endDrag(with)
-        }
-    }
     
     func textDidChange(_:Notification) {
         Application.view.canvasChanged()
