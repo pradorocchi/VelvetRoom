@@ -2,7 +2,7 @@ import AppKit
 
 class CreateView:ItemView {
     let selector:Selector
-    init(_ selector:Selector) {
+    init(_ selector:Selector, key:String) {
         self.selector = selector
         super.init()
         widthAnchor.constraint(equalToConstant:64).isActive = true
@@ -13,6 +13,16 @@ class CreateView:ItemView {
         image.translatesAutoresizingMaskIntoConstraints = false
         image.imageScaling = .scaleNone
         addSubview(image)
+        
+        let button = NSButton()
+        button.title = String()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isBordered = false
+        button.target = self
+        button.action = #selector(shortcut)
+        button.keyEquivalent = key
+        button.keyEquivalentModifierMask = [.shift, .command]
+        addSubview(button)
         
         image.topAnchor.constraint(equalTo:topAnchor).isActive = true
         image.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
@@ -31,5 +41,9 @@ class CreateView:ItemView {
         } ) { [weak self] in
             self?.alphaValue = 1
         }
+    }
+    
+    @objc private func shortcut() {
+        Application.shared.view.perform(selector, with:self)
     }
 }

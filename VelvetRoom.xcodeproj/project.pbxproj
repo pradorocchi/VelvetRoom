@@ -51,7 +51,6 @@
 		20B40E9D21E8756A00286E92 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40E9C21E8756A00286E92 /* CameraView.swift */; };
 		20B40E9F21E88E7D00286E92 /* PicturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40E9E21E88E7D00286E92 /* PicturesView.swift */; };
 		20B40EA121E8951F00286E92 /* PictureCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40EA021E8951F00286E92 /* PictureCellView.swift */; };
-		20BFF18B21FEDF9600DA249A /* CardCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BFF18A21FEDF9600DA249A /* CardCreateView.swift */; };
 		20BFF18C21FEEC0E00DA249A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708121C3CA7C008F184E /* Assets.xcassets */; };
 		20BFF18D21FEF3C200DA249A /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78421D65712003396B1 /* UIColor.swift */; };
 		20C6F94421EA120E0069176F /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C6F94321EA120E0069176F /* ExportView.swift */; };
@@ -270,7 +269,6 @@
 		20B40E9C21E8756A00286E92 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		20B40E9E21E88E7D00286E92 /* PicturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesView.swift; sourceTree = "<group>"; };
 		20B40EA021E8951F00286E92 /* PictureCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCellView.swift; sourceTree = "<group>"; };
-		20BFF18A21FEDF9600DA249A /* CardCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCreateView.swift; sourceTree = "<group>"; };
 		20C6F94321EA120E0069176F /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		20CADF9D21F99B8A005DC344 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		20CADF9F21F9B1F1005DC344 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
@@ -528,7 +526,6 @@
 				205BE61222072B820020817A /* CanvasView.swift */,
 				DAFA95FC21CBDAAD00BA265C /* ItemView.swift */,
 				DAFA95FE21CBDC2C00BA265C /* CreateView.swift */,
-				20BFF18A21FEDF9600DA249A /* CardCreateView.swift */,
 				DA86AB3E21D0F884007DFFEE /* EditView.swift */,
 				DA86474421C3FDE500E4957B /* ColumnView.swift */,
 				DA982ED821CD10540085480B /* CardView.swift */,
@@ -1034,7 +1031,6 @@
 				DA1544E321D2752600B9D9F7 /* DeleteView.swift in Sources */,
 				DA6A986C21CEA70000C18C7F /* TextLayout.swift in Sources */,
 				DA1ABDA921C9AFD500CE1462 /* ScrollView.swift in Sources */,
-				20BFF18B21FEDF9600DA249A /* CardCreateView.swift in Sources */,
 				DA4C2AC521D4F4CB004988B4 /* ProgressView.swift in Sources */,
 				202D692921E231EF009398AB /* ExportView.swift in Sources */,
 				20CADF9E21F99B8A005DC344 /* SettingsView.swift in Sources */,

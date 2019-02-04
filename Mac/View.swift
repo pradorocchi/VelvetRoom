@@ -185,7 +185,7 @@ class View:NSWindow {
             }
         }
         
-        let buttonColumn = CreateView(#selector(newColumn(_:)))
+        let buttonColumn = CreateView(#selector(newColumn(_:)), key:"m")
         canvas.documentView!.addSubview(buttonColumn)
         
         if root == nil {
@@ -222,7 +222,7 @@ class View:NSWindow {
     
     private func createCard() {
         guard root != nil, !(root is CreateView), !(root!.child is CreateView) else { return }
-        let create = CardCreateView(#selector(newCard(_:)))
+        let create = CreateView(#selector(newCard(_:)), key:"n")
         create.child = root!.child
         root!.child = create
         canvas.documentView!.addSubview(create)
@@ -297,6 +297,14 @@ class View:NSWindow {
         canvasChanged()
         column.beginEditing()
         scheduleUpdate()
+        DispatchQueue.main.async {
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 0.7
+                context.allowsImplicitAnimation = true
+                self.canvas.contentView.scrollToVisible(CGRect(x:view.frame.minX + self.canvas.bounds.width, y:
+                    view.frame.minY - self.canvas.bounds.height, width:1, height:1))
+            }, completionHandler:nil)
+        }
     }
     
     @objc private func newCard(_ view:CreateView) {
@@ -310,6 +318,14 @@ class View:NSWindow {
         card.beginEditing()
         scheduleUpdate()
         progress.chart = selected!.chart
+        DispatchQueue.main.async {
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 0.7
+                context.allowsImplicitAnimation = true
+                self.canvas.contentView.scrollToVisible(CGRect(x:view.frame.minX - self.canvas.bounds.width, y:
+                    view.frame.minY - self.canvas.bounds.height, width:1, height:1))
+            }, completionHandler:nil)
+        }
     }
     
     @IBAction private func toggleSourceList(_ sender:NSMenuItem) {
