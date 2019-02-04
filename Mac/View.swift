@@ -272,7 +272,7 @@ class View:NSWindow {
         DispatchQueue.main.async {
             self.canvas.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
             NSAnimationContext.runAnimationGroup({ context in
-                context.duration = 0.7
+                context.duration = 1
                 context.allowsImplicitAnimation = true
                 self.canvas.alphaValue = 1
             }, completionHandler:nil)

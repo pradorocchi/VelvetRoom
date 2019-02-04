@@ -9,7 +9,7 @@ class SearchView:NSView, NSTextViewDelegate {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
-        layer!.cornerRadius = 6
+        layer!.cornerRadius = 4
         layer!.borderWidth = 1
         
         let image = NSImageView()

@@ -32,6 +32,7 @@ class TextView:NSTextView {
         height = heightAnchor.constraint(equalToConstant:0)
         width.isActive = true
         height.isActive = true
+        adjustConstraints()
     }
     
     required init?(coder:NSCoder) { return nil }
