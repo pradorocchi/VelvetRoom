@@ -72,7 +72,7 @@ class SearchView:NSView, NSTextViewDelegate {
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
-            Application.view.makeFirstResponder(nil)
+            Application.shared.view.makeFirstResponder(nil)
             return true
         }
         return false
@@ -84,12 +84,12 @@ class SearchView:NSView, NSTextViewDelegate {
             highlighter.wantsLayer = true
             highlighter.layer!.backgroundColor = NSColor.velvetBlue.cgColor
             highlighter.layer!.cornerRadius = 4
-            Application.view.canvas.contentView.addSubview(highlighter, positioned:.below, relativeTo:nil)
+            Application.shared.view.canvas.contentView.addSubview(highlighter, positioned:.below, relativeTo:nil)
             self.highlighter = highlighter
         }
         
         var range:Range<String.Index>!
-        guard let view = Application.view.canvas.documentView!.subviews.first (where: {
+        guard let view = Application.shared.view.canvas.documentView!.subviews.first (where: {
             guard
                 let view = $0 as? EditView,
                 let textRange = view.text.string.range(of:text.string, options:.caseInsensitive)
@@ -97,19 +97,19 @@ class SearchView:NSView, NSTextViewDelegate {
             range = textRange
             return true
         }) as? EditView else { return highlighter!.frame = .zero }
-        var frame = Application.view.canvas.contentView.convert(view.text.layoutManager!.boundingRect(forGlyphRange:
-            NSRange(range, in:view.text.string), in:view.text.textContainer!), from:view.text)
+        var frame = Application.shared.view.canvas.contentView.convert(view.text.layoutManager!.boundingRect(
+            forGlyphRange:NSRange(range, in:view.text.string), in:view.text.textContainer!), from:view.text)
         frame.origin.x -= 10
         frame.size.width += 20
         highlighter!.frame = frame
-        frame.origin.x -= (Application.view.contentView!.bounds.width - frame.size.width) / 2
-        frame.origin.y -= Application.view.contentView!.bounds.midY
-        frame.size.width = Application.view.contentView!.bounds.width
-        frame.size.height = Application.view.contentView!.bounds.height
+        frame.origin.x -= (Application.shared.view.contentView!.bounds.width - frame.size.width) / 2
+        frame.origin.y -= Application.shared.view.contentView!.bounds.midY
+        frame.size.width = Application.shared.view.contentView!.bounds.width
+        frame.size.height = Application.shared.view.contentView!.bounds.height
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.4
             context.allowsImplicitAnimation = true
-            Application.view.canvas.contentView.scrollToVisible(frame)
+            Application.shared.view.canvas.contentView.scrollToVisible(frame)
         }, completionHandler:nil)
     }
     
@@ -121,7 +121,7 @@ class SearchView:NSView, NSTextViewDelegate {
             context.allowsImplicitAnimation = true
             superview!.layoutSubtreeIfNeeded()
         }) {
-            Application.view.makeFirstResponder(self.text)
+            Application.shared.view.makeFirstResponder(self.text)
         }
     }
     
@@ -140,12 +140,12 @@ class SearchView:NSView, NSTextViewDelegate {
     }
     
     @objc private func updateSkin() {
-        layer!.backgroundColor = Application.skin.background.withAlphaComponent(0.95).cgColor
-        layer!.borderColor = Application.skin.text.withAlphaComponent(0.3).cgColor
-        text.textColor = Application.skin.text
+        layer!.backgroundColor = Application.shared.skin.background.withAlphaComponent(0.95).cgColor
+        layer!.borderColor = Application.shared.skin.text.withAlphaComponent(0.3).cgColor
+        text.textColor = Application.shared.skin.text
     }
     
     @objc private func done() {
-        Application.view.makeFirstResponder(nil)
+        Application.shared.view.makeFirstResponder(nil)
     }
 }

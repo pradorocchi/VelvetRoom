@@ -49,7 +49,7 @@ class BoardView:NSControl, NSTextViewDelegate {
     override func mouseDown(with event:NSEvent) {
         if event.clickCount == 2 {
             text.isEditable = true
-            Application.view.makeFirstResponder(text)
+            Application.shared.view.makeFirstResponder(text)
             updateSkin()
         } else if !selected {
             sendAction(action, to:target)
@@ -57,10 +57,10 @@ class BoardView:NSControl, NSTextViewDelegate {
     }
     
     func delete() {
-        Application.view.makeFirstResponder(nil)
-        Application.view.beginSheet(DeleteView(.local("DeleteView.board")) { [weak self] in
+        Application.shared.view.makeFirstResponder(nil)
+        Application.shared.view.beginSheet(DeleteView(.local("DeleteView.board")) { [weak self] in
             guard let board = self?.board else { return }
-            Application.view.repository.delete(board)
+            Application.shared.view.repository.delete(board)
         })
     }
     
@@ -71,29 +71,29 @@ class BoardView:NSControl, NSTextViewDelegate {
         } else {
             text.string = board.name
         }
-        Application.view.scheduleUpdate(board)
+        Application.shared.view.scheduleUpdate(board)
         DispatchQueue.main.async { [weak self] in self?.updateSkin() }
     }
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
-            Application.view.makeFirstResponder(nil)
+            Application.shared.view.makeFirstResponder(nil)
             return true
         }
         return false
     }
     
     @objc private func updateSkin() {
-        text.textColor = Application.skin.text
-        date.textColor = Application.skin.text
+        text.textColor = Application.shared.skin.text
+        date.textColor = Application.shared.skin.text
         date.stringValue = dateFormatter.string(from:Date(timeIntervalSince1970:board.updated))
-        if Application.view.firstResponder === text {
+        if Application.shared.view.firstResponder === text {
             layer!.backgroundColor = .black
             text.textColor = .white
             text.alphaValue = 1
             date.alphaValue = 0
         } else if selected {
-            layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
+            layer!.backgroundColor = Application.shared.skin.text.withAlphaComponent(0.2).cgColor
             text.alphaValue = 0.8
             date.alphaValue = 0.8
         } else {
@@ -102,8 +102,8 @@ class BoardView:NSControl, NSTextViewDelegate {
             date.alphaValue = 0.8
         }
         text.setNeedsDisplay(text.bounds)
-        text.textContainer!.size = NSSize(width:235, height:Application.skin.font + 16)
-        text.font = .bold(Application.skin.font)
+        text.textContainer!.size = NSSize(width:235, height:Application.shared.skin.font + 16)
+        text.font = .bold(Application.shared.skin.font)
         text.string = board.name
     }
 }

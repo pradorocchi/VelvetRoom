@@ -1,14 +1,13 @@
 import AppKit
 
 @NSApplicationMain class Application:NSObject, NSApplicationDelegate, NSWindowDelegate {
-    private(set) static weak var view:View!
-    private(set) static weak var list:NSMenuItem!
-    static var skin = Skin() { didSet { Skin.post() } }
-    
-    @IBOutlet private(set) weak var list:NSMenuItem! {
-        get { return Application.list }
-        set { Application.list = newValue }
-    }
+    static var shared:Application { return NSApp.delegate as! Application }
+    var skin = Skin() { didSet { Skin.post() } }
+    private(set) weak var view:View!
+    @IBOutlet private(set) weak var list:NSMenuItem!
+    @IBOutlet private(set) weak var newColumn:NSMenuItem!
+    @IBOutlet private(set) weak var newCard:NSMenuItem!
+    @IBOutlet private(set) weak var find:NSMenuItem!
     
     func applicationShouldTerminateAfterLastWindowClosed(_:NSApplication) -> Bool { return true }
     
@@ -18,20 +17,20 @@ import AppKit
     }
     
     func applicationDidFinishLaunching(_:Notification) {
-        Application.view = NSApp.windows.first as? View
-        Application.view.delegate = self
+        view = NSApp.windows.first as? View
+        view.delegate = self
     }
     
     func applicationWillTerminate(_:Notification) {
-        Application.view.fireSchedule()
+        view.fireSchedule()
     }
     
     func windowWillBeginSheet(_:Notification) {
-        Application.view.menu!.items.forEach { $0.isEnabled = false }
+        view.menu!.items.forEach { $0.isEnabled = false }
     }
     
     func windowDidEndSheet(_:Notification) {
-        Application.view.menu!.items.forEach { $0.isEnabled = true }
+        view.menu!.items.forEach { $0.isEnabled = true }
     }
     
     func window(_:NSWindow, willPositionSheet:NSWindow, using rect:NSRect) -> NSRect {

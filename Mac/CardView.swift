@@ -16,7 +16,7 @@ class CardView:EditView {
     override func textDidEndEditing(_ notification:Notification) {
         card.content = text.string
         if card.content.isEmpty {
-            Application.view.makeFirstResponder(nil)
+            Application.shared.view.makeFirstResponder(nil)
             confirmDelete()
         } else {
             text.string = card.content
@@ -31,11 +31,12 @@ class CardView:EditView {
     
     override func endDrag(_ event:NSEvent) {
         super.endDrag(event)
-        var column = Application.view.root
+        var column = Application.shared.view.root
         while column!.sibling is ColumnView {
             guard
                 column!.sibling!.left.constant < event.locationInWindow.x -
-                    Application.view.listLeft.constant + Application.view.canvas.documentVisibleRect.origin.x
+                    Application.shared.view.listLeft.constant +
+                    Application.shared.view.canvas.documentVisibleRect.origin.x
             else { break }
             column = column!.sibling
         }
@@ -49,16 +50,16 @@ class CardView:EditView {
         }
         child = after!.child
         after!.child = self
-        Application.view.canvasChanged()
-        Application.view.repository.move(card, board:Application.view.selected!, column:(column as! ColumnView).column,
+        Application.shared.view.canvasChanged()
+        Application.shared.view.repository.move(card, board:Application.shared.view.selected!, column:(column as! ColumnView).column,
                                          after:(after as? CardView)?.card)
-        Application.view.scheduleUpdate()
-        Application.view.progress.chart = Application.view.selected!.chart
+        Application.shared.view.scheduleUpdate()
+        Application.shared.view.progress.chart = Application.shared.view.selected!.chart
     }
     
     override func updateSkin() {
-        text.textColor = Application.skin.text
-        text.font = .light(Application.skin.font)
+        text.textColor = Application.shared.skin.text
+        text.font = .light(Application.shared.skin.font)
         text.string = card.content
         super.updateSkin()
     }
@@ -67,20 +68,20 @@ class CardView:EditView {
         detach()
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let card = self?.card else { return }
-            Application.view.repository.delete(card, board:Application.view.selected!)
-            Application.view.scheduleUpdate()
+            Application.shared.view.repository.delete(card, board:Application.shared.view.selected!)
+            Application.shared.view.scheduleUpdate()
             DispatchQueue.main.async { [weak self] in
-                Application.view.progress.chart = Application.view.selected!.chart
+                Application.shared.view.progress.chart = Application.shared.view.selected!.chart
                 self?.removeFromSuperview()
             }
         }
     }
     
     private func detach() {
-        if let parent = Application.view.canvas.documentView!.subviews.first(
+        if let parent = Application.shared.view.canvas.documentView!.subviews.first(
             where: {($0 as? ItemView)?.child === self }) as? ItemView {
             parent.child = child
-            Application.view.canvasChanged()
+            Application.shared.view.canvasChanged()
         }
     }
 }

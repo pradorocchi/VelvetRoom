@@ -80,9 +80,9 @@ class ImportView:SheetView {
     private func selected(_ url:URL) {
         if let image = NSImage(byReferencing:url).cgImage(forProposedRect:nil, context:nil, hints:nil),
             let id = try? Sharer.load(image) {
-            Application.view.repository.load(id)
+            Application.shared.view.repository.load(id)
         } else {
-            Application.view.alert.add(Exception.imageNotValid)
+            Application.shared.view.alert.add(Exception.imageNotValid)
         }
         end()
     }

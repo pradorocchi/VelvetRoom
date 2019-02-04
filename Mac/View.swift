@@ -43,7 +43,8 @@ class View:NSWindow {
             self.updateSkin()
             DispatchQueue.global(qos:.background).async {
                 self.repository.load()
-                Application.skin = .appearance(self.repository.account.appearance, font:self.repository.account.font)
+                Application.shared.skin = .appearance(self.repository.account.appearance,
+                                                      font:self.repository.account.font)
             }
         }
     }
@@ -244,13 +245,15 @@ class View:NSWindow {
     }
     
     @objc private func updateSkin() {
-        backgroundColor = Application.skin.background
-        (gradientTop.layer as! CAGradientLayer).colors = [Application.skin.background.withAlphaComponent(0).cgColor,
-                                                       Application.skin.background.cgColor]
-        (gradientLeft.layer as! CAGradientLayer).colors = [Application.skin.background.cgColor,
-                                                           Application.skin.background.withAlphaComponent(0.9).cgColor,
-                                                           Application.skin.background.withAlphaComponent(0).cgColor]
-        canvas.horizontalScroller!.knobStyle = Application.skin.scroller
+        backgroundColor = Application.shared.skin.background
+        (gradientTop.layer as! CAGradientLayer).colors = [
+            Application.shared.skin.background.withAlphaComponent(0).cgColor,
+            Application.shared.skin.background.cgColor]
+        (gradientLeft.layer as! CAGradientLayer).colors = [
+            Application.shared.skin.background.cgColor,
+            Application.shared.skin.background.withAlphaComponent(0.9).cgColor,
+            Application.shared.skin.background.withAlphaComponent(0).cgColor]
+        canvas.horizontalScroller!.knobStyle = Application.shared.skin.scroller
         DispatchQueue.main.async { if self.selected != nil { self.canvasChanged(0) } }
     }
     
@@ -265,7 +268,7 @@ class View:NSWindow {
         searchButton.isEnabled = true
         exportButton.isEnabled = true
         chartButton.isEnabled = true
-        progress.chart = Application.view.selected!.chart
+        progress.chart = Application.shared.view.selected!.chart
         DispatchQueue.main.async {
             self.canvas.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
             NSAnimationContext.runAnimationGroup({ context in
@@ -322,10 +325,10 @@ class View:NSWindow {
     @IBAction private func toggleList(_ listButton:NSButton) {
         if listButton.state == .on {
             listLeft.constant = 0
-            Application.list.title = .local("View.hideList")
+            Application.shared.list.title = .local("View.hideList")
         } else {
             listLeft.constant = -280
-            Application.list.title = .local("View.showList")
+            Application.shared.list.title = .local("View.showList")
         }
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 1

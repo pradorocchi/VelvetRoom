@@ -54,7 +54,7 @@ class ProgressView:NSView {
     
     @objc private func updateSkin() {
         views.forEach {
-            $0.layer!.backgroundColor = Application.skin.text.withAlphaComponent(0.2).cgColor
+            $0.layer!.backgroundColor = Application.shared.skin.text.withAlphaComponent(0.2).cgColor
         }
     }
 }
