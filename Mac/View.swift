@@ -144,6 +144,7 @@ class View:NSWindow {
         searchButton.isEnabled = false
         exportButton.isEnabled = false
         chartButton.isEnabled = false
+        Application.shared.find.isEnabled = false
         progress.chart = []
         canvas.removeSubviews()
         list.removeSubviews()
@@ -268,6 +269,7 @@ class View:NSWindow {
         searchButton.isEnabled = true
         exportButton.isEnabled = true
         chartButton.isEnabled = true
+        Application.shared.find.isEnabled = true
         progress.chart = Application.shared.view.selected!.chart
         DispatchQueue.main.async {
             self.canvas.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
@@ -384,7 +386,7 @@ class View:NSWindow {
         beginSheet(SettingsView())
     }
     
-    @IBAction private func activeSearch(_ sender:Any) {
+    @IBAction private func performFindPanelAction(_ sender:Any) {
         makeFirstResponder(nil)
         search.active()
     }

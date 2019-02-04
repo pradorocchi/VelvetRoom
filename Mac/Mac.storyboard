@@ -51,7 +51,7 @@
                             </menuItem>
                             <menuItem title="Edit" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Edit" id="W48-6f-4Dl">
+                                <menu key="submenu" title="Edit" autoenablesItems="NO" id="W48-6f-4Dl">
                                     <items>
                                         <menuItem title="Undo" keyEquivalent="z" id="dRJ-4n-Yzg">
                                             <connections>
@@ -91,6 +91,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="uyl-h8-XO2"/>
+                                        <menuItem title="Find" enabled="NO" alternate="YES" keyEquivalent="f" id="YO8-ZY-NFU">
+                                            <connections>
+                                                <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="UiA-KD-Owd"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Spelling and Grammar" id="Dv1-io-Yv7">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Spelling" id="3IN-sU-3Bg">
@@ -275,6 +280,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="Application" customModule="Velvet_Room" customModuleProvider="target">
                     <connections>
+                        <outlet property="find" destination="YO8-ZY-NFU" id="EV2-8P-KPU"/>
                         <outlet property="list" destination="6i5-27-0d7" id="T2U-Db-K2r"/>
                     </connections>
                 </customObject>
@@ -409,7 +415,7 @@
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="activeSearch:" target="IQv-IB-iLA" id="Scz-qR-Uzm"/>
+                                            <action selector="performFindPanelAction:" target="IQv-IB-iLA" id="Scz-qR-Uzm"/>
                                         </connections>
                                     </button>
                                 </toolbarItem>
@@ -441,7 +447,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="100" y="224"/>
+            <point key="canvasLocation" x="100" y="421"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -460,7 +466,7 @@
     <resources>
         <image name="chart" width="24" height="18"/>
         <image name="delete" width="24" height="18"/>
-        <image name="export" width="24" height="18"/>
+        <image name="export" width="24" height="24"/>
         <image name="import" width="24" height="18"/>
         <image name="listOff" width="24" height="18"/>
         <image name="listOn" width="24" height="18"/>
