@@ -145,6 +145,8 @@ class View:NSWindow {
         exportButton.isEnabled = false
         chartButton.isEnabled = false
         Application.shared.find.isEnabled = false
+        Application.shared.newColumn.isEnabled = false
+        Application.shared.newColumn.isEnabled = false
         progress.chart = []
         canvas.removeSubviews()
         list.removeSubviews()
@@ -270,6 +272,8 @@ class View:NSWindow {
         exportButton.isEnabled = true
         chartButton.isEnabled = true
         Application.shared.find.isEnabled = true
+        Application.shared.newColumn.isEnabled = true
+        Application.shared.newCard.isEnabled = true
         progress.chart = Application.shared.view.selected!.chart
         DispatchQueue.main.async {
             self.canvas.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
@@ -393,5 +397,21 @@ class View:NSWindow {
     
     @IBAction private func showHelp(_ sender:Any?) {
         HelpView().makeKeyAndOrderFront(nil)
+    }
+    
+    @IBAction private func addRow(_ sender:Any?) {
+        var view = root
+        while view?.sibling != nil {
+            view = view?.sibling
+        }
+        if let view = view as? CreateView {
+            newColumn(view)
+        }
+    }
+    
+    @IBAction private func addChild(_ sender:Any?) {
+        if let view = root?.child as? CreateView {
+            newCard(view)
+        }
     }
 }

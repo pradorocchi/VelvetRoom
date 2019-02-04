@@ -49,6 +49,28 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="New" id="3xg-wh-qCO">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="New" autoenablesItems="NO" id="Stp-rE-7IO">
+                                    <items>
+                                        <menuItem title="Board" keyEquivalent="n" id="Gg7-f9-jBs">
+                                            <connections>
+                                                <action selector="newDocument:" target="Ady-hI-5gd" id="YVi-Xw-uMH"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Column" enabled="NO" keyEquivalent="M" id="kR1-Ch-sCA">
+                                            <connections>
+                                                <action selector="addRow:" target="Ady-hI-5gd" id="IOc-mM-gIr"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Card" enabled="NO" keyEquivalent="N" id="S2Z-PM-7vI">
+                                            <connections>
+                                                <action selector="addChild:" target="Ady-hI-5gd" id="GYo-Da-udv"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Edit" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Edit" autoenablesItems="NO" id="W48-6f-4Dl">
@@ -282,6 +304,8 @@
                     <connections>
                         <outlet property="find" destination="YO8-ZY-NFU" id="EV2-8P-KPU"/>
                         <outlet property="list" destination="6i5-27-0d7" id="T2U-Db-K2r"/>
+                        <outlet property="newCard" destination="S2Z-PM-7vI" id="zSV-p8-gmD"/>
+                        <outlet property="newColumn" destination="kR1-Ch-sCA" id="nSt-IN-N2s"/>
                     </connections>
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
