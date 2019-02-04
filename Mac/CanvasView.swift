@@ -14,9 +14,13 @@ class CanvasView:ScrollView {
     required init?(coder:NSCoder) { return nil }
     
     override func mouseDown(with:NSEvent) {
-        guard let view = owner(with) else { return }
-        if dragging == nil && with.clickCount == 2 {
+        if dragging == nil,
+            let view = owner(with),
+            with.clickCount == 2 {
             view.beginEditing()
+        } else {
+            mouseUp(with:with)
+            Application.view.makeFirstResponder(nil)
         }
     }
     
