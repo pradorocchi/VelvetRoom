@@ -108,7 +108,11 @@ class SearchView:UIView, UITextViewDelegate {
     }
     
     func active() {
-        bottom.constant = 120
+        if #available(iOS 11.0, *) {
+            bottom.constant = 120 + superview!.safeAreaInsets.top
+        } else {
+            bottom.constant = 120
+        }
         text.isEditable = true
         UIView.animate(withDuration:0.4, animations: {
             self.superview!.layoutIfNeeded()
