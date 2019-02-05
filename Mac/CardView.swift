@@ -16,7 +16,7 @@ class CardView:EditView {
     override func textDidEndEditing(_ notification:Notification) {
         card.content = text.string
         if card.content.isEmpty {
-            Application.shared.view.makeFirstResponder(nil)
+            NSApp.mainWindow!.makeFirstResponder(nil)
             confirmDelete()
         } else {
             text.string = card.content
@@ -31,12 +31,12 @@ class CardView:EditView {
     
     override func endDrag(_ event:NSEvent) {
         super.endDrag(event)
-        var column = Application.shared.view.root
+        var column = View.canvas.root
         while column!.sibling is ColumnView {
             guard
                 column!.sibling!.left.constant < event.locationInWindow.x -
                     Application.shared.view.listLeft.constant +
-                    Application.shared.view.canvas.documentVisibleRect.origin.x
+                    View.canvas.documentVisibleRect.origin.x
             else { break }
             column = column!.sibling
         }

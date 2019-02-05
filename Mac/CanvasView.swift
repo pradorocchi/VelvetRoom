@@ -1,6 +1,8 @@
 import AppKit
 
 class CanvasView:ScrollView {
+    #warning "make private"
+    weak var root:ItemView?
     private weak var dragging:EditView?
     
     override init() {

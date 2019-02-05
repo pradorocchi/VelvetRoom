@@ -2,50 +2,20 @@ import AppKit
 import VelvetRoom
 
 @NSApplicationMain class View:NSWindow, NSApplicationDelegate, NSWindowDelegate {
-    static var shared:Application { return NSApp.delegate as! Application }
-    private(set) weak var view:View!
-//    @IBOutlet private(set) weak var list:NSMenuItem!
-//    @IBOutlet private(set) weak var newColumn:NSMenuItem!
-//    @IBOutlet private(set) weak var newCard:NSMenuItem!
-//    @IBOutlet private(set) weak var find:NSMenuItem!
-    
-    func applicationShouldTerminateAfterLastWindowClosed(_:NSApplication) -> Bool { return true }
-    
-    func applicationDidFinishLaunching(_:Notification) {
-        view = NSApp.windows.first as? View
-        view.delegate = self
-    }
-    
-    func applicationWillTerminate(_:Notification) {
-        view.fireSchedule()
-    }
-    
-    func windowWillBeginSheet(_:Notification) {
-        view.menu!.items.forEach { $0.isEnabled = false }
-    }
-    
-    func windowDidEndSheet(_:Notification) {
-        view.menu!.items.forEach { $0.isEnabled = true }
-    }
-    
-    func window(_:NSWindow, willPositionSheet:NSWindow, using rect:NSRect) -> NSRect {
-        var rect = rect
-        rect.origin.y += 36
-        return rect
-    }
-    
-    
+    static private(set) weak var canvas:CanvasView!
     
     let repository = Repository()
     let alert = Alert()
-    weak var root:ItemView?
-    private(set) weak var canvas:CanvasView!
     private(set) weak var progress:ProgressView!
     private(set) weak var listLeft:NSLayoutConstraint!
     private weak var list:ScrollView!
     private weak var gradientTop:NSView!
     private weak var gradientLeft:NSView!
     private weak var search:SearchView!
+    @IBOutlet private weak var menuList:NSMenuItem!
+    @IBOutlet private weak var menuColumn:NSMenuItem!
+    @IBOutlet private weak var menuCard:NSMenuItem!
+    @IBOutlet private weak var menuFind:NSMenuItem!
     @IBOutlet private weak var listButton:NSButton!
     @IBOutlet private weak var searchButton:NSButton!
     @IBOutlet private weak var deleteButton:NSButton!
@@ -57,7 +27,19 @@ import VelvetRoom
             if let selected = self.selected {
                 view(selected)?.selected = false
         } }
-        didSet { fireSchedule() }
+        didSet { repository.fireSchedule() }
+    }
+    
+    func applicationShouldTerminateAfterLastWindowClosed(_:NSApplication) -> Bool { return true }
+    func applicationDidFinishLaunching(_:Notification) { delegate = self }
+    func applicationWillTerminate(_:Notification) { repository.fireSchedule() }
+    func windowWillBeginSheet(_:Notification) { menu!.items.forEach { $0.isEnabled = false } }
+    func windowDidEndSheet(_:Notification) { menu!.items.forEach { $0.isEnabled = true } }
+    
+    func window(_:NSWindow, willPositionSheet:NSWindow, using rect:NSRect) -> NSRect {
+        var rect = rect
+        rect.origin.y += 36
+        return rect
     }
     
     override func cancelOperation(_:Any?) { makeFirstResponder(nil) }
@@ -78,20 +60,19 @@ import VelvetRoom
             self.updateSkin()
             DispatchQueue.global(qos:.background).async {
                 self.repository.load()
-                Application.shared.skin = .appearance(self.repository.account.appearance,
-                                                      font:self.repository.account.font)
+                Skin.update(self.repository.account.appearance, font:self.repository.account.font)
             }
         }
     }
     
     func canvasChanged(_ animation:TimeInterval = 0.5) {
         createCard()
-        canvas.documentView!.layoutSubtreeIfNeeded()
+        View.canvas.documentView!.layoutSubtreeIfNeeded()
         align()
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = animation
             context.allowsImplicitAnimation = true
-            canvas.documentView!.layoutSubtreeIfNeeded()
+            View.canvas.documentView!.layoutSubtreeIfNeeded()
         }, completionHandler:nil)
     }
     
@@ -102,14 +83,10 @@ import VelvetRoom
         }
     }
     
-    func fireSchedule() {
-        repository.fireSchedule()
-    }
-    
     private func makeOutlets() {
         let canvas = CanvasView()
         contentView!.addSubview(canvas)
-        self.canvas = canvas
+        View.canvas = canvas
         
         let gradientLeft = NSView()
         gradientLeft.translatesAutoresizingMaskIntoConstraints = false
@@ -179,11 +156,11 @@ import VelvetRoom
         searchButton.isEnabled = false
         exportButton.isEnabled = false
         chartButton.isEnabled = false
-        Application.shared.find.isEnabled = false
-        Application.shared.newColumn.isEnabled = false
-        Application.shared.newColumn.isEnabled = false
+        menuFind.isEnabled = false
+        menuColumn.isEnabled = false
+        menuCard.isEnabled = false
         progress.chart = []
-        canvas.removeSubviews()
+        View.canvas.removeSubviews()
         list.removeSubviews()
         var top = list.documentView!.topAnchor
         boards.enumerated().forEach { board in
@@ -201,33 +178,33 @@ import VelvetRoom
     }
     
     private func render(_ board:Board) {
-        canvas.removeSubviews()
-        root = nil
+        View.canvas.removeSubviews()
+        View.canvas.root = nil
         var sibling:ItemView?
         board.columns.enumerated().forEach { (index, item) in
             let column = ColumnView(item)
             if sibling == nil {
-                root = column
+                View.canvas.root = column
             } else {
                 sibling!.sibling = column
             }
-            canvas.documentView!.addSubview(column)
+            View.canvas.documentView!.addSubview(column)
             var child:ItemView = column
             sibling = column
             
             board.cards.filter( { $0.column == index } ).sorted(by: { $0.index < $1.index } ).forEach {
                 let card = CardView($0)
-                canvas.documentView!.addSubview(card)
+                View.canvas.documentView!.addSubview(card)
                 child.child = card
                 child = card
             }
         }
         
         let buttonColumn = CreateView(#selector(newColumn(_:)), key:"m")
-        canvas.documentView!.addSubview(buttonColumn)
+        View.canvas.documentView!.addSubview(buttonColumn)
         
-        if root == nil {
-            root = buttonColumn
+        if View.canvas.root == nil {
+            View.canvas.root = buttonColumn
         } else {
             sibling!.sibling = buttonColumn
         }
@@ -236,7 +213,7 @@ import VelvetRoom
     private func align() {
         var maxRight = CGFloat(316)
         var maxBottom = CGFloat()
-        var sibling = root
+        var sibling = View.canvas.root
         while sibling != nil {
             let right = maxRight
             var bottom = CGFloat(56)
@@ -254,16 +231,16 @@ import VelvetRoom
             
             maxBottom = max(bottom, maxBottom)
         }
-        canvas.bottom = canvas.documentView!.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 16)
-        canvas.right = canvas.documentView!.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight + 16)
+        View.canvas.bottom = canvas.documentView!.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 16)
+        View.canvas.right = canvas.documentView!.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight + 16)
     }
     
     private func createCard() {
-        guard root != nil, !(root is CreateView), !(root!.child is CreateView) else { return }
+        guard View.canvas.root != nil, !(root is CreateView), !(root!.child is CreateView) else { return }
         let create = CreateView(#selector(newCard(_:)), key:"n")
-        create.child = root!.child
-        root!.child = create
-        canvas.documentView!.addSubview(create)
+        create.child = View.canvas.root!.child
+        View.canvas.root!.child = create
+        View.canvas.documentView!.addSubview(create)
     }
     
     private func select(_ board:Board) {
@@ -299,23 +276,23 @@ import VelvetRoom
         makeFirstResponder(nil)
         view.selected = true
         selected = view.board
-        canvas.alphaValue = 0
+        View.canvas.alphaValue = 0
         render(view.board)
         canvasChanged(0)
         deleteButton.isEnabled = true
         searchButton.isEnabled = true
         exportButton.isEnabled = true
         chartButton.isEnabled = true
-        Application.shared.find.isEnabled = true
-        Application.shared.newColumn.isEnabled = true
-        Application.shared.newCard.isEnabled = true
-        progress.chart = Application.shared.view.selected!.chart
+        menuFind.isEnabled = true
+        menuColumn.isEnabled = true
+        menuCard.isEnabled = true
+        progress.chart = selected!.chart
         DispatchQueue.main.async {
-            self.canvas.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
+            View.canvas.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 1
                 context.allowsImplicitAnimation = true
-                self.canvas.alphaValue = 1
+                View.canvas.alphaValue = 1
             }, completionHandler:nil)
         }
     }
@@ -332,7 +309,7 @@ import VelvetRoom
             }
             left!.sibling = column
         }
-        canvas.documentView!.addSubview(column)
+        View.canvas.documentView!.addSubview(column)
         column.top.constant = view.top.constant
         column.left.constant = view.left.constant
         canvasChanged()
@@ -342,8 +319,8 @@ import VelvetRoom
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0.7
                 context.allowsImplicitAnimation = true
-                self.canvas.contentView.scrollToVisible(CGRect(x:view.frame.minX + self.canvas.bounds.width, y:
-                    view.frame.minY - self.canvas.bounds.height, width:1, height:1))
+                View.canvas.contentView.scrollToVisible(CGRect(x:view.frame.minX + View.canvas.bounds.width, y:
+                    view.frame.minY - View.canvas.bounds.height, width:1, height:1))
             }, completionHandler:nil)
         }
     }
@@ -352,7 +329,7 @@ import VelvetRoom
         let card = CardView(try! repository.newCard(selected!))
         card.child = view.child
         view.child = card
-        canvas.documentView!.addSubview(card)
+        View.canvas.documentView!.addSubview(card)
         card.top.constant = view.top.constant
         card.left.constant = view.left.constant
         canvasChanged()
@@ -363,8 +340,8 @@ import VelvetRoom
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0.7
                 context.allowsImplicitAnimation = true
-                self.canvas.contentView.scrollToVisible(CGRect(x:view.frame.minX - self.canvas.bounds.width, y:
-                    view.frame.minY - self.canvas.bounds.height, width:1, height:1))
+                View.canvas.contentView.scrollToVisible(CGRect(x:view.frame.minX - View.canvas.bounds.width, y:
+                    view.frame.minY - View.canvas.bounds.height, width:1, height:1))
             }, completionHandler:nil)
         }
     }
@@ -382,10 +359,10 @@ import VelvetRoom
     @IBAction private func toggleList(_ listButton:NSButton) {
         if listButton.state == .on {
             listLeft.constant = 0
-            Application.shared.list.title = .local("View.hideList")
+            menuList.title = .local("View.hideList")
         } else {
             listLeft.constant = -280
-            Application.shared.list.title = .local("View.showList")
+            menuList.title = .local("View.showList")
         }
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 1

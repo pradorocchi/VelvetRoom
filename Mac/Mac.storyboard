@@ -458,7 +458,7 @@
                         </toolbar>
                         <connections>
                             <outlet property="chartButton" destination="adc-78-Mft" id="PiD-a5-2s0"/>
-                            <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="CcE-6b-hxk"/>
                             <outlet property="deleteButton" destination="g3I-fJ-Wch" id="IoL-g9-NFL"/>
                             <outlet property="exportButton" destination="tts-xe-5IT" id="v9C-CF-AnF"/>
                             <outlet property="listButton" destination="6hB-Rg-9L8" id="1t5-Ge-ACe"/>
@@ -489,7 +489,7 @@
     </scenes>
     <resources>
         <image name="chart" width="24" height="18"/>
-        <image name="delete" width="24" height="18"/>
+        <image name="delete" width="24" height="24"/>
         <image name="export" width="24" height="24"/>
         <image name="import" width="24" height="18"/>
         <image name="listOff" width="24" height="18"/>
