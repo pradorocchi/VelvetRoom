@@ -111,7 +111,6 @@
 		DAB2709121C3CA87008F184E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708A21C3CA87008F184E /* Localizable.strings */; };
 		DAB2709221C3CA87008F184E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708C21C3CA87008F184E /* Assets.xcassets */; };
 		DAB2709321C3CA87008F184E /* Mac.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708D21C3CA87008F184E /* Mac.storyboard */; };
-		DAB2709521C3CA87008F184E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709021C3CA87008F184E /* Application.swift */; };
 		DAB2709D21C3CA99008F184E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709C21C3CA99008F184E /* Repository.swift */; };
 		DAB2709F21C3CA99008F184E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709C21C3CA99008F184E /* Repository.swift */; };
 		DAC2CDC021C8E2F000AD927B /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC2CDBF21C8E2F000AD927B /* NewView.swift */; };
@@ -325,7 +324,6 @@
 		DAB2708D21C3CA87008F184E /* Mac.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Mac.storyboard; sourceTree = "<group>"; };
 		DAB2708E21C3CA87008F184E /* Mac.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Mac.entitlements; sourceTree = "<group>"; };
 		DAB2708F21C3CA87008F184E /* Mac.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Mac.plist; sourceTree = "<group>"; };
-		DAB2709021C3CA87008F184E /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		DAB2709721C3CA90008F184E /* Tests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Tests.plist; sourceTree = "<group>"; };
 		DAB2709C21C3CA99008F184E /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		DAB270A021C3CAA5008F184E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -516,7 +514,6 @@
 		DAB2708921C3CA87008F184E /* Mac */ = {
 			isa = PBXGroup;
 			children = (
-				DAB2709021C3CA87008F184E /* Application.swift */,
 				DA7C744321C3E1C000B1F931 /* View.swift */,
 				20CADFA421F9B8C2005DC344 /* Skin.swift */,
 				20804BBC21E5E6470035535D /* Alert.swift */,
@@ -1014,7 +1011,6 @@
 				DA16E00121CE8AFF00D21C7A /* TextView.swift in Sources */,
 				DA4C2AC721D5098A004988B4 /* ChartView.swift in Sources */,
 				204B690021E347200025261E /* DropView.swift in Sources */,
-				DAB2709521C3CA87008F184E /* Application.swift in Sources */,
 				DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */,
 				20531BFD2202ED1A00D6551C /* SearchView.swift in Sources */,
 				DA2B491721C9187B00BABE86 /* NSColor.swift in Sources */,
