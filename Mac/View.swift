@@ -3,7 +3,6 @@ import VelvetRoom
 
 @NSApplicationMain class View:NSWindow, NSApplicationDelegate, NSWindowDelegate {
     static var shared:Application { return NSApp.delegate as! Application }
-    var skin = Skin() { didSet { Skin.post() } }
     private(set) weak var view:View!
 //    @IBOutlet private(set) weak var list:NSMenuItem!
 //    @IBOutlet private(set) weak var newColumn:NSMenuItem!
