@@ -8,7 +8,7 @@ class ScrollView:NSScrollView {
         super.init(frame:.zero)
         drawsBackground = false
         translatesAutoresizingMaskIntoConstraints = false
-        documentView = DocumentView()
+        documentView = FlippedView()
         documentView!.translatesAutoresizingMaskIntoConstraints = false
         documentView!.topAnchor.constraint(equalTo:topAnchor).isActive = true
         documentView!.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
@@ -25,6 +25,6 @@ class ScrollView:NSScrollView {
     }
 }
 
-private class DocumentView:NSView {
+private class FlippedView:NSView {
     override var isFlipped:Bool { return true }
 }

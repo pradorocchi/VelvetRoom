@@ -2,9 +2,12 @@ import AppKit
 import VelvetRoom
 
 class Alert {
+    static let shared = Alert()
     private weak var view:NSView?
     private weak var viewBottom:NSLayoutConstraint?
     private var alert = [Error]()
+    
+    private init() { }
     
     func add(_ error:Error) {
         alert.append(error)

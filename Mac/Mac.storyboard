@@ -10,7 +10,7 @@
         <scene sceneID="JPo-4y-FX3">
             <objects>
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
-                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+                    <menu key="mainMenu" title="Menu" systemMenu="main" autoenablesItems="NO" id="AYu-sK-qS6" customClass="Menu" customModule="Velvet_Room" customModuleProvider="target">
                         <items>
                             <menuItem title="Velvet Room" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -322,7 +322,7 @@
                         <rect key="contentRect" x="0.0" y="727" width="350" height="200"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="350" height="200"/>
-                        <toolbar key="toolbar" implicitIdentifier="0EF9E741-92DF-4035-BE2B-BFA6AA2034CD" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="small" id="ert-1v-Elu">
+                        <toolbar key="toolbar" implicitIdentifier="0EF9E741-92DF-4035-BE2B-BFA6AA2034CD" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="small" id="ert-1v-Elu" customClass="Toolbar" customModule="Velvet_Room" customModuleProvider="target">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="D2276672-4A5C-43DF-A158-35DA6E6D7C4A" label="New" paletteLabel="New" image="new" sizingBehavior="auto" id="0K5-pA-w2U">
                                     <nil key="toolTip"/>

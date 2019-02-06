@@ -2,25 +2,12 @@ import AppKit
 import VelvetRoom
 
 @NSApplicationMain class View:NSWindow, NSApplicationDelegate, NSWindowDelegate {
-    static private(set) weak var canvas:CanvasView!
-    
     let repository = Repository()
-    let alert = Alert()
     private(set) weak var progress:ProgressView!
-    private(set) weak var listLeft:NSLayoutConstraint!
-    private weak var list:ScrollView!
+    
     private weak var gradientTop:NSView!
     private weak var gradientLeft:NSView!
     private weak var search:SearchView!
-    @IBOutlet private weak var menuList:NSMenuItem!
-    @IBOutlet private weak var menuColumn:NSMenuItem!
-    @IBOutlet private weak var menuCard:NSMenuItem!
-    @IBOutlet private weak var menuFind:NSMenuItem!
-    @IBOutlet private weak var listButton:NSButton!
-    @IBOutlet private weak var searchButton:NSButton!
-    @IBOutlet private weak var deleteButton:NSButton!
-    @IBOutlet private weak var exportButton:NSButton!
-    @IBOutlet private weak var chartButton:NSButton!
     
     private(set) weak var selected:Board? {
         willSet {

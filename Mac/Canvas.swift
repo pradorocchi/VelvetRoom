@@ -1,11 +1,13 @@
 import AppKit
 
-class CanvasView:ScrollView {
-    #warning "make private"
+class Canvas:ScrollView {
+    static let shared = Canvas()
+    
+    #warning ("make private")
     weak var root:ItemView?
     private weak var dragging:EditView?
     
-    override init() {
+    private override init() {
         super.init()
         hasHorizontalScroller = true
         horizontalScroller!.controlSize = .mini
