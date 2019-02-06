@@ -25,23 +25,23 @@ class EditView:ItemView, NSTextViewDelegate {
     deinit { NotificationCenter.default.removeObserver(self) }
     
     func textDidChange(_:Notification) {
-        Application.shared.view.canvasChanged()
+        Canvas.shared.update()
     }
     
     func textDidEndEditing(_:Notification) {
-        Application.shared.view.canvasChanged()
-        Application.shared.view.scheduleUpdate()
+        Canvas.shared.update()
+        List.shared.scheduleUpdate()
     }
     
     func beginEditing() {
         text.isEditable = true
-        Application.shared.view.makeFirstResponder(text)
+        NSApp.mainWindow!.makeFirstResponder(text)
     }
     
     func beginDrag() {
         layer!.removeFromSuperlayer()
         superview!.layer!.addSublayer(layer!)
-        layer!.backgroundColor = Application.shared.skin.text.withAlphaComponent(0.1).cgColor
+        layer!.backgroundColor = Skin.shared.text.withAlphaComponent(0.1).cgColor
     }
     
     func endDrag(_ event:NSEvent) {

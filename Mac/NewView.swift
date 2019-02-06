@@ -254,11 +254,9 @@ class NewView:SheetView, NSTextFieldDelegate {
         let name = self.name.stringValue
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let template = self?.template else { return }
-            Application.shared.view.repository.newBoard(name, template:template)
+            Repository.shared.newBoard(name, template:template)
         }
-        if Application.shared.view.repository.rate() {
-            if #available(OSX 10.14, *) { SKStoreReviewController.requestReview() }
-        }
+        if #available(OSX 10.14, *), Repository.shared.rate() { SKStoreReviewController.requestReview() }
         end()
     }
 }

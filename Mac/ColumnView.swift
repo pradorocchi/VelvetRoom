@@ -14,15 +14,15 @@ class ColumnView:EditView {
     
     override func beginEditing() {
         super.beginEditing()
-        text.textColor = Application.shared.skin.text
+        text.textColor = Skin.shared.text
     }
     
     override func textDidEndEditing(_ notification:Notification) {
         column.name = text.string
-        text.textColor = Application.shared.skin.text.withAlphaComponent(0.4)
+        text.textColor = Skin.shared.text.withAlphaComponent(0.4)
         if column.name.isEmpty {
-            Application.shared.view.makeFirstResponder(nil)
-            Application.shared.view.beginSheet(DeleteView(.local("DeleteView.column")) { [weak self] in
+            NSApp.mainWindow!.makeFirstResponder(nil)
+            NSApp.mainWindow!.beginSheet(DeleteView(.local("DeleteView.column")) { [weak self] in
                 self?.confirmDelete()
             })
         } else {
@@ -38,10 +38,10 @@ class ColumnView:EditView {
     
     override func endDrag(_ event:NSEvent) {
         super.endDrag(event)
-        var after = Application.shared.view.root
-        if Application.shared.view.root is CreateView || Application.shared.view.root!.frame.maxX > frame.midX {
-            sibling = Application.shared.view.root
-            Application.shared.view.root = self
+        var after = Canvas.shared.root
+        if after is CreateView || after!.frame.maxX > frame.midX {
+            sibling = after
+            Canvas.shared.root = self
             after = nil
             if sibling?.child is CreateView {
                 sibling?.child?.removeFromSuperview()
@@ -55,11 +55,10 @@ class ColumnView:EditView {
             sibling = after!.sibling
             after!.sibling = self
         }
-        Application.shared.view.canvasChanged()
-        Application.shared.view.repository.move(column, board:Application.shared.view.selected!,
-                                                after:(after as? ColumnView)?.column)
-        Application.shared.view.scheduleUpdate()
-        Application.shared.view.progress.chart = Application.shared.view.selected!.chart
+        Canvas.shared.update()
+        Repository.shared.move(column, board:List.shared.current!.board, after:(after as? ColumnView)?.column)
+        List.shared.scheduleUpdate()
+        Progress.shared.update()
     }
     
     override func drag(deltaX:CGFloat, deltaY:CGFloat) {
@@ -73,16 +72,16 @@ class ColumnView:EditView {
     }
     
     override func updateSkin() {
-        text.textColor = Application.shared.skin.text.withAlphaComponent(0.4)
-        text.textContainer!.size = NSSize(width:10000, height:Application.shared.skin.font + 46)
-        text.font = .bold(Application.shared.skin.font + 6)
+        text.textColor = Skin.shared.text.withAlphaComponent(0.4)
+        text.textContainer!.size = NSSize(width:10000, height:Skin.shared.font + 46)
+        text.font = .bold(Skin.shared.font + 6)
         text.string = column.name
         super.updateSkin()
     }
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
-            Application.shared.view.makeFirstResponder(nil)
+            NSApp.mainWindow!.makeFirstResponder(nil)
             return true
         }
         return false
@@ -97,27 +96,27 @@ class ColumnView:EditView {
         }
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let column = self?.column else { return }
-            Application.shared.view.repository.delete(column, board:Application.shared.view.selected!)
-            Application.shared.view.scheduleUpdate()
+            Repository.shared.delete(column, board:List.shared.current!.board)
+            List.shared.scheduleUpdate()
             DispatchQueue.main.async { [weak self] in
-                Application.shared.view.progress.chart = Application.shared.view.selected!.chart
+                Progress.shared.update()
                 self?.removeFromSuperview()
             }
         }
     }
     
     private func detach() {
-        if self === Application.shared.view.root {
+        if self === Canvas.shared.root {
             child!.removeFromSuperview()
             child = child!.child
-            Application.shared.view.root = sibling
+            Canvas.shared.root = sibling
         } else {
-            var sibling = Application.shared.view.root
+            var sibling = Canvas.shared.root
             while sibling != nil && sibling!.sibling !== self {
                 sibling = sibling!.sibling
             }
             sibling?.sibling = self.sibling
         }
-        Application.shared.view.canvasChanged()
+        Canvas.shared.update()
     }
 }

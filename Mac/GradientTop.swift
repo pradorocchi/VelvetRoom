@@ -10,11 +10,10 @@ class GradientTop:NSView {
         (layer as! CAGradientLayer).locations = [0, 1]
         wantsLayer = true
         updateSkin()
-        Skin.shared.add(self, selector:#selector(updateSkin))
+        Skin.add(self, selector:#selector(updateSkin))
     }
     
     required init?(coder:NSCoder) { return nil }
-    deinit { NotificationCenter.default.removeObserver(self) }
     
     @objc private func updateSkin() {
         (layer as! CAGradientLayer).colors = [Skin.shared.background.withAlphaComponent(0).cgColor,

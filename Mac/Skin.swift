@@ -10,8 +10,8 @@ struct Skin {
         NotificationCenter.default.addObserver(observer, selector:selector, name:Skin.name, object:nil)
     }
     
-    static func update(_ account:Account) {
-        update(account.appearance, font:account.font)
+    static func update() {
+        update(Repository.shared.account.appearance, font:Repository.shared.account.font)
     }
     
     static func update(_ appearance:Appearance, font:Int) {

@@ -2,12 +2,30 @@ import AppKit
 
 class Progress:NSView {
     static let shared = Progress()
-    
     private weak var marker:NSLayoutXAxisAnchor!
     private var views = [NSView]()
     private var widths = [NSLayoutConstraint]()
-    var chart = [(String, Float)]() { didSet {
-        let items = chart.compactMap({ $0.1 > 0 ? $0.1 : nil })
+    
+    private init() {
+        super.init(frame:.zero)
+        translatesAutoresizingMaskIntoConstraints = false
+        wantsLayer = true
+        layer!.cornerRadius = 2
+        heightAnchor.constraint(equalToConstant:18).isActive = true
+        
+        let marker = NSView()
+        marker.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(marker)
+        marker.leftAnchor.constraint(equalTo:leftAnchor, constant:-2).isActive = true
+        self.marker = marker.leftAnchor
+        
+        Skin.add(self, selector:#selector(updateSkin))
+    }
+    
+    required init?(coder:NSCoder) { return nil }
+    
+    func update() {
+        guard let items = List.shared.current?.board.chart.compactMap({ $0.1 > 0 ? $0.1 : nil }) else { return }
         while items.count < views.count { views.removeLast().removeFromSuperview() }
         while items.count > views.count {
             let view = NSView()
@@ -32,31 +50,11 @@ class Progress:NSView {
             context.allowsImplicitAnimation = true
             layoutSubtreeIfNeeded()
         }, completionHandler:nil)
-    } }
-    
-    private init() {
-        super.init(frame:.zero)
-        translatesAutoresizingMaskIntoConstraints = false
-        wantsLayer = true
-        layer!.cornerRadius = 2
-        heightAnchor.constraint(equalToConstant:18).isActive = true
-        
-        let marker = NSView()
-        marker.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(marker)
-        marker.leftAnchor.constraint(equalTo:leftAnchor, constant:-2).isActive = true
-        self.marker = marker.leftAnchor
-        
-        Skin.add(self, selector:#selector(updateSkin))
     }
-    
-    required init?(coder:NSCoder) { return nil }
-    
-    deinit { NotificationCenter.default.removeObserver(self) }
     
     @objc private func updateSkin() {
         views.forEach {
-            $0.layer!.backgroundColor = Application.shared.skin.text.withAlphaComponent(0.2).cgColor
+            $0.layer!.backgroundColor = Skin.shared.text.withAlphaComponent(0.2).cgColor
         }
     }
 }

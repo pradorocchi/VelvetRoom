@@ -3,7 +3,7 @@ import VelvetRoom
 
 class Canvas:ScrollView {
     static let shared = Canvas()
-    private weak var root:ItemView?
+    weak var root:ItemView?
     private weak var dragging:EditView?
     
     private override init() {
@@ -12,6 +12,8 @@ class Canvas:ScrollView {
         horizontalScroller!.controlSize = .mini
         documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:bottomAnchor).isActive = true
         documentView!.rightAnchor.constraint(greaterThanOrEqualTo:rightAnchor).isActive = true
+        updateSkin()
+        Skin.add(self, selector:#selector(updateSkin))
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -141,6 +143,75 @@ class Canvas:ScrollView {
         case is TextView: return view.superview as? EditView
         case is EditView: return view as? EditView
         default: return nil
+        }
+    }
+    
+    @objc private func updateSkin() {
+        horizontalScroller!.knobStyle = Skin.shared.scroller
+        DispatchQueue.main.async { self.update(0) }
+    }
+    
+    @objc private func newColumn(_ view:CreateView) {
+        let column = ColumnView(Repository.shared.newColumn(List.shared.current!.board))
+        column.sibling = view
+        if root === view {
+            root = column
+        } else {
+            var left = root
+            while left!.sibling !== view {
+                left = left!.sibling
+            }
+            left!.sibling = column
+        }
+        documentView!.addSubview(column)
+        column.top.constant = view.top.constant
+        column.left.constant = view.left.constant
+        update()
+        column.beginEditing()
+        List.shared.scheduleUpdate()
+        DispatchQueue.main.async {
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 0.7
+                context.allowsImplicitAnimation = true
+                self.contentView.scrollToVisible(CGRect(x:view.frame.minX + self.bounds.width,
+                                                        y:view.frame.minY - self.bounds.height, width:1, height:1))
+            }, completionHandler:nil)
+        }
+    }
+    
+    @objc private func newCard(_ view:CreateView) {
+        let card = CardView(try! Repository.shared.newCard(List.shared.current!.board))
+        card.child = view.child
+        view.child = card
+        documentView!.addSubview(card)
+        card.top.constant = view.top.constant
+        card.left.constant = view.left.constant
+        update()
+        card.beginEditing()
+        List.shared.scheduleUpdate()
+        DispatchQueue.main.async {
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 0.7
+                context.allowsImplicitAnimation = true
+                self.contentView.scrollToVisible(CGRect(x:view.frame.minX - self.bounds.width, y:
+                    view.frame.minY - self.bounds.height, width:1, height:1))
+            }, completionHandler:nil)
+        }
+    }
+    
+    @IBAction private func addRow(_ sender:Any?) {
+        var view = root
+        while view?.sibling != nil {
+            view = view?.sibling
+        }
+        if let view = view as? CreateView {
+            newColumn(view)
+        }
+    }
+    
+    @IBAction private func addChild(_ sender:Any?) {
+        if let view = root?.child as? CreateView {
+            newCard(view)
         }
     }
 }

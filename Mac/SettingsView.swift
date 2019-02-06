@@ -208,13 +208,13 @@ class SettingsView:SheetView {
         done.widthAnchor.constraint(equalToConstant:92).isActive = true
         done.heightAnchor.constraint(equalToConstant:34).isActive = true
         
-        switch Application.shared.view.repository.account.appearance {
+        switch Repository.shared.account.appearance {
         case .light: changeLight()
         case .dark: changeDark()
         case .system: changeSystem()
         }
         
-        slider.integerValue = Int(Application.shared.skin.font)
+        slider.integerValue = Int(Skin.shared.font)
         font.stringValue = "\(slider.integerValue)"
         updateSkin()
         Skin.add(self, selector:#selector(updateSkin))
@@ -226,13 +226,13 @@ class SettingsView:SheetView {
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.5
             context.allowsImplicitAnimation = true
-            contentView!.layer!.backgroundColor = Application.shared.skin.background.cgColor
-            appearanceTitle.textColor = Application.shared.skin.text
-            darkTitle.textColor = Application.shared.skin.text
-            systemTitle.textColor = Application.shared.skin.text
-            lightTitle.textColor = Application.shared.skin.text
-            fontTitle.textColor = Application.shared.skin.text
-            font.textColor = Application.shared.skin.text
+            contentView!.layer!.backgroundColor = Skin.shared.background.cgColor
+            appearanceTitle.textColor = Skin.shared.text
+            darkTitle.textColor = Skin.shared.text
+            systemTitle.textColor = Skin.shared.text
+            lightTitle.textColor = Skin.shared.text
+            fontTitle.textColor = Skin.shared.text
+            font.textColor = Skin.shared.text
         }, completionHandler:nil)
     }
     
@@ -256,20 +256,20 @@ class SettingsView:SheetView {
     
     @objc private func makeLight() {
         changeLight()
-        Application.shared.view.repository.change(.light)
-        Application.shared.skin = .appearance(.light, font:slider.integerValue)
+        Repository.shared.change(.light)
+        Skin.update(.light, font:slider.integerValue)
     }
     
     @objc private func makeDark() {
         changeDark()
-        Application.shared.view.repository.change(.dark)
-        Application.shared.skin = .appearance(.dark, font:slider.integerValue)
+        Repository.shared.change(.dark)
+        Skin.update(.dark, font:slider.integerValue)
     }
     
     @objc private func makeSystem() {
         changeSystem()
-        Application.shared.view.repository.change(.system)
-        Application.shared.skin = .appearance(.system, font:slider.integerValue)
+        Repository.shared.change(.system)
+        Skin.update(.system, font:slider.integerValue)
     }
     
     @objc private func changeFont(_ slider:NSSlider) {
@@ -280,7 +280,7 @@ class SettingsView:SheetView {
     
     @objc private func save() {
         guard timer?.isValid == true else { return }
-        Application.shared.view.repository.change(slider.integerValue)
-        Application.shared.skin.font = CGFloat(slider.integerValue)
+        Repository.shared.change(slider.integerValue)
+        Skin.shared.font = CGFloat(slider.integerValue)
     }
 }

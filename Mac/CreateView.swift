@@ -33,7 +33,7 @@ class CreateView:ItemView {
     required init?(coder:NSCoder) { return nil }
     
     override func mouseDown(with:NSEvent) {
-        Application.shared.view.perform(selector, with:self)
+        perform(selector, with:self)
         NSAnimationContext.runAnimationGroup( { context in
             context.duration = 0.2
             context.allowsImplicitAnimation = true
@@ -43,7 +43,5 @@ class CreateView:ItemView {
         }
     }
     
-    @objc private func shortcut() {
-        Application.shared.view.perform(selector, with:self)
-    }
+    @objc private func shortcut() { perform(selector, with:self) }
 }

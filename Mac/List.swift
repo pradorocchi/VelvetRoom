@@ -4,12 +4,13 @@ import VelvetRoom
 class List:ScrollView {
     static let shared = List()
     var current:BoardView? { return documentView!.subviews.first(where:{ ($0 as! BoardView).selected }) as? BoardView }
+    private(set) weak var left:NSLayoutConstraint!
     private(set) var visible = false
-    private weak var left:NSLayoutConstraint!
     
     private override init() {
         super.init()
         Repository.shared.list = { boards in DispatchQueue.main.async { self.render(boards) } }
+        Repository.shared.select = { board in DispatchQueue.main.async { self.select(board) } }
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -57,7 +58,7 @@ class List:ScrollView {
         Repository.shared.fireSchedule()
         Toolbar.shared.extended = false
         Menu.shared.extended = false
-        Progress.shared.chart = []
+        Progress.shared.update()
         Canvas.shared.removeSubviews()
         List.shared.removeSubviews()
         var top = documentView!.topAnchor
@@ -80,6 +81,6 @@ class List:ScrollView {
         Canvas.shared.display(view.board)
         Toolbar.shared.extended = true
         Menu.shared.extended = true
-        Progress.shared.chart = view.board.chart
+        Progress.shared.update()
     }
 }

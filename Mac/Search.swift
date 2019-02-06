@@ -59,8 +59,6 @@ class Search:NSView, NSTextViewDelegate {
     
     required init?(coder:NSCoder) { return nil }
     
-    deinit { NotificationCenter.default.removeObserver(self) }
-    
     override func viewDidMoveToSuperview() {
         super.viewDidMoveToSuperview()
         bottom = bottomAnchor.constraint(equalTo:superview!.topAnchor)
@@ -73,7 +71,7 @@ class Search:NSView, NSTextViewDelegate {
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
-            Application.shared.view.makeFirstResponder(nil)
+            NSApp.mainWindow!.makeFirstResponder(nil)
             return true
         }
         return false
@@ -85,12 +83,12 @@ class Search:NSView, NSTextViewDelegate {
             highlighter.wantsLayer = true
             highlighter.layer!.backgroundColor = NSColor.velvetBlue.cgColor
             highlighter.layer!.cornerRadius = 4
-            Application.shared.view.canvas.contentView.addSubview(highlighter, positioned:.below, relativeTo:nil)
+            Canvas.shared.contentView.addSubview(highlighter, positioned:.below, relativeTo:nil)
             self.highlighter = highlighter
         }
         
         var range:Range<String.Index>!
-        guard let view = Application.shared.view.canvas.documentView!.subviews.first (where: {
+        guard let view = Canvas.shared.documentView!.subviews.first (where: {
             guard
                 let view = $0 as? EditView,
                 let textRange = view.text.string.range(of:text.string, options:.caseInsensitive)
@@ -98,19 +96,19 @@ class Search:NSView, NSTextViewDelegate {
             range = textRange
             return true
         }) as? EditView else { return highlighter!.frame = .zero }
-        var frame = Application.shared.view.canvas.contentView.convert(view.text.layoutManager!.boundingRect(
-            forGlyphRange:NSRange(range, in:view.text.string), in:view.text.textContainer!), from:view.text)
+        var frame = Canvas.shared.contentView.convert(view.text.layoutManager!.boundingRect(forGlyphRange:
+            NSRange(range, in:view.text.string), in:view.text.textContainer!), from:view.text)
         frame.origin.x -= 10
         frame.size.width += 20
         highlighter!.frame = frame
-        frame.origin.x -= (Application.shared.view.contentView!.bounds.width - frame.size.width) / 2
-        frame.origin.y -= Application.shared.view.contentView!.bounds.midY
-        frame.size.width = Application.shared.view.contentView!.bounds.width
-        frame.size.height = Application.shared.view.contentView!.bounds.height
+        frame.origin.x -= (NSApp.mainWindow!.contentView!.bounds.width - frame.size.width) / 2
+        frame.origin.y -= NSApp.mainWindow!.contentView!.bounds.midY
+        frame.size.width = NSApp.mainWindow!.contentView!.bounds.width
+        frame.size.height = NSApp.mainWindow!.contentView!.bounds.height
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.4
             context.allowsImplicitAnimation = true
-            Application.shared.view.canvas.contentView.scrollToVisible(frame)
+            Canvas.shared.contentView.scrollToVisible(frame)
         }, completionHandler:nil)
     }
     
@@ -122,7 +120,7 @@ class Search:NSView, NSTextViewDelegate {
             context.allowsImplicitAnimation = true
             superview!.layoutSubtreeIfNeeded()
         }) {
-            Application.shared.view.makeFirstResponder(self.text)
+            NSApp.mainWindow!.makeFirstResponder(self.text)
         }
     }
     
@@ -141,12 +139,12 @@ class Search:NSView, NSTextViewDelegate {
     }
     
     @objc private func updateSkin() {
-        layer!.backgroundColor = Application.shared.skin.background.withAlphaComponent(0.95).cgColor
-        layer!.borderColor = Application.shared.skin.text.withAlphaComponent(0.3).cgColor
-        text.textColor = Application.shared.skin.text
+        layer!.backgroundColor = Skin.shared.background.withAlphaComponent(0.95).cgColor
+        layer!.borderColor = Skin.shared.text.withAlphaComponent(0.3).cgColor
+        text.textColor = Skin.shared.text
     }
     
     @objc private func done() {
-        Application.shared.view.makeFirstResponder(nil)
+        NSApp.mainWindow!.makeFirstResponder(nil)
     }
 }

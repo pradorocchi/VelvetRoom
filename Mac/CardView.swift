@@ -31,12 +31,11 @@ class CardView:EditView {
     
     override func endDrag(_ event:NSEvent) {
         super.endDrag(event)
-        var column = View.canvas.root
+        var column = Canvas.shared.root
         while column!.sibling is ColumnView {
             guard
-                column!.sibling!.left.constant < event.locationInWindow.x -
-                    Application.shared.view.listLeft.constant +
-                    View.canvas.documentVisibleRect.origin.x
+                column!.sibling!.left.constant < event.locationInWindow.x - List.shared.left.constant +
+                    Canvas.shared.documentVisibleRect.origin.x
             else { break }
             column = column!.sibling
         }
@@ -50,16 +49,16 @@ class CardView:EditView {
         }
         child = after!.child
         after!.child = self
-        Application.shared.view.canvasChanged()
-        Application.shared.view.repository.move(card, board:Application.shared.view.selected!, column:(column as! ColumnView).column,
-                                         after:(after as? CardView)?.card)
-        Application.shared.view.scheduleUpdate()
-        Application.shared.view.progress.chart = Application.shared.view.selected!.chart
+        Canvas.shared.update()
+        Repository.shared.move(card, board:List.shared.current!.board, column:(column as! ColumnView).column,
+                               after:(after as? CardView)?.card)
+        List.shared.scheduleUpdate()
+        Progress.shared.update()
     }
     
     override func updateSkin() {
-        text.textColor = Application.shared.skin.text
-        text.font = .light(Application.shared.skin.font)
+        text.textColor = Skin.shared.text
+        text.font = .light(Skin.shared.font)
         text.string = card.content
         super.updateSkin()
     }
@@ -68,20 +67,18 @@ class CardView:EditView {
         detach()
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let card = self?.card else { return }
-            Application.shared.view.repository.delete(card, board:Application.shared.view.selected!)
-            Application.shared.view.scheduleUpdate()
+            Repository.shared.delete(card, board:List.shared.current!.board)
+            List.shared.scheduleUpdate()
             DispatchQueue.main.async { [weak self] in
-                Application.shared.view.progress.chart = Application.shared.view.selected!.chart
+                Progress.shared.update()
                 self?.removeFromSuperview()
             }
         }
     }
     
     private func detach() {
-        if let parent = Application.shared.view.canvas.documentView!.subviews.first(
-            where: {($0 as? ItemView)?.child === self }) as? ItemView {
-            parent.child = child
-            Application.shared.view.canvasChanged()
-        }
+        (Canvas.shared.documentView!.subviews.first(
+            where:{($0 as? ItemView)?.child === self }) as? ItemView)?.child = child
+        Canvas.shared.update()
     }
 }
