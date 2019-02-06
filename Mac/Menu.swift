@@ -10,6 +10,7 @@ class Menu:NSMenu {
     } }
     
     @IBOutlet private(set) weak var list:NSMenuItem!
+    @IBOutlet private weak var board:NSMenuItem!
     @IBOutlet private weak var column:NSMenuItem!
     @IBOutlet private weak var card:NSMenuItem!
     @IBOutlet private weak var find:NSMenuItem!

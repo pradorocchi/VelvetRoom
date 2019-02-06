@@ -10,11 +10,11 @@
         <scene sceneID="JPo-4y-FX3">
             <objects>
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
-                    <menu key="mainMenu" title="Menu" systemMenu="main" autoenablesItems="NO" id="AYu-sK-qS6" customClass="Menu" customModule="Velvet_Room" customModuleProvider="target">
+                    <menu key="mainMenu" title="Menu" systemMenu="main" showsStateColumn="NO" autoenablesItems="NO" id="AYu-sK-qS6" customClass="Menu" customModule="Velvet_Room" customModuleProvider="target">
                         <items>
                             <menuItem title="Velvet Room" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Velvet Room" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="Velvet Room" systemMenu="apple" showsStateColumn="NO" autoenablesItems="NO" id="uQy-DD-JDr">
                                     <items>
                                         <menuItem title="About" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -51,29 +51,17 @@
                             </menuItem>
                             <menuItem title="New" id="3xg-wh-qCO">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="New" autoenablesItems="NO" id="Stp-rE-7IO">
+                                <menu key="submenu" title="New" showsStateColumn="NO" autoenablesItems="NO" id="Stp-rE-7IO">
                                     <items>
-                                        <menuItem title="Board" keyEquivalent="n" id="Gg7-f9-jBs">
-                                            <connections>
-                                                <action selector="newDocument:" target="Ady-hI-5gd" id="YVi-Xw-uMH"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Column" enabled="NO" keyEquivalent="M" id="kR1-Ch-sCA">
-                                            <connections>
-                                                <action selector="addRow:" target="Ady-hI-5gd" id="IOc-mM-gIr"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Card" enabled="NO" keyEquivalent="N" id="S2Z-PM-7vI">
-                                            <connections>
-                                                <action selector="addChild:" target="Ady-hI-5gd" id="GYo-Da-udv"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem title="Board" keyEquivalent="n" id="Gg7-f9-jBs"/>
+                                        <menuItem title="Column" enabled="NO" keyEquivalent="M" id="kR1-Ch-sCA"/>
+                                        <menuItem title="Card" enabled="NO" keyEquivalent="N" id="S2Z-PM-7vI"/>
                                     </items>
                                 </menu>
                             </menuItem>
                             <menuItem title="Edit" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Edit" autoenablesItems="NO" id="W48-6f-4Dl">
+                                <menu key="submenu" title="Edit" showsStateColumn="NO" autoenablesItems="NO" id="W48-6f-4Dl">
                                     <items>
                                         <menuItem title="Undo" keyEquivalent="z" id="dRJ-4n-Yzg">
                                             <connections>
@@ -113,11 +101,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="uyl-h8-XO2"/>
-                                        <menuItem title="Find" enabled="NO" alternate="YES" keyEquivalent="f" id="YO8-ZY-NFU">
-                                            <connections>
-                                                <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="UiA-KD-Owd"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem title="Find" enabled="NO" alternate="YES" keyEquivalent="f" id="YO8-ZY-NFU"/>
                                         <menuItem title="Spelling and Grammar" id="Dv1-io-Yv7">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Spelling" id="3IN-sU-3Bg">
@@ -253,7 +237,7 @@
                             </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
+                                <menu key="submenu" title="Window" systemMenu="window" showsStateColumn="NO" autoenablesItems="NO" id="Td7-aD-5lo">
                                     <items>
                                         <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV">
                                             <connections>
@@ -267,11 +251,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
-                                        <menuItem title="List" keyEquivalent="l" id="6i5-27-0d7">
-                                            <connections>
-                                                <action selector="toggleSourceList:" target="Ady-hI-5gd" id="T5x-nG-stP"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem title="List" keyEquivalent="l" id="6i5-27-0d7"/>
                                         <menuItem isSeparatorItem="YES" id="nLV-dX-BB2"/>
                                         <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -284,7 +264,7 @@
                             </menuItem>
                             <menuItem title="Help" id="wpr-3q-Mcd">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
+                                <menu key="submenu" title="Help" systemMenu="help" showsStateColumn="NO" autoenablesItems="NO" id="F2S-fz-NVQ">
                                     <items>
                                         <menuItem title="Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
@@ -295,19 +275,19 @@
                                 </menu>
                             </menuItem>
                         </items>
+                        <connections>
+                            <outlet property="board" destination="Gg7-f9-jBs" id="qN5-if-lnu"/>
+                            <outlet property="card" destination="S2Z-PM-7vI" id="Lhg-31-VZb"/>
+                            <outlet property="column" destination="kR1-Ch-sCA" id="6mx-Ix-O5W"/>
+                            <outlet property="find" destination="YO8-ZY-NFU" id="JY5-Jw-lXm"/>
+                            <outlet property="list" destination="6i5-27-0d7" id="TNd-Ho-tuk"/>
+                        </connections>
                     </menu>
                     <connections>
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="Application" customModule="Velvet_Room" customModuleProvider="target">
-                    <connections>
-                        <outlet property="find" destination="YO8-ZY-NFU" id="EV2-8P-KPU"/>
-                        <outlet property="list" destination="6i5-27-0d7" id="T2U-Db-K2r"/>
-                        <outlet property="newCard" destination="S2Z-PM-7vI" id="zSV-p8-gmD"/>
-                        <outlet property="newColumn" destination="kR1-Ch-sCA" id="nSt-IN-N2s"/>
-                    </connections>
-                </customObject>
+                <customObject id="Voe-Tx-rLC" customClass="Application" customModule="Velvet_Room" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
@@ -335,9 +315,6 @@
                                             <string key="keyEquivalent">n</string>
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
-                                        <connections>
-                                            <action selector="newDocument:" target="IQv-IB-iLA" id="HRH-aM-xhB"/>
-                                        </connections>
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="6632A0DE-5D88-4A1A-B7D6-CFF62DF9CB28" label="Delete" paletteLabel="Delete" image="delete" sizingBehavior="auto" id="kcB-kf-DEw">
@@ -351,9 +328,6 @@
                                             <string key="keyEquivalent">w</string>
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
-                                        <connections>
-                                            <action selector="remove:" target="Oky-zY-oP4" id="QWU-ci-LJW"/>
-                                        </connections>
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="KZI-1n-q2z" userLabel="Flex"/>
@@ -366,9 +340,6 @@
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
-                                        <connections>
-                                            <action selector="toggleList:" target="IQv-IB-iLA" id="89V-74-MuP"/>
-                                        </connections>
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="54741872-1325-41DF-8375-6D7A66039348" label="Export" paletteLabel="Export" image="export" sizingBehavior="auto" id="MIW-Tn-3Vo">
@@ -380,9 +351,6 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
-                                        <connections>
-                                            <action selector="export:" target="IQv-IB-iLA" id="jma-dR-cd6"/>
-                                        </connections>
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="8851677E-4D65-4FDE-AA76-74601A619674" label="Import" paletteLabel="Import" image="import" sizingBehavior="auto" id="LuM-kZ-gHJ">
@@ -422,9 +390,6 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
-                                        <connections>
-                                            <action selector="play:" target="IQv-IB-iLA" id="TIg-Iv-m1v"/>
-                                        </connections>
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="E5603EC3-221D-4354-B988-2E1716D8F75C" label="Search" paletteLabel="Search" image="search" sizingBehavior="auto" id="Kmn-p4-Lr1">
@@ -438,9 +403,6 @@
                                             <string key="keyEquivalent">f</string>
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
-                                        <connections>
-                                            <action selector="performFindPanelAction:" target="IQv-IB-iLA" id="Scz-qR-Uzm"/>
-                                        </connections>
                                     </button>
                                 </toolbarItem>
                             </allowedToolbarItems>
@@ -455,14 +417,16 @@
                                 <toolbarItem reference="LuM-kZ-gHJ"/>
                                 <toolbarItem reference="0K5-pA-w2U"/>
                             </defaultToolbarItems>
+                            <connections>
+                                <outlet property="chart" destination="adc-78-Mft" id="eyk-M9-qG1"/>
+                                <outlet property="delete" destination="g3I-fJ-Wch" id="6nQ-11-ZHy"/>
+                                <outlet property="export" destination="tts-xe-5IT" id="d4V-Qg-HRt"/>
+                                <outlet property="list" destination="6hB-Rg-9L8" id="dDd-DJ-tHz"/>
+                                <outlet property="search" destination="lqS-jY-oGD" id="hdO-qI-hSh"/>
+                            </connections>
                         </toolbar>
                         <connections>
-                            <outlet property="chartButton" destination="adc-78-Mft" id="PiD-a5-2s0"/>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="CcE-6b-hxk"/>
-                            <outlet property="deleteButton" destination="g3I-fJ-Wch" id="IoL-g9-NFL"/>
-                            <outlet property="exportButton" destination="tts-xe-5IT" id="v9C-CF-AnF"/>
-                            <outlet property="listButton" destination="6hB-Rg-9L8" id="1t5-Ge-ACe"/>
-                            <outlet property="searchButton" destination="lqS-jY-oGD" id="ZBl-3Y-HKx"/>
                         </connections>
                     </window>
                     <connections>
@@ -489,7 +453,7 @@
     </scenes>
     <resources>
         <image name="chart" width="24" height="18"/>
-        <image name="delete" width="24" height="24"/>
+        <image name="delete" width="24" height="18"/>
         <image name="export" width="24" height="24"/>
         <image name="import" width="24" height="18"/>
         <image name="listOff" width="24" height="18"/>

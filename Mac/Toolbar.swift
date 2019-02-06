@@ -11,10 +11,13 @@ class Toolbar:NSToolbar {
     } }
     
     @IBOutlet private(set) weak var list:NSButton!
+    @IBOutlet private weak var settings:NSButton!
     @IBOutlet private weak var search:NSButton!
     @IBOutlet private weak var delete:NSButton!
-    @IBOutlet private weak var export:NSButton!
     @IBOutlet private weak var chart:NSButton!
+    @IBOutlet private weak var export:NSButton!
+    @IBOutlet private weak var load:NSButton!
+    @IBOutlet private weak var new:NSButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
