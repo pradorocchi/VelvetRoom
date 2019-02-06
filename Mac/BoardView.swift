@@ -1,8 +1,9 @@
 import AppKit
 import VelvetRoom
 
-class BoardView:NSControl, NSTextViewDelegate {
+class BoardView:NSView, NSTextViewDelegate {
     var selected = false { didSet { updateSkin() } }
+    var selector:Selector!
     private(set) weak var board:Board!
     private weak var date:NSTextField!
     private weak var text:TextView!
@@ -52,7 +53,7 @@ class BoardView:NSControl, NSTextViewDelegate {
             Application.shared.view.makeFirstResponder(text)
             updateSkin()
         } else if !selected {
-            sendAction(action, to:target)
+            sendAction(List.shared, to:selector)
         }
     }
     

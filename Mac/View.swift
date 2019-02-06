@@ -74,26 +74,6 @@ import VelvetRoom
         }
     }
     
-    private func createCard() {
-        guard View.canvas.root != nil, !(root is CreateView), !(root!.child is CreateView) else { return }
-        let create = CreateView(#selector(newCard(_:)), key:"n")
-        create.child = View.canvas.root!.child
-        View.canvas.root!.child = create
-        View.canvas.documentView!.addSubview(create)
-    }
-    
-    private func select(_ board:Board) {
-        let boardView = view(board)!
-        select(view:boardView)
-        DispatchQueue.main.async {
-            NSAnimationContext.runAnimationGroup({ context in
-                context.duration = 0.3
-                context.allowsImplicitAnimation = true
-                self.list.contentView.scrollToVisible(boardView.frame)
-            }, completionHandler:nil)
-        }
-    }
-    
     @objc private func updateSkin() {
         backgroundColor = Application.shared.skin.background
         (gradientTop.layer as! CAGradientLayer).colors = [
@@ -105,31 +85,6 @@ import VelvetRoom
             Application.shared.skin.background.withAlphaComponent(0).cgColor]
         canvas.horizontalScroller!.knobStyle = Application.shared.skin.scroller
         DispatchQueue.main.async { if self.selected != nil { self.canvasChanged(0) } }
-    }
-    
-    @objc private func select(view:BoardView) {
-        makeFirstResponder(nil)
-        view.selected = true
-        selected = view.board
-        View.canvas.alphaValue = 0
-        render(view.board)
-        canvasChanged(0)
-        deleteButton.isEnabled = true
-        searchButton.isEnabled = true
-        exportButton.isEnabled = true
-        chartButton.isEnabled = true
-        menuFind.isEnabled = true
-        menuColumn.isEnabled = true
-        menuCard.isEnabled = true
-        progress.chart = selected!.chart
-        DispatchQueue.main.async {
-            View.canvas.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
-            NSAnimationContext.runAnimationGroup({ context in
-                context.duration = 1
-                context.allowsImplicitAnimation = true
-                View.canvas.alphaValue = 1
-            }, completionHandler:nil)
-        }
     }
     
     @objc private func newColumn(_ view:CreateView) {

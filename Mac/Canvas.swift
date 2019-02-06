@@ -23,14 +23,14 @@ class Canvas:ScrollView {
             view.beginEditing()
         } else {
             mouseUp(with:with)
-            Application.shared.view.makeFirstResponder(nil)
+            NSApp.mainWindow!.makeFirstResponder(nil)
         }
     }
     
     override func mouseDragged(with:NSEvent) {
         if dragging == nil {
             guard let view = owner(with) else { return }
-            Application.shared.view.makeFirstResponder(nil)
+            NSApp.mainWindow!.makeFirstResponder(nil)
             dragging = view
             view.beginDrag()
         } else {
@@ -45,7 +45,7 @@ class Canvas:ScrollView {
     }
     
     func update(_ animation:TimeInterval = 0.5) {
-        createCard()
+        addCarder()
         documentView!.layoutSubtreeIfNeeded()
         align()
         NSAnimationContext.runAnimationGroup({ context in
@@ -55,43 +55,56 @@ class Canvas:ScrollView {
         }, completionHandler:nil)
     }
     
-    func render(_ board:Board) {
+    func display(_ board:Board) {
+        alphaValue = 0
+        render(board)
+        update(0)
+        DispatchQueue.main.async {
+            self.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 1
+                context.allowsImplicitAnimation = true
+                self.alphaValue = 1
+            }, completionHandler:nil)
+        }
+    }
+    
+    private func render(_ board:Board) {
         removeSubviews()
         root = nil
         var sibling:ItemView?
         board.columns.enumerated().forEach { index, item in
             let column = ColumnView(item)
             if sibling == nil {
-                View.canvas.root = column
+                root = column
             } else {
                 sibling!.sibling = column
             }
-            View.canvas.documentView!.addSubview(column)
-            var child:ItemView = column
+            documentView!.addSubview(column)
+            var child = column as ItemView
             sibling = column
-            
             board.cards.filter( { $0.column == index } ).sorted(by: { $0.index < $1.index } ).forEach {
                 let card = CardView($0)
-                View.canvas.documentView!.addSubview(card)
+                documentView!.addSubview(card)
                 child.child = card
                 child = card
             }
         }
         
-        let buttonColumn = CreateView(#selector(newColumn(_:)), key:"m")
-        View.canvas.documentView!.addSubview(buttonColumn)
+        let columner = CreateView(#selector(newColumn(_:)), key:"m")
+        documentView!.addSubview(columner)
         
-        if View.canvas.root == nil {
-            View.canvas.root = buttonColumn
+        if root == nil {
+            root = columner
         } else {
-            sibling!.sibling = buttonColumn
+            sibling!.sibling = columner
         }
     }
     
     private func align() {
         var maxRight = CGFloat(316)
         var maxBottom = CGFloat()
-        var sibling = View.canvas.root
+        var sibling = root
         while sibling != nil {
             let right = maxRight
             var bottom = CGFloat(56)
@@ -109,8 +122,17 @@ class Canvas:ScrollView {
             
             maxBottom = max(bottom, maxBottom)
         }
-        View.canvas.bottom = canvas.documentView!.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 16)
-        View.canvas.right = canvas.documentView!.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight + 16)
+        bottom = documentView!.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 16)
+        right = documentView!.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight + 16)
+    }
+    
+    private func addCarder() {
+        if root != nil, !(root is CreateView), !(root!.child is CreateView) {
+//            let create = CreateView(#selector(newCard(_:)), key:"n")
+//            create.child = View.canvas.root!.child
+//            View.canvas.root!.child = create
+//            View.canvas.documentView!.addSubview(create)
+        }
     }
     
     private func owner(_ event:NSEvent) -> EditView? {

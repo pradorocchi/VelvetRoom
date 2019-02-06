@@ -22,6 +22,18 @@ class List:ScrollView {
         }
     }
     
+    func select(_ board:Board) {
+        let view = documentView!.subviews.first(where:{ ($0 as! BoardView).board === board }) as! BoardView
+        makeCurrent(view)
+        DispatchQueue.main.async {
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 0.3
+                context.allowsImplicitAnimation = true
+                self.contentView.scrollToVisible(view.frame)
+            }, completionHandler:nil)
+        }
+    }
+    
     @objc func toggle() {
         visible.toggle()
         if visible {
@@ -42,24 +54,32 @@ class List:ScrollView {
     
     private func render(_ boards:[Board]) {
         current?.selected = false
-        Repository.shared.fire
+        Repository.shared.fireSchedule()
         Toolbar.shared.extended = false
         Menu.shared.extended = false
         Progress.shared.chart = []
         Canvas.shared.removeSubviews()
         List.shared.removeSubviews()
-        var top = list.documentView!.topAnchor
-        boards.enumerated().forEach { board in
-            let view = BoardView(board.element)
-            view.target = self
-            view.action = #selector(select(view:))
-            list.documentView!.addSubview(view)
+        var top = documentView!.topAnchor
+        boards.enumerated().forEach {
+            let view = BoardView($0.element)
+            view.selector = #selector(makeCurrent(_:))
+            documentView!.addSubview(view)
             
-            view.topAnchor.constraint(equalTo:top, constant:board.offset == 0 ? 36 : 0).isActive = true
-            view.leftAnchor.constraint(equalTo:list.leftAnchor, constant:-8).isActive = true
-            view.rightAnchor.constraint(equalTo:list.rightAnchor).isActive = true
+            view.topAnchor.constraint(equalTo:top, constant:$0.offset == 0 ? 36 : 0).isActive = true
+            view.leftAnchor.constraint(equalTo:leftAnchor, constant:-8).isActive = true
+            view.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
             top = view.bottomAnchor
         }
-        list.bottom = list.documentView!.bottomAnchor.constraint(equalTo:top, constant:20)
+        bottom = documentView!.bottomAnchor.constraint(equalTo:top, constant:20)
+    }
+    
+    @objc private func makeCurrent(_ view:BoardView) {
+        NSApp.mainWindow!.makeFirstResponder(nil)
+        view.selected = true
+        Canvas.shared.display(view.board)
+        Toolbar.shared.extended = true
+        Menu.shared.extended = true
+        Progress.shared.chart = view.board.chart
     }
 }
