@@ -1,11 +1,12 @@
 import AppKit
 
-class SearchView:NSView, NSTextViewDelegate {
+class Search:NSView, NSTextViewDelegate {
+    static let shared = Search()
     private(set) weak var text:TextView!
     private(set) weak var highlighter:NSView?
     private weak var bottom:NSLayoutConstraint!
     
-    init() {
+    private init() {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true

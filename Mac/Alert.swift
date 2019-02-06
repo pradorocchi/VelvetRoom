@@ -12,7 +12,7 @@ class Alert {
     func add(_ error:Error) {
         alert.append(error)
         if view == nil {
-            pop()
+            DispatchQueue.main.async { self.pop() }
         }
     }
     

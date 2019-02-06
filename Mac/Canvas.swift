@@ -3,7 +3,6 @@ import AppKit
 class Canvas:ScrollView {
     static let shared = Canvas()
     
-    #warning ("make private")
     weak var root:ItemView?
     private weak var dragging:EditView?
     

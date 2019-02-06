@@ -1,6 +1,8 @@
 import AppKit
 
-class ProgressView:NSView {
+class Progress:NSView {
+    static let shared = Progress()
+    
     private weak var marker:NSLayoutXAxisAnchor!
     private var views = [NSView]()
     private var widths = [NSLayoutConstraint]()
@@ -32,7 +34,7 @@ class ProgressView:NSView {
         }, completionHandler:nil)
     } }
     
-    init() {
+    private init() {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true

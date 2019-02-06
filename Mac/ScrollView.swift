@@ -20,6 +20,10 @@ class ScrollView:NSScrollView {
     
     required init?(coder:NSCoder) { return nil }
     
+    func layoutConstraints() {
+        documentView!.layoutSubtreeIfNeeded()
+    }
+    
     func removeSubviews() {
         documentView!.subviews.forEach { $0.removeFromSuperview() }
     }

@@ -3,11 +3,8 @@ import VelvetRoom
 
 @NSApplicationMain class View:NSWindow, NSApplicationDelegate, NSWindowDelegate {
     let repository = Repository()
-    private(set) weak var progress:ProgressView!
-    
     private weak var gradientTop:NSView!
     private weak var gradientLeft:NSView!
-    private weak var search:SearchView!
     
     private(set) weak var selected:Board? {
         willSet {
@@ -40,10 +37,10 @@ import VelvetRoom
         makeOutlets()
         repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
         repository.select = { board in DispatchQueue.main.async { self.select(board) } }
-        repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
+        repository.error = { Alert.shared.add($0) }
         Skin.add(self, selector:#selector(updateSkin))
         DispatchQueue.main.async {
-            self.toggleList(self.listButton)
+            self.toggleList(Menu.shared.list)
             self.updateSkin()
             DispatchQueue.global(qos:.background).async {
                 self.repository.load()
@@ -54,12 +51,12 @@ import VelvetRoom
     
     func canvasChanged(_ animation:TimeInterval = 0.5) {
         createCard()
-        View.canvas.documentView!.layoutSubtreeIfNeeded()
+        Canvas.shared.layoutConstraints()
         align()
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = animation
             context.allowsImplicitAnimation = true
-            View.canvas.documentView!.layoutSubtreeIfNeeded()
+            Canvas.shared.layoutConstraints()
         }, completionHandler:nil)
     }
     
@@ -71,9 +68,7 @@ import VelvetRoom
     }
     
     private func makeOutlets() {
-        let canvas = CanvasView()
-        contentView!.addSubview(canvas)
-        View.canvas = canvas
+        contentView!.addSubview(Canvas.shared)
         
         let gradientLeft = NSView()
         gradientLeft.translatesAutoresizingMaskIntoConstraints = false
@@ -85,9 +80,7 @@ import VelvetRoom
         contentView!.addSubview(gradientLeft)
         self.gradientLeft = gradientLeft
         
-        let list = ScrollView()
-        contentView!.addSubview(list)
-        self.list = list
+        contentView!.addSubview(List.shared)
         
         let gradientTop = NSView()
         gradientTop.translatesAutoresizingMaskIntoConstraints = false
@@ -99,14 +92,10 @@ import VelvetRoom
         contentView!.addSubview(gradientTop)
         self.gradientTop = gradientTop
         
-        let progress = ProgressView()
-        self.progress = progress
-        contentView!.addSubview(progress)
+        contentView!.addSubview(Progress.shared)
         
-        let search = SearchView()
-        contentView!.addSubview(search)
-        self.search = search
-        
+        contentView!.addSubview(Search.shared)
+        /*
         gradientTop.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
         gradientTop.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
         gradientTop.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
@@ -133,7 +122,7 @@ import VelvetRoom
         canvas.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-1).isActive = true
         
         search.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
-        
+        */
         contentView!.layoutSubtreeIfNeeded()
     }
     
@@ -331,31 +320,6 @@ import VelvetRoom
                     view.frame.minY - View.canvas.bounds.height, width:1, height:1))
             }, completionHandler:nil)
         }
-    }
-    
-    @IBAction private func toggleSourceList(_ sender:NSMenuItem) {
-        switch listButton.state {
-        case .on:
-            listButton.state = .off
-        default:
-            listButton.state = .on
-        }
-        toggleList(listButton)
-    }
-    
-    @IBAction private func toggleList(_ listButton:NSButton) {
-        if listButton.state == .on {
-            listLeft.constant = 0
-            menuList.title = .local("View.hideList")
-        } else {
-            listLeft.constant = -280
-            menuList.title = .local("View.showList")
-        }
-        NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 1
-            context.allowsImplicitAnimation = true
-            contentView!.layoutSubtreeIfNeeded()
-        }, completionHandler:nil)
     }
     
     @IBAction private func play(_ sender:Any) {

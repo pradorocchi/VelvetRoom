@@ -24,7 +24,7 @@
 		2044022E21FCA21C00D191BA /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2044022D21FCA21C00D191BA /* NotificationCenter.framework */; };
 		204B68FE21E338B10025261E /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FD21E338B10025261E /* ImportView.swift */; };
 		204B690021E347200025261E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FF21E347200025261E /* DropView.swift */; };
-		20531BFD2202ED1A00D6551C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20531BFC2202ED1A00D6551C /* SearchView.swift */; };
+		20531BFD2202ED1A00D6551C /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20531BFC2202ED1A00D6551C /* Search.swift */; };
 		205A65A121FB081100F59461 /* Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A65A021FB081100F59461 /* Skin.swift */; };
 		205A65A321FB133D00F59461 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A65A221FB133D00F59461 /* SettingsView.swift */; };
 		205BE6062206E5DD0020817A /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205BE6052206E5DD0020817A /* Widget.swift */; };
@@ -81,7 +81,7 @@
 		DA1ABDA921C9AFD500CE1462 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */; };
 		DA1D104721CBCCAD00A8FBE9 /* TestRepository_Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */; };
 		DA2B491721C9187B00BABE86 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B491621C9187B00BABE86 /* NSColor.swift */; };
-		DA4C2AC521D4F4CB004988B4 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C2AC421D4F4CB004988B4 /* ProgressView.swift */; };
+		DA4C2AC521D4F4CB004988B4 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C2AC421D4F4CB004988B4 /* Progress.swift */; };
 		DA4C2AC721D5098A004988B4 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C2AC621D5098A004988B4 /* ChartView.swift */; };
 		DA53931021D2CB6F00482FCA /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53930F21D2CB6F00482FCA /* TextStorage.swift */; };
 		DA65DA6F21D1327100E74011 /* TestRepository_Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65DA6E21D1327100E74011 /* TestRepository_Column.swift */; };
@@ -252,7 +252,7 @@
 		2044022D21FCA21C00D191BA /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		204B68FD21E338B10025261E /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		204B68FF21E347200025261E /* DropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
-		20531BFC2202ED1A00D6551C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		20531BFC2202ED1A00D6551C /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		205A65A021FB081100F59461 /* Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skin.swift; sourceTree = "<group>"; };
 		205A65A221FB133D00F59461 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		205BE6052206E5DD0020817A /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
@@ -297,7 +297,7 @@
 		DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository_Card.swift; sourceTree = "<group>"; };
 		DA2B491621C9187B00BABE86 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
-		DA4C2AC421D4F4CB004988B4 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		DA4C2AC421D4F4CB004988B4 /* Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
 		DA4C2AC621D5098A004988B4 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		DA53930F21D2CB6F00482FCA /* TextStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStorage.swift; sourceTree = "<group>"; };
 		DA65DA6E21D1327100E74011 /* TestRepository_Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository_Column.swift; sourceTree = "<group>"; };
@@ -526,8 +526,9 @@
 				20CADFA421F9B8C2005DC344 /* Skin.swift */,
 				20804BBC21E5E6470035535D /* Alert.swift */,
 				202D692621E230EC009398AB /* SheetView.swift */,
-				DA4C2AC421D4F4CB004988B4 /* ProgressView.swift */,
-				20531BFC2202ED1A00D6551C /* SearchView.swift */,
+				DA4C2AC421D4F4CB004988B4 /* Progress.swift */,
+				20531BFC2202ED1A00D6551C /* Search.swift */,
+				DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */,
 				205BE61222072B820020817A /* Canvas.swift */,
 				20EA9625220AC6BF003CCC93 /* List.swift */,
 				DAFA95FC21CBDAAD00BA265C /* ItemView.swift */,
@@ -547,7 +548,6 @@
 				DA16E00021CE8AFF00D21C7A /* TextView.swift */,
 				DA6A986B21CEA70000C18C7F /* TextLayout.swift */,
 				DA53930F21D2CB6F00482FCA /* TextStorage.swift */,
-				DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */,
 				DA86474621C401DF00E4957B /* NSFont.swift */,
 				DA2B491621C9187B00BABE86 /* NSColor.swift */,
 				2061170A21FC9BA2007A2C84 /* WidgetView.swift */,
@@ -1022,7 +1022,7 @@
 				DA4C2AC721D5098A004988B4 /* ChartView.swift in Sources */,
 				204B690021E347200025261E /* DropView.swift in Sources */,
 				DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */,
-				20531BFD2202ED1A00D6551C /* SearchView.swift in Sources */,
+				20531BFD2202ED1A00D6551C /* Search.swift in Sources */,
 				DA2B491721C9187B00BABE86 /* NSColor.swift in Sources */,
 				20804BBD21E5E6470035535D /* Alert.swift in Sources */,
 				DAFA95FD21CBDAAD00BA265C /* ItemView.swift in Sources */,
@@ -1039,7 +1039,7 @@
 				DA1544E321D2752600B9D9F7 /* DeleteView.swift in Sources */,
 				DA6A986C21CEA70000C18C7F /* TextLayout.swift in Sources */,
 				DA1ABDA921C9AFD500CE1462 /* ScrollView.swift in Sources */,
-				DA4C2AC521D4F4CB004988B4 /* ProgressView.swift in Sources */,
+				DA4C2AC521D4F4CB004988B4 /* Progress.swift in Sources */,
 				202D692921E231EF009398AB /* ExportView.swift in Sources */,
 				20CADF9E21F99B8A005DC344 /* SettingsView.swift in Sources */,
 			);
