@@ -2,21 +2,11 @@ import AppKit
 import VelvetRoom
 
 @NSApplicationMain class View:NSWindow, NSApplicationDelegate, NSWindowDelegate {
-    let repository = Repository()
-    private weak var gradientTop:NSView!
-    private weak var gradientLeft:NSView!
-    
-    private(set) weak var selected:Board? {
-        willSet {
-            if let selected = self.selected {
-                view(selected)?.selected = false
-        } }
-        didSet { repository.fireSchedule() }
-    }
+    deinit { NotificationCenter.default.removeObserver(self) }
     
     func applicationShouldTerminateAfterLastWindowClosed(_:NSApplication) -> Bool { return true }
     func applicationDidFinishLaunching(_:Notification) { delegate = self }
-    func applicationWillTerminate(_:Notification) { repository.fireSchedule() }
+    func applicationWillTerminate(_:Notification) { Repository.shared.fireSchedule() }
     func windowWillBeginSheet(_:Notification) { menu!.items.forEach { $0.isEnabled = false } }
     func windowDidEndSheet(_:Notification) { menu!.items.forEach { $0.isEnabled = true } }
     
@@ -29,186 +19,59 @@ import VelvetRoom
     override func cancelOperation(_:Any?) { makeFirstResponder(nil) }
     override func mouseDown(with:NSEvent) { makeFirstResponder(nil) }
     
-    deinit { NotificationCenter.default.removeObserver(self) }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         UserDefaults.standard.set(false, forKey:"NSFullScreenMenuItemEverywhere")
-        makeOutlets()
-        repository.list = { boards in DispatchQueue.main.async { self.list(boards) } }
-        repository.select = { board in DispatchQueue.main.async { self.select(board) } }
-        repository.error = { Alert.shared.add($0) }
-        Skin.add(self, selector:#selector(updateSkin))
-        DispatchQueue.main.async {
-            self.toggleList(Menu.shared.list)
-            self.updateSkin()
-            DispatchQueue.global(qos:.background).async {
-                self.repository.load()
-                Skin.update(self.repository.account.appearance, font:self.repository.account.font)
-            }
-        }
-    }
-    
-    func canvasChanged(_ animation:TimeInterval = 0.5) {
-        createCard()
-        Canvas.shared.layoutConstraints()
-        align()
-        NSAnimationContext.runAnimationGroup({ context in
-            context.duration = animation
-            context.allowsImplicitAnimation = true
-            Canvas.shared.layoutConstraints()
-        }, completionHandler:nil)
-    }
-    
-    func scheduleUpdate(_ board:Board? = nil) {
-        DispatchQueue.global(qos:.background).async {
-            guard let board = board ?? self.selected else { return }
-            self.repository.scheduleUpdate(board)
-        }
-    }
-    
-    private func makeOutlets() {
+        
         contentView!.addSubview(Canvas.shared)
-        
-        let gradientLeft = NSView()
-        gradientLeft.translatesAutoresizingMaskIntoConstraints = false
-        gradientLeft.layer = CAGradientLayer()
-        (gradientLeft.layer as! CAGradientLayer).startPoint = CGPoint(x:0, y:0.5)
-        (gradientLeft.layer as! CAGradientLayer).endPoint = CGPoint(x:1, y:0.5)
-        (gradientLeft.layer as! CAGradientLayer).locations = [0, 0.7, 1]
-        gradientLeft.wantsLayer = true
-        contentView!.addSubview(gradientLeft)
-        self.gradientLeft = gradientLeft
-        
+        contentView!.addSubview(GradientLeft())
         contentView!.addSubview(List.shared)
-        
-        let gradientTop = NSView()
-        gradientTop.translatesAutoresizingMaskIntoConstraints = false
-        gradientTop.layer = CAGradientLayer()
-        (gradientTop.layer as! CAGradientLayer).startPoint = CGPoint(x:0.5, y:0)
-        (gradientTop.layer as! CAGradientLayer).endPoint = CGPoint(x:0.5, y:1)
-        (gradientTop.layer as! CAGradientLayer).locations = [0, 1]
-        gradientTop.wantsLayer = true
-        contentView!.addSubview(gradientTop)
-        self.gradientTop = gradientTop
-        
+        contentView!.addSubview(GradientTop())
         contentView!.addSubview(Progress.shared)
-        
         contentView!.addSubview(Search.shared)
         /*
-        gradientTop.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
-        gradientTop.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
-        gradientTop.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
-        gradientTop.heightAnchor.constraint(equalToConstant:72).isActive = true
-        
-        gradientLeft.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
-        gradientLeft.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
-        gradientLeft.leftAnchor.constraint(equalTo:list.leftAnchor).isActive = true
-        gradientLeft.widthAnchor.constraint(equalToConstant:320).isActive = true
-        
-        list.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
-        list.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
-        list.widthAnchor.constraint(equalToConstant:250).isActive = true
-        listLeft = list.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:-280)
-        listLeft.isActive = true
-        
-        progress.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:80).isActive = true
-        progress.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-272).isActive = true
-        progress.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:10).isActive = true
-        
-        canvas.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
-        canvas.leftAnchor.constraint(equalTo:list.leftAnchor).isActive = true
-        canvas.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-1).isActive = true
-        canvas.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-1).isActive = true
-        
-        search.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
-        */
+         gradientTop.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
+         gradientTop.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
+         gradientTop.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
+         gradientTop.heightAnchor.constraint(equalToConstant:72).isActive = true
+         
+         gradientLeft.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
+         gradientLeft.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
+         gradientLeft.leftAnchor.constraint(equalTo:list.leftAnchor).isActive = true
+         gradientLeft.widthAnchor.constraint(equalToConstant:320).isActive = true
+         
+         list.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
+         list.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
+         list.widthAnchor.constraint(equalToConstant:250).isActive = true
+         listLeft = list.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:-280)
+         listLeft.isActive = true
+         
+         progress.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:80).isActive = true
+         progress.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-272).isActive = true
+         progress.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:10).isActive = true
+         
+         canvas.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
+         canvas.leftAnchor.constraint(equalTo:list.leftAnchor).isActive = true
+         canvas.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-1).isActive = true
+         canvas.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-1).isActive = true
+         
+         search.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
+         */
         contentView!.layoutSubtreeIfNeeded()
-    }
-    
-    private func list(_ boards:[Board]) {
-        selected = nil
-        deleteButton.isEnabled = false
-        searchButton.isEnabled = false
-        exportButton.isEnabled = false
-        chartButton.isEnabled = false
-        menuFind.isEnabled = false
-        menuColumn.isEnabled = false
-        menuCard.isEnabled = false
-        progress.chart = []
-        View.canvas.removeSubviews()
-        list.removeSubviews()
-        var top = list.documentView!.topAnchor
-        boards.enumerated().forEach { board in
-            let view = BoardView(board.element)
-            view.target = self
-            view.action = #selector(select(view:))
-            list.documentView!.addSubview(view)
-            
-            view.topAnchor.constraint(equalTo:top, constant:board.offset == 0 ? 36 : 0).isActive = true
-            view.leftAnchor.constraint(equalTo:list.leftAnchor, constant:-8).isActive = true
-            view.rightAnchor.constraint(equalTo:list.rightAnchor).isActive = true
-            top = view.bottomAnchor
-        }
-        list.bottom = list.documentView!.bottomAnchor.constraint(equalTo:top, constant:20)
-    }
-    
-    private func render(_ board:Board) {
-        View.canvas.removeSubviews()
-        View.canvas.root = nil
-        var sibling:ItemView?
-        board.columns.enumerated().forEach { (index, item) in
-            let column = ColumnView(item)
-            if sibling == nil {
-                View.canvas.root = column
-            } else {
-                sibling!.sibling = column
-            }
-            View.canvas.documentView!.addSubview(column)
-            var child:ItemView = column
-            sibling = column
-            
-            board.cards.filter( { $0.column == index } ).sorted(by: { $0.index < $1.index } ).forEach {
-                let card = CardView($0)
-                View.canvas.documentView!.addSubview(card)
-                child.child = card
-                child = card
-            }
-        }
         
-        let buttonColumn = CreateView(#selector(newColumn(_:)), key:"m")
-        View.canvas.documentView!.addSubview(buttonColumn)
         
-        if View.canvas.root == nil {
-            View.canvas.root = buttonColumn
-        } else {
-            sibling!.sibling = buttonColumn
-        }
-    }
-    
-    private func align() {
-        var maxRight = CGFloat(316)
-        var maxBottom = CGFloat()
-        var sibling = View.canvas.root
-        while sibling != nil {
-            let right = maxRight
-            var bottom = CGFloat(56)
-            var child = sibling
-            sibling = sibling!.sibling
-            while child != nil {
-                child!.left.constant = right
-                child!.top.constant = bottom
-                
-                bottom += child!.bounds.height + 20
-                maxRight = max(maxRight, right + child!.bounds.width + 20)
-                
-                child = child!.child
+        
+        Repository.shared.select = { board in DispatchQueue.main.async { self.select(board) } }
+        Repository.shared.error = { Alert.shared.add($0) }
+        Skin.add(self, selector:#selector(updateSkin))
+        DispatchQueue.main.async {
+            self.updateSkin()
+            List.shared.toggle()
+            DispatchQueue.global(qos:.background).async {
+                Repository.shared.load()
+                Skin.update(Repository.shared.account)
             }
-            
-            maxBottom = max(bottom, maxBottom)
         }
-        View.canvas.bottom = canvas.documentView!.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 16)
-        View.canvas.right = canvas.documentView!.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight + 16)
     }
     
     private func createCard() {
@@ -229,10 +92,6 @@ import VelvetRoom
                 self.list.contentView.scrollToVisible(boardView.frame)
             }, completionHandler:nil)
         }
-    }
-    
-    private func view(_ board:Board) -> BoardView? {
-        return list.documentView!.subviews.first(where: { ($0 as! BoardView).board === board } ) as? BoardView
     }
     
     @objc private func updateSkin() {

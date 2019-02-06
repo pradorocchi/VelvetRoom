@@ -58,6 +58,8 @@
 		20CADFA021F9B1F1005DC344 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9F21F9B1F1005DC344 /* Appearance.swift */; };
 		20CADFA121F9B1F1005DC344 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9F21F9B1F1005DC344 /* Appearance.swift */; };
 		20CADFA521F9B8C2005DC344 /* Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADFA421F9B8C2005DC344 /* Skin.swift */; };
+		20CC4E71220AD951002A4AA0 /* GradientTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CC4E70220AD951002A4AA0 /* GradientTop.swift */; };
+		20CC4E73220AD959002A4AA0 /* GradientLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CC4E72220AD959002A4AA0 /* GradientLeft.swift */; };
 		20CD59BD21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20CD59BE21E0CD6B00ADF8BC /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CD59BC21E0CD6B00ADF8BC /* Clean.swift */; };
 		20DBB0BB21EB5DB3009B9AAA /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */; };
@@ -275,6 +277,8 @@
 		20CADF9D21F99B8A005DC344 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		20CADF9F21F9B1F1005DC344 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		20CADFA421F9B8C2005DC344 /* Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skin.swift; sourceTree = "<group>"; };
+		20CC4E70220AD951002A4AA0 /* GradientTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientTop.swift; sourceTree = "<group>"; };
+		20CC4E72220AD959002A4AA0 /* GradientLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLeft.swift; sourceTree = "<group>"; };
 		20CD59BC21E0CD6B00ADF8BC /* Clean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clean.swift; sourceTree = "<group>"; };
 		20DBB0B921EB5D7F009B9AAA /* iOSWidget.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = iOSWidget.plist; sourceTree = "<group>"; };
 		20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
@@ -520,45 +524,47 @@
 		DAB2708921C3CA87008F184E /* Mac */ = {
 			isa = PBXGroup;
 			children = (
-				DA7C744321C3E1C000B1F931 /* View.swift */,
-				20EA9623220AC2ED003CCC93 /* Menu.swift */,
-				20EA9627220AC844003CCC93 /* Toolbar.swift */,
-				20CADFA421F9B8C2005DC344 /* Skin.swift */,
-				20804BBC21E5E6470035535D /* Alert.swift */,
-				202D692621E230EC009398AB /* SheetView.swift */,
-				DA4C2AC421D4F4CB004988B4 /* Progress.swift */,
-				20531BFC2202ED1A00D6551C /* Search.swift */,
-				DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */,
-				205BE61222072B820020817A /* Canvas.swift */,
-				20EA9625220AC6BF003CCC93 /* List.swift */,
-				DAFA95FC21CBDAAD00BA265C /* ItemView.swift */,
-				DAFA95FE21CBDC2C00BA265C /* CreateView.swift */,
-				DA86AB3E21D0F884007DFFEE /* EditView.swift */,
-				DA86474421C3FDE500E4957B /* ColumnView.swift */,
-				DA982ED821CD10540085480B /* CardView.swift */,
-				DA7FD2CF21C40AB500F366B9 /* BoardView.swift */,
-				DAC2CDBF21C8E2F000AD927B /* NewView.swift */,
-				DA4C2AC621D5098A004988B4 /* ChartView.swift */,
-				DA1544E221D2752600B9D9F7 /* DeleteView.swift */,
-				202D692821E231EF009398AB /* ExportView.swift */,
-				204B68FD21E338B10025261E /* ImportView.swift */,
-				20CADF9D21F99B8A005DC344 /* SettingsView.swift */,
-				202D0CF221EB3ED2002B2181 /* HelpView.swift */,
-				204B68FF21E347200025261E /* DropView.swift */,
-				DA16E00021CE8AFF00D21C7A /* TextView.swift */,
-				DA6A986B21CEA70000C18C7F /* TextLayout.swift */,
-				DA53930F21D2CB6F00482FCA /* TextStorage.swift */,
-				DA86474621C401DF00E4957B /* NSFont.swift */,
-				DA2B491621C9187B00BABE86 /* NSColor.swift */,
-				2061170A21FC9BA2007A2C84 /* WidgetView.swift */,
+				DAB2708E21C3CA87008F184E /* Mac.entitlements */,
+				2061170C21FC9BC0007A2C84 /* MacWidget.entitlements */,
 				2088914C220746DC00E8ABD6 /* Config.json */,
-				DAB2708A21C3CA87008F184E /* Localizable.strings */,
-				DAB2708D21C3CA87008F184E /* Mac.storyboard */,
 				DAB2708F21C3CA87008F184E /* Mac.plist */,
 				2061170D21FC9BC0007A2C84 /* MacWidget.plist */,
-				2061170C21FC9BC0007A2C84 /* MacWidget.entitlements */,
-				DAB2708E21C3CA87008F184E /* Mac.entitlements */,
+				DAB2708D21C3CA87008F184E /* Mac.storyboard */,
+				20804BBC21E5E6470035535D /* Alert.swift */,
+				DA7FD2CF21C40AB500F366B9 /* BoardView.swift */,
+				205BE61222072B820020817A /* Canvas.swift */,
+				DA982ED821CD10540085480B /* CardView.swift */,
+				DA4C2AC621D5098A004988B4 /* ChartView.swift */,
+				DA86474421C3FDE500E4957B /* ColumnView.swift */,
+				DAFA95FE21CBDC2C00BA265C /* CreateView.swift */,
+				DA1544E221D2752600B9D9F7 /* DeleteView.swift */,
+				204B68FF21E347200025261E /* DropView.swift */,
+				DA86AB3E21D0F884007DFFEE /* EditView.swift */,
+				202D692821E231EF009398AB /* ExportView.swift */,
+				20CC4E70220AD951002A4AA0 /* GradientTop.swift */,
+				20CC4E72220AD959002A4AA0 /* GradientLeft.swift */,
+				202D0CF221EB3ED2002B2181 /* HelpView.swift */,
+				204B68FD21E338B10025261E /* ImportView.swift */,
+				DAFA95FC21CBDAAD00BA265C /* ItemView.swift */,
+				20EA9625220AC6BF003CCC93 /* List.swift */,
+				20EA9623220AC2ED003CCC93 /* Menu.swift */,
+				DAC2CDBF21C8E2F000AD927B /* NewView.swift */,
+				DA2B491621C9187B00BABE86 /* NSColor.swift */,
+				DA86474621C401DF00E4957B /* NSFont.swift */,
+				DA4C2AC421D4F4CB004988B4 /* Progress.swift */,
+				DA1ABDA821C9AFD500CE1462 /* ScrollView.swift */,
+				20531BFC2202ED1A00D6551C /* Search.swift */,
+				20CADF9D21F99B8A005DC344 /* SettingsView.swift */,
+				202D692621E230EC009398AB /* SheetView.swift */,
+				20CADFA421F9B8C2005DC344 /* Skin.swift */,
+				DA6A986B21CEA70000C18C7F /* TextLayout.swift */,
+				DA53930F21D2CB6F00482FCA /* TextStorage.swift */,
+				DA16E00021CE8AFF00D21C7A /* TextView.swift */,
+				20EA9627220AC844003CCC93 /* Toolbar.swift */,
+				DA7C744321C3E1C000B1F931 /* View.swift */,
+				2061170A21FC9BA2007A2C84 /* WidgetView.swift */,
 				DAB2708C21C3CA87008F184E /* Assets.xcassets */,
+				DAB2708A21C3CA87008F184E /* Localizable.strings */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -1018,12 +1024,14 @@
 				DA86AB3F21D0F884007DFFEE /* EditView.swift in Sources */,
 				20EA9628220AC844003CCC93 /* Toolbar.swift in Sources */,
 				DA86474521C3FDE500E4957B /* ColumnView.swift in Sources */,
+				20CC4E73220AD959002A4AA0 /* GradientLeft.swift in Sources */,
 				DA16E00121CE8AFF00D21C7A /* TextView.swift in Sources */,
 				DA4C2AC721D5098A004988B4 /* ChartView.swift in Sources */,
 				204B690021E347200025261E /* DropView.swift in Sources */,
 				DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */,
 				20531BFD2202ED1A00D6551C /* Search.swift in Sources */,
 				DA2B491721C9187B00BABE86 /* NSColor.swift in Sources */,
+				20CC4E71220AD951002A4AA0 /* GradientTop.swift in Sources */,
 				20804BBD21E5E6470035535D /* Alert.swift in Sources */,
 				DAFA95FD21CBDAAD00BA265C /* ItemView.swift in Sources */,
 				DA982ED921CD10540085480B /* CardView.swift in Sources */,

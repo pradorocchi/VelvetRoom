@@ -1,6 +1,7 @@
 import Foundation
 
 public class Repository {
+    public static let shared = Repository()
     static let queue = DispatchQueue(label:String(), qos:.background, target:.global(qos:.background))
     public var list:(([Board]) -> Void)!
     public var select:((Board) -> Void)!
@@ -12,8 +13,6 @@ public class Repository {
     var group:Group = WidgetGroup()
     var wait = 1.0
     private let timer = DispatchSource.makeTimerSource(queue:.global(qos:.background))
-    
-    public init() { }
     
     public func load() {
         timer.resume()

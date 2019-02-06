@@ -2,6 +2,14 @@ import AppKit
 
 class Toolbar:NSToolbar {
     static private(set) weak var shared:Toolbar!
+    
+    var extended = false { willSet {
+        delete.isEnabled = newValue
+        search.isEnabled = newValue
+        export.isEnabled = newValue
+        chart.isEnabled = newValue
+    } }
+    
     @IBOutlet private(set) weak var list:NSButton!
     @IBOutlet private weak var search:NSButton!
     @IBOutlet private weak var delete:NSButton!

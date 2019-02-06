@@ -3,10 +3,15 @@ import VelvetRoom
 
 struct Skin {
     static var shared = Skin() { didSet {
-        DispatchQueue.main.async { NotificationCenter.default.post(name:.init("skin"), object:nil) } } }
+        DispatchQueue.main.async { NotificationCenter.default.post(name:name, object:nil) } } }
+    private static let name = Notification.Name("skin")
     
     static func add(_ observer:Any, selector:Selector) {
-        NotificationCenter.default.addObserver(observer, selector:selector, name:.init("skin"), object:nil)
+        NotificationCenter.default.addObserver(observer, selector:selector, name:Skin.name, object:nil)
+    }
+    
+    static func update(_ account:Account) {
+        update(account.appearance, font:account.font)
     }
     
     static func update(_ appearance:Appearance, font:Int) {
