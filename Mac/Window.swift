@@ -64,16 +64,16 @@ import VelvetRoom
         
         search.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
         search.bottom = search.bottomAnchor.constraint(equalTo:contentView!.topAnchor)
-        
         contentView!.layoutSubtreeIfNeeded()
+        
         Repository.shared.error = { Alert.shared.add($0) }
         Skin.add(self, selector:#selector(updateSkin))
         DispatchQueue.main.async {
-            self.updateSkin()
+//            Skin.post()
             List.shared.toggle()
             DispatchQueue.global(qos:.background).async {
                 Repository.shared.load()
-                Skin.update()
+//                Skin.update()
             }
         }
     }

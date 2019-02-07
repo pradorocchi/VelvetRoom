@@ -2,9 +2,12 @@ import AppKit
 import VelvetRoom
 
 struct Skin {
-    static var shared = Skin() { didSet {
-        DispatchQueue.main.async { NotificationCenter.default.post(name:name, object:nil) } } }
+    static var shared = Skin() { didSet { DispatchQueue.main.async { post() } } }
     private static let name = Notification.Name("skin")
+    
+    static func post() {
+        NotificationCenter.default.post(name:name, object:nil)
+    }
     
     static func add(_ observer:Any, selector:Selector) {
         NotificationCenter.default.addObserver(observer, selector:selector, name:Skin.name, object:nil)
