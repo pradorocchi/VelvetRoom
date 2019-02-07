@@ -97,7 +97,7 @@
 		DA7C743821C3DE9800B1F931 /* SFMono-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743121C3DE9800B1F931 /* SFMono-Light.otf */; };
 		DA7C743921C3DE9800B1F931 /* SFMono-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743221C3DE9800B1F931 /* SFMono-Bold.otf */; };
 		DA7C743A21C3DE9800B1F931 /* SFMono-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743221C3DE9800B1F931 /* SFMono-Bold.otf */; };
-		DA7C744421C3E1C000B1F931 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C744321C3E1C000B1F931 /* View.swift */; };
+		DA7C744421C3E1C000B1F931 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C744321C3E1C000B1F931 /* Window.swift */; };
 		DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FD2CF21C40AB500F366B9 /* BoardView.swift */; };
 		DA86474521C3FDE500E4957B /* ColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86474421C3FDE500E4957B /* ColumnView.swift */; };
 		DA86474721C401DF00E4957B /* NSFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86474621C401DF00E4957B /* NSFont.swift */; };
@@ -312,7 +312,7 @@
 		DA7B2AED21C67DBE003B7333 /* TestTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTemplate.swift; sourceTree = "<group>"; };
 		DA7C743121C3DE9800B1F931 /* SFMono-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-Light.otf"; sourceTree = "<group>"; };
 		DA7C743221C3DE9800B1F931 /* SFMono-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-Bold.otf"; sourceTree = "<group>"; };
-		DA7C744321C3E1C000B1F931 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		DA7C744321C3E1C000B1F931 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		DA7FD2CF21C40AB500F366B9 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		DA86474421C3FDE500E4957B /* ColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnView.swift; sourceTree = "<group>"; };
 		DA86474621C401DF00E4957B /* NSFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSFont.swift; sourceTree = "<group>"; };
@@ -541,8 +541,8 @@
 				204B68FF21E347200025261E /* DropView.swift */,
 				DA86AB3E21D0F884007DFFEE /* EditView.swift */,
 				202D692821E231EF009398AB /* ExportView.swift */,
-				20CC4E70220AD951002A4AA0 /* GradientTop.swift */,
 				20CC4E72220AD959002A4AA0 /* GradientLeft.swift */,
+				20CC4E70220AD951002A4AA0 /* GradientTop.swift */,
 				202D0CF221EB3ED2002B2181 /* HelpView.swift */,
 				204B68FD21E338B10025261E /* ImportView.swift */,
 				DAFA95FC21CBDAAD00BA265C /* ItemView.swift */,
@@ -561,8 +561,8 @@
 				DA53930F21D2CB6F00482FCA /* TextStorage.swift */,
 				DA16E00021CE8AFF00D21C7A /* TextView.swift */,
 				20EA9627220AC844003CCC93 /* Toolbar.swift */,
-				DA7C744321C3E1C000B1F931 /* View.swift */,
 				2061170A21FC9BA2007A2C84 /* WidgetView.swift */,
+				DA7C744321C3E1C000B1F931 /* Window.swift */,
 				DAB2708C21C3CA87008F184E /* Assets.xcassets */,
 				DAB2708A21C3CA87008F184E /* Localizable.strings */,
 			);
@@ -1036,7 +1036,7 @@
 				DAFA95FD21CBDAAD00BA265C /* ItemView.swift in Sources */,
 				DA982ED921CD10540085480B /* CardView.swift in Sources */,
 				20CADFA521F9B8C2005DC344 /* Skin.swift in Sources */,
-				DA7C744421C3E1C000B1F931 /* View.swift in Sources */,
+				DA7C744421C3E1C000B1F931 /* Window.swift in Sources */,
 				DA86474721C401DF00E4957B /* NSFont.swift in Sources */,
 				20EA9624220AC2ED003CCC93 /* Menu.swift in Sources */,
 				DAC2CDC321C8EDA700AD927B /* String.swift in Sources */,

@@ -2,9 +2,9 @@ import AppKit
 
 class Search:NSView, NSTextViewDelegate {
     static let shared = Search()
+    weak var bottom:NSLayoutConstraint! { didSet { bottom.isActive = true } }
     private(set) weak var text:TextView!
     private(set) weak var highlighter:NSView?
-    private weak var bottom:NSLayoutConstraint!
     
     private init() {
         super.init(frame:.zero)
@@ -58,13 +58,6 @@ class Search:NSView, NSTextViewDelegate {
     }
     
     required init?(coder:NSCoder) { return nil }
-    
-    override func viewDidMoveToSuperview() {
-        super.viewDidMoveToSuperview()
-        centerXAnchor.constraint(equalTo:superview!.centerXAnchor).isActive = true
-        bottom = bottomAnchor.constraint(equalTo:superview!.topAnchor)
-        bottom.isActive = true
-    }
     
     func textDidEndEditing(_:Notification) {
         unactive()

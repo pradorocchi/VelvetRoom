@@ -23,14 +23,6 @@ class Progress:NSView {
     
     required init?(coder:NSCoder) { return nil }
     
-    override func viewDidMoveToSuperview() {
-        super.viewDidMoveToSuperview()
-        leftAnchor.constraint(equalTo:superview!.leftAnchor, constant:80).isActive = true
-        rightAnchor.constraint(equalTo:superview!.rightAnchor, constant:-272).isActive = true
-        topAnchor.constraint(equalTo:superview!.topAnchor, constant:10).isActive = true
-        heightAnchor.constraint(equalToConstant:18).isActive = true
-    }
-    
     func update() {
         guard let items = List.shared.current?.board.chart.compactMap({ $0.1 > 0 ? $0.1 : nil }) else { return }
         while items.count < views.count { views.removeLast().removeFromSuperview() }

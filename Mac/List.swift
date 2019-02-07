@@ -3,8 +3,8 @@ import VelvetRoom
 
 class List:ScrollView {
     static let shared = List()
+    weak var left:NSLayoutConstraint! { didSet { left.isActive = true } }
     var current:BoardView? { return documentView!.subviews.first(where:{ ($0 as! BoardView).selected }) as? BoardView }
-    private(set) weak var left:NSLayoutConstraint!
     private(set) var visible = false
     
     private override init() {
@@ -14,15 +14,6 @@ class List:ScrollView {
     }
     
     required init?(coder:NSCoder) { return nil }
-    
-    override func viewDidMoveToSuperview() {
-        super.viewDidMoveToSuperview()
-        widthAnchor.constraint(equalToConstant:250).isActive = true
-        topAnchor.constraint(equalTo:superview!.topAnchor).isActive = true
-        bottomAnchor.constraint(equalTo:superview!.bottomAnchor).isActive = true
-        left = leftAnchor.constraint(equalTo:superview!.leftAnchor, constant:-280)
-        left.isActive = true
-    }
     
     func scheduleUpdate(_ board:Board? = nil) {
         DispatchQueue.global(qos:.background).async {
