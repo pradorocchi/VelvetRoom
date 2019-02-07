@@ -2,6 +2,8 @@ import AppKit
 import VelvetRoom
 
 @NSApplicationMain class Window:NSWindow, NSApplicationDelegate, NSWindowDelegate {
+    private weak var splash:Splash?
+    
     deinit { NotificationCenter.default.removeObserver(self) }
     
     func applicationShouldTerminateAfterLastWindowClosed(_:NSApplication) -> Bool { return true }
@@ -22,6 +24,14 @@ import VelvetRoom
     override func awakeFromNib() {
         super.awakeFromNib()
         UserDefaults.standard.set(false, forKey:"NSFullScreenMenuItemEverywhere")
+        
+        let splash = Splash()
+        contentView!.addSubview(splash)
+        
+        splash.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
+        splash.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
+        splash.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
+        splash.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
         
         let canvas = Canvas.shared
         let list = List.shared
@@ -70,9 +80,9 @@ import VelvetRoom
         Skin.add(self, selector:#selector(updateSkin))
         DispatchQueue.main.async {
 //            Skin.post()
-            List.shared.toggle()
+//            List.shared.toggle()
             DispatchQueue.global(qos:.background).async {
-                Repository.shared.load()
+//                Repository.shared.load()
 //                Skin.update()
             }
         }

@@ -10,11 +10,11 @@
         <scene sceneID="JPo-4y-FX3">
             <objects>
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
-                    <menu key="mainMenu" title="Menu" systemMenu="main" showsStateColumn="NO" autoenablesItems="NO" id="AYu-sK-qS6" customClass="Menu" customModule="Velvet_Room" customModuleProvider="target">
+                    <menu key="mainMenu" title="Menu" systemMenu="main" autoenablesItems="NO" id="AYu-sK-qS6" customClass="Menu" customModule="Velvet_Room" customModuleProvider="target">
                         <items>
                             <menuItem title="Velvet Room" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Velvet Room" systemMenu="apple" showsStateColumn="NO" autoenablesItems="NO" id="uQy-DD-JDr">
+                                <menu key="submenu" title="Velvet Room" systemMenu="apple" autoenablesItems="NO" id="uQy-DD-JDr">
                                     <items>
                                         <menuItem title="About" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -51,7 +51,7 @@
                             </menuItem>
                             <menuItem title="New" id="3xg-wh-qCO">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="New" showsStateColumn="NO" autoenablesItems="NO" id="Stp-rE-7IO">
+                                <menu key="submenu" title="New" autoenablesItems="NO" id="Stp-rE-7IO">
                                     <items>
                                         <menuItem title="Board" keyEquivalent="n" id="Gg7-f9-jBs"/>
                                         <menuItem title="Column" enabled="NO" keyEquivalent="M" id="kR1-Ch-sCA"/>
@@ -61,7 +61,7 @@
                             </menuItem>
                             <menuItem title="Edit" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Edit" showsStateColumn="NO" autoenablesItems="NO" id="W48-6f-4Dl">
+                                <menu key="submenu" title="Edit" autoenablesItems="NO" id="W48-6f-4Dl">
                                     <items>
                                         <menuItem title="Undo" keyEquivalent="z" id="dRJ-4n-Yzg">
                                             <connections>
@@ -237,7 +237,7 @@
                             </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Window" systemMenu="window" showsStateColumn="NO" autoenablesItems="NO" id="Td7-aD-5lo">
+                                <menu key="submenu" title="Window" systemMenu="window" autoenablesItems="NO" id="Td7-aD-5lo">
                                     <items>
                                         <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV">
                                             <connections>
@@ -264,7 +264,7 @@
                             </menuItem>
                             <menuItem title="Help" id="wpr-3q-Mcd">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Help" systemMenu="help" showsStateColumn="NO" autoenablesItems="NO" id="F2S-fz-NVQ">
+                                <menu key="submenu" title="Help" systemMenu="help" autoenablesItems="NO" id="F2S-fz-NVQ">
                                     <items>
                                         <menuItem title="Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
@@ -304,12 +304,12 @@
                         <value key="minSize" type="size" width="350" height="200"/>
                         <toolbar key="toolbar" implicitIdentifier="0EF9E741-92DF-4035-BE2B-BFA6AA2034CD" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="small" id="ert-1v-Elu" customClass="Toolbar" customModule="Velvet_Room" customModuleProvider="target">
                             <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="D2276672-4A5C-43DF-A158-35DA6E6D7C4A" label="New" paletteLabel="New" image="new" sizingBehavior="auto" id="0K5-pA-w2U">
+                                <toolbarItem implicitItemIdentifier="D2276672-4A5C-43DF-A158-35DA6E6D7C4A" label="New" paletteLabel="New" image="new" sizingBehavior="auto" autovalidates="NO" id="0K5-pA-w2U">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="4U0-1M-3QA">
                                         <rect key="frame" x="4" y="14" width="24" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="new" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="QLx-xz-5aq">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="new" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" inset="2" id="QLx-xz-5aq">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                             <string key="keyEquivalent">n</string>
@@ -317,7 +317,7 @@
                                         </buttonCell>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="6632A0DE-5D88-4A1A-B7D6-CFF62DF9CB28" label="Delete" paletteLabel="Delete" image="delete" sizingBehavior="auto" id="kcB-kf-DEw">
+                                <toolbarItem implicitItemIdentifier="6632A0DE-5D88-4A1A-B7D6-CFF62DF9CB28" label="Delete" paletteLabel="Delete" image="delete" sizingBehavior="auto" autovalidates="NO" id="kcB-kf-DEw">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="g3I-fJ-Wch">
                                         <rect key="frame" x="9" y="14" width="24" height="25"/>
@@ -331,18 +331,18 @@
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="KZI-1n-q2z" userLabel="Flex"/>
-                                <toolbarItem implicitItemIdentifier="56E71E3B-60A1-4A9A-84F4-D5B88BD98297" label="List" paletteLabel="List" image="listOff" sizingBehavior="auto" id="1qu-sh-P4N">
+                                <toolbarItem implicitItemIdentifier="56E71E3B-60A1-4A9A-84F4-D5B88BD98297" label="List" paletteLabel="List" image="listOff" sizingBehavior="auto" autovalidates="NO" id="1qu-sh-P4N">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="6hB-Rg-9L8">
                                         <rect key="frame" x="1" y="14" width="24" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" title="Textured Rounded" bezelStyle="texturedRounded" image="listOff" imagePosition="only" alignment="center" alternateImage="listOn" lineBreakMode="truncatingTail" state="on" inset="2" id="n6h-l0-3Ia">
+                                        <buttonCell key="cell" type="roundTextured" title="Textured Rounded" bezelStyle="texturedRounded" image="listOff" imagePosition="only" alignment="center" alternateImage="listOn" lineBreakMode="truncatingTail" enabled="NO" state="on" inset="2" id="n6h-l0-3Ia">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="54741872-1325-41DF-8375-6D7A66039348" label="Export" paletteLabel="Export" image="export" sizingBehavior="auto" id="MIW-Tn-3Vo">
+                                <toolbarItem implicitItemIdentifier="54741872-1325-41DF-8375-6D7A66039348" label="Export" paletteLabel="Export" image="export" sizingBehavior="auto" autovalidates="NO" id="MIW-Tn-3Vo">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="tts-xe-5IT">
                                         <rect key="frame" x="9" y="14" width="24" height="25"/>
@@ -353,12 +353,12 @@
                                         </buttonCell>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="8851677E-4D65-4FDE-AA76-74601A619674" label="Import" paletteLabel="Import" image="import" sizingBehavior="auto" id="LuM-kZ-gHJ">
+                                <toolbarItem implicitItemIdentifier="8851677E-4D65-4FDE-AA76-74601A619674" label="Import" paletteLabel="Import" image="import" sizingBehavior="auto" autovalidates="NO" id="LuM-kZ-gHJ">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="gAR-ED-JIt">
                                         <rect key="frame" x="9" y="14" width="24" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="import" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="r8d-BK-bJh">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="import" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" inset="2" id="r8d-BK-bJh">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -367,12 +367,12 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="C78E4529-F59D-41DF-BBAD-9F2D1CD392CD" label="Settings" paletteLabel="Settings" image="settings" sizingBehavior="auto" id="xHm-7f-PLM">
+                                <toolbarItem implicitItemIdentifier="C78E4529-F59D-41DF-BBAD-9F2D1CD392CD" label="Settings" paletteLabel="Settings" image="settings" sizingBehavior="auto" autovalidates="NO" id="xHm-7f-PLM">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="Awu-tS-LkZ">
                                         <rect key="frame" x="14" y="14" width="24" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="settings" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="Wf7-Dw-rsD">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="settings" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" inset="2" id="Wf7-Dw-rsD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -381,23 +381,23 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="3EAB42FE-63FA-4F5D-BBE8-3330E89EE6D9" label="Chart" paletteLabel="Chart" image="chart" sizingBehavior="auto" id="ZFe-Og-caU">
+                                <toolbarItem implicitItemIdentifier="3EAB42FE-63FA-4F5D-BBE8-3330E89EE6D9" label="Chart" paletteLabel="Chart" image="chart" sizingBehavior="auto" autovalidates="NO" id="ZFe-Og-caU">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="adc-78-Mft">
                                         <rect key="frame" x="7" y="14" width="24" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="chart" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="uVu-eP-4dV">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="chart" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" inset="2" id="uVu-eP-4dV">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="E5603EC3-221D-4354-B988-2E1716D8F75C" label="Search" paletteLabel="Search" image="search" sizingBehavior="auto" id="Kmn-p4-Lr1">
+                                <toolbarItem implicitItemIdentifier="E5603EC3-221D-4354-B988-2E1716D8F75C" label="Search" paletteLabel="Search" image="search" sizingBehavior="auto" autovalidates="NO" id="Kmn-p4-Lr1">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="lqS-jY-oGD">
                                         <rect key="frame" x="10" y="14" width="24" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="search" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="ddr-y7-CRn">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="search" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" inset="2" id="ddr-y7-CRn">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                             <string key="keyEquivalent">f</string>
@@ -448,7 +448,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="408" y="993"/>
+            <point key="canvasLocation" x="322" y="1189"/>
         </scene>
     </scenes>
     <resources>
