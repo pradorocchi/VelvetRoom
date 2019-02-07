@@ -15,6 +15,15 @@ class List:ScrollView {
     
     required init?(coder:NSCoder) { return nil }
     
+    override func viewDidMoveToSuperview() {
+        super.viewDidMoveToSuperview()
+        widthAnchor.constraint(equalToConstant:250).isActive = true
+        topAnchor.constraint(equalTo:superview!.topAnchor).isActive = true
+        bottomAnchor.constraint(equalTo:superview!.bottomAnchor).isActive = true
+        left = leftAnchor.constraint(equalTo:superview!.leftAnchor, constant:-280)
+        left.isActive = true
+    }
+    
     func scheduleUpdate(_ board:Board? = nil) {
         DispatchQueue.global(qos:.background).async {
             if let board = board ?? self.current?.board {

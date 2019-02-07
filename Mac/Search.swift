@@ -61,6 +61,7 @@ class Search:NSView, NSTextViewDelegate {
     
     override func viewDidMoveToSuperview() {
         super.viewDidMoveToSuperview()
+        centerXAnchor.constraint(equalTo:superview!.centerXAnchor).isActive = true
         bottom = bottomAnchor.constraint(equalTo:superview!.topAnchor)
         bottom.isActive = true
     }

@@ -18,6 +18,14 @@ class Canvas:ScrollView {
     
     required init?(coder:NSCoder) { return nil }
     
+    override func viewDidMoveToSuperview() {
+        super.viewDidMoveToSuperview()
+        topAnchor.constraint(equalTo:superview!.topAnchor).isActive = true
+        leftAnchor.constraint(equalTo:List.shared.leftAnchor).isActive = true
+        rightAnchor.constraint(equalTo:superview!.rightAnchor, constant:-1).isActive = true
+        bottomAnchor.constraint(equalTo:superview!.bottomAnchor, constant:-1).isActive = true
+    }
+    
     override func mouseDown(with:NSEvent) {
         if dragging == nil,
             let view = owner(with),

@@ -15,6 +15,14 @@ class GradientLeft:NSView {
     
     required init?(coder:NSCoder) { return nil }
     
+    override func viewDidMoveToSuperview() {
+        super.viewDidMoveToSuperview()
+        topAnchor.constraint(equalTo:superview!.topAnchor).isActive = true
+        bottomAnchor.constraint(equalTo:superview!.bottomAnchor).isActive = true
+        leftAnchor.constraint(equalTo:List.shared.leftAnchor).isActive = true
+        widthAnchor.constraint(equalToConstant:320).isActive = true
+    }
+    
     @objc private func updateSkin() {
         (layer as! CAGradientLayer).colors = [
             Skin.shared.background.cgColor,

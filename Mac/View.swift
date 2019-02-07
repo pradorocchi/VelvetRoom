@@ -29,34 +29,7 @@ import VelvetRoom
         contentView!.addSubview(GradientTop())
         contentView!.addSubview(Progress.shared)
         contentView!.addSubview(Search.shared)
-        /*
-         gradientTop.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
-         gradientTop.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
-         gradientTop.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
-         gradientTop.heightAnchor.constraint(equalToConstant:72).isActive = true
-         
-         gradientLeft.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
-         gradientLeft.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
-         gradientLeft.leftAnchor.constraint(equalTo:list.leftAnchor).isActive = true
-         gradientLeft.widthAnchor.constraint(equalToConstant:320).isActive = true
-         
-         list.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
-         list.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
-         list.widthAnchor.constraint(equalToConstant:250).isActive = true
-         listLeft = list.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:-280)
-         listLeft.isActive = true
-         
-         progress.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:80).isActive = true
-         progress.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-272).isActive = true
-         progress.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:10).isActive = true
-         
-         canvas.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
-         canvas.leftAnchor.constraint(equalTo:list.leftAnchor).isActive = true
-         canvas.rightAnchor.constraint(equalTo:contentView!.rightAnchor, constant:-1).isActive = true
-         canvas.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-1).isActive = true
-         
-         search.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
-         */
+ 
         contentView!.layoutSubtreeIfNeeded()
         Repository.shared.error = { Alert.shared.add($0) }
         Skin.add(self, selector:#selector(updateSkin))
