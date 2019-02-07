@@ -1,3 +1,4 @@
+Splash.button="Start";
 List.hide="Hide list";
 List.show="Show list";
 NewView.title="New board";

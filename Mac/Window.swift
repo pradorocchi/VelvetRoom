@@ -33,6 +33,19 @@ import VelvetRoom
         splash.leftAnchor.constraint(equalTo:contentView!.leftAnchor).isActive = true
         splash.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
         
+        Repository.shared.error = { Alert.shared.add($0) }
+        Skin.add(self, selector:#selector(updateSkin))
+        DispatchQueue.main.async {
+//            Skin.post()
+//            List.shared.toggle()
+            DispatchQueue.global(qos:.background).async {
+//                Repository.shared.load()
+//                Skin.update()
+            }
+        }
+    }
+    
+    private func outlets() {
         let canvas = Canvas.shared
         let list = List.shared
         let progress = Progress.shared
@@ -75,26 +88,10 @@ import VelvetRoom
         search.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
         search.bottom = search.bottomAnchor.constraint(equalTo:contentView!.topAnchor)
         contentView!.layoutSubtreeIfNeeded()
-        
-        Repository.shared.error = { Alert.shared.add($0) }
-        Skin.add(self, selector:#selector(updateSkin))
-        DispatchQueue.main.async {
-//            Skin.post()
-//            List.shared.toggle()
-            DispatchQueue.global(qos:.background).async {
-//                Repository.shared.load()
-//                Skin.update()
-            }
-        }
     }
     
     @objc private func updateSkin() {
         backgroundColor = Skin.shared.background
-    }
-    
-    @IBAction private func play(_ sender:Any) {
-        makeFirstResponder(nil)
-        beginSheet(ChartView(List.shared.current!.board))
     }
     
     @IBAction private func newDocument(_ sender:Any) {

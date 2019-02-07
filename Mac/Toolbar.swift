@@ -25,4 +25,14 @@ class Toolbar:NSToolbar {
         list.target = List.shared
         list.action = #selector(List.shared.toggle)
     }
+    
+    @objc func newBoard() {
+        NSApp.mainWindow!.makeFirstResponder(nil)
+        NSApp.mainWindow!.beginSheet(NewView())
+    }
+    
+    @objc func openChart() {
+        NSApp.mainWindow!.makeFirstResponder(nil)
+        NSApp.mainWindow!.beginSheet(ChartView(List.shared.current!.board))
+    }
 }
