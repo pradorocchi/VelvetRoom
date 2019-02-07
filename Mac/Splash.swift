@@ -33,7 +33,6 @@ class Splash:NSView {
         
         image.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         image.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
-        showButton()
         center()
     }
     
@@ -55,7 +54,6 @@ class Splash:NSView {
     }
     
     private func center() {
-        emitter.emitterPosition = CGPoint(x:NSApp.windows.first!.frame.width / 2,
-                                          y:NSApp.windows.first!.frame.height / 2)
+        emitter.emitterPosition = CGPoint(x:Window.shared.frame.width / 2, y:Window.shared.frame.height / 2)
     }
 }

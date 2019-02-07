@@ -4,8 +4,8 @@ class SheetView:NSWindow {
     override var canBecomeKey:Bool { return true }
     
     init() {
-        super.init(contentRect:NSRect(x:0, y:0, width:NSApp.mainWindow!.frame.width - 2, height:
-            NSApp.mainWindow!.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
+        super.init(contentRect:NSRect(x:0, y:0, width:Window.shared.frame.width - 2, height:
+            Window.shared.frame.height - 2), styleMask:[], backing:.buffered, defer:false)
         isOpaque = false
         backgroundColor = .clear
         contentView!.wantsLayer = true
@@ -25,7 +25,7 @@ class SheetView:NSWindow {
     
     @objc func end() {
         makeFirstResponder(nil)
-        NSApp.mainWindow!.endSheet(self)
+        Window.shared.endSheet(self)
     }
     
     @objc private func terminate() {

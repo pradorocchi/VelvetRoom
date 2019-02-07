@@ -16,7 +16,7 @@ class CardView:EditView {
     override func textDidEndEditing(_ notification:Notification) {
         card.content = text.string
         if card.content.isEmpty {
-            NSApp.mainWindow!.makeFirstResponder(nil)
+            Window.shared.makeFirstResponder(nil)
             confirmDelete()
         } else {
             text.string = card.content

@@ -54,6 +54,7 @@ class List:ScrollView {
     }
     
     private func render(_ boards:[Board]) {
+        Window.shared.removeSplash()
         current?.selected = false
         Repository.shared.fireSchedule()
         Toolbar.shared.extended = false
@@ -76,7 +77,7 @@ class List:ScrollView {
     }
     
     @objc private func makeCurrent(_ view:BoardView) {
-        NSApp.mainWindow!.makeFirstResponder(nil)
+        Window.shared.makeFirstResponder(nil)
         view.selected = true
         Canvas.shared.display(view.board)
         Toolbar.shared.extended = true

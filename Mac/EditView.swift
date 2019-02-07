@@ -35,7 +35,7 @@ class EditView:ItemView, NSTextViewDelegate {
     
     func beginEditing() {
         text.isEditable = true
-        NSApp.mainWindow!.makeFirstResponder(text)
+        Window.shared.makeFirstResponder(text)
     }
     
     func beginDrag() {

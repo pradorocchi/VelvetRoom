@@ -3,6 +3,7 @@ import AppKit
 class GradientLeft:NSView {
     init() {
         super.init(frame:.zero)
+        alphaValue = 0
         translatesAutoresizingMaskIntoConstraints = false
         layer = CAGradientLayer()
         (layer as! CAGradientLayer).startPoint = CGPoint(x:0.5, y:0)

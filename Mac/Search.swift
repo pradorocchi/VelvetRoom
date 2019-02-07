@@ -65,7 +65,7 @@ class Search:NSView, NSTextViewDelegate {
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
-            NSApp.mainWindow!.makeFirstResponder(nil)
+            Window.shared.makeFirstResponder(nil)
             return true
         }
         return false
@@ -95,10 +95,10 @@ class Search:NSView, NSTextViewDelegate {
         frame.origin.x -= 10
         frame.size.width += 20
         highlighter!.frame = frame
-        frame.origin.x -= (NSApp.mainWindow!.contentView!.bounds.width - frame.size.width) / 2
-        frame.origin.y -= NSApp.mainWindow!.contentView!.bounds.midY
-        frame.size.width = NSApp.mainWindow!.contentView!.bounds.width
-        frame.size.height = NSApp.mainWindow!.contentView!.bounds.height
+        frame.origin.x -= (Window.shared.contentView!.bounds.width - frame.size.width) / 2
+        frame.origin.y -= Window.shared.contentView!.bounds.midY
+        frame.size.width = Window.shared.contentView!.bounds.width
+        frame.size.height = Window.shared.contentView!.bounds.height
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.4
             context.allowsImplicitAnimation = true
@@ -114,7 +114,7 @@ class Search:NSView, NSTextViewDelegate {
             context.allowsImplicitAnimation = true
             superview!.layoutSubtreeIfNeeded()
         }) {
-            NSApp.mainWindow!.makeFirstResponder(self.text)
+            Window.shared.makeFirstResponder(self.text)
         }
     }
     
@@ -139,6 +139,6 @@ class Search:NSView, NSTextViewDelegate {
     }
     
     @objc private func done() {
-        NSApp.mainWindow!.makeFirstResponder(nil)
+        Window.shared.makeFirstResponder(nil)
     }
 }

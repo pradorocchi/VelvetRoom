@@ -27,12 +27,12 @@ class Toolbar:NSToolbar {
     }
     
     @objc func newBoard() {
-        NSApp.mainWindow!.makeFirstResponder(nil)
-        NSApp.mainWindow!.beginSheet(NewView())
+        Window.shared.makeFirstResponder(nil)
+        Window.shared.beginSheet(NewView())
     }
     
     @objc func openChart() {
-        NSApp.mainWindow!.makeFirstResponder(nil)
-        NSApp.mainWindow!.beginSheet(ChartView(List.shared.current!.board))
+        Window.shared.makeFirstResponder(nil)
+        Window.shared.beginSheet(ChartView(List.shared.current!.board))
     }
 }

@@ -55,6 +55,6 @@ class DeleteView:SheetView {
     
     @objc func delete() {
         onConfirm()
-        NSApp.mainWindow!.endSheet(self)
+        Window.shared.endSheet(self)
     }
 }

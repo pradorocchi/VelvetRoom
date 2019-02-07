@@ -283,11 +283,8 @@
                             <outlet property="list" destination="6i5-27-0d7" id="TNd-Ho-tuk"/>
                         </connections>
                     </menu>
-                    <connections>
-                        <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
-                    </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="Application" customModule="Velvet_Room" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>

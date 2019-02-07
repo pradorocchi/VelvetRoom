@@ -2,6 +2,7 @@ import AppKit
 import VelvetRoom
 
 @NSApplicationMain class Window:NSWindow, NSApplicationDelegate, NSWindowDelegate {
+    static private(set) var shared:Window!
     private weak var splash:Splash?
     
     deinit { NotificationCenter.default.removeObserver(self) }
@@ -23,10 +24,13 @@ import VelvetRoom
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        Window.shared = self
+        NSApp.delegate = self
         UserDefaults.standard.set(false, forKey:"NSFullScreenMenuItemEverywhere")
         
         let splash = Splash()
         contentView!.addSubview(splash)
+        self.splash = splash
         
         splash.topAnchor.constraint(equalTo:contentView!.topAnchor).isActive = true
         splash.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor).isActive = true
@@ -35,13 +39,23 @@ import VelvetRoom
         
         Repository.shared.error = { Alert.shared.add($0) }
         Skin.add(self, selector:#selector(updateSkin))
-        DispatchQueue.main.async {
-//            Skin.post()
-//            List.shared.toggle()
-            DispatchQueue.global(qos:.background).async {
-//                Repository.shared.load()
-//                Skin.update()
+        DispatchQueue.global(qos:.background).async {
+            Repository.shared.load()
+            Skin.update()
+            DispatchQueue.main.async {
+                self.outlets()
             }
+        }
+    }
+    
+    func removeSplash() {
+        guard let splash = self.splash else { return }
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 1
+            context.allowsImplicitAnimation = true
+            splash.alphaValue = 0
+        }) {
+            splash.removeFromSuperview()
         }
     }
     
@@ -53,7 +67,8 @@ import VelvetRoom
         let gradientLeft = GradientLeft()
         let gradientTop = GradientTop()
         
-        contentView!.addSubview(canvas)
+        splash?.showButton()
+        contentView!.addSubview(canvas, positioned:.below, relativeTo:splash)
         contentView!.addSubview(gradientLeft)
         contentView!.addSubview(list)
         contentView!.addSubview(gradientTop)
@@ -87,7 +102,17 @@ import VelvetRoom
         
         search.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
         search.bottom = search.bottomAnchor.constraint(equalTo:contentView!.topAnchor)
+        
         contentView!.layoutSubtreeIfNeeded()
+        
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 1
+            context.allowsImplicitAnimation = true
+            gradientTop.alphaValue = 1
+            gradientLeft.alphaValue = 1
+        }) {
+            List.shared.toggle()
+        }
     }
     
     @objc private func updateSkin() {

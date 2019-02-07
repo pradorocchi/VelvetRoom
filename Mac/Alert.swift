@@ -28,7 +28,7 @@ class Alert {
         view.layer!.backgroundColor = NSColor(red:0.66, green:0.67, blue:0.68, alpha:0.94).cgColor
         view.layer!.cornerRadius = 6
         view.alphaValue = 0
-        NSApp.mainWindow!.contentView!.addSubview(view)
+        Window.shared.contentView!.addSubview(view)
         self.view = view
         
         let message = NSTextField()
@@ -40,9 +40,9 @@ class Alert {
         message.textColor = .black
         view.addSubview(message)
         
-        viewBottom = view.bottomAnchor.constraint(equalTo:NSApp.mainWindow!.contentView!.topAnchor)
-        view.leftAnchor.constraint(equalTo:NSApp.mainWindow!.contentView!.leftAnchor, constant:10).isActive = true
-        view.rightAnchor.constraint(equalTo:NSApp.mainWindow!.contentView!.rightAnchor, constant:-10).isActive = true
+        viewBottom = view.bottomAnchor.constraint(equalTo:Window.shared.contentView!.topAnchor)
+        view.leftAnchor.constraint(equalTo:Window.shared.contentView!.leftAnchor, constant:10).isActive = true
+        view.rightAnchor.constraint(equalTo:Window.shared.contentView!.rightAnchor, constant:-10).isActive = true
         view.heightAnchor.constraint(equalToConstant:60).isActive = true
         viewBottom!.isActive = true
         
@@ -59,13 +59,13 @@ class Alert {
         default: message.stringValue = .local("Alert.unknown")
         }
         
-        NSApp.mainWindow!.contentView!.layoutSubtreeIfNeeded()
+        Window.shared.contentView!.layoutSubtreeIfNeeded()
         viewBottom!.constant = 100
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.6
             context.allowsImplicitAnimation = true
             view.alphaValue = 1
-            NSApp.mainWindow!.contentView!.layoutSubtreeIfNeeded()
+            Window.shared.contentView!.layoutSubtreeIfNeeded()
         }) {
             DispatchQueue.main.asyncAfter(deadline:.now() + 8) { [weak view] in
                 if view != nil && view === self.view {
@@ -81,7 +81,7 @@ class Alert {
             context.duration = 0.6
             context.allowsImplicitAnimation = true
             view?.alphaValue = 0
-            NSApp.mainWindow!.contentView!.layoutSubtreeIfNeeded()
+            Window.shared.contentView!.layoutSubtreeIfNeeded()
         }) {
             self.view?.removeFromSuperview()
             self.pop()

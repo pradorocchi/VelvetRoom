@@ -50,7 +50,7 @@ class BoardView:NSView, NSTextViewDelegate {
     override func mouseDown(with event:NSEvent) {
         if event.clickCount == 2 {
             text.isEditable = true
-            NSApp.mainWindow!.makeFirstResponder(text)
+            Window.shared.makeFirstResponder(text)
             updateSkin()
         } else if !selected {
             perform(selector, with:List.shared)
@@ -58,8 +58,8 @@ class BoardView:NSView, NSTextViewDelegate {
     }
     
     func delete() {
-        NSApp.mainWindow!.makeFirstResponder(nil)
-        NSApp.mainWindow!.beginSheet(DeleteView(.local("DeleteView.board")) { [weak self] in
+        Window.shared.makeFirstResponder(nil)
+        Window.shared.beginSheet(DeleteView(.local("DeleteView.board")) { [weak self] in
             guard let board = self?.board else { return }
             Repository.shared.delete(board)
         })
@@ -78,7 +78,7 @@ class BoardView:NSView, NSTextViewDelegate {
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
-            NSApp.mainWindow!.makeFirstResponder(nil)
+            Window.shared.makeFirstResponder(nil)
             return true
         }
         return false
@@ -88,7 +88,7 @@ class BoardView:NSView, NSTextViewDelegate {
         text.textColor = Skin.shared.text
         date.textColor = Skin.shared.text
         date.stringValue = dateFormatter.string(from:Date(timeIntervalSince1970:board.updated))
-        if NSApp.mainWindow!.firstResponder === text {
+        if Window.shared.firstResponder === text {
             layer!.backgroundColor = .black
             text.textColor = .white
             text.alphaValue = 1

@@ -25,14 +25,14 @@ class Canvas:ScrollView {
             view.beginEditing()
         } else {
             mouseUp(with:with)
-            NSApp.mainWindow!.makeFirstResponder(nil)
+            Window.shared.makeFirstResponder(nil)
         }
     }
     
     override func mouseDragged(with:NSEvent) {
         if dragging == nil {
             guard let view = owner(with) else { return }
-            NSApp.mainWindow!.makeFirstResponder(nil)
+            Window.shared.makeFirstResponder(nil)
             dragging = view
             view.beginDrag()
         } else {

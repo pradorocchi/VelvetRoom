@@ -21,8 +21,8 @@ class ColumnView:EditView {
         column.name = text.string
         text.textColor = Skin.shared.text.withAlphaComponent(0.4)
         if column.name.isEmpty {
-            NSApp.mainWindow!.makeFirstResponder(nil)
-            NSApp.mainWindow!.beginSheet(DeleteView(.local("DeleteView.column")) { [weak self] in
+            Window.shared.makeFirstResponder(nil)
+            Window.shared.beginSheet(DeleteView(.local("DeleteView.column")) { [weak self] in
                 self?.confirmDelete()
             })
         } else {
@@ -81,7 +81,7 @@ class ColumnView:EditView {
     
     func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
         if (command == #selector(NSResponder.insertNewline(_:))) {
-            NSApp.mainWindow!.makeFirstResponder(nil)
+            Window.shared.makeFirstResponder(nil)
             return true
         }
         return false
