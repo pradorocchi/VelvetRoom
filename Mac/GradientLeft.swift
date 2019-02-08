@@ -6,10 +6,11 @@ class GradientLeft:NSView {
         alphaValue = 0
         translatesAutoresizingMaskIntoConstraints = false
         layer = CAGradientLayer()
-        (layer as! CAGradientLayer).startPoint = CGPoint(x:0.5, y:0)
-        (layer as! CAGradientLayer).endPoint = CGPoint(x:0.5, y:1)
-        (layer as! CAGradientLayer).locations = [0, 1]
+        (layer as! CAGradientLayer).startPoint = CGPoint(x:0, y:0.5)
+        (layer as! CAGradientLayer).endPoint = CGPoint(x:1, y:0.5)
+        (layer as! CAGradientLayer).locations = [0, 0.7, 1]
         wantsLayer = true
+        updateSkin()
         Skin.add(self, selector:#selector(updateSkin))
     }
     

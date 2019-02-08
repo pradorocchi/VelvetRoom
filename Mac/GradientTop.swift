@@ -10,6 +10,7 @@ class GradientTop:NSView {
         (layer as! CAGradientLayer).endPoint = CGPoint(x:0.5, y:1)
         (layer as! CAGradientLayer).locations = [0, 1]
         wantsLayer = true
+        updateSkin()
         Skin.add(self, selector:#selector(updateSkin))
     }
     

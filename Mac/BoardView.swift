@@ -39,8 +39,8 @@ class BoardView:NSView, NSTextViewDelegate {
         date.topAnchor.constraint(equalTo:text.bottomAnchor, constant:-1).isActive = true
         date.leftAnchor.constraint(equalTo:text.leftAnchor, constant:4).isActive = true
         
-        Skin.add(self, selector:#selector(updateSkin))
         updateSkin()
+        Skin.add(self, selector:#selector(updateSkin))
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -53,7 +53,7 @@ class BoardView:NSView, NSTextViewDelegate {
             Window.shared.makeFirstResponder(text)
             updateSkin()
         } else if !selected {
-            perform(selector, with:List.shared)
+            List.shared.perform(selector, with:self)
         }
     }
     

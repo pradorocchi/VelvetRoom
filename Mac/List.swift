@@ -80,6 +80,8 @@ class List:Scroll {
     
     @objc private func makeCurrent(_ view:BoardView) {
         Window.shared.makeFirstResponder(nil)
+        Repository.shared.fireSchedule()
+        current?.selected = false
         view.selected = true
         Canvas.shared.display(view.board)
         Toolbar.shared.extended = true
