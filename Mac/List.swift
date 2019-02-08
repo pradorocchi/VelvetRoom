@@ -16,8 +16,8 @@ class List:Scroll {
     required init?(coder:NSCoder) { return nil }
     
     func scheduleUpdate(_ board:Board? = nil) {
-        DispatchQueue.global(qos:.background).async {
-            if let board = board ?? self.current?.board {
+        if let board = board ?? self.current?.board {
+            DispatchQueue.global(qos:.background).async {
                 Repository.shared.scheduleUpdate(board)
             }
         }
