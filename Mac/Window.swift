@@ -3,7 +3,7 @@ import VelvetRoom
 
 @NSApplicationMain class Window:NSWindow, NSApplicationDelegate, NSWindowDelegate {
     static private(set) var shared:Window!
-    private weak var splash:Splash?
+    private(set) weak var splash:Splash?
     
     deinit { NotificationCenter.default.removeObserver(self) }
     
@@ -48,17 +48,6 @@ import VelvetRoom
         }
     }
     
-    func removeSplash() {
-        guard let splash = self.splash else { return }
-        NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 1
-            context.allowsImplicitAnimation = true
-            splash.alphaValue = 0
-        }) {
-            splash.removeFromSuperview()
-        }
-    }
-    
     private func outlets() {
         let canvas = Canvas.shared
         let list = List.shared
@@ -67,7 +56,7 @@ import VelvetRoom
         let gradientLeft = GradientLeft()
         let gradientTop = GradientTop()
         
-        splash?.showButton()
+        splash?.button.isHidden = false
         contentView!.addSubview(canvas, positioned:.below, relativeTo:splash)
         contentView!.addSubview(gradientLeft)
         contentView!.addSubview(list)

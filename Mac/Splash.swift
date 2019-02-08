@@ -1,6 +1,7 @@
 import AppKit
 
 class Splash:NSView {
+    private(set) weak var button:Button!
     private weak var emitter:CAEmitterLayer!
     
     init() {
@@ -31,8 +32,19 @@ class Splash:NSView {
         image.translatesAutoresizingMaskIntoConstraints = false
         addSubview(image)
         
+        let button = Button(.local("Splash.button"))
+        button.target = Toolbar.shared
+        button.action = #selector(Toolbar.shared.newBoard)
+        button.isHidden = true
+        addSubview(button)
+        self.button = button
+        
         image.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         image.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
+        
+        button.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        button.topAnchor.constraint(equalTo:centerYAnchor, constant:80).isActive = true
+        
         center()
     }
     
@@ -43,14 +55,15 @@ class Splash:NSView {
         center()
     }
     
-    func showButton() {
-        let button = Button(.local("Splash.button"))
-        button.target = Toolbar.shared
-        button.action = #selector(Toolbar.shared.newBoard)
-        addSubview(button)
-        
-        button.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
-        button.topAnchor.constraint(equalTo:centerYAnchor, constant:80).isActive = true
+    func remove() {
+        button.alphaValue = 0
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 1.5
+            context.allowsImplicitAnimation = true
+            alphaValue = 0
+        }) { [weak self] in
+            self?.removeFromSuperview()
+        }
     }
     
     private func center() {

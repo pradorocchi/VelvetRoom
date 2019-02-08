@@ -54,7 +54,9 @@ class List:ScrollView {
     }
     
     private func render(_ boards:[Board]) {
-        Window.shared.removeSplash()
+        if !boards.isEmpty {
+            Window.shared.splash?.remove()
+        }
         current?.selected = false
         Repository.shared.fireSchedule()
         Toolbar.shared.extended = false
