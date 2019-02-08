@@ -1,6 +1,6 @@
 import AppKit
 
-class TextLayout:NSLayoutManager, NSLayoutManagerDelegate {
+class Layout:NSLayoutManager, NSLayoutManagerDelegate {
     override init() {
         super.init()
         delegate = self

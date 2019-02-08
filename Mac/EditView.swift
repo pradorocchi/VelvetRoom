@@ -1,14 +1,14 @@
 import AppKit
 
-class EditView:ItemView, NSTextViewDelegate {
-    private(set) weak var text:TextView!
+class EditView:Item, NSTextViewDelegate {
+    private(set) weak var text:Text!
     
     override init() {
         super.init()
         wantsLayer = true
         layer!.cornerRadius = 6
 
-        let text = TextView()
+        let text = Text()
         text.delegate = self
         addSubview(text)
         self.text = text

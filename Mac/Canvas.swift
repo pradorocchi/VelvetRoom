@@ -1,9 +1,9 @@
 import AppKit
 import VelvetRoom
 
-class Canvas:ScrollView {
+class Canvas:Scroll {
     static let shared = Canvas()
-    weak var root:ItemView?
+    weak var root:Item?
     private weak var dragging:EditView?
     
     private override init() {
@@ -74,7 +74,7 @@ class Canvas:ScrollView {
     private func render(_ board:Board) {
         removeSubviews()
         root = nil
-        var sibling:ItemView?
+        var sibling:Item?
         board.columns.enumerated().forEach { index, item in
             let column = ColumnView(item)
             if sibling == nil {
@@ -83,7 +83,7 @@ class Canvas:ScrollView {
                 sibling!.sibling = column
             }
             documentView!.addSubview(column)
-            var child = column as ItemView
+            var child = column as Item
             sibling = column
             board.cards.filter( { $0.column == index } ).sorted(by: { $0.index < $1.index } ).forEach {
                 let card = CardView($0)
@@ -140,7 +140,7 @@ class Canvas:ScrollView {
     private func owner(_ event:NSEvent) -> EditView? {
         guard let view = hitTest(event.locationInWindow) else { return nil }
         switch view {
-        case is TextView: return view.superview as? EditView
+        case is Text: return view.superview as? EditView
         case is EditView: return view as? EditView
         default: return nil
         }

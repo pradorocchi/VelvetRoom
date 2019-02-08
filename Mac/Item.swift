@@ -1,8 +1,8 @@
 import AppKit
 
-class ItemView:NSView {
-    weak var sibling:ItemView?
-    weak var child:ItemView?
+class Item:NSView {
+    weak var sibling:Item?
+    weak var child:Item?
     private(set) weak var left:NSLayoutConstraint!
     private(set) weak var top:NSLayoutConstraint!
     

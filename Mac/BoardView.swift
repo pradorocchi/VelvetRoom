@@ -6,7 +6,7 @@ class BoardView:NSView, NSTextViewDelegate {
     var selector:Selector!
     private(set) weak var board:Board!
     private weak var date:NSTextField!
-    private weak var text:TextView!
+    private weak var text:Text!
     private let dateFormatter = DateFormatter()
     override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:85) }
     
@@ -19,7 +19,7 @@ class BoardView:NSView, NSTextViewDelegate {
         dateFormatter.dateStyle = .short
         self.board = board
         
-        let text = TextView()
+        let text = Text()
         text.delegate = self
         addSubview(text)
         self.text = text

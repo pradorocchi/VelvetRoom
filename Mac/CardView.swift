@@ -78,7 +78,7 @@ class CardView:EditView {
     
     private func detach() {
         (Canvas.shared.documentView!.subviews.first(
-            where:{($0 as? ItemView)?.child === self }) as? ItemView)?.child = child
+            where:{($0 as? Item)?.child === self }) as? Item)?.child = child
         Canvas.shared.update()
     }
 }

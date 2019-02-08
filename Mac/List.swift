@@ -1,7 +1,7 @@
 import AppKit
 import VelvetRoom
 
-class List:ScrollView {
+class List:Scroll {
     static let shared = List()
     weak var left:NSLayoutConstraint! { didSet { left.isActive = true } }
     var current:BoardView? { return documentView!.subviews.first(where:{ ($0 as! BoardView).selected }) as? BoardView }

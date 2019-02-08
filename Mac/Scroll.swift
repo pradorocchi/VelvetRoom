@@ -1,6 +1,6 @@
 import AppKit
 
-class ScrollView:NSScrollView {
+class Scroll:NSScrollView {
     weak var right:NSLayoutConstraint? { willSet { right?.isActive = false } didSet { right?.isActive = true } }
     weak var bottom:NSLayoutConstraint? { willSet { bottom?.isActive = false } didSet { bottom?.isActive = true } }
     

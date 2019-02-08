@@ -1,6 +1,6 @@
 import AppKit
 
-class TextStorage:NSTextStorage {
+class Storage:NSTextStorage {
     var text:NSFont!
     var header:NSFont!
     override var string:String { return storage.string }

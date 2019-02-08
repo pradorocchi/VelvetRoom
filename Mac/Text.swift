@@ -1,12 +1,12 @@
 import AppKit
 
-class TextView:NSTextView {
+class Text:NSTextView {
     private weak var width:NSLayoutConstraint!
     private weak var height:NSLayoutConstraint!
     override var string:String { didSet { adjustConstraints() } }
     override var font:NSFont? {
         didSet {
-            let storage = textStorage as! TextStorage
+            let storage = textStorage as! Storage
             storage.text = font
             storage.header = .bold(font!.pointSize)
         }
@@ -14,8 +14,8 @@ class TextView:NSTextView {
     
     init() {
         let container = NSTextContainer()
-        let storage = TextStorage()
-        let layout = TextLayout()
+        let storage = Storage()
+        let layout = Layout()
         storage.addLayoutManager(layout)
         layout.addTextContainer(container)
         container.lineBreakMode = .byTruncatingHead

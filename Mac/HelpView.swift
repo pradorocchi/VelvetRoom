@@ -9,7 +9,7 @@ class HelpView:NSWindow {
         isReleasedWhenClosed = false
         titlebarAppearsTransparent = true
         
-        let text = TextView()
+        let text = Text()
         text.textContainer!.size = NSSize(width:500, height:300)
         text.font = .light(16)
         text.string = .local("HelpView.content")

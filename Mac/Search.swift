@@ -3,7 +3,7 @@ import AppKit
 class Search:NSView, NSTextViewDelegate {
     static let shared = Search()
     weak var bottom:NSLayoutConstraint! { didSet { bottom.isActive = true } }
-    private(set) weak var text:TextView!
+    private(set) weak var text:Text!
     private(set) weak var highlighter:NSView?
     
     private init() {
@@ -19,7 +19,7 @@ class Search:NSView, NSTextViewDelegate {
         image.imageScaling = .scaleNone
         addSubview(image)
         
-        let text = TextView()
+        let text = Text()
         text.textContainer!.size = NSSize(width:365, height:40)
         text.font = .light(18)
         text.delegate = self
