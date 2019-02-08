@@ -419,7 +419,10 @@
                                 <outlet property="delete" destination="g3I-fJ-Wch" id="6nQ-11-ZHy"/>
                                 <outlet property="export" destination="tts-xe-5IT" id="d4V-Qg-HRt"/>
                                 <outlet property="list" destination="6hB-Rg-9L8" id="dDd-DJ-tHz"/>
+                                <outlet property="load" destination="gAR-ED-JIt" id="ixV-fA-Ysv"/>
+                                <outlet property="new" destination="4U0-1M-3QA" id="Wn3-5a-fhQ"/>
                                 <outlet property="search" destination="lqS-jY-oGD" id="hdO-qI-hSh"/>
+                                <outlet property="settings" destination="Awu-tS-LkZ" id="dB3-SE-csA"/>
                             </connections>
                         </toolbar>
                         <connections>
@@ -450,8 +453,8 @@
     </scenes>
     <resources>
         <image name="chart" width="24" height="18"/>
-        <image name="delete" width="24" height="24"/>
-        <image name="export" width="24" height="18"/>
+        <image name="delete" width="24" height="18"/>
+        <image name="export" width="24" height="24"/>
         <image name="import" width="24" height="18"/>
         <image name="listOff" width="24" height="18"/>
         <image name="listOn" width="24" height="18"/>

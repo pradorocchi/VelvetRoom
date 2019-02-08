@@ -49,6 +49,7 @@ import VelvetRoom
     }
     
     private func outlets() {
+        Toolbar.shared.enabled = true
         let canvas = Canvas.shared
         let list = List.shared
         let progress = Progress.shared
