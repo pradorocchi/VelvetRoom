@@ -12,13 +12,13 @@ import NotificationCenter
     override func viewDidLoad() {
         super.viewDidLoad()
         view.translatesAutoresizingMaskIntoConstraints = false
-        preferredContentSize = NSSize(width:0, height:50)
+        preferredContentSize = NSSize(width:0, height:100)
     }
     
     func widgetPerformUpdate(completionHandler:(@escaping(NCUpdateResult) -> Void)) {
         items = Widget.items.map { ($0, $1) }.sorted {
             $0.0.compare($1.0, options:.caseInsensitive) == .orderedAscending }
-        if items.isEmpty {
+        if true || items.isEmpty {
             empty()
             completionHandler(.noData)
         } else {
@@ -34,18 +34,14 @@ import NotificationCenter
     }
     
     private func empty() {
-        let label = NSTextField()
-        label.backgroundColor = .clear
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.isBezeled = false
-        label.isEditable = false
-        label.font = .systemFont(ofSize:16, weight:.ultraLight)
-        label.alignment = .center
-        label.stringValue = "No boards created"
-        view.addSubview(label)
+        let image = NSImageView()
+        image.image = NSImage(named:"widget")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.imageScaling = .scaleNone
+        view.addSubview(image)
         
-        label.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
-        label.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
+        image.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
+        image.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
     }
     
     private func render() {
