@@ -161,7 +161,7 @@
 		DAD7B78721D65BFE003396B1 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78621D65BFE003396B1 /* UIFont.swift */; };
 		DAD7B78921D660E6003396B1 /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78821D660E6003396B1 /* NewView.swift */; };
 		DAFA95FD21CBDAAD00BA265C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFA95FC21CBDAAD00BA265C /* Item.swift */; };
-		DAFA95FF21CBDC2C00BA265C /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFA95FE21CBDC2C00BA265C /* CreateView.swift */; };
+		DAFA95FF21CBDC2C00BA265C /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFA95FE21CBDC2C00BA265C /* Creator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -373,7 +373,7 @@
 		DAD7B78621D65BFE003396B1 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		DAD7B78821D660E6003396B1 /* NewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewView.swift; sourceTree = "<group>"; };
 		DAFA95FC21CBDAAD00BA265C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		DAFA95FE21CBDC2C00BA265C /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
+		DAFA95FE21CBDC2C00BA265C /* Creator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -539,7 +539,7 @@
 				DA982ED821CD10540085480B /* CardView.swift */,
 				DA4C2AC621D5098A004988B4 /* ChartView.swift */,
 				DA86474421C3FDE500E4957B /* ColumnView.swift */,
-				DAFA95FE21CBDC2C00BA265C /* CreateView.swift */,
+				DAFA95FE21CBDC2C00BA265C /* Creator.swift */,
 				DA1544E221D2752600B9D9F7 /* DeleteView.swift */,
 				204B68FF21E347200025261E /* DropView.swift */,
 				DA86AB3E21D0F884007DFFEE /* EditView.swift */,
@@ -1021,7 +1021,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20B4C472220C44F700103F8A /* Button.swift in Sources */,
-				DAFA95FF21CBDC2C00BA265C /* CreateView.swift in Sources */,
+				DAFA95FF21CBDC2C00BA265C /* Creator.swift in Sources */,
 				204B68FE21E338B10025261E /* ImportView.swift in Sources */,
 				205BE61322072B820020817A /* Canvas.swift in Sources */,
 				DA53931021D2CB6F00482FCA /* Storage.swift in Sources */,

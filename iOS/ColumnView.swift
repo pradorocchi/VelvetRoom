@@ -44,7 +44,7 @@ class ColumnView:EditView {
     override func endDrag() {
         super.endDrag()
         var after = Application.view.root
-        if Application.view.root! is CreateView || Application.view.root!.frame.maxX > frame.midX {
+        if Application.view.root! is Creator || Application.view.root!.frame.maxX > frame.midX {
             sibling = Application.view.root
             Application.view.root = self
             after = nil

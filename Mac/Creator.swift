@@ -1,6 +1,6 @@
 import AppKit
 
-class CreateView:Item {
+class Creator:Item {
     let selector:Selector
     init(_ selector:Selector, key:String) {
         self.selector = selector
@@ -33,7 +33,7 @@ class CreateView:Item {
     required init?(coder:NSCoder) { return nil }
     
     override func mouseDown(with:NSEvent) {
-        perform(selector, with:self)
+        Canvas.shared.perform(selector, with:self)
         NSAnimationContext.runAnimationGroup( { context in
             context.duration = 0.2
             context.allowsImplicitAnimation = true
@@ -43,5 +43,5 @@ class CreateView:Item {
         }
     }
     
-    @objc private func shortcut() { perform(selector, with:self) }
+    @objc private func shortcut() { Canvas.shared.perform(selector, with:self) }
 }

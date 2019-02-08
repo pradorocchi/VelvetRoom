@@ -16,9 +16,11 @@ class List:Scroll {
     required init?(coder:NSCoder) { return nil }
     
     func scheduleUpdate(_ board:Board? = nil) {
-        if let board = board ?? self.current?.board {
-            DispatchQueue.global(qos:.background).async {
-                Repository.shared.scheduleUpdate(board)
+        DispatchQueue.main.async {
+            if let board = board ?? self.current?.board {
+                DispatchQueue.global(qos:.background).async {
+                    Repository.shared.scheduleUpdate(board)
+                }
             }
         }
     }

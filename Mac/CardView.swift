@@ -44,7 +44,7 @@ class CardView:EditView {
             guard after!.child!.top.constant < top.constant else { break }
             after = after!.child
         }
-        if after!.child is CreateView {
+        if after!.child is Creator {
             after = after?.child
         }
         child = after!.child
@@ -65,9 +65,10 @@ class CardView:EditView {
     
     private func confirmDelete() {
         detach()
+        guard let board = List.shared.current!.board else { return }
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let card = self?.card else { return }
-            Repository.shared.delete(card, board:List.shared.current!.board)
+            Repository.shared.delete(card, board:board)
             List.shared.scheduleUpdate()
             DispatchQueue.main.async { [weak self] in
                 Progress.shared.update()

@@ -93,7 +93,7 @@ class Canvas:Scroll {
             }
         }
         
-        let columner = CreateView(#selector(newColumn(_:)), key:"m")
+        let columner = Creator(#selector(newColumn(_:)), key:"m")
         documentView!.addSubview(columner)
         
         if root == nil {
@@ -129,11 +129,11 @@ class Canvas:Scroll {
     }
     
     private func addCarder() {
-        if root != nil, !(root is CreateView), !(root!.child is CreateView) {
-//            let create = CreateView(#selector(newCard(_:)), key:"n")
-//            create.child = View.canvas.root!.child
-//            View.canvas.root!.child = create
-//            View.canvas.documentView!.addSubview(create)
+        if root != nil, !(root is Creator), !(root!.child is Creator) {
+            let columner = Creator(#selector(newCard(_:)), key:"n")
+            columner.child = root!.child
+            root!.child = columner
+            documentView!.addSubview(columner)
         }
     }
     
@@ -151,7 +151,7 @@ class Canvas:Scroll {
         DispatchQueue.main.async { self.update(0) }
     }
     
-    @objc private func newColumn(_ view:CreateView) {
+    @objc private func newColumn(_ view:Creator) {
         let column = ColumnView(Repository.shared.newColumn(List.shared.current!.board))
         column.sibling = view
         if root === view {
@@ -179,7 +179,7 @@ class Canvas:Scroll {
         }
     }
     
-    @objc private func newCard(_ view:CreateView) {
+    @objc private func newCard(_ view:Creator) {
         let card = CardView(try! Repository.shared.newCard(List.shared.current!.board))
         card.child = view.child
         view.child = card
@@ -204,13 +204,13 @@ class Canvas:Scroll {
         while view?.sibling != nil {
             view = view?.sibling
         }
-        if let view = view as? CreateView {
+        if let view = view as? Creator {
             newColumn(view)
         }
     }
     
     @IBAction private func addChild(_ sender:Any?) {
-        if let view = root?.child as? CreateView {
+        if let view = root?.child as? Creator {
             newCard(view)
         }
     }
