@@ -5,12 +5,14 @@ class List:Scroll {
     static let shared = List()
     weak var left:NSLayoutConstraint! { didSet { left.isActive = true } }
     var current:BoardView? { return documentView!.subviews.first(where:{ ($0 as! BoardView).selected }) as? BoardView }
+    private weak var bottom:NSLayoutConstraint? { willSet { bottom?.isActive = false; newValue?.isActive = true } }
     private(set) var visible = false
     
     private override init() {
         super.init()
         Repository.shared.list = { boards in DispatchQueue.main.async { self.render(boards) } }
         Repository.shared.select = { board in DispatchQueue.main.async { self.select(board) } }
+        documentView!.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }

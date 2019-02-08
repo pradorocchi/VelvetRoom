@@ -5,6 +5,8 @@ class Canvas:Scroll {
     static let shared = Canvas()
     weak var root:Item?
     private weak var dragging:EditView?
+    private weak var right:NSLayoutConstraint? { willSet { right?.isActive = false; newValue?.isActive = true } }
+    private weak var bottom:NSLayoutConstraint? { willSet { bottom?.isActive = false; newValue?.isActive = true } }
     
     private override init() {
         super.init()

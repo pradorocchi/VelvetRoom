@@ -1,9 +1,6 @@
 import AppKit
 
 class Scroll:NSScrollView {
-    weak var right:NSLayoutConstraint? { willSet { right?.isActive = false } didSet { right?.isActive = true } }
-    weak var bottom:NSLayoutConstraint? { willSet { bottom?.isActive = false } didSet { bottom?.isActive = true } }
-    
     init() {
         super.init(frame:.zero)
         drawsBackground = false
@@ -12,10 +9,6 @@ class Scroll:NSScrollView {
         documentView!.translatesAutoresizingMaskIntoConstraints = false
         documentView!.topAnchor.constraint(equalTo:topAnchor).isActive = true
         documentView!.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
-        defer {
-            bottom = documentView!.bottomAnchor.constraint(equalTo:bottomAnchor)
-            right = documentView!.rightAnchor.constraint(equalTo:rightAnchor)
-        }
     }
     
     required init?(coder:NSCoder) { return nil }
