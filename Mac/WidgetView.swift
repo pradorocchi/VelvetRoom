@@ -4,7 +4,7 @@ import NotificationCenter
 @objc(WidgetView) class WidgetView:NSViewController, NCWidgetProviding {
     private weak var name:NSTextField!
     private weak var display:NSView?
-    private var items = [(String,[WidgetItem])]()
+    private var items = [(String, [WidgetItem])]()
     private var index = Int()
     
     override func loadView() { view = NSView() }
@@ -18,7 +18,7 @@ import NotificationCenter
     func widgetPerformUpdate(completionHandler:(@escaping(NCUpdateResult) -> Void)) {
         items = Widget.items.map { ($0, $1) }.sorted {
             $0.0.compare($1.0, options:.caseInsensitive) == .orderedAscending }
-        if true || items.isEmpty {
+        if items.isEmpty {
             empty()
             completionHandler(.noData)
         } else {

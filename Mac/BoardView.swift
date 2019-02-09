@@ -7,7 +7,7 @@ class BoardView:NSView, NSTextViewDelegate {
     private(set) weak var board:Board!
     private weak var date:NSTextField!
     private weak var text:Text!
-    private let dateFormatter = DateFormatter()
+    private let dater = DateFormatter()
     override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:85) }
     
     init(_ board:Board) {
@@ -15,8 +15,8 @@ class BoardView:NSView, NSTextViewDelegate {
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
         layer!.cornerRadius = 6
-        dateFormatter.timeStyle = .short
-        dateFormatter.dateStyle = .short
+        dater.timeStyle = .short
+        dater.dateStyle = .short
         self.board = board
         
         let text = Text()
@@ -87,7 +87,9 @@ class BoardView:NSView, NSTextViewDelegate {
     @objc private func updateSkin() {
         text.textColor = Skin.shared.text
         date.textColor = Skin.shared.text
-        date.stringValue = dateFormatter.string(from:Date(timeIntervalSince1970:board.updated))
+        let last = Date(timeIntervalSince1970:board.updated)
+        dater.dateStyle = Calendar.current.dateComponents([.day], from:last, to:Date()).day! == 0 ? .none : .short
+        date.stringValue = dater.string(from:last)
         if Window.shared.firstResponder === text {
             layer!.backgroundColor = .black
             text.textColor = .white
@@ -95,12 +97,12 @@ class BoardView:NSView, NSTextViewDelegate {
             date.alphaValue = 0
         } else if selected {
             layer!.backgroundColor = Skin.shared.text.withAlphaComponent(0.2).cgColor
-            text.alphaValue = 0.8
-            date.alphaValue = 0.8
+            text.alphaValue = 0.9
+            date.alphaValue = 0.9
         } else {
             layer!.backgroundColor = NSColor.clear.cgColor
-            text.alphaValue = 0.8
-            date.alphaValue = 0.8
+            text.alphaValue = 0.5
+            date.alphaValue = 0.5
         }
         text.setNeedsDisplay(text.bounds)
         text.textContainer!.size = NSSize(width:235, height:Skin.shared.font + 16)

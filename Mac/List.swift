@@ -18,7 +18,9 @@ class List:NSScrollView {
         documentView!.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         documentView!.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
         Repository.shared.list = { boards in DispatchQueue.main.async { self.render(boards) } }
-        Repository.shared.select = { board in DispatchQueue.main.async { self.select(board) } }
+        Repository.shared.select = { board in DispatchQueue.main.async {
+            self.select(self.documentView!.subviews.first(where:{ ($0 as! BoardView).board === board }) as! BoardView) }
+        }
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -31,11 +33,6 @@ class List:NSScrollView {
                 }
             }
         }
-    }
-    
-    func select(_ board:Board) {
-        let view = documentView!.subviews.first(where:{ ($0 as! BoardView).board === board }) as! BoardView
-        makeCurrent(view)
     }
     
     @objc func toggle() {
@@ -61,18 +58,17 @@ class List:NSScrollView {
             Window.shared.splash?.remove()
         }
         current?.selected = false
-        Repository.shared.fireSchedule()
         Toolbar.shared.extended = false
         Menu.shared.extended = false
+        Repository.shared.fireSchedule()
         Progress.shared.update()
         Canvas.shared.documentView!.subviews.forEach { $0.removeFromSuperview() }
-        List.shared.documentView!.subviews.forEach { $0.removeFromSuperview() }
+        documentView!.subviews.forEach { $0.removeFromSuperview() }
         var top = documentView!.topAnchor
         boards.enumerated().forEach {
             let view = BoardView($0.element)
-            view.selector = #selector(makeCurrent(_:))
+            view.selector = #selector(select(_:))
             documentView!.addSubview(view)
-            
             view.topAnchor.constraint(equalTo:top, constant:$0.offset == 0 ? 36 : 0).isActive = true
             view.leftAnchor.constraint(equalTo:leftAnchor, constant:-8).isActive = true
             view.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
@@ -81,14 +77,14 @@ class List:NSScrollView {
         bottom = documentView!.bottomAnchor.constraint(equalTo:top, constant:20)
     }
     
-    @objc private func makeCurrent(_ view:BoardView) {
+    @objc private func select(_ view:BoardView) {
         Window.shared.makeFirstResponder(nil)
         Repository.shared.fireSchedule()
         current?.selected = false
         view.selected = true
-        Canvas.shared.display(view.board)
         Toolbar.shared.extended = true
         Menu.shared.extended = true
+        Canvas.shared.display(view.board)
         Progress.shared.update()
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.5
