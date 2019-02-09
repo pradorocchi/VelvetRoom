@@ -1,15 +1,21 @@
 import AppKit
 import VelvetRoom
 
-class List:Scroll {
+class List:NSScrollView {
     static let shared = List()
     weak var left:NSLayoutConstraint! { didSet { left.isActive = true } }
     var current:BoardView? { return documentView!.subviews.first(where:{ ($0 as! BoardView).selected }) as? BoardView }
     private weak var bottom:NSLayoutConstraint? { willSet { bottom?.isActive = false; newValue?.isActive = true } }
     private(set) var visible = false
     
-    private override init() {
-        super.init()
+    private init() {
+        super.init(frame:.zero)
+        drawsBackground = false
+        translatesAutoresizingMaskIntoConstraints = false
+        documentView = NSView()
+        documentView!.translatesAutoresizingMaskIntoConstraints = false
+        documentView!.topAnchor.constraint(equalTo:topAnchor).isActive = true
+        documentView!.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         Repository.shared.list = { boards in DispatchQueue.main.async { self.render(boards) } }
         Repository.shared.select = { board in DispatchQueue.main.async { self.select(board) } }
         documentView!.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
@@ -66,8 +72,8 @@ class List:Scroll {
         Toolbar.shared.extended = false
         Menu.shared.extended = false
         Progress.shared.update()
-        Canvas.shared.removeSubviews()
-        List.shared.removeSubviews()
+        Canvas.shared.documentView!.subviews.forEach { $0.removeFromSuperview() }
+        List.shared.documentView!.subviews.forEach { $0.removeFromSuperview() }
         var top = documentView!.topAnchor
         boards.enumerated().forEach {
             let view = BoardView($0.element)

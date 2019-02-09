@@ -1,15 +1,21 @@
 import AppKit
 import VelvetRoom
 
-class Canvas:Scroll {
+class Canvas:NSScrollView {
     static let shared = Canvas()
     weak var root:Item?
     private weak var dragging:EditView?
     private weak var right:NSLayoutConstraint? { willSet { right?.isActive = false; newValue?.isActive = true } }
     private weak var bottom:NSLayoutConstraint? { willSet { bottom?.isActive = false; newValue?.isActive = true } }
     
-    private override init() {
-        super.init()
+    private init() {
+        super.init(frame:.zero)
+        drawsBackground = false
+        translatesAutoresizingMaskIntoConstraints = false
+        documentView = NSView()
+        documentView!.translatesAutoresizingMaskIntoConstraints = false
+        documentView!.topAnchor.constraint(equalTo:topAnchor).isActive = true
+        documentView!.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         hasHorizontalScroller = true
         horizontalScroller!.controlSize = .mini
         documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:bottomAnchor).isActive = true
@@ -74,7 +80,7 @@ class Canvas:Scroll {
     }
     
     private func render(_ board:Board) {
-        removeSubviews()
+        documentView!.subviews.forEach { $0.removeFromSuperview() }
         root = nil
         var sibling:Item?
         board.columns.enumerated().forEach { index, item in
