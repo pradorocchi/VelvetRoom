@@ -26,7 +26,7 @@ class Alert {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.wantsLayer = true
         view.layer!.backgroundColor = NSColor(red:0.66, green:0.67, blue:0.68, alpha:0.94).cgColor
-        view.layer!.cornerRadius = 6
+        view.layer!.cornerRadius = 4
         view.alphaValue = 0
         Window.shared.contentView!.addSubview(view)
         self.view = view
@@ -40,10 +40,10 @@ class Alert {
         message.textColor = .black
         view.addSubview(message)
         
-        viewBottom = view.bottomAnchor.constraint(equalTo:Window.shared.contentView!.topAnchor)
+        view.heightAnchor.constraint(equalToConstant:60).isActive = true
         view.leftAnchor.constraint(equalTo:Window.shared.contentView!.leftAnchor, constant:10).isActive = true
         view.rightAnchor.constraint(equalTo:Window.shared.contentView!.rightAnchor, constant:-10).isActive = true
-        view.heightAnchor.constraint(equalToConstant:60).isActive = true
+        viewBottom = view.bottomAnchor.constraint(equalTo:Window.shared.contentView!.topAnchor)
         viewBottom!.isActive = true
         
         message.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true

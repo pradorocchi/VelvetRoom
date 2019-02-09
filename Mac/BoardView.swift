@@ -8,7 +8,6 @@ class BoardView:NSView, NSTextViewDelegate {
     private weak var date:NSTextField!
     private weak var text:Text!
     private let dater = DateFormatter()
-    override var intrinsicContentSize:NSSize { return NSSize(width:NSView.noIntrinsicMetric, height:85) }
     
     init(_ board:Board) {
         super.init(frame:.zero)
@@ -32,6 +31,8 @@ class BoardView:NSView, NSTextViewDelegate {
         date.font = .systemFont(ofSize:10, weight:.light)
         addSubview(date)
         self.date = date
+        
+        heightAnchor.constraint(equalToConstant:85).isActive = true
         
         text.centerYAnchor.constraint(equalTo:centerYAnchor, constant:-8).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:20).isActive = true
@@ -59,10 +60,10 @@ class BoardView:NSView, NSTextViewDelegate {
     
     func delete() {
         Window.shared.makeFirstResponder(nil)
-        Window.shared.beginSheet(DeleteView(.local("DeleteView.board")) { [weak self] in
+        Delete(board.name.isEmpty ? .local("BoardView.delete") : board.name) { [weak self] in
             guard let board = self?.board else { return }
             Repository.shared.delete(board)
-        })
+        }
     }
     
     func textDidEndEditing(_:Notification) {

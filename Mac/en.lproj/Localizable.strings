@@ -1,4 +1,5 @@
 Splash.button="Start";
+BoardView.delete="Board";
 List.hide="Hide list";
 List.show="Show list";
 NewView.title="New board";
@@ -10,7 +11,6 @@ NewView.single="1 column";
 NewView.double="2 columns";
 NewView.triple="3 columns";
 DeleteView.column="Column";
-DeleteView.board="Board";
 DeleteView.delete="Delete";
 DeleteView.cancel="Cancel";
 ExportView.title="Export\n";

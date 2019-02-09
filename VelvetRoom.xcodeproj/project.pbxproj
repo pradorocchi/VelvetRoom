@@ -45,6 +45,8 @@
 		2088914E220746DC00E8ABD6 /* Config.json in Resources */ = {isa = PBXBuildFile; fileRef = 2088914C220746DC00E8ABD6 /* Config.json */; };
 		20889150220748F400E8ABD6 /* Config.json in Resources */ = {isa = PBXBuildFile; fileRef = 2088914F220748F400E8ABD6 /* Config.json */; };
 		20889151220748F400E8ABD6 /* Config.json in Resources */ = {isa = PBXBuildFile; fileRef = 2088914F220748F400E8ABD6 /* Config.json */; };
+		2092A3E4220EFE1D00A7441D /* Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2092A3E3220EFE1D00A7441D /* Delete.swift */; };
+		2092A3E6220F019E00A7441D /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2092A3E5220F019E00A7441D /* Sheet.swift */; };
 		20938C9B21FDB59000EB84DA /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2061170A21FC9BA2007A2C84 /* WidgetView.swift */; };
 		20938C9E21FDCB4F00EB84DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708C21C3CA87008F184E /* Assets.xcassets */; };
 		20959D5C2206058A002FE165 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20959D5B2206058A002FE165 /* SearchView.swift */; };
@@ -268,6 +270,8 @@
 		20804BBC21E5E6470035535D /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		2088914C220746DC00E8ABD6 /* Config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Config.json; sourceTree = "<group>"; };
 		2088914F220748F400E8ABD6 /* Config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Config.json; sourceTree = "<group>"; };
+		2092A3E3220EFE1D00A7441D /* Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delete.swift; sourceTree = "<group>"; };
+		2092A3E5220F019E00A7441D /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		20959D5B2206058A002FE165 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		209EDF7D21FC9C3900905989 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		20B40E9C21E8756A00286E92 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -538,6 +542,7 @@
 				DA4C2AC621D5098A004988B4 /* ChartView.swift */,
 				DA86474421C3FDE500E4957B /* ColumnView.swift */,
 				DAFA95FE21CBDC2C00BA265C /* Creator.swift */,
+				2092A3E3220EFE1D00A7441D /* Delete.swift */,
 				DA1544E221D2752600B9D9F7 /* DeleteView.swift */,
 				204B68FF21E347200025261E /* DropView.swift */,
 				DA86AB3E21D0F884007DFFEE /* EditView.swift */,
@@ -556,6 +561,7 @@
 				20531BFC2202ED1A00D6551C /* Search.swift */,
 				20CADF9D21F99B8A005DC344 /* SettingsView.swift */,
 				202D692621E230EC009398AB /* SheetView.swift */,
+				2092A3E5220F019E00A7441D /* Sheet.swift */,
 				20CADFA421F9B8C2005DC344 /* Skin.swift */,
 				20B4C46F220C3AFA00103F8A /* Splash.swift */,
 				DA53930F21D2CB6F00482FCA /* Storage.swift */,
@@ -1037,6 +1043,8 @@
 				DAFA95FD21CBDAAD00BA265C /* Item.swift in Sources */,
 				DA982ED921CD10540085480B /* CardView.swift in Sources */,
 				20CADFA521F9B8C2005DC344 /* Skin.swift in Sources */,
+				2092A3E6220F019E00A7441D /* Sheet.swift in Sources */,
+				2092A3E4220EFE1D00A7441D /* Delete.swift in Sources */,
 				DA7C744421C3E1C000B1F931 /* Window.swift in Sources */,
 				DA86474721C401DF00E4957B /* Extensions.swift in Sources */,
 				20EA9624220AC2ED003CCC93 /* Menu.swift in Sources */,
