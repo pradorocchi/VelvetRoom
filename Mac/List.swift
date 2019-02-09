@@ -16,9 +16,9 @@ class List:NSScrollView {
         documentView!.translatesAutoresizingMaskIntoConstraints = false
         documentView!.topAnchor.constraint(equalTo:topAnchor).isActive = true
         documentView!.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
+        documentView!.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
         Repository.shared.list = { boards in DispatchQueue.main.async { self.render(boards) } }
         Repository.shared.select = { board in DispatchQueue.main.async { self.select(board) } }
-        documentView!.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -36,13 +36,6 @@ class List:NSScrollView {
     func select(_ board:Board) {
         let view = documentView!.subviews.first(where:{ ($0 as! BoardView).board === board }) as! BoardView
         makeCurrent(view)
-        DispatchQueue.main.async {
-            NSAnimationContext.runAnimationGroup({ context in
-                context.duration = 0.3
-                context.allowsImplicitAnimation = true
-                self.contentView.scrollToVisible(view.frame)
-            }, completionHandler:nil)
-        }
     }
     
     @objc func toggle() {
@@ -97,5 +90,11 @@ class List:NSScrollView {
         Toolbar.shared.extended = true
         Menu.shared.extended = true
         Progress.shared.update()
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.5
+            context.allowsImplicitAnimation = true
+            contentView.scrollToVisible(CGRect(x:0, y:
+                -documentView!.frame.height + view.frame.midY + (frame.height / 2), width:1, height:frame.height))
+        }, completionHandler:nil)
     }
 }
