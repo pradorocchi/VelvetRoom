@@ -1,6 +1,12 @@
 import AppKit
 
 class Sheet:NSView {
+    override var acceptsFirstResponder:Bool { return true }
+    
+    override func keyDown(with event:NSEvent) {
+        if event.keyCode == 53 { close() }
+    }
+    
     @discardableResult init() {
         Toolbar.shared.enabled = false
         Menu.shared.enabled = false
@@ -9,8 +15,16 @@ class Sheet:NSView {
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
         alphaValue = 0
-        layer!.backgroundColor = Skin.shared.background.cgColor
+        layer!.backgroundColor = Skin.shared.background.withAlphaComponent(0.95).cgColor
         Window.shared.contentView!.addSubview(self)
+        
+        let terminate = NSButton()
+        terminate.title = String()
+        terminate.target = self
+        terminate.action = #selector(close)
+        terminate.isBordered = false
+        terminate.keyEquivalent = "\u{1b}"
+        addSubview(terminate)
         
         topAnchor.constraint(equalTo:Window.shared.contentView!.topAnchor).isActive = true
         bottomAnchor.constraint(equalTo:Window.shared.contentView!.bottomAnchor).isActive = true
@@ -20,11 +34,16 @@ class Sheet:NSView {
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.3
             context.allowsImplicitAnimation = true
-            alphaValue = 0.95
-        }, completionHandler:nil)
+            alphaValue = 1
+        }) {
+            Window.shared.makeFirstResponder(self)
+        }
     }
     
     required init?(coder:NSCoder) { return nil }
+    override func mouseDown(with:NSEvent) { }
+    override func mouseDragged(with:NSEvent) { }
+    override func mouseUp(with:NSEvent) { }
     
     @objc func close() {
         NSAnimationContext.runAnimationGroup({ context in

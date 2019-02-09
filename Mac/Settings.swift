@@ -12,6 +12,7 @@ class Settings:Sheet {
     private weak var lightTitle:NSTextField!
     private weak var fontTitle:NSTextField!
     private weak var slider:NSSlider!
+    private weak var track:NSView!
     private weak var timer:Timer!
     
     @discardableResult override init() {
@@ -112,15 +113,19 @@ class Settings:Sheet {
         addSubview(font)
         self.font = font
         
+        let track = NSView()
+        track.translatesAutoresizingMaskIntoConstraints = false
+        track.wantsLayer = true
+        track.layer!.cornerRadius = 1.5
+        addSubview(track)
+        self.track = track
+        
         let slider = NSSlider()
         slider.target = self
         slider.action = #selector(changeFont)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.minValue = 8
         slider.maxValue = 32
-        if #available(OSX 10.12.2, *) {
-            slider.trackFillColor = .velvetBlue
-        }
         addSubview(slider)
         self.slider = slider
         
@@ -163,6 +168,11 @@ class Settings:Sheet {
         font.topAnchor.constraint(equalTo:fontTitle.topAnchor).isActive = true
         font.rightAnchor.constraint(equalTo:centerXAnchor, constant:200).isActive = true
         
+        track.centerYAnchor.constraint(equalTo:slider.centerYAnchor).isActive = true
+        track.heightAnchor.constraint(equalToConstant:3).isActive = true
+        track.leftAnchor.constraint(equalTo:slider.leftAnchor, constant:1).isActive = true
+        track.rightAnchor.constraint(equalTo:slider.rightAnchor, constant:-1).isActive = true
+        
         slider.topAnchor.constraint(equalTo:fontTitle.bottomAnchor, constant:20).isActive = true
         slider.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         slider.widthAnchor.constraint(equalToConstant:400).isActive = true
@@ -190,13 +200,14 @@ class Settings:Sheet {
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.5
             context.allowsImplicitAnimation = true
-            layer!.backgroundColor = Skin.shared.background.cgColor
+            layer!.backgroundColor = Skin.shared.background.withAlphaComponent(0.95).cgColor
             appearanceTitle.textColor = Skin.shared.text
             darkTitle.textColor = Skin.shared.text
             systemTitle.textColor = Skin.shared.text
             lightTitle.textColor = Skin.shared.text
             fontTitle.textColor = Skin.shared.text
             font.textColor = Skin.shared.text
+            track.layer!.backgroundColor = Skin.shared.text.withAlphaComponent(0.2).cgColor
         }, completionHandler:nil)
     }
     

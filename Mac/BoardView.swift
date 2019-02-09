@@ -85,6 +85,7 @@ class BoardView:NSView, NSTextViewDelegate {
     }
     
     @objc private func updateSkin() {
+        guard let board = self.board else { return }
         text.textColor = Skin.shared.text
         date.textColor = Skin.shared.text
         let last = Date(timeIntervalSince1970:board.updated)

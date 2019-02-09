@@ -24,6 +24,8 @@ class Toolbar:NSToolbar {
         search.action = #selector(Search.shared.active)
         delete.target = self
         delete.action = #selector(deleteBoard)
+        chart.target = self
+        chart.action = #selector(openChart)
     }
     
     private func validate() {
@@ -43,11 +45,6 @@ class Toolbar:NSToolbar {
     }
     
     @objc private func openSettings() { Settings() }
-    
-    @objc private func openChart() {
-        Window.shared.makeFirstResponder(nil)
-        Window.shared.beginSheet(ChartView(List.shared.current!.board))
-    }
-    
+    @objc private func openChart() { Chart(List.shared.current!.board) }
     @objc private func deleteBoard() { List.shared.current?.delete() }
 }

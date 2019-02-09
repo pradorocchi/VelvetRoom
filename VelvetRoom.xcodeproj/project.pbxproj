@@ -86,7 +86,7 @@
 		DA16E00121CE8AFF00D21C7A /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16E00021CE8AFF00D21C7A /* Text.swift */; };
 		DA1D104721CBCCAD00A8FBE9 /* TestRepository_Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */; };
 		DA4C2AC521D4F4CB004988B4 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C2AC421D4F4CB004988B4 /* Progress.swift */; };
-		DA4C2AC721D5098A004988B4 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C2AC621D5098A004988B4 /* ChartView.swift */; };
+		DA4C2AC721D5098A004988B4 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C2AC621D5098A004988B4 /* Chart.swift */; };
 		DA53931021D2CB6F00482FCA /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53930F21D2CB6F00482FCA /* Storage.swift */; };
 		DA65DA6F21D1327100E74011 /* TestRepository_Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65DA6E21D1327100E74011 /* TestRepository_Column.swift */; };
 		DA6A986C21CEA70000C18C7F /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A986B21CEA70000C18C7F /* Layout.swift */; };
@@ -306,7 +306,7 @@
 		DA16E00021CE8AFF00D21C7A /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		DA1D104621CBCCAD00A8FBE9 /* TestRepository_Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository_Card.swift; sourceTree = "<group>"; };
 		DA4C2AC421D4F4CB004988B4 /* Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
-		DA4C2AC621D5098A004988B4 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		DA4C2AC621D5098A004988B4 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		DA53930F21D2CB6F00482FCA /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		DA65DA6E21D1327100E74011 /* TestRepository_Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRepository_Column.swift; sourceTree = "<group>"; };
 		DA6A986B21CEA70000C18C7F /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
@@ -539,7 +539,7 @@
 				20B4C471220C44F700103F8A /* Button.swift */,
 				205BE61222072B820020817A /* Canvas.swift */,
 				DA982ED821CD10540085480B /* CardView.swift */,
-				DA4C2AC621D5098A004988B4 /* ChartView.swift */,
+				DA4C2AC621D5098A004988B4 /* Chart.swift */,
 				DA86474421C3FDE500E4957B /* ColumnView.swift */,
 				DAFA95FE21CBDC2C00BA265C /* Creator.swift */,
 				2092A3E3220EFE1D00A7441D /* Delete.swift */,
@@ -1033,7 +1033,7 @@
 				DA86474521C3FDE500E4957B /* ColumnView.swift in Sources */,
 				20CC4E73220AD959002A4AA0 /* GradientLeft.swift in Sources */,
 				DA16E00121CE8AFF00D21C7A /* Text.swift in Sources */,
-				DA4C2AC721D5098A004988B4 /* ChartView.swift in Sources */,
+				DA4C2AC721D5098A004988B4 /* Chart.swift in Sources */,
 				204B690021E347200025261E /* DropView.swift in Sources */,
 				DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */,
 				20531BFD2202ED1A00D6551C /* Search.swift in Sources */,

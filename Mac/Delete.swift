@@ -12,7 +12,7 @@ class Delete:Sheet {
         message.isBezeled = false
         message.isEditable = false
         message.font = .systemFont(ofSize:22, weight:.bold)
-        message.textColor = .white
+        message.textColor = Skin.shared.text
         message.stringValue = name
         addSubview(message)
         
@@ -22,8 +22,8 @@ class Delete:Sheet {
         cancel.translatesAutoresizingMaskIntoConstraints = false
         cancel.isBordered = false
         cancel.attributedTitle = NSAttributedString(string:.local("DeleteView.cancel"), attributes:
-            [.font:NSFont.systemFont(ofSize:15, weight:.regular), .foregroundColor:NSColor(white:1, alpha:0.6)])
-        cancel.keyEquivalent = "\u{1b}"
+            [.font:NSFont.systemFont(ofSize:15, weight:.regular), .foregroundColor:
+            Skin.shared.text.withAlphaComponent(0.8)])
         addSubview(cancel)
         
         let delete = NSButton()
