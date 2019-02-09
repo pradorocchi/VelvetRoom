@@ -17,6 +17,8 @@ class Menu:NSMenu {
         
         list.target = List.shared
         list.action = #selector(List.shared.toggle)
+        find.target = Search.shared
+        find.action = #selector(Search.shared.active)
     }
     
     private func validate() {

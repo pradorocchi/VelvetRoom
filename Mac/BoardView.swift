@@ -59,7 +59,6 @@ class BoardView:NSView, NSTextViewDelegate {
     }
     
     func delete() {
-        Window.shared.makeFirstResponder(nil)
         Delete(board.name.isEmpty ? .local("BoardView.delete") : board.name) { [weak self] in
             guard let board = self?.board else { return }
             Repository.shared.delete(board)

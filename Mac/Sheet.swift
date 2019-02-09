@@ -4,6 +4,7 @@ class Sheet:NSView {
     @discardableResult init() {
         Toolbar.shared.enabled = false
         Menu.shared.enabled = false
+        Window.shared.makeFirstResponder(nil)
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true

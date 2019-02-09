@@ -20,6 +20,8 @@ class Toolbar:NSToolbar {
         list.action = #selector(List.shared.toggle)
         settings.target = self
         settings.action = #selector(openSettings)
+        search.target = Search.shared
+        search.action = #selector(Search.shared.active)
         delete.target = self
         delete.action = #selector(deleteBoard)
     }
@@ -40,16 +42,12 @@ class Toolbar:NSToolbar {
         Window.shared.beginSheet(NewView())
     }
     
-    @objc private func openSettings() {
-        Settings()
-    }
+    @objc private func openSettings() { Settings() }
     
     @objc private func openChart() {
         Window.shared.makeFirstResponder(nil)
         Window.shared.beginSheet(ChartView(List.shared.current!.board))
     }
     
-    @objc private func deleteBoard() {
-        List.shared.current?.delete()
-    }
+    @objc private func deleteBoard() { List.shared.current?.delete() }
 }

@@ -129,11 +129,6 @@ import VelvetRoom
         beginSheet(ImportView())
     }
     
-    @IBAction private func performFindPanelAction(_ sender:Any) {
-        makeFirstResponder(nil)
-        Search.shared.active()
-    }
-    
     @IBAction private func showHelp(_ sender:Any?) {
         HelpView().makeKeyAndOrderFront(nil)
     }

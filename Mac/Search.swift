@@ -10,8 +10,10 @@ class Search:NSView, NSTextViewDelegate {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
-        layer!.cornerRadius = 4
+        alphaValue = 0
+        layer!.cornerRadius = 12
         layer!.borderWidth = 1
+        layer!.borderColor = NSColor.velvetBlue.cgColor
         
         let image = NSImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -106,24 +108,27 @@ class Search:NSView, NSTextViewDelegate {
         }, completionHandler:nil)
     }
     
-    func active() {
+    @objc func active() {
+        Window.shared.makeFirstResponder(nil)
         bottom.constant = 100
         text.isEditable = true
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.4
             context.allowsImplicitAnimation = true
+            alphaValue = 1
             superview!.layoutSubtreeIfNeeded()
         }) {
             Window.shared.makeFirstResponder(self.text)
         }
     }
     
-    func unactive() {
+    private func unactive() {
         bottom.constant = 0
         text.isEditable = false
         NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.6
+            context.duration = 0.4
             context.allowsImplicitAnimation = true
+            alphaValue = 0
             highlighter?.alphaValue = 0
             superview!.layoutSubtreeIfNeeded()
         }) {
@@ -134,7 +139,6 @@ class Search:NSView, NSTextViewDelegate {
     
     @objc private func updateSkin() {
         layer!.backgroundColor = Skin.shared.background.withAlphaComponent(0.95).cgColor
-        layer!.borderColor = Skin.shared.text.withAlphaComponent(0.3).cgColor
         text.textColor = Skin.shared.text
     }
     

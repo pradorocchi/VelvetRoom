@@ -6,7 +6,6 @@ class Delete:Sheet {
     @discardableResult init(_ name:String, confirm:@escaping(() -> Void)) {
         self.confirm = confirm
         super.init()
-        
         let message = NSTextField()
         message.translatesAutoresizingMaskIntoConstraints = false
         message.backgroundColor = .clear
