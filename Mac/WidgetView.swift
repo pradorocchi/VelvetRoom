@@ -118,8 +118,6 @@ import NotificationCenter
         chart.translatesAutoresizingMaskIntoConstraints = false
         display.addSubview(chart)
         
-        var angle = CGFloat()
-        
         let maskPath = CGMutablePath()
         maskPath.addArc(center:CGPoint(x:26, y:26), radius:19, startAngle:0.001, endAngle:0, clockwise:false)
         let mask = CAShapeLayer()
@@ -131,10 +129,10 @@ import NotificationCenter
         chart.layer!.mask = mask
         
         var top = CGFloat(80)
+        var angle = CGFloat()
         
         items[index].1.enumerated().forEach {
-            let delta = .pi * -2 * CGFloat($0.element.percent)
-            let radius = delta + angle
+            let radius = (.pi * -2 * CGFloat($0.element.percent)) + angle
             let path = CGMutablePath()
             path.move(to:CGPoint(x:26, y:26))
             path.addArc(center:CGPoint(x:26, y:26), radius:25, startAngle:angle, endAngle:radius, clockwise:true)
