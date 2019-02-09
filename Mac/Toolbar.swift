@@ -2,8 +2,8 @@ import AppKit
 
 class Toolbar:NSToolbar {
     static private(set) weak var shared:Toolbar!
-    var enabled = false { didSet { update() } }
-    var extended = false { didSet { update() } }
+    var enabled = false { didSet { validate() } }
+    var extended = false { didSet { validate() } }
     @IBOutlet private(set) weak var list:NSButton!
     @IBOutlet private weak var settings:NSButton!
     @IBOutlet private weak var search:NSButton!
@@ -18,9 +18,13 @@ class Toolbar:NSToolbar {
         Toolbar.shared = self
         list.target = List.shared
         list.action = #selector(List.shared.toggle)
+        settings.target = self
+        settings.action = #selector(openSettings)
+        delete.target = self
+        delete.action = #selector(deleteBoard)
     }
     
-    private func update() {
+    private func validate() {
         list.isEnabled = enabled
         settings.isEnabled = enabled
         search.isEnabled = enabled && extended
@@ -36,8 +40,16 @@ class Toolbar:NSToolbar {
         Window.shared.beginSheet(NewView())
     }
     
-    @objc func openChart() {
+    @objc private func openSettings() {
+        Settings()
+    }
+    
+    @objc private func openChart() {
         Window.shared.makeFirstResponder(nil)
         Window.shared.beginSheet(ChartView(List.shared.current!.board))
+    }
+    
+    @objc private func deleteBoard() {
+        List.shared.current?.delete()
     }
 }

@@ -2,12 +2,8 @@ import AppKit
 
 class Menu:NSMenu {
     static private(set) weak var shared:Menu!
-    
-    var extended = false { willSet {
-        find.isEnabled = newValue
-        column.isEnabled = newValue
-        card.isEnabled = newValue
-    } }
+    var enabled = true { didSet { validate() } }
+    var extended = false { didSet { validate() } }
     
     @IBOutlet private(set) weak var list:NSMenuItem!
     @IBOutlet private weak var board:NSMenuItem!
@@ -18,7 +14,15 @@ class Menu:NSMenu {
     override func awakeFromNib() {
         super.awakeFromNib()
         Menu.shared = self
+        
         list.target = List.shared
         list.action = #selector(List.shared.toggle)
+    }
+    
+    private func validate() {
+        list.isEnabled = enabled
+        find.isEnabled = enabled && extended
+        column.isEnabled = enabled && extended
+        card.isEnabled = enabled && extended
     }
 }

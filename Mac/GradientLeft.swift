@@ -18,7 +18,7 @@ class GradientLeft:NSView {
     
     @objc private func updateSkin() {
         (layer as! CAGradientLayer).colors = [Skin.shared.background.cgColor,
-                                              Skin.shared.background.withAlphaComponent(0.9).cgColor,
+                                              Skin.shared.background.withAlphaComponent(0.95).cgColor,
                                               Skin.shared.background.withAlphaComponent(0).cgColor]
     }
 }

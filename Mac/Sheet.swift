@@ -2,6 +2,8 @@ import AppKit
 
 class Sheet:NSView {
     @discardableResult init() {
+        Toolbar.shared.enabled = false
+        Menu.shared.enabled = false
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
@@ -30,6 +32,8 @@ class Sheet:NSView {
             alphaValue = 0
         }) {
             self.removeFromSuperview()
+            Toolbar.shared.enabled = true
+            Menu.shared.enabled = true
         }
     }
 }

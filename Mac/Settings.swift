@@ -1,7 +1,7 @@
 import AppKit
 import VelvetRoom
 
-class SettingsView:SheetView {
+class Settings:Sheet {
     private weak var dark:NSButton!
     private weak var system:NSButton!
     private weak var light:NSButton!
@@ -14,29 +14,8 @@ class SettingsView:SheetView {
     private weak var slider:NSSlider!
     private weak var timer:Timer!
     
-    override init() {
+    @discardableResult override init() {
         super.init()
-        let close = NSButton()
-        close.target = self
-        close.action = #selector(end)
-        close.image = NSImage(named:"close")
-        close.imageScaling = .scaleNone
-        close.translatesAutoresizingMaskIntoConstraints = false
-        close.isBordered = false
-        close.keyEquivalent = "\u{1b}"
-        close.title = String()
-        contentView!.addSubview(close)
-        
-        let title = NSTextField()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.backgroundColor = .clear
-        title.isBezeled = false
-        title.isEditable = false
-        title.font = .systemFont(ofSize:16, weight:.bold)
-        title.textColor = .velvetBlue
-        title.stringValue = .local("SettingsView.title")
-        contentView!.addSubview(title)
-        
         let appearanceTitle = NSTextField()
         appearanceTitle.translatesAutoresizingMaskIntoConstraints = false
         appearanceTitle.backgroundColor = .clear
@@ -44,7 +23,7 @@ class SettingsView:SheetView {
         appearanceTitle.isEditable = false
         appearanceTitle.font = .systemFont(ofSize:16, weight:.medium)
         appearanceTitle.stringValue = .local("SettingsView.appearanceTitle")
-        contentView!.addSubview(appearanceTitle)
+        addSubview(appearanceTitle)
         self.appearanceTitle = appearanceTitle
         
         let dark = NSButton()
@@ -55,7 +34,7 @@ class SettingsView:SheetView {
         dark.translatesAutoresizingMaskIntoConstraints = false
         dark.isBordered = false
         dark.title = String()
-        contentView!.addSubview(dark)
+        addSubview(dark)
         self.dark = dark
         
         let system = NSButton()
@@ -66,7 +45,7 @@ class SettingsView:SheetView {
         system.translatesAutoresizingMaskIntoConstraints = false
         system.isBordered = false
         system.title = String()
-        contentView!.addSubview(system)
+        addSubview(system)
         self.system = system
         
         let light = NSButton()
@@ -77,7 +56,7 @@ class SettingsView:SheetView {
         light.translatesAutoresizingMaskIntoConstraints = false
         light.isBordered = false
         light.title = String()
-        contentView!.addSubview(light)
+        addSubview(light)
         self.light = light
         
         let darkTitle = NSTextField()
@@ -85,10 +64,10 @@ class SettingsView:SheetView {
         darkTitle.backgroundColor = .clear
         darkTitle.isBezeled = false
         darkTitle.isEditable = false
-        darkTitle.font = .systemFont(ofSize:12, weight:.light)
+        darkTitle.font = .systemFont(ofSize:12, weight:.regular)
         darkTitle.alignment = .center
         darkTitle.stringValue = .local("SettingsView.darkTitle")
-        contentView!.addSubview(darkTitle)
+        addSubview(darkTitle)
         self.darkTitle = darkTitle
         
         let systemTitle = NSTextField()
@@ -96,10 +75,10 @@ class SettingsView:SheetView {
         systemTitle.backgroundColor = .clear
         systemTitle.isBezeled = false
         systemTitle.isEditable = false
-        systemTitle.font = .systemFont(ofSize:12, weight:.light)
+        systemTitle.font = .systemFont(ofSize:12, weight:.regular)
         systemTitle.alignment = .center
         systemTitle.stringValue = .local("SettingsView.systemTitle")
-        contentView!.addSubview(systemTitle)
+        addSubview(systemTitle)
         self.systemTitle = systemTitle
         
         let lightTitle = NSTextField()
@@ -107,10 +86,10 @@ class SettingsView:SheetView {
         lightTitle.backgroundColor = .clear
         lightTitle.isBezeled = false
         lightTitle.isEditable = false
-        lightTitle.font = .systemFont(ofSize:12, weight:.light)
+        lightTitle.font = .systemFont(ofSize:12, weight:.regular)
         lightTitle.alignment = .center
         lightTitle.stringValue = .local("SettingsView.lightTitle")
-        contentView!.addSubview(lightTitle)
+        addSubview(lightTitle)
         self.lightTitle = lightTitle
         
         let fontTitle = NSTextField()
@@ -120,7 +99,7 @@ class SettingsView:SheetView {
         fontTitle.isEditable = false
         fontTitle.font = .systemFont(ofSize:16, weight:.medium)
         fontTitle.stringValue = .local("SettingsView.fontTitle")
-        contentView!.addSubview(fontTitle)
+        addSubview(fontTitle)
         self.fontTitle = fontTitle
         
         let font = NSTextField()
@@ -130,7 +109,7 @@ class SettingsView:SheetView {
         font.isEditable = false
         font.font = .systemFont(ofSize:16, weight:.medium)
         font.alignment = .right
-        contentView!.addSubview(font)
+        addSubview(font)
         self.font = font
         
         let slider = NSSlider()
@@ -142,34 +121,19 @@ class SettingsView:SheetView {
         if #available(OSX 10.12.2, *) {
             slider.trackFillColor = .velvetBlue
         }
-        contentView!.addSubview(slider)
+        addSubview(slider)
         self.slider = slider
         
-        let done = NSButton()
-        done.image = NSImage(named:"button")
+        let done = Button(.local("SettingsView.done"))
         done.target = self
-        done.action = #selector(end)
-        done.setButtonType(.momentaryChange)
-        done.imageScaling = .scaleNone
-        done.translatesAutoresizingMaskIntoConstraints = false
-        done.isBordered = false
-        done.attributedTitle = NSAttributedString(string:.local("SettingsView.done"), attributes:
-            [.font:NSFont.systemFont(ofSize:15, weight:.medium), .foregroundColor:NSColor.black])
+        done.action = #selector(self.close)
         done.keyEquivalent = "\r"
-        contentView!.addSubview(done)
+        addSubview(done)
         
-        close.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:20).isActive = true
-        close.leftAnchor.constraint(equalTo:contentView!.leftAnchor, constant:20).isActive = true
-        close.widthAnchor.constraint(equalToConstant:24).isActive = true
-        close.heightAnchor.constraint(equalToConstant:24).isActive = true
+        appearanceTitle.leftAnchor.constraint(equalTo:centerXAnchor, constant:-200).isActive = true
+        appearanceTitle.topAnchor.constraint(equalTo:topAnchor, constant:40).isActive = true
         
-        title.leftAnchor.constraint(equalTo:close.rightAnchor, constant:10).isActive = true
-        title.centerYAnchor.constraint(equalTo:close.centerYAnchor).isActive = true
-        
-        appearanceTitle.leftAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:-200).isActive = true
-        appearanceTitle.topAnchor.constraint(equalTo:title.bottomAnchor, constant:50).isActive = true
-        
-        system.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
+        system.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         system.topAnchor.constraint(equalTo:appearanceTitle.bottomAnchor, constant:30).isActive = true
         system.widthAnchor.constraint(equalToConstant:50).isActive = true
         system.heightAnchor.constraint(equalToConstant:50).isActive = true
@@ -193,20 +157,18 @@ class SettingsView:SheetView {
         lightTitle.centerXAnchor.constraint(equalTo:light.centerXAnchor).isActive = true
         lightTitle.topAnchor.constraint(equalTo:systemTitle.topAnchor).isActive = true
         
-        fontTitle.topAnchor.constraint(equalTo:systemTitle.bottomAnchor, constant:150).isActive = true
+        fontTitle.topAnchor.constraint(equalTo:systemTitle.bottomAnchor, constant:80).isActive = true
         fontTitle.leftAnchor.constraint(equalTo:appearanceTitle.leftAnchor).isActive = true
         
         font.topAnchor.constraint(equalTo:fontTitle.topAnchor).isActive = true
-        font.rightAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:200).isActive = true
+        font.rightAnchor.constraint(equalTo:centerXAnchor, constant:200).isActive = true
         
         slider.topAnchor.constraint(equalTo:fontTitle.bottomAnchor, constant:20).isActive = true
-        slider.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
+        slider.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         slider.widthAnchor.constraint(equalToConstant:400).isActive = true
         
-        done.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
-        done.bottomAnchor.constraint(equalTo:contentView!.bottomAnchor, constant:-20).isActive = true
-        done.widthAnchor.constraint(equalToConstant:92).isActive = true
-        done.heightAnchor.constraint(equalToConstant:34).isActive = true
+        done.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        done.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-20).isActive = true
         
         switch Repository.shared.account.appearance {
         case .light: changeLight()
@@ -220,13 +182,15 @@ class SettingsView:SheetView {
         Skin.add(self, selector:#selector(updateSkin))
     }
     
+    required init?(coder:NSCoder) { return nil }
+    
     deinit { NotificationCenter.default.removeObserver(self) }
     
     @objc private func updateSkin() {
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.5
             context.allowsImplicitAnimation = true
-            contentView!.layer!.backgroundColor = Skin.shared.background.cgColor
+            layer!.backgroundColor = Skin.shared.background.cgColor
             appearanceTitle.textColor = Skin.shared.text
             darkTitle.textColor = Skin.shared.text
             systemTitle.textColor = Skin.shared.text

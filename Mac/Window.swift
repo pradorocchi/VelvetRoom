@@ -24,9 +24,9 @@ import VelvetRoom
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        contentView!.wantsLayer = true
         Window.shared = self
         NSApp.delegate = self
-        UserDefaults.standard.set(false, forKey:"NSFullScreenMenuItemEverywhere")
         
         let splash = Splash()
         contentView!.addSubview(splash)
@@ -50,7 +50,6 @@ import VelvetRoom
     
     private func outlets() {
         Toolbar.shared.enabled = true
-        updateSkin()
         
         let canvas = Canvas.shared
         let list = List.shared
@@ -108,16 +107,16 @@ import VelvetRoom
     }
     
     @objc private func updateSkin() {
-        backgroundColor = Skin.shared.background
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 1
+            context.allowsImplicitAnimation = true
+            contentView!.layer!.backgroundColor = Skin.shared.background.cgColor
+        }, completionHandler:nil)
     }
     
     @IBAction private func newDocument(_ sender:Any) {
         makeFirstResponder(nil)
         beginSheet(NewView())
-    }
-    
-    @IBAction private func remove(_ sender:Any) {
-        List.shared.current?.delete()
     }
     
     @IBAction private func export(_ sender:Any) {
@@ -128,11 +127,6 @@ import VelvetRoom
     @IBAction private func load(_ sender:Any) {
         makeFirstResponder(nil)
         beginSheet(ImportView())
-    }
-    
-    @IBAction private func settings(_ sender:Any) {
-        makeFirstResponder(nil)
-        beginSheet(SettingsView())
     }
     
     @IBAction private func performFindPanelAction(_ sender:Any) {

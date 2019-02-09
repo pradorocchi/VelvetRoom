@@ -58,7 +58,7 @@
 		20BFF18C21FEEC0E00DA249A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708121C3CA7C008F184E /* Assets.xcassets */; };
 		20BFF18D21FEF3C200DA249A /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78421D65712003396B1 /* UIColor.swift */; };
 		20C6F94421EA120E0069176F /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C6F94321EA120E0069176F /* ExportView.swift */; };
-		20CADF9E21F99B8A005DC344 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9D21F99B8A005DC344 /* SettingsView.swift */; };
+		20CADF9E21F99B8A005DC344 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9D21F99B8A005DC344 /* Settings.swift */; };
 		20CADFA021F9B1F1005DC344 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9F21F9B1F1005DC344 /* Appearance.swift */; };
 		20CADFA121F9B1F1005DC344 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9F21F9B1F1005DC344 /* Appearance.swift */; };
 		20CADFA521F9B8C2005DC344 /* Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADFA421F9B8C2005DC344 /* Skin.swift */; };
@@ -280,7 +280,7 @@
 		20B4C46F220C3AFA00103F8A /* Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
 		20B4C471220C44F700103F8A /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		20C6F94321EA120E0069176F /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
-		20CADF9D21F99B8A005DC344 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		20CADF9D21F99B8A005DC344 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		20CADF9F21F9B1F1005DC344 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		20CADFA421F9B8C2005DC344 /* Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skin.swift; sourceTree = "<group>"; };
 		20CC4E70220AD951002A4AA0 /* GradientTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientTop.swift; sourceTree = "<group>"; };
@@ -559,7 +559,7 @@
 				DAC2CDBF21C8E2F000AD927B /* NewView.swift */,
 				DA4C2AC421D4F4CB004988B4 /* Progress.swift */,
 				20531BFC2202ED1A00D6551C /* Search.swift */,
-				20CADF9D21F99B8A005DC344 /* SettingsView.swift */,
+				20CADF9D21F99B8A005DC344 /* Settings.swift */,
 				202D692621E230EC009398AB /* SheetView.swift */,
 				2092A3E5220F019E00A7441D /* Sheet.swift */,
 				20CADFA421F9B8C2005DC344 /* Skin.swift */,
@@ -1057,7 +1057,7 @@
 				DA6A986C21CEA70000C18C7F /* Layout.swift in Sources */,
 				DA4C2AC521D4F4CB004988B4 /* Progress.swift in Sources */,
 				202D692921E231EF009398AB /* ExportView.swift in Sources */,
-				20CADF9E21F99B8A005DC344 /* SettingsView.swift in Sources */,
+				20CADF9E21F99B8A005DC344 /* Settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
