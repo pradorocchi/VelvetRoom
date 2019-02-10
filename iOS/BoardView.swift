@@ -22,7 +22,7 @@ class BoardView:UIControl, UITextViewDelegate {
         self.board = board
         
         let text = TextView()
-        text.font = .systemFont(ofSize:CGFloat(Application.view.repository.account.font), weight:.bold)
+        text.font = .systemFont(ofSize:CGFloat(Repository.shared.account.font), weight:.bold)
         text.delegate = self
         text.text = board.name
         text.textContainer.maximumNumberOfLines = 1
@@ -127,7 +127,7 @@ class BoardView:UIControl, UITextViewDelegate {
         Application.view.present(DeleteView {
             DispatchQueue.global(qos:.background).async { [weak self] in
                 guard let board = self?.board else { return }
-                Application.view.repository.delete(board)
+                Repository.shared.delete(board)
             }
         }, animated:true)
     }

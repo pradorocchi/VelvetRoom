@@ -1,4 +1,5 @@
 import UIKit
+import VelvetRoom
 
 class HelpView:UIViewController {
     override func viewDidLoad() {
@@ -39,7 +40,7 @@ class HelpView:UIViewController {
         view.addSubview(imageView)
         
         let text = TextView()
-        text.font = .light(CGFloat(Application.view.repository.account.font))
+        text.font = .light(CGFloat(Repository.shared.account.font))
         text.text = .local("HelpView.content")
         view.addSubview(text)
         

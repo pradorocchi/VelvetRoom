@@ -107,7 +107,7 @@ class CameraView:UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         close()
         if Sharer.validate(content) {
-            Application.view.repository.load(content)
+            Repository.shared.load(content)
         } else {
             Application.view.alert.add(Exception.imageNotValid)
         }

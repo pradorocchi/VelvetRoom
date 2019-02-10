@@ -6,7 +6,7 @@ class ColumnView:EditView {
     
     init(_ column:Column) {
         super.init()
-        text.font = .bold(CGFloat(Application.view.repository.account.font + 6))
+        text.font = .bold(CGFloat(Repository.shared.account.font + 6))
         text.alpha = 0.4
         text.text = column.name
         text.textContainer.maximumNumberOfLines = 1
@@ -44,7 +44,7 @@ class ColumnView:EditView {
     override func endDrag() {
         super.endDrag()
         var after = Application.view.root
-        if Application.view.root! is Creator || Application.view.root!.frame.maxX > frame.midX {
+        if Application.view.root! is CreateView || Application.view.root!.frame.maxX > frame.midX {
             sibling = Application.view.root
             Application.view.root = self
             after = nil
@@ -61,7 +61,7 @@ class ColumnView:EditView {
             after!.sibling = self
         }
         Application.view.canvasChanged()
-        Application.view.repository.move(column, board:Application.view.selected!, after:(after as? ColumnView)?.column)
+        Repository.shared.move(column, board:Application.view.selected!, after:(after as? ColumnView)?.column)
         Application.view.scheduleUpdate()
         Application.view.progress.chart = Application.view.selected!.chart
     }
@@ -97,7 +97,7 @@ class ColumnView:EditView {
         }
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let column = self?.column else { return }
-            Application.view.repository.delete(column, board:Application.view.selected!)
+            Repository.shared.delete(column, board:Application.view.selected!)
             Application.view.scheduleUpdate()
             DispatchQueue.main.async { [weak self] in
                 Application.view.progress.chart = Application.view.selected!.chart

@@ -215,10 +215,10 @@ class NewView:UIViewController, UITextFieldDelegate {
         let name = field.text!
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let template = self?.template else { return }
-            Application.view.repository.newBoard(name, template:template)
+            Repository.shared.newBoard(name, template:template)
         }
         presentingViewController!.dismiss(animated:true)
-        if Application.view.repository.rate() { if #available(iOS 10.3, *) { SKStoreReviewController.requestReview() } }
+        if Repository.shared.rate() { if #available(iOS 10.3, *) { SKStoreReviewController.requestReview() } }
     }
     
     @objc private func selectNone() {

@@ -1,4 +1,5 @@
 import UIKit
+import VelvetRoom
 
 class SettingsView:UIViewController {
     private weak var dark:UIButton!
@@ -148,10 +149,10 @@ class SettingsView:UIViewController {
             done.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-20).isActive = true
         }
         
-        slider.value = Float(Application.view.repository.account.font)
+        slider.value = Float(Repository.shared.account.font)
         font.text = "\(Int(slider.value))"
         
-        if Application.view.repository.account.appearance == .light {
+        if Repository.shared.account.appearance == .light {
             changeLight()
         } else {
             changeDark()
@@ -190,18 +191,18 @@ class SettingsView:UIViewController {
     }
     
     @objc private func saveFont() {
-        Application.view.repository.change(Int(slider.value))
+        Repository.shared.change(Int(slider.value))
     }
     
     @objc private func makeDark() {
         changeDark()
-        Application.view.repository.change(.dark)
+        Repository.shared.change(.dark)
         Application.skin = .appearance(.dark, font:Int(slider.value))
     }
     
     @objc private func makeLight() {
         changeLight()
-        Application.view.repository.change(.light)
+        Repository.shared.change(.light)
         Application.skin = .appearance(.light, font:Int(slider.value))
     }
 }

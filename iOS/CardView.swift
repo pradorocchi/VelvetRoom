@@ -6,7 +6,7 @@ class CardView:EditView {
     
     init(_ card:Card) {
         super.init()
-        text.font = .light(CGFloat(Application.view.repository.account.font))
+        text.font = .light(CGFloat(Repository.shared.account.font))
         text.text = card.content
         text.onDelete = { [weak self] in
             guard self?.text.text.isEmpty == false else { return }
@@ -51,7 +51,7 @@ class CardView:EditView {
         child = after!.child
         after!.child = self
         Application.view.canvasChanged()
-        Application.view.repository.move(card, board:Application.view.selected!, column:(column as! ColumnView).column,
+        Repository.shared.move(card, board:Application.view.selected!, column:(column as! ColumnView).column,
                                          after:(after as? CardView)?.card)
         Application.view.scheduleUpdate()
         Application.view.progress.chart = Application.view.selected!.chart
@@ -61,7 +61,7 @@ class CardView:EditView {
         detach()
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let card = self?.card else { return }
-            Application.view.repository.delete(card, board:Application.view.selected!)
+            Repository.shared.delete(card, board:Application.view.selected!)
             Application.view.scheduleUpdate()
             DispatchQueue.main.async { [weak self] in
                 Application.view.progress.chart = Application.view.selected!.chart

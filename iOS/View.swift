@@ -2,7 +2,6 @@ import UIKit
 import VelvetRoom
 
 class View:UIViewController {
-    let repository = Repository()
     let alert = Alert()
     weak var root:ItemView?
     private var safeTop = CGFloat()
@@ -37,9 +36,9 @@ class View:UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         makeOutlets()
-        repository.select = { board in DispatchQueue.main.async { self.open(board) } }
-        repository.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
-        repository.list = { boards in DispatchQueue.main.async {
+        Repository.shared.select = { board in DispatchQueue.main.async { self.open(board) } }
+        Repository.shared.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
+        Repository.shared.list = { boards in DispatchQueue.main.async {
             self.list(boards)
             self.showList()
         } }
@@ -47,8 +46,8 @@ class View:UIViewController {
         Skin.add(self, selector:#selector(updateSkin))
         listenKeyboard()
         DispatchQueue.global(qos:.background).async {
-            self.repository.load()
-            Application.skin = .appearance(self.repository.account.appearance, font:self.repository.account.font)
+            Repository.shared.load()
+            Application.skin = .appearance(Repository.shared.account.appearance, font:Repository.shared.account.font)
         }
     }
     
@@ -93,12 +92,12 @@ class View:UIViewController {
     func scheduleUpdate(_ board:Board? = nil) {
         DispatchQueue.global(qos:.background).async {
             guard let board = board ?? self.selected else { return }
-            self.repository.scheduleUpdate(board)
+            Repository.shared.scheduleUpdate(board)
         }
     }
     
     func fireSchedule() {
-        repository.fireSchedule()
+        Repository.shared.fireSchedule()
     }
     
     private func makeOutlets() {
@@ -476,7 +475,7 @@ class View:UIViewController {
     }
     
     @objc private func newColumn(_ view:CreateView) {
-        let column = ColumnView(repository.newColumn(selected!))
+        let column = ColumnView(Repository.shared.newColumn(selected!))
         column.sibling = view
         if root === view {
             root = column
@@ -496,7 +495,7 @@ class View:UIViewController {
     }
     
     @objc private func newCard(_ view:CreateView) {
-        let card = CardView(try! repository.newCard(selected!))
+        let card = CardView(try! Repository.shared.newCard(selected!))
         card.child = view.child
         view.child = card
         canvas.addSubview(card)
