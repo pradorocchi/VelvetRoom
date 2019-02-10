@@ -12,8 +12,6 @@ class Search:NSView, NSTextViewDelegate {
         wantsLayer = true
         alphaValue = 0
         layer!.cornerRadius = 12
-        layer!.borderWidth = 1
-        layer!.borderColor = NSColor.velvetBlue.cgColor
         
         let image = NSImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -138,8 +136,8 @@ class Search:NSView, NSTextViewDelegate {
     }
     
     @objc private func updateSkin() {
-        layer!.backgroundColor = Skin.shared.background.withAlphaComponent(0.95).cgColor
-        text.textColor = Skin.shared.text
+        layer!.backgroundColor = Skin.shared.text.withAlphaComponent(0.9).cgColor
+        text.textColor = Skin.shared.background
     }
     
     @objc private func done() {

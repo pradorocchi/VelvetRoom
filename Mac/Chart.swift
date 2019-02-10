@@ -4,7 +4,6 @@ import VelvetRoom
 class Chart:Sheet {
     private weak var chart:CAShapeLayer!
     private weak var names:CAShapeLayer!
-    private weak var title:NSTextField!
     private var chartAngle = CGFloat(0)
     private var namesRadius = CGFloat(0)
     
@@ -21,7 +20,6 @@ class Chart:Sheet {
         title.alignment = .center
         title.alphaValue = 0
         addSubview(title)
-        self.title = title
         
         title.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         title.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
@@ -29,6 +27,13 @@ class Chart:Sheet {
         display(board.chart)
         Timer.scheduledTimer(timeInterval:0.01, target:self,
                              selector:#selector(animate(_:)), userInfo:nil, repeats:true)
+        DispatchQueue.main.asyncAfter(deadline:.now() + 0.2) {
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 3
+                context.allowsImplicitAnimation = true
+                title.alphaValue = 1
+            }, completionHandler:nil)
+        }
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -150,11 +155,6 @@ class Chart:Sheet {
                                      clockwise:false); return $0 } (CGMutablePath())
         } else {
             timer.invalidate()
-            NSAnimationContext.runAnimationGroup({ context in
-                context.duration = 0.3
-                context.allowsImplicitAnimation = true
-                title.alphaValue = 1
-            }, completionHandler:nil)
         }
     }
 }

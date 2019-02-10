@@ -4,7 +4,11 @@ class Sheet:NSView {
     override var acceptsFirstResponder:Bool { return true }
     
     override func keyDown(with event:NSEvent) {
-        if event.keyCode == 53 { close() }
+        if event.keyCode == 53 {
+            close()
+        } else {
+            super.keyDown(with:event)
+        }
     }
     
     @discardableResult init() {
