@@ -30,6 +30,8 @@ class Toolbar:NSToolbar {
         export.action = #selector(exportBoard)
         load.target = self
         load.action = #selector(importBoard)
+        new.target = Window.shared
+        new.action = #selector(Window.shared.newBoard)
     }
     
     private func validate() {
@@ -41,11 +43,6 @@ class Toolbar:NSToolbar {
         export.isEnabled = enabled && extended
         load.isEnabled = enabled
         new.isEnabled = enabled
-    }
-    
-    @objc func newBoard() {
-        Window.shared.makeFirstResponder(nil)
-        Window.shared.beginSheet(NewView())
     }
     
     @objc private func openSettings() { Settings() }

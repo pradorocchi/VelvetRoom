@@ -79,6 +79,22 @@ class Canvas:NSScrollView {
         }
     }
     
+    @objc func newColumn() {
+        var view = root
+        while view?.sibling != nil {
+            view = view?.sibling
+        }
+        if let view = view as? Creator {
+            newColumn(view)
+        }
+    }
+    
+    @objc func newCard() {
+        if let view = root?.child as? Creator {
+            newCard(view)
+        }
+    }
+    
     private func render(_ board:Board) {
         documentView!.subviews.forEach { $0.removeFromSuperview() }
         root = nil
@@ -204,22 +220,6 @@ class Canvas:NSScrollView {
                 self.contentView.scrollToVisible(CGRect(x:view.frame.minX - self.bounds.width, y:
                     view.frame.minY - self.bounds.height, width:1, height:1))
             }, completionHandler:nil)
-        }
-    }
-    
-    @IBAction private func addRow(_ sender:Any?) {
-        var view = root
-        while view?.sibling != nil {
-            view = view?.sibling
-        }
-        if let view = view as? Creator {
-            newColumn(view)
-        }
-    }
-    
-    @IBAction private func addChild(_ sender:Any?) {
-        if let view = root?.child as? Creator {
-            newCard(view)
         }
     }
 }

@@ -20,8 +20,7 @@ class Import:Sheet {
         image.image = NSImage(named:"dropOff")
         addSubview(image)
         
-        let drop = DropView(image)
-        drop.selected = selected
+        let drop = Drop(image) { [weak self] in self?.selected($0) }
         addSubview(drop)
         
         let search = Button(.local("Import.open"))
@@ -37,8 +36,6 @@ class Import:Sheet {
         
         drop.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         drop.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
-        drop.widthAnchor.constraint(equalToConstant:120).isActive = true
-        drop.heightAnchor.constraint(equalToConstant:120).isActive = true
         
         image.topAnchor.constraint(equalTo:drop.topAnchor).isActive = true
         image.bottomAnchor.constraint(equalTo:drop.bottomAnchor).isActive = true

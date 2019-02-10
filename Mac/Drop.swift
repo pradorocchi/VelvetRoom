@@ -1,18 +1,21 @@
 import AppKit
 
-class DropView:NSView {
-    weak var image:NSImageView!
-    var selected:((URL) -> Void)!
+class Drop:NSView {
+    private weak var image:NSImageView!
+    private let selected:((URL) -> Void)
     
-    init(_ image:NSImageView) {
-        super.init(frame:.zero)
+    init(_ image:NSImageView, selected:@escaping((URL) -> Void)) {
+        self.selected = selected
         self.image = image
+        super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         if #available(OSX 10.13, *) {
             registerForDraggedTypes([.fileURL])
         } else {
             registerForDraggedTypes([NSPasteboard.PasteboardType(kUTTypeFileURL as String)])
         }
+        widthAnchor.constraint(equalToConstant:120).isActive = true
+        heightAnchor.constraint(equalToConstant:120).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }

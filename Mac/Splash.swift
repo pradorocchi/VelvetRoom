@@ -23,6 +23,7 @@ class Splash:NSView {
         let emitter = CAEmitterLayer()
         emitter.emitterShape = .sphere
         emitter.emitterCells = [cell]
+        emitter.emitterPosition = CGPoint(x:Window.shared.frame.width / 2, y:Window.shared.frame.height / 2)
         layer!.addSublayer(emitter)
         self.emitter = emitter
         
@@ -33,8 +34,8 @@ class Splash:NSView {
         addSubview(image)
         
         let button = Button(.local("Splash.button"))
-        button.target = Toolbar.shared
-        button.action = #selector(Toolbar.shared.newBoard)
+        button.target = Window.shared
+        button.action = #selector(Window.shared.newBoard)
         button.isHidden = true
         addSubview(button)
         self.button = button
@@ -44,15 +45,13 @@ class Splash:NSView {
         
         button.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         button.topAnchor.constraint(equalTo:centerYAnchor, constant:80).isActive = true
-        
-        center()
     }
     
     required init?(coder:NSCoder) { return nil }
     
     override func viewDidEndLiveResize() {
         super.viewDidEndLiveResize()
-        center()
+        emitter.emitterPosition = CGPoint(x:Window.shared.frame.width / 2, y:Window.shared.frame.height / 2)
     }
     
     func remove() {
@@ -64,9 +63,5 @@ class Splash:NSView {
         }) { [weak self] in
             self?.removeFromSuperview()
         }
-    }
-    
-    private func center() {
-        emitter.emitterPosition = CGPoint(x:Window.shared.frame.width / 2, y:Window.shared.frame.height / 2)
     }
 }

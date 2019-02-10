@@ -48,6 +48,8 @@ import VelvetRoom
         }
     }
     
+    @objc func newBoard() { Boarder() }
+    
     private func outlets() {
         Toolbar.shared.enabled = true
         

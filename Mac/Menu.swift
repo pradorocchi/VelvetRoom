@@ -14,11 +14,16 @@ class Menu:NSMenu {
     override func awakeFromNib() {
         super.awakeFromNib()
         Menu.shared = self
-        
         list.target = List.shared
         list.action = #selector(List.shared.toggle)
         find.target = Search.shared
         find.action = #selector(Search.shared.active)
+        board.target = Window.shared
+        board.action = #selector(Window.shared.newBoard)
+        column.target = Canvas.shared
+        column.action = #selector(Canvas.shared.newColumn)
+        card.target = Canvas.shared
+        card.action = #selector(Canvas.shared.newCard)
     }
     
     private func validate() {

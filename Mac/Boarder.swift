@@ -2,8 +2,8 @@ import AppKit
 import VelvetRoom
 import StoreKit
 
-class NewView:SheetView, NSTextFieldDelegate {
-    private weak var name:NSTextField!
+class Boarder:Sheet, NSTextViewDelegate {
+    private weak var text:Text!
     private weak var columns:Label!
     private weak var none:NSButton!
     private weak var single:NSButton!
@@ -12,65 +12,47 @@ class NewView:SheetView, NSTextFieldDelegate {
     private weak var selectorLeft:NSLayoutConstraint!
     private var template:Template!
     
-    override init() {
+    @discardableResult override init() {
         super.init()
-        let title = Label(.local("NewView.title"), font:.systemFont(ofSize:18, weight:.bold))
-        contentView!.addSubview(title)
+        let title = Label(.local("Boarder.title"), font:.systemFont(ofSize:20, weight:.bold))
+        addSubview(title)
         
-        let columns = Label(font:.systemFont(ofSize:12, weight:.light))
+        let columns = Label(font:.systemFont(ofSize:14, weight:.light))
         columns.alphaValue = 0.5
-        contentView!.addSubview(columns)
+        addSubview(columns)
         self.columns = columns
         
-        let name = NSTextField()
-        name.translatesAutoresizingMaskIntoConstraints = false
-        name.isBezeled = false
-        name.font = .systemFont(ofSize:18, weight:.medium)
-        name.placeholderAttributedString = NSAttributedString(string:.local("NewView.name"), attributes:
-            [.font:NSFont.systemFont(ofSize:18, weight:.medium), .foregroundColor:NSColor(white:1, alpha:0.2)])
-        name.focusRingType = .none
-        name.drawsBackground = false
-        name.delegate = self
-        name.textColor = .white
-        contentView!.addSubview(name)
-        (name.window?.fieldEditor(true, for:name) as! NSTextView).insertionPointColor = .velvetBlue
-        self.name = name
+        let text = Text()
+        text.textContainer!.size = NSSize(width:310, height:40)
+        text.font = .light(18)
+        text.isEditable = true
+        text.delegate = self
+        addSubview(text)
+        self.text = text
         
         let border = NSView()
         border.translatesAutoresizingMaskIntoConstraints = false
         border.wantsLayer = true
         border.layer!.backgroundColor = NSColor(white:1, alpha:0.4).cgColor
-        contentView!.addSubview(border)
+        addSubview(border)
         
-        let cancel = NSButton()
+        let cancel = Link(.local("Boarder.cancel"))
         cancel.target = self
-        cancel.action = #selector(self.cancel)
-        cancel.translatesAutoresizingMaskIntoConstraints = false
-        cancel.isBordered = false
-        cancel.attributedTitle = NSAttributedString(string:.local("NewView.cancel"), attributes:
-            [.font:NSFont.systemFont(ofSize:15, weight:.regular), .foregroundColor:NSColor(white:1, alpha:0.6)])
-        cancel.keyEquivalent = "\u{1b}"
-        contentView!.addSubview(cancel)
+        cancel.action = #selector(close)
+        addSubview(cancel)
         
-        let create = NSButton()
-        create.image = NSImage(named:"button")
+        let create = Button(.local("Boarder.create"))
         create.target = self
         create.action = #selector(self.create)
-        create.setButtonType(.momentaryChange)
-        create.imageScaling = .scaleNone
-        create.translatesAutoresizingMaskIntoConstraints = false
-        create.isBordered = false
-        create.attributedTitle = NSAttributedString(string:.local("NewView.create"), attributes:
-            [.font:NSFont.systemFont(ofSize:15, weight:.medium), .foregroundColor:NSColor.black])
         create.keyEquivalent = "\r"
-        contentView!.addSubview(create)
+        addSubview(create)
         
         let selector = NSView()
         selector.translatesAutoresizingMaskIntoConstraints = false
         selector.wantsLayer = true
         selector.layer!.backgroundColor = NSColor.velvetBlue.cgColor
         selector.layer!.cornerRadius = 4
-        contentView!.addSubview(selector)
+        addSubview(selector)
         
         let none = NSButton()
         none.translatesAutoresizingMaskIntoConstraints = false
@@ -80,7 +62,7 @@ class NewView:SheetView, NSTextFieldDelegate {
         none.isBordered = false
         none.imageScaling = .scaleNone
         none.title = String()
-        contentView!.addSubview(none)
+        addSubview(none)
         self.none = none
         
         let single = NSButton()
@@ -91,7 +73,7 @@ class NewView:SheetView, NSTextFieldDelegate {
         single.isBordered = false
         single.imageScaling = .scaleNone
         single.title = String()
-        contentView!.addSubview(single)
+        addSubview(single)
         self.single = single
         
         let double = NSButton()
@@ -102,7 +84,7 @@ class NewView:SheetView, NSTextFieldDelegate {
         double.isBordered = false
         double.imageScaling = .scaleNone
         double.title = String()
-        contentView!.addSubview(double)
+        addSubview(double)
         self.double = double
         
         let triple = NSButton()
@@ -113,71 +95,89 @@ class NewView:SheetView, NSTextFieldDelegate {
         triple.isBordered = false
         triple.imageScaling = .scaleNone
         triple.title = String()
-        contentView!.addSubview(triple)
+        addSubview(triple)
         self.triple = triple
         
-        title.leftAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:-160).isActive = true
-        title.bottomAnchor.constraint(equalTo:name.topAnchor, constant:-40).isActive = true
+        title.leftAnchor.constraint(equalTo:border.leftAnchor).isActive = true
+        title.bottomAnchor.constraint(equalTo:border.topAnchor, constant:-80).isActive = true
         
-        name.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor).isActive = true
-        name.widthAnchor.constraint(equalToConstant:310).isActive = true
-        name.bottomAnchor.constraint(equalTo:border.topAnchor, constant:-10).isActive = true
+        text.leftAnchor.constraint(equalTo:border.leftAnchor).isActive = true
+        text.bottomAnchor.constraint(equalTo:border.topAnchor, constant:-10).isActive = true
         
-        border.bottomAnchor.constraint(equalTo:contentView!.centerYAnchor, constant:-80).isActive = true
-        border.leftAnchor.constraint(equalTo:name.leftAnchor, constant:-5).isActive = true
-        border.rightAnchor.constraint(equalTo:name.rightAnchor, constant:5).isActive = true
+        border.bottomAnchor.constraint(equalTo:centerYAnchor, constant:-80).isActive = true
+        border.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        border.widthAnchor.constraint(equalToConstant:320).isActive = true
         border.heightAnchor.constraint(equalToConstant:1).isActive = true
         
         selector.widthAnchor.constraint(equalToConstant:44).isActive = true
         selector.heightAnchor.constraint(equalToConstant:44).isActive = true
-        selector.centerYAnchor.constraint(equalTo:contentView!.centerYAnchor).isActive = true
-        selectorLeft = selector.centerXAnchor.constraint(equalTo:contentView!.centerXAnchor)
+        selector.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
+        selectorLeft = selector.centerXAnchor.constraint(equalTo:centerXAnchor, constant:-160)
         selectorLeft.isActive = true
         
-        none.centerYAnchor.constraint(equalTo:contentView!.centerYAnchor).isActive = true
-        none.leftAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:-180).isActive = true
+        none.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
+        none.leftAnchor.constraint(equalTo:centerXAnchor, constant:-180).isActive = true
         none.widthAnchor.constraint(equalToConstant:80).isActive = true
         none.heightAnchor.constraint(equalToConstant:50).isActive = true
         
-        single.centerYAnchor.constraint(equalTo:contentView!.centerYAnchor).isActive = true
+        single.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         single.leftAnchor.constraint(equalTo:none.rightAnchor, constant:20).isActive = true
         single.widthAnchor.constraint(equalToConstant:80).isActive = true
         single.heightAnchor.constraint(equalToConstant:50).isActive = true
         
-        double.centerYAnchor.constraint(equalTo:contentView!.centerYAnchor).isActive = true
+        double.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         double.leftAnchor.constraint(equalTo:single.rightAnchor).isActive = true
         double.widthAnchor.constraint(equalToConstant:80).isActive = true
         double.heightAnchor.constraint(equalToConstant:50).isActive = true
         
-        triple.centerYAnchor.constraint(equalTo:contentView!.centerYAnchor).isActive = true
+        triple.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         triple.leftAnchor.constraint(equalTo:double.rightAnchor, constant:20).isActive = true
         triple.widthAnchor.constraint(equalToConstant:80).isActive = true
         triple.heightAnchor.constraint(equalToConstant:50).isActive = true
         
-        columns.leftAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:-160).isActive = true
-        columns.topAnchor.constraint(equalTo:contentView!.centerYAnchor, constant:35).isActive = true
+        columns.leftAnchor.constraint(equalTo:centerXAnchor, constant:-160).isActive = true
+        columns.topAnchor.constraint(equalTo:centerYAnchor, constant:35).isActive = true
         
-        cancel.leftAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:-185).isActive = true
+        cancel.leftAnchor.constraint(equalTo:centerXAnchor, constant:-180).isActive = true
         cancel.centerYAnchor.constraint(equalTo:create.centerYAnchor).isActive = true
-        cancel.widthAnchor.constraint(equalToConstant:92).isActive = true
-        cancel.heightAnchor.constraint(equalToConstant:34).isActive = true
         
-        create.rightAnchor.constraint(equalTo:contentView!.centerXAnchor, constant:160).isActive = true
-        create.centerYAnchor.constraint(equalTo:contentView!.centerYAnchor, constant:135).isActive = true
-        create.widthAnchor.constraint(equalToConstant:92).isActive = true
-        create.heightAnchor.constraint(equalToConstant:34).isActive = true
+        create.rightAnchor.constraint(equalTo:centerXAnchor, constant:160).isActive = true
+        create.centerYAnchor.constraint(equalTo:centerYAnchor, constant:135).isActive = true
         
-        contentView!.layoutSubtreeIfNeeded()
+        layoutSubtreeIfNeeded()
         selectTriple()
+        DispatchQueue.main.asyncAfter(deadline:.now() + 0.5) {
+            Window.shared.makeFirstResponder(text)
+        }
     }
     
-    func control(_:NSControl, textView:NSTextView, doCommandBy selector:Selector) -> Bool {
-        if (selector == #selector(NSResponder.insertNewline(_:))) {
-            makeFirstResponder(nil)
+    required init?(coder:NSCoder) { return nil }
+    
+    override func mouseDown(with:NSEvent) {
+        if with.clickCount == 2 {
+            text.isEditable = true
+            Window.shared.makeFirstResponder(text)
+        }
+    }
+    
+    func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
+        if (command == #selector(NSResponder.insertNewline(_:))) {
+            Window.shared.makeFirstResponder(nil)
             create()
             return true
         }
         return false
+    }
+    
+    func textDidEndEditing(_:Notification) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            if self.text.string.isEmpty {
+                self.text.string = .local("Boarder.placeholder")
+            } else {
+                Window.shared.makeFirstResponder(self)
+            }
+        }
     }
     
     private func moveSelector(_ left:CGFloat) {
@@ -185,7 +185,7 @@ class NewView:SheetView, NSTextFieldDelegate {
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.35
             context.allowsImplicitAnimation = true
-            contentView!.layoutSubtreeIfNeeded()
+            layoutSubtreeIfNeeded()
         }, completionHandler:nil)
     }
     
@@ -196,8 +196,8 @@ class NewView:SheetView, NSTextFieldDelegate {
         double.image = NSImage(named:"doubleOff")
         triple.image = NSImage(named:"tripleOff")
         moveSelector(-140)
-        columns.stringValue = .local("NewView.none")
-        makeFirstResponder(nil)
+        columns.stringValue = .local("Boarder.none")
+        Window.shared.makeFirstResponder(nil)
     }
     
     @objc private func selectSingle() {
@@ -207,8 +207,8 @@ class NewView:SheetView, NSTextFieldDelegate {
         double.image = NSImage(named:"doubleOff")
         triple.image = NSImage(named:"tripleOff")
         moveSelector(-40)
-        columns.stringValue = .local("NewView.single")
-        makeFirstResponder(nil)
+        columns.stringValue = .local("Boarder.single")
+        Window.shared.makeFirstResponder(nil)
     }
     
     @objc private func selectDouble() {
@@ -218,8 +218,8 @@ class NewView:SheetView, NSTextFieldDelegate {
         double.image = NSImage(named:"doubleOn")
         triple.image = NSImage(named:"tripleOff")
         moveSelector(40)
-        columns.stringValue = .local("NewView.double")
-        makeFirstResponder(nil)
+        columns.stringValue = .local("Boarder.double")
+        Window.shared.makeFirstResponder(nil)
     }
     
     @objc private func selectTriple() {
@@ -229,21 +229,17 @@ class NewView:SheetView, NSTextFieldDelegate {
         double.image = NSImage(named:"doubleOff")
         triple.image = NSImage(named:"tripleOn")
         moveSelector(140)
-        columns.stringValue = .local("NewView.triple")
-        makeFirstResponder(nil)
-    }
-    
-    @objc private func cancel() {
-        end()
+        columns.stringValue = .local("Boarder.triple")
+        Window.shared.makeFirstResponder(nil)
     }
     
     @objc private func create() {
-        let name = self.name.stringValue
+        let name = text.string
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let template = self?.template else { return }
             Repository.shared.newBoard(name, template:template)
         }
         if #available(OSX 10.14, *), Repository.shared.rate() { SKStoreReviewController.requestReview() }
-        end()
+        close()
     }
 }
