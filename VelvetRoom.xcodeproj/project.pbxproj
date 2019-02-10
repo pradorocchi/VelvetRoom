@@ -23,7 +23,7 @@
 		2044022C21FCA20900D191BA /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2044022B21FCA20900D191BA /* NotificationCenter.framework */; };
 		2044022E21FCA21C00D191BA /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2044022D21FCA21C00D191BA /* NotificationCenter.framework */; };
 		204B44A5220D635D00B539B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86474621C401DF00E4957B /* Extensions.swift */; };
-		204B68FE21E338B10025261E /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FD21E338B10025261E /* ImportView.swift */; };
+		204B68FE21E338B10025261E /* Import.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FD21E338B10025261E /* Import.swift */; };
 		204B690021E347200025261E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B68FF21E347200025261E /* DropView.swift */; };
 		20531BFD2202ED1A00D6551C /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20531BFC2202ED1A00D6551C /* Search.swift */; };
 		205A65A121FB081100F59461 /* Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A65A021FB081100F59461 /* Skin.swift */; };
@@ -255,7 +255,7 @@
 		2044022921FCA11F00D191BA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		2044022B21FCA20900D191BA /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk/System/Library/Frameworks/NotificationCenter.framework; sourceTree = DEVELOPER_DIR; };
 		2044022D21FCA21C00D191BA /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		204B68FD21E338B10025261E /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
+		204B68FD21E338B10025261E /* Import.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Import.swift; sourceTree = "<group>"; };
 		204B68FF21E347200025261E /* DropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
 		20531BFC2202ED1A00D6551C /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		205A65A021FB081100F59461 /* Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skin.swift; sourceTree = "<group>"; };
@@ -552,7 +552,7 @@
 				20CC4E72220AD959002A4AA0 /* GradientLeft.swift */,
 				20CC4E70220AD951002A4AA0 /* GradientTop.swift */,
 				202D0CF221EB3ED2002B2181 /* HelpView.swift */,
-				204B68FD21E338B10025261E /* ImportView.swift */,
+				204B68FD21E338B10025261E /* Import.swift */,
 				DAFA95FC21CBDAAD00BA265C /* Item.swift */,
 				20754D1522104F82002DCF0F /* Label.swift */,
 				DA6A986B21CEA70000C18C7F /* Layout.swift */,
@@ -1028,7 +1028,7 @@
 			files = (
 				20B4C472220C44F700103F8A /* Button.swift in Sources */,
 				DAFA95FF21CBDC2C00BA265C /* Creator.swift in Sources */,
-				204B68FE21E338B10025261E /* ImportView.swift in Sources */,
+				204B68FE21E338B10025261E /* Import.swift in Sources */,
 				205BE61322072B820020817A /* Canvas.swift in Sources */,
 				DA53931021D2CB6F00482FCA /* Storage.swift in Sources */,
 				DA86AB3F21D0F884007DFFEE /* EditView.swift in Sources */,

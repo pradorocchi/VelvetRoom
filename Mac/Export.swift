@@ -40,7 +40,7 @@ class Export:Sheet {
         title.bottomAnchor.constraint(equalTo:image.topAnchor, constant:-20).isActive = true
         
         share.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
-        share.topAnchor.constraint(equalTo:image.bottomAnchor, constant:40).isActive = true
+        share.topAnchor.constraint(equalTo:image.bottomAnchor, constant:20).isActive = true
         
         cancel.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         cancel.topAnchor.constraint(equalTo:share.bottomAnchor, constant:20).isActive = true

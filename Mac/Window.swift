@@ -114,16 +114,6 @@ import VelvetRoom
         }, completionHandler:nil)
     }
     
-    @IBAction private func newDocument(_ sender:Any) {
-        makeFirstResponder(nil)
-        beginSheet(NewView())
-    }
-    
-    @IBAction private func load(_ sender:Any) {
-        makeFirstResponder(nil)
-        beginSheet(ImportView())
-    }
-    
     @IBAction private func showHelp(_ sender:Any?) {
         HelpView().makeKeyAndOrderFront(nil)
     }

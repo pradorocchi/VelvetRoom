@@ -28,6 +28,8 @@ class Toolbar:NSToolbar {
         chart.action = #selector(openChart)
         export.target = self
         export.action = #selector(exportBoard)
+        load.target = self
+        load.action = #selector(importBoard)
     }
     
     private func validate() {
@@ -50,4 +52,5 @@ class Toolbar:NSToolbar {
     @objc private func deleteBoard() { List.shared.current?.delete() }
     @objc private func openChart() { Chart(List.shared.current!.board) }
     @objc private func exportBoard() { Export(List.shared.current!.board) }
+    @objc private func importBoard() { Import() }
 }

@@ -21,7 +21,7 @@ class Delete:Sheet {
         addSubview(delete)
         
         message.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
-        message.bottomAnchor.constraint(equalTo:delete.topAnchor, constant:-30).isActive = true
+        message.bottomAnchor.constraint(equalTo:delete.topAnchor, constant:-20).isActive = true
         
         cancel.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         cancel.topAnchor.constraint(equalTo:delete.bottomAnchor, constant:20).isActive = true
