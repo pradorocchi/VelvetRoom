@@ -2,6 +2,12 @@ import AppKit
 import VelvetRoom
 
 class Chart:Sheet {
+    private weak var chart:CAShapeLayer!
+    private weak var names:CAShapeLayer!
+    private weak var title:NSTextField!
+    private var chartAngle = CGFloat(0)
+    private var namesRadius = CGFloat(0)
+    
     @discardableResult init(_ board:Board) {
         super.init()
         let title = NSTextField()
@@ -9,93 +15,146 @@ class Chart:Sheet {
         title.backgroundColor = .clear
         title.isBezeled = false
         title.isEditable = false
-        title.font = .systemFont(ofSize:16, weight:.bold)
+        title.font = .systemFont(ofSize:20, weight:.bold)
         title.textColor = Skin.shared.text
         title.stringValue = board.name
         title.alignment = .center
+        title.alphaValue = 0
         addSubview(title)
+        self.title = title
         
         title.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
-        title.topAnchor.constraint(equalTo:topAnchor, constant:40).isActive = true
+        title.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
+        title.widthAnchor.constraint(lessThanOrEqualToConstant:120).isActive = true
         display(board.chart)
+        Timer.scheduledTimer(timeInterval:0.01, target:self,
+                             selector:#selector(animate(_:)), userInfo:nil, repeats:true)
     }
     
     required init?(coder:NSCoder) { return nil }
     
     private func display(_ items:[(String, Float)]) {
-        let chart = NSView()
-        chart.wantsLayer = true
-        chart.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(chart)
+        let names = NSView()
+        names.translatesAutoresizingMaskIntoConstraints = false
+        names.wantsLayer = true
+        names.layer!.mask = {
+            $0.frame = CGRect(x:0, y:0, width:900, height:900)
+            $0.fillColor = NSColor.black.cgColor
+            self.names = $0
+            return $0
+        } (CAShapeLayer())
+        addSubview(names)
         
-        let maskPath = CGMutablePath()
-        maskPath.addArc(center:CGPoint(x:150, y:150), radius:115, startAngle:0.001, endAngle:0, clockwise:false)
-        let mask = CAShapeLayer()
-        mask.frame = CGRect(x:0, y:0, width:300, height:300)
-        mask.path = maskPath
-        mask.lineWidth = 30
-        mask.strokeColor = NSColor.black.cgColor
-        mask.fillColor = NSColor.clear.cgColor
-        chart.layer!.mask = mask
+        let chart = NSView()
+        chart.translatesAutoresizingMaskIntoConstraints = false
+        chart.wantsLayer = true
+        chart.layer!.mask = {
+            $0.frame = CGRect(x:0, y:0, width:300, height:300)
+            $0.lineWidth = 35
+            $0.strokeColor = NSColor.black.cgColor
+            $0.fillColor = NSColor.clear.cgColor
+            self.chart = $0
+            return $0
+        } (CAShapeLayer())
+        addSubview(chart)
         
         var angle = CGFloat()
         items.enumerated().forEach {
             let delta = .pi * -2 * CGFloat($0.element.1)
             let radius = delta + angle
-            let path = CGMutablePath()
-            path.move(to:CGPoint(x:150, y:150))
-            path.addArc(center:CGPoint(x:150, y:150), radius:130, startAngle:angle, endAngle:radius, clockwise:true)
-            if $0.element.1 > 0 {
-                let name = CGMutablePath()
-                name.addArc(center:CGPoint(x:26, y:26), radius:140, startAngle:0, endAngle:angle + (delta / 2), clockwise:true)
-                caption($0.element.0, percent:$0.element.1, point:name.currentPoint)
-            }
-            path.closeSubpath()
             let layer = CAShapeLayer()
             layer.frame = CGRect(x:0, y:0, width:300, height:300)
-            layer.path = path
-            layer.lineWidth = 1
-            layer.strokeColor = NSColor(white:0, alpha:0.4).cgColor
+            layer.path = {
+                $0.move(to:CGPoint(x:150, y:150))
+                $0.addArc(center:CGPoint(x:150, y:150), radius:130, startAngle:angle, endAngle:radius, clockwise:true)
+                $0.closeSubpath()
+                return $0
+            } (CGMutablePath())
+            layer.lineWidth = 2
+            layer.strokeColor = Skin.shared.background.withAlphaComponent(0.6).cgColor
             if $0.offset == items.count - 1 {
                 layer.fillColor = NSColor.velvetBlue.cgColor
             } else {
-                layer.fillColor = NSColor.textColor.withAlphaComponent(0.2).cgColor
+                layer.fillColor = Skin.shared.text.withAlphaComponent(0.2).cgColor
             }
             chart.layer!.addSublayer(layer)
+            if $0.element.1 > 0 {
+                let line = CAShapeLayer()
+                line.frame = CGRect(x:0, y:0, width:900, height:900)
+                line.path = {
+                    $0.move(to:CGPoint(x:450, y:450))
+                    $1.move(to:CGPoint(x:450, y:450))
+                    $0.addArc(center:CGPoint(x:450, y:450), radius:127, startAngle:angle + (delta / 2),
+                              endAngle:angle + (delta / 2), clockwise:true)
+                    $1.addArc(center:CGPoint(x:450, y:450), radius:170, startAngle:angle + (delta / 2),
+                              endAngle:angle + (delta / 2), clockwise:true)
+                    $2.move(to:$0.currentPoint)
+                    $2.addLine(to:$1.currentPoint)
+                    return $2
+                } (CGMutablePath(), CGMutablePath(), CGMutablePath())
+                line.lineWidth = 2
+                line.strokeColor = layer.fillColor
+                names.layer!.addSublayer(line)
+                
+                let point:CGPoint = {
+                    $0.addArc(center:CGPoint(x:150, y:150), radius:180, startAngle:0, endAngle:angle + (delta / 2),
+                              clockwise:true)
+                    return $0.currentPoint
+                } (CGMutablePath())
+                
+                let label = NSTextField()
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.backgroundColor = .clear
+                label.isBezeled = false
+                label.isEditable = false
+                label.textColor = Skin.shared.text
+                label.attributedStringValue = {
+                    $0.append(NSAttributedString(string:$1, attributes:[.font:NSFont.bold(16)]))
+                    $0.append(NSAttributedString(string:" \(Int($2 * 100))%", attributes:[.font:NSFont.light(16)]))
+                    return $0
+                } (NSMutableAttributedString(), $0.element.0, $0.element.1)
+                names.addSubview(label)
+                
+                label.centerYAnchor.constraint(equalTo:chart.bottomAnchor, constant:-point.y).isActive = true
+                
+                if point.x == 150 {
+                    label.centerXAnchor.constraint(equalTo:chart.centerXAnchor).isActive = true
+                } else if point.x >= 150 {
+                    label.leftAnchor.constraint(equalTo:chart.leftAnchor, constant:point.x).isActive = true
+                } else {
+                    label.rightAnchor.constraint(equalTo:chart.leftAnchor, constant:point.x).isActive = true
+                }
+            }
             angle = radius
         }
+        
         chart.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         chart.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         chart.widthAnchor.constraint(equalToConstant:300).isActive = true
         chart.heightAnchor.constraint(equalToConstant:300).isActive = true
+        
+        names.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        names.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
+        names.heightAnchor.constraint(equalToConstant:900).isActive = true
+        names.widthAnchor.constraint(equalToConstant:900).isActive = true
     }
     
-    private func caption(_ name:String, percent:Float, point:CGPoint) {
-        let mutable = NSMutableAttributedString()
-        mutable.append(NSAttributedString(
-            string:name, attributes:[.font:NSFont.systemFont(ofSize:14, weight:.medium)]))
-        mutable.append(NSAttributedString(
-            string:" - \(Int(percent * 100))", attributes:[.font:NSFont.systemFont(ofSize:12, weight:.ultraLight)]))
-        mutable.append(NSAttributedString(
-            string:"%", attributes:[.font:NSFont.systemFont(ofSize:8, weight:.ultraLight)]))
-        
-        let label = NSTextField()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .clear
-        label.isBezeled = false
-        label.isEditable = false
-        label.textColor = .white
-        label.attributedStringValue = mutable
-        addSubview(label)
-        
-        label.centerYAnchor.constraint(equalTo:bottomAnchor, constant:-point.y).isActive = true
-        
-        if point.x == bounds.midX {
-            label.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
-        } else if point.x >= bounds.midX {
-            label.leftAnchor.constraint(equalTo:leftAnchor, constant:point.x).isActive = true
+    @objc private func animate(_ timer:Timer) {
+        if chartAngle > .pi * -2 {
+            chartAngle -= 0.05
+            chart.path = { $0.addArc(center:CGPoint(x:150, y:150), radius:109, startAngle:0, endAngle:chartAngle,
+                                     clockwise:true); return $0 } (CGMutablePath())
+        } else if namesRadius < 450 {
+            namesRadius += 3
+            names.path = { $0.addArc(center:CGPoint(x:450, y:450), radius:namesRadius, startAngle:0.0001, endAngle:0,
+                                     clockwise:false); return $0 } (CGMutablePath())
         } else {
-            label.rightAnchor.constraint(equalTo:leftAnchor, constant:point.x).isActive = true
+            timer.invalidate()
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 0.3
+                context.allowsImplicitAnimation = true
+                title.alphaValue = 1
+            }, completionHandler:nil)
         }
     }
 }

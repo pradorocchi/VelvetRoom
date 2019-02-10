@@ -46,14 +46,15 @@ class Sheet:NSView {
     override func mouseUp(with:NSEvent) { }
     
     @objc func close() {
+        Window.shared.makeFirstResponder(nil)
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.3
             context.allowsImplicitAnimation = true
             alphaValue = 0
-        }) {
-            self.removeFromSuperview()
+        }) { [weak self] in
             Toolbar.shared.enabled = true
             Menu.shared.enabled = true
+            self?.removeFromSuperview()
         }
     }
 }
