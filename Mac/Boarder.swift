@@ -17,8 +17,8 @@ class Boarder:Sheet, NSTextViewDelegate {
         let title = Label(.local("Boarder.title"), font:.systemFont(ofSize:20, weight:.bold))
         addSubview(title)
         
-        let columns = Label(font:.systemFont(ofSize:14, weight:.light))
-        columns.alphaValue = 0.5
+        let columns = Label(font:.systemFont(ofSize:15, weight:.light))
+        columns.alphaValue = 0.7
         addSubview(columns)
         self.columns = columns
         
@@ -98,8 +98,8 @@ class Boarder:Sheet, NSTextViewDelegate {
         addSubview(triple)
         self.triple = triple
         
-        title.leftAnchor.constraint(equalTo:border.leftAnchor).isActive = true
-        title.bottomAnchor.constraint(equalTo:border.topAnchor, constant:-80).isActive = true
+        title.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        title.bottomAnchor.constraint(equalTo:border.topAnchor, constant:-120).isActive = true
         
         text.leftAnchor.constraint(equalTo:border.leftAnchor).isActive = true
         text.bottomAnchor.constraint(equalTo:border.topAnchor, constant:-10).isActive = true
@@ -136,13 +136,13 @@ class Boarder:Sheet, NSTextViewDelegate {
         triple.heightAnchor.constraint(equalToConstant:50).isActive = true
         
         columns.leftAnchor.constraint(equalTo:centerXAnchor, constant:-160).isActive = true
-        columns.topAnchor.constraint(equalTo:centerYAnchor, constant:35).isActive = true
+        columns.topAnchor.constraint(equalTo:border.bottomAnchor, constant:160).isActive = true
         
         cancel.leftAnchor.constraint(equalTo:centerXAnchor, constant:-180).isActive = true
-        cancel.centerYAnchor.constraint(equalTo:create.centerYAnchor).isActive = true
+        cancel.centerYAnchor.constraint(equalTo:title.centerYAnchor).isActive = true
         
-        create.rightAnchor.constraint(equalTo:centerXAnchor, constant:160).isActive = true
-        create.centerYAnchor.constraint(equalTo:centerYAnchor, constant:135).isActive = true
+        create.rightAnchor.constraint(equalTo:border.rightAnchor).isActive = true
+        create.centerYAnchor.constraint(equalTo:title.centerYAnchor).isActive = true
         
         layoutSubtreeIfNeeded()
         selectTriple()
@@ -174,9 +174,8 @@ class Boarder:Sheet, NSTextViewDelegate {
             guard let self = self else { return }
             if self.text.string.isEmpty {
                 self.text.string = .local("Boarder.placeholder")
-            } else {
-                Window.shared.makeFirstResponder(self)
             }
+            Window.shared.makeFirstResponder(self)
         }
     }
     
