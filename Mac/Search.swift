@@ -84,12 +84,12 @@ class Search:NSView, NSTextViewDelegate {
         var range:Range<String.Index>!
         guard let view = Canvas.shared.documentView!.subviews.first (where: {
             guard
-                let view = $0 as? EditView,
+                let view = $0 as? Edit,
                 let textRange = view.text.string.range(of:text.string, options:.caseInsensitive)
             else { return false }
             range = textRange
             return true
-        }) as? EditView else { return highlighter!.frame = .zero }
+        }) as? Edit else { return highlighter!.frame = .zero }
         var frame = Canvas.shared.contentView.convert(view.text.layoutManager!.boundingRect(forGlyphRange:
             NSRange(range, in:view.text.string), in:view.text.textContainer!), from:view.text)
         frame.origin.x -= 10

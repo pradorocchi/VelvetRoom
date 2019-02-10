@@ -1,6 +1,6 @@
 import AppKit
 
-class Creator:Item {
+class Create:Item {
     let selector:Selector
     init(_ selector:Selector, key:String) {
         self.selector = selector

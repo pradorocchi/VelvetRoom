@@ -4,7 +4,7 @@ import VelvetRoom
 class Canvas:NSScrollView {
     static let shared = Canvas()
     weak var root:Item?
-    private weak var dragging:EditView?
+    private weak var dragging:Edit?
     private weak var right:NSLayoutConstraint? { willSet { right?.isActive = false; newValue?.isActive = true } }
     private weak var bottom:NSLayoutConstraint? { willSet { bottom?.isActive = false; newValue?.isActive = true } }
     
@@ -84,13 +84,13 @@ class Canvas:NSScrollView {
         while view?.sibling != nil {
             view = view?.sibling
         }
-        if let view = view as? Creator {
+        if let view = view as? Create {
             newColumn(view)
         }
     }
     
     @objc func newCard() {
-        if let view = root?.child as? Creator {
+        if let view = root?.child as? Create {
             newCard(view)
         }
     }
@@ -100,7 +100,7 @@ class Canvas:NSScrollView {
         root = nil
         var sibling:Item?
         board.columns.enumerated().forEach { index, item in
-            let column = ColumnView(item)
+            let column = ColumnItem(item)
             if sibling == nil {
                 root = column
             } else {
@@ -110,14 +110,14 @@ class Canvas:NSScrollView {
             var child = column as Item
             sibling = column
             board.cards.filter( { $0.column == index } ).sorted(by: { $0.index < $1.index } ).forEach {
-                let card = CardView($0)
+                let card = CardItem($0)
                 documentView!.addSubview(card)
                 child.child = card
                 child = card
             }
         }
         
-        let columner = Creator(#selector(newColumn(_:)), key:"m")
+        let columner = Create(#selector(newColumn(_:)), key:"m")
         documentView!.addSubview(columner)
         
         if root == nil {
@@ -153,19 +153,19 @@ class Canvas:NSScrollView {
     }
     
     private func addCarder() {
-        if root != nil, !(root is Creator), !(root!.child is Creator) {
-            let columner = Creator(#selector(newCard(_:)), key:"n")
+        if root != nil, !(root is Create), !(root!.child is Create) {
+            let columner = Create(#selector(newCard(_:)), key:"n")
             columner.child = root!.child
             root!.child = columner
             documentView!.addSubview(columner)
         }
     }
     
-    private func owner(_ event:NSEvent) -> EditView? {
+    private func owner(_ event:NSEvent) -> Edit? {
         guard let view = hitTest(event.locationInWindow) else { return nil }
         switch view {
-        case is Text: return view.superview as? EditView
-        case is EditView: return view as? EditView
+        case is Text: return view.superview as? Edit
+        case is Edit: return view as? Edit
         default: return nil
         }
     }
@@ -175,8 +175,8 @@ class Canvas:NSScrollView {
         DispatchQueue.main.async { self.update(0) }
     }
     
-    @objc private func newColumn(_ view:Creator) {
-        let column = ColumnView(Repository.shared.newColumn(List.shared.current!.board))
+    @objc private func newColumn(_ view:Create) {
+        let column = ColumnItem(Repository.shared.newColumn(List.shared.current!.board))
         column.sibling = view
         if root === view {
             root = column
@@ -203,8 +203,8 @@ class Canvas:NSScrollView {
         }
     }
     
-    @objc private func newCard(_ view:Creator) {
-        let card = CardView(try! Repository.shared.newCard(List.shared.current!.board))
+    @objc private func newCard(_ view:Create) {
+        let card = CardItem(try! Repository.shared.newCard(List.shared.current!.board))
         card.child = view.child
         view.child = card
         documentView!.addSubview(card)

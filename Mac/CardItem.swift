@@ -1,7 +1,7 @@
 import AppKit
 import VelvetRoom
 
-class CardView:EditView {
+class CardItem:Edit {
     private(set) weak var card:Card!
     
     init(_ card:Card) {
@@ -32,7 +32,7 @@ class CardView:EditView {
     override func endDrag(_ event:NSEvent) {
         super.endDrag(event)
         var column = Canvas.shared.root
-        while column!.sibling is ColumnView {
+        while column!.sibling is ColumnItem {
             guard
                 column!.sibling!.left.constant < event.locationInWindow.x - List.shared.left.constant +
                     Canvas.shared.documentVisibleRect.origin.x
@@ -44,14 +44,14 @@ class CardView:EditView {
             guard after!.child!.top.constant < top.constant else { break }
             after = after!.child
         }
-        if after!.child is Creator {
+        if after!.child is Create {
             after = after?.child
         }
         child = after!.child
         after!.child = self
         Canvas.shared.update()
-        Repository.shared.move(card, board:List.shared.current!.board, column:(column as! ColumnView).column,
-                               after:(after as? CardView)?.card)
+        Repository.shared.move(card, board:List.shared.current!.board, column:(column as! ColumnItem).column,
+                               after:(after as? CardItem)?.card)
         List.shared.scheduleUpdate()
         Progress.shared.update()
     }

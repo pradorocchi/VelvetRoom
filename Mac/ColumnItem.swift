@@ -1,7 +1,7 @@
 import AppKit
 import VelvetRoom
 
-class ColumnView:EditView {
+class ColumnItem:Edit {
     private(set) weak var column:Column!
     
     init(_ column:Column) {
@@ -45,16 +45,16 @@ class ColumnView:EditView {
     override func endDrag(_ event:NSEvent) {
         super.endDrag(event)
         var after = Canvas.shared.root
-        if after is Creator || after!.frame.maxX > frame.midX {
+        if after is Create || after!.frame.maxX > frame.midX {
             sibling = after
             Canvas.shared.root = self
             after = nil
-            if sibling?.child is Creator {
+            if sibling?.child is Create {
                 sibling?.child?.removeFromSuperview()
                 sibling?.child = sibling?.child?.child
             }
         } else {
-            while after!.sibling is ColumnView {
+            while after!.sibling is ColumnItem {
                 guard after!.sibling!.left.constant < frame.minX else { break }
                 after = after!.sibling
             }
@@ -62,7 +62,7 @@ class ColumnView:EditView {
             after!.sibling = self
         }
         Canvas.shared.update()
-        Repository.shared.move(column, board:List.shared.current!.board, after:(after as? ColumnView)?.column)
+        Repository.shared.move(column, board:List.shared.current!.board, after:(after as? ColumnItem)?.column)
         List.shared.scheduleUpdate()
         Progress.shared.update()
     }

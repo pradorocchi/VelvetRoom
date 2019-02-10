@@ -3,14 +3,6 @@ import AppKit
 class Sheet:NSView {
     override var acceptsFirstResponder:Bool { return true }
     
-    override func keyDown(with event:NSEvent) {
-        if event.keyCode == 53 {
-            close()
-        } else {
-            super.keyDown(with:event)
-        }
-    }
-    
     @discardableResult init() {
         Toolbar.shared.enabled = false
         Menu.shared.enabled = false
@@ -48,6 +40,14 @@ class Sheet:NSView {
     override func mouseDown(with:NSEvent) { }
     override func mouseDragged(with:NSEvent) { }
     override func mouseUp(with:NSEvent) { }
+    
+    override func keyDown(with event:NSEvent) {
+        if event.keyCode == 53 {
+            close()
+        } else {
+            super.keyDown(with:event)
+        }
+    }
     
     @objc func close() {
         Window.shared.makeFirstResponder(nil)

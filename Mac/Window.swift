@@ -1,24 +1,13 @@
 import AppKit
 import VelvetRoom
 
-@NSApplicationMain class Window:NSWindow, NSApplicationDelegate, NSWindowDelegate {
+@NSApplicationMain class Window:NSWindow, NSApplicationDelegate {
     static private(set) var shared:Window!
     private(set) weak var splash:Splash?
     
     deinit { NotificationCenter.default.removeObserver(self) }
-    
     func applicationShouldTerminateAfterLastWindowClosed(_:NSApplication) -> Bool { return true }
-    func applicationDidFinishLaunching(_:Notification) { delegate = self }
     func applicationWillTerminate(_:Notification) { Repository.shared.fireSchedule() }
-    func windowWillBeginSheet(_:Notification) { menu!.items.forEach { $0.isEnabled = false } }
-    func windowDidEndSheet(_:Notification) { menu!.items.forEach { $0.isEnabled = true } }
-    
-    func window(_:NSWindow, willPositionSheet:NSWindow, using rect:NSRect) -> NSRect {
-        var rect = rect
-        rect.origin.y += 36
-        return rect
-    }
-    
     override func cancelOperation(_:Any?) { makeFirstResponder(nil) }
     override func mouseDown(with:NSEvent) { makeFirstResponder(nil) }
     
@@ -117,6 +106,6 @@ import VelvetRoom
     }
     
     @IBAction private func showHelp(_ sender:Any?) {
-        HelpView().makeKeyAndOrderFront(nil)
+        Help().makeKeyAndOrderFront(nil)
     }
 }

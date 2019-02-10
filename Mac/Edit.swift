@@ -1,6 +1,6 @@
 import AppKit
 
-class EditView:Item, NSTextViewDelegate {
+class Edit:Item, NSTextViewDelegate {
     private(set) weak var text:Text!
     
     override init() {

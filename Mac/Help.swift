@@ -1,6 +1,6 @@
 import AppKit
 
-class HelpView:NSWindow {
+class Help:NSWindow {
     override var canBecomeKey:Bool { return true }
     
     init() {
@@ -12,7 +12,7 @@ class HelpView:NSWindow {
         let text = Text()
         text.textContainer!.size = NSSize(width:500, height:300)
         text.font = .light(16)
-        text.string = .local("HelpView.content")
+        text.string = .local("Help.content")
         contentView!.addSubview(text)
         
         text.topAnchor.constraint(equalTo:contentView!.topAnchor, constant:50).isActive = true
