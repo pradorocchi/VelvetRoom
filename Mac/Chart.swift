@@ -9,22 +9,26 @@ class Chart:Sheet {
     
     @discardableResult init(_ board:Board) {
         super.init()
-        let title = NSTextField()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.backgroundColor = .clear
-        title.isBezeled = false
-        title.isEditable = false
-        title.font = .systemFont(ofSize:20, weight:.bold)
-        title.textColor = Skin.shared.text
-        title.stringValue = board.name
+        let title = Label(board.name, font:.systemFont(ofSize:20, weight:.bold))
         title.alignment = .center
         title.alphaValue = 0
         addSubview(title)
         
+        display(board.chart)
+        
+        let done = Button(.local("Chart.done"))
+        done.target = self
+        done.action = #selector(self.close)
+        done.keyEquivalent = "\r"
+        addSubview(done)
+        
         title.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         title.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         title.widthAnchor.constraint(lessThanOrEqualToConstant:120).isActive = true
-        display(board.chart)
+        
+        done.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        done.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-20).isActive = true
+        
         Timer.scheduledTimer(timeInterval:0.01, target:self,
                              selector:#selector(animate(_:)), userInfo:nil, repeats:true)
         DispatchQueue.main.asyncAfter(deadline:.now() + 0.2) {
@@ -107,12 +111,7 @@ class Chart:Sheet {
                     return $0.currentPoint
                 } (CGMutablePath())
                 
-                let label = NSTextField()
-                label.translatesAutoresizingMaskIntoConstraints = false
-                label.backgroundColor = .clear
-                label.isBezeled = false
-                label.isEditable = false
-                label.textColor = Skin.shared.text
+                let label = Label()
                 label.attributedStringValue = {
                     $0.append(NSAttributedString(string:$1, attributes:[.font:NSFont.bold(16)]))
                     $0.append(NSAttributedString(string:" \(Int($2 * 100))%", attributes:[.font:NSFont.light(16)]))

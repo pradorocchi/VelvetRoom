@@ -31,13 +31,7 @@ class Alert {
         Window.shared.contentView!.addSubview(view)
         self.view = view
         
-        let message = NSTextField()
-        message.translatesAutoresizingMaskIntoConstraints = false
-        message.backgroundColor = .clear
-        message.isBezeled = false
-        message.isEditable = false
-        message.font = .systemFont(ofSize:16, weight:.regular)
-        message.textColor = .black
+        let message = Label(color:.black, font:.systemFont(ofSize:16, weight:.regular))
         view.addSubview(message)
         
         view.heightAnchor.constraint(equalToConstant:60).isActive = true

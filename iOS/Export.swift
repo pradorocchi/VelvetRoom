@@ -1,7 +1,7 @@
 import UIKit
 import VelvetRoom
 
-class ExportView:UIViewController {
+class Export:UIViewController {
     private weak var board:Board!
     private weak var imageView:UIImageView!
     

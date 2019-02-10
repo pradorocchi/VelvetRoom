@@ -134,7 +134,7 @@ class BoardView:UIControl, UITextViewDelegate {
     
     @objc private func send() {
         UIApplication.shared.keyWindow!.endEditing(true)
-        Application.view.present(ExportView(board), animated:true)
+        Application.view.present(Export(board), animated:true)
     }
     
     @objc private func selectBoard() {

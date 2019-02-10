@@ -2,28 +2,22 @@ import AppKit
 import VelvetRoom
 
 class Settings:Sheet {
+    private weak var font:Label!
+    private weak var appearanceTitle:Label!
+    private weak var darkTitle:Label!
+    private weak var systemTitle:Label!
+    private weak var lightTitle:Label!
+    private weak var fontTitle:Label!
     private weak var dark:NSButton!
     private weak var system:NSButton!
     private weak var light:NSButton!
-    private weak var font:NSTextField!
-    private weak var appearanceTitle:NSTextField!
-    private weak var darkTitle:NSTextField!
-    private weak var systemTitle:NSTextField!
-    private weak var lightTitle:NSTextField!
-    private weak var fontTitle:NSTextField!
     private weak var slider:NSSlider!
     private weak var track:NSView!
     private weak var timer:Timer!
     
     @discardableResult override init() {
         super.init()
-        let appearanceTitle = NSTextField()
-        appearanceTitle.translatesAutoresizingMaskIntoConstraints = false
-        appearanceTitle.backgroundColor = .clear
-        appearanceTitle.isBezeled = false
-        appearanceTitle.isEditable = false
-        appearanceTitle.font = .systemFont(ofSize:16, weight:.medium)
-        appearanceTitle.stringValue = .local("SettingsView.appearanceTitle")
+        let appearanceTitle = Label(.local("Settings.appearanceTitle"), font:.systemFont(ofSize:16, weight:.medium))
         addSubview(appearanceTitle)
         self.appearanceTitle = appearanceTitle
         
@@ -60,55 +54,26 @@ class Settings:Sheet {
         addSubview(light)
         self.light = light
         
-        let darkTitle = NSTextField()
-        darkTitle.translatesAutoresizingMaskIntoConstraints = false
-        darkTitle.backgroundColor = .clear
-        darkTitle.isBezeled = false
-        darkTitle.isEditable = false
-        darkTitle.font = .systemFont(ofSize:12, weight:.regular)
+        let darkTitle = Label(.local("Settings.darkTitle"), font:.systemFont(ofSize:12, weight:.regular))
         darkTitle.alignment = .center
-        darkTitle.stringValue = .local("SettingsView.darkTitle")
         addSubview(darkTitle)
         self.darkTitle = darkTitle
         
-        let systemTitle = NSTextField()
-        systemTitle.translatesAutoresizingMaskIntoConstraints = false
-        systemTitle.backgroundColor = .clear
-        systemTitle.isBezeled = false
-        systemTitle.isEditable = false
-        systemTitle.font = .systemFont(ofSize:12, weight:.regular)
+        let systemTitle = Label(.local("Settings.systemTitle"), font:.systemFont(ofSize:12, weight:.regular))
         systemTitle.alignment = .center
-        systemTitle.stringValue = .local("SettingsView.systemTitle")
         addSubview(systemTitle)
         self.systemTitle = systemTitle
         
-        let lightTitle = NSTextField()
-        lightTitle.translatesAutoresizingMaskIntoConstraints = false
-        lightTitle.backgroundColor = .clear
-        lightTitle.isBezeled = false
-        lightTitle.isEditable = false
-        lightTitle.font = .systemFont(ofSize:12, weight:.regular)
+        let lightTitle = Label(.local("Settings.lightTitle"), font:.systemFont(ofSize:12, weight:.regular))
         lightTitle.alignment = .center
-        lightTitle.stringValue = .local("SettingsView.lightTitle")
         addSubview(lightTitle)
         self.lightTitle = lightTitle
         
-        let fontTitle = NSTextField()
-        fontTitle.translatesAutoresizingMaskIntoConstraints = false
-        fontTitle.backgroundColor = .clear
-        fontTitle.isBezeled = false
-        fontTitle.isEditable = false
-        fontTitle.font = .systemFont(ofSize:16, weight:.medium)
-        fontTitle.stringValue = .local("SettingsView.fontTitle")
+        let fontTitle = Label(.local("Settings.fontTitle"), font:.systemFont(ofSize:16, weight:.medium))
         addSubview(fontTitle)
         self.fontTitle = fontTitle
         
-        let font = NSTextField()
-        font.translatesAutoresizingMaskIntoConstraints = false
-        font.backgroundColor = .clear
-        font.isBezeled = false
-        font.isEditable = false
-        font.font = .systemFont(ofSize:16, weight:.medium)
+        let font = Label(font:.systemFont(ofSize:16, weight:.medium))
         font.alignment = .right
         addSubview(font)
         self.font = font
@@ -129,7 +94,7 @@ class Settings:Sheet {
         addSubview(slider)
         self.slider = slider
         
-        let done = Button(.local("SettingsView.done"))
+        let done = Button(.local("Settings.done"))
         done.target = self
         done.action = #selector(self.close)
         done.keyEquivalent = "\r"

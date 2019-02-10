@@ -22,9 +22,15 @@ class ColumnView:EditView {
         text.textColor = Skin.shared.text.withAlphaComponent(0.4)
         if column.name.isEmpty {
             Window.shared.makeFirstResponder(nil)
-            Window.shared.beginSheet(DeleteView(.local("DeleteView.column")) { [weak self] in
-                self?.confirmDelete()
-            })
+            let board = List.shared.current!.board!
+            let index = board.columns.firstIndex(where: { $0 === column })!
+            if board.cards.first(where: { $0.column == index }) != nil {
+                Delete(.local("ColumnView.delete")) { [weak self] in
+                    self?.confirmDelete()
+                }
+            } else {
+                confirmDelete()
+            }
         } else {
             text.string = column.name
         }

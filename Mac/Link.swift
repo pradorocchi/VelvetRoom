@@ -1,15 +1,13 @@
 import AppKit
 
-class Button:NSButton {
+class Link:NSButton {
     init(_ title:String) {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
-        image = NSImage(named:"button")
         setButtonType(.momentaryChange)
-        imageScaling = .scaleNone
         isBordered = false
-        attributedTitle = NSAttributedString(string:title, attributes:
-            [.font:NSFont.systemFont(ofSize:15, weight:.medium), .foregroundColor:NSColor.black])
+        attributedTitle = NSAttributedString(string:title, attributes:[.font:
+            NSFont.systemFont(ofSize:15, weight:.regular), .foregroundColor:Skin.shared.text.withAlphaComponent(0.6)])
         widthAnchor.constraint(equalToConstant:92).isActive = true
         heightAnchor.constraint(equalToConstant:34).isActive = true
     }

@@ -119,11 +119,6 @@ import VelvetRoom
         beginSheet(NewView())
     }
     
-    @IBAction private func export(_ sender:Any) {
-        makeFirstResponder(nil)
-        beginSheet(ExportView(List.shared.current!.board))
-    }
-    
     @IBAction private func load(_ sender:Any) {
         makeFirstResponder(nil)
         beginSheet(ImportView())

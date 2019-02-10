@@ -26,6 +26,8 @@ class Toolbar:NSToolbar {
         delete.action = #selector(deleteBoard)
         chart.target = self
         chart.action = #selector(openChart)
+        export.target = self
+        export.action = #selector(exportBoard)
     }
     
     private func validate() {
@@ -45,6 +47,7 @@ class Toolbar:NSToolbar {
     }
     
     @objc private func openSettings() { Settings() }
-    @objc private func openChart() { Chart(List.shared.current!.board) }
     @objc private func deleteBoard() { List.shared.current?.delete() }
+    @objc private func openChart() { Chart(List.shared.current!.board) }
+    @objc private func exportBoard() { Export(List.shared.current!.board) }
 }

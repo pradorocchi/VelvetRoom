@@ -4,34 +4,21 @@ import StoreKit
 
 class NewView:SheetView, NSTextFieldDelegate {
     private weak var name:NSTextField!
+    private weak var columns:Label!
     private weak var none:NSButton!
     private weak var single:NSButton!
     private weak var double:NSButton!
     private weak var triple:NSButton!
-    private weak var columns:NSTextField!
     private weak var selectorLeft:NSLayoutConstraint!
     private var template:Template!
     
     override init() {
         super.init()
-        let title = NSTextField()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.backgroundColor = .clear
-        title.isBezeled = false
-        title.isEditable = false
-        title.font = .systemFont(ofSize:18, weight:.bold)
-        title.stringValue = .local("NewView.title")
-        title.textColor = .white
+        let title = Label(.local("NewView.title"), font:.systemFont(ofSize:18, weight:.bold))
         contentView!.addSubview(title)
         
-        let columns = NSTextField()
-        columns.translatesAutoresizingMaskIntoConstraints = false
-        columns.backgroundColor = .clear
-        columns.isBezeled = false
-        columns.isEditable = false
-        columns.font = .systemFont(ofSize:12, weight:.light)
+        let columns = Label(font:.systemFont(ofSize:12, weight:.light))
         columns.alphaValue = 0.5
-        columns.textColor = .white
         contentView!.addSubview(columns)
         self.columns = columns
         

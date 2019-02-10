@@ -5,7 +5,7 @@ class BoardView:NSView, NSTextViewDelegate {
     var selected = false { didSet { updateSkin() } }
     var selector:Selector!
     private(set) weak var board:Board!
-    private weak var date:NSTextField!
+    private weak var date:Label!
     private weak var text:Text!
     private let dater = DateFormatter()
     
@@ -23,12 +23,7 @@ class BoardView:NSView, NSTextViewDelegate {
         addSubview(text)
         self.text = text
         
-        let date = NSTextField()
-        date.translatesAutoresizingMaskIntoConstraints = false
-        date.backgroundColor = .clear
-        date.isBezeled = false
-        date.isEditable = false
-        date.font = .systemFont(ofSize:10, weight:.light)
+        let date = Label(font:.systemFont(ofSize:10, weight:.light))
         addSubview(date)
         self.date = date
         
