@@ -17,9 +17,7 @@ class Alert {
     
     func add(_ error:Error) {
         alert.append(messages[error as? Exception] ?? .local("Alert.unknown"))
-        if view == nil {
-            DispatchQueue.main.async { self.pop() }
-        }
+        DispatchQueue.main.async { if self.view == nil { self.pop() } }
     }
     
     private func pop() {

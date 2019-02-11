@@ -2,22 +2,26 @@ import UIKit
 import VelvetRoom
 
 struct Skin {
+    static var shared = Skin() { didSet {
+        DispatchQueue.main.async { NotificationCenter.default.post(name:name, object:nil) } } }
+    private static let name = Notification.Name("skin")
+    
     static func add(_ observer:Any, selector:Selector) {
-        NotificationCenter.default.addObserver(observer, selector:selector, name:.init("skin"), object:nil)
+        NotificationCenter.default.addObserver(observer, selector:selector, name:Skin.name, object:nil)
     }
     
-    static func post() {
-        DispatchQueue.main.async { NotificationCenter.default.post(name:.init("skin"), object:nil) }
+    static func update() {
+        update(Repository.shared.account.appearance, font:Repository.shared.account.font)
     }
     
-    static func appearance(_ appearance:Appearance, font:Int) -> Skin {
+    static func update(_ appearance:Appearance, font:Int) {
         var skin:Skin
         switch appearance {
         case .light: skin = light()
         default: skin = Skin()
         }
         skin.font = CGFloat(font)
-        return skin
+        shared = skin
     }
     
     private static func light() -> Skin {

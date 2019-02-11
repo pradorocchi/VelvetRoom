@@ -4,6 +4,7 @@ import VelvetRoom
 @UIApplicationMain class App:UIViewController, UIApplicationDelegate {
     static private(set) weak var shared:App!
     var window:UIWindow?
+    private weak var splash:Splash?
     private var margin = UIEdgeInsets.zero
     
     func application(_:UIApplication, didFinishLaunchingWithOptions:[UIApplication.LaunchOptionsKey:Any]?) -> Bool {
@@ -24,53 +25,33 @@ import VelvetRoom
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 11.0, *) { margin = view.safeAreaInsets }
-        makeOutlets()
         
-        Repository.shared.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
+        let splash = Splash()
+        view.addSubview(splash)
+        self.splash = splash
         
+        splash.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
+        splash.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
+        splash.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+        splash.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        
+        Repository.shared.error = { Alert.shared.add($0) }
         Skin.add(self, selector:#selector(updateSkin))
-        listenKeyboard()
         DispatchQueue.global(qos:.background).async {
             Repository.shared.load()
-            Application.skin = .appearance(Repository.shared.account.appearance, font:Repository.shared.account.font)
+            DispatchQueue.main.async {
+                self.outlets()
+                DispatchQueue.global(qos:.background).async {
+                    Skin.update()
+                }
+            }
         }
     }
     
     override func viewWillTransition(to:CGSize, with:UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to:to, with:with)
-        if boardsRight.constant > 0 {
-            boardsRight.constant = size.width
-        }
-    }
-    
-    func open(_ board:Board) {
-        selected = board
-        progress.chart = board.chart
-        titleLabel.text = board.name
-        loadLeft.constant = -256
-        chartLeft.constant = -192
-        boardsRight.constant = view.bounds.width
-        (canvas.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:false)
-        canvas.alpha = 0
-        UIView.animate(withDuration:0.5, animations: {
-            self.view.layoutIfNeeded()
-            self.titleLabel.alpha = 1
-        }) { _ in
-            self.render(board)
-            self.canvasChanged(0)
-            UIView.animate(withDuration:0.35) {
-                self.canvas.alpha = 1
-            }
-        }
-    }
-    
-    func canvasChanged(_ animation:TimeInterval = 0.5) {
-        createCard()
-        canvas.layoutIfNeeded()
-        align()
-        UIView.animate(withDuration:animation) {
-            self.canvas.layoutIfNeeded()
-            self.canvas.superview!.layoutIfNeeded()
+        if List.shared.right.constant > 0 {
+            List.shared.right.constant = to.width
         }
     }
     
@@ -308,22 +289,6 @@ import VelvetRoom
             self.boards.bottomAnchor.constraint(equalTo:top, constant:10 + safeBottom).isActive = true
         }
         self.boards.layoutIfNeeded()
-    }
-    
-    private func listenKeyboard() {
-        NotificationCenter.default.addObserver(
-        forName:UIResponder.keyboardWillChangeFrameNotification, object:nil, queue:.main) {
-            if let rect = ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
-                rect.minY < self.view.bounds.height {
-                self.boardsBottom.constant = -rect.height
-            } else {
-                self.boardsBottom.constant = 0
-            }
-            UIView.animate(withDuration:
-            ($0.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0) {
-                self.view.layoutIfNeeded()
-            }
-        }
     }
     
     private func render(_ board:Board) {

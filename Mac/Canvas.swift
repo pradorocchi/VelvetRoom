@@ -71,7 +71,7 @@ class Canvas:NSScrollView {
         DispatchQueue.main.async {
             self.contentView.scrollToVisible(CGRect(x:0, y:0, width:1, height:1))
             NSAnimationContext.runAnimationGroup({ context in
-                context.duration = 1
+                context.duration = 1.2
                 context.allowsImplicitAnimation = true
                 self.alphaValue = 1
             }, completionHandler:nil)
