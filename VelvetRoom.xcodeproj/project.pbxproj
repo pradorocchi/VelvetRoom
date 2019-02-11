@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20186D342211578100995194 /* iOS.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20186D332211578100995194 /* iOS.xcassets */; };
+		20186D362211579D00995194 /* Widget.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20186D352211579D00995194 /* Widget.xcassets */; };
+		20186D38221157D600995194 /* Brand.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20186D37221157D600995194 /* Brand.xcassets */; };
 		202D0CF321EB3ED2002B2181 /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D0CF221EB3ED2002B2181 /* Help.swift */; };
 		202D0CF521EB4D71002B2181 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D0CF421EB4D71002B2181 /* HelpView.swift */; };
 		202D692921E231EF009398AB /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692821E231EF009398AB /* Export.swift */; };
@@ -59,7 +62,6 @@
 		20B40EA121E8951F00286E92 /* PictureCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40EA021E8951F00286E92 /* PictureCellView.swift */; };
 		20B4C470220C3AFA00103F8A /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B4C46F220C3AFA00103F8A /* Splash.swift */; };
 		20B4C472220C44F700103F8A /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B4C471220C44F700103F8A /* Button.swift */; };
-		20BFF18C21FEEC0E00DA249A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708121C3CA7C008F184E /* Assets.xcassets */; };
 		20BFF18D21FEF3C200DA249A /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78421D65712003396B1 /* UIColor.swift */; };
 		20C6F94421EA120E0069176F /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C6F94321EA120E0069176F /* Export.swift */; };
 		20CADF9E21F99B8A005DC344 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9D21F99B8A005DC344 /* Settings.swift */; };
@@ -116,7 +118,6 @@
 		DAADDD7021D8EA680038F85F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADDD6F21D8EA680038F85F /* CardView.swift */; };
 		DAB2708421C3CA7C008F184E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAB2707E21C3CA7C008F184E /* Localizable.strings */; };
 		DAB2708521C3CA7C008F184E /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708021C3CA7C008F184E /* iOS.storyboard */; };
-		DAB2708621C3CA7C008F184E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708121C3CA7C008F184E /* Assets.xcassets */; };
 		DAB2708721C3CA7C008F184E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2708221C3CA7C008F184E /* Application.swift */; };
 		DAB2709121C3CA87008F184E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708A21C3CA87008F184E /* Localizable.strings */; };
 		DAB2709321C3CA87008F184E /* Mac.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708D21C3CA87008F184E /* Mac.storyboard */; };
@@ -240,6 +241,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		20186D332211578100995194 /* iOS.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = iOS.xcassets; sourceTree = "<group>"; };
+		20186D352211579D00995194 /* Widget.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Widget.xcassets; sourceTree = "<group>"; };
+		20186D37221157D600995194 /* Brand.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Brand.xcassets; sourceTree = "<group>"; };
 		202D0CF221EB3ED2002B2181 /* Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help.swift; sourceTree = "<group>"; };
 		202D0CF421EB4D71002B2181 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		202D692821E231EF009398AB /* Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Export.swift; sourceTree = "<group>"; };
@@ -335,7 +339,6 @@
 		DAADDD6F21D8EA680038F85F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		DAB2707F21C3CA7C008F184E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DAB2708021C3CA7C008F184E /* iOS.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iOS.storyboard; sourceTree = "<group>"; };
-		DAB2708121C3CA7C008F184E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAB2708221C3CA7C008F184E /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		DAB2708321C3CA7C008F184E /* iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iOS.plist; sourceTree = "<group>"; };
 		DAB2708B21C3CA87008F184E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -489,42 +492,44 @@
 		DAB2707D21C3CA7C008F184E /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				DAB2708221C3CA7C008F184E /* Application.swift */,
-				DAD7B78021D654E3003396B1 /* View.swift */,
-				205A65A021FB081100F59461 /* Skin.swift */,
-				20804BBA21E5E6360035535D /* Alert.swift */,
-				20EC12DA21E4F63A00375670 /* GradientView.swift */,
-				20B40E9C21E8756A00286E92 /* CameraView.swift */,
-				20B40E9E21E88E7D00286E92 /* PicturesView.swift */,
-				20B40EA021E8951F00286E92 /* PictureCellView.swift */,
-				20C6F94321EA120E0069176F /* Export.swift */,
-				DAD7B78821D660E6003396B1 /* NewView.swift */,
-				DA88A21C21D8DB6000144E39 /* DeleteView.swift */,
-				205A65A221FB133D00F59461 /* SettingsView.swift */,
-				DA00F0D121DA3C92002FD057 /* ChartView.swift */,
-				202D0CF421EB4D71002B2181 /* HelpView.swift */,
-				DA0A146B21D779B600CF4BDD /* BoardView.swift */,
-				DAD7B78221D65683003396B1 /* ProgressView.swift */,
-				20959D5B2206058A002FE165 /* SearchView.swift */,
-				DAADDD6721D8E8D60038F85F /* ItemView.swift */,
-				DAADDD6921D8E91D0038F85F /* CreateView.swift */,
-				DAADDD6B21D8E96B0038F85F /* EditView.swift */,
-				DAADDD6D21D8EA1C0038F85F /* ColumnView.swift */,
-				DAADDD6F21D8EA680038F85F /* CardView.swift */,
-				DA0A146D21D77A2A00CF4BDD /* TextView.swift */,
-				DA0A146F21D77A6A00CF4BDD /* TextLayout.swift */,
-				DA0A147121D77A7700CF4BDD /* TextStorage.swift */,
-				DAD7B78421D65712003396B1 /* UIColor.swift */,
-				DAD7B78621D65BFE003396B1 /* UIFont.swift */,
-				20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */,
+				DAC5F1A921DA5D170039612C /* iOS.entitlements */,
+				20DBB0BC21EB5EB2009B9AAA /* iOSWidget.entitlements */,
 				2088914F220748F400E8ABD6 /* Config.json */,
-				DAB2707E21C3CA7C008F184E /* Localizable.strings */,
+				DAB2708321C3CA7C008F184E /* iOS.plist */,
 				20DBB0B921EB5D7F009B9AAA /* iOSWidget.plist */,
 				DAB2708021C3CA7C008F184E /* iOS.storyboard */,
-				DAB2708321C3CA7C008F184E /* iOS.plist */,
-				20DBB0BC21EB5EB2009B9AAA /* iOSWidget.entitlements */,
-				DAC5F1A921DA5D170039612C /* iOS.entitlements */,
-				DAB2708121C3CA7C008F184E /* Assets.xcassets */,
+				20804BBA21E5E6360035535D /* Alert.swift */,
+				DAB2708221C3CA7C008F184E /* Application.swift */,
+				DA0A146B21D779B600CF4BDD /* BoardView.swift */,
+				20B40E9C21E8756A00286E92 /* CameraView.swift */,
+				DAADDD6F21D8EA680038F85F /* CardView.swift */,
+				DA00F0D121DA3C92002FD057 /* ChartView.swift */,
+				DAADDD6D21D8EA1C0038F85F /* ColumnView.swift */,
+				DAADDD6921D8E91D0038F85F /* CreateView.swift */,
+				DA88A21C21D8DB6000144E39 /* DeleteView.swift */,
+				DAADDD6B21D8E96B0038F85F /* EditView.swift */,
+				20C6F94321EA120E0069176F /* Export.swift */,
+				20EC12DA21E4F63A00375670 /* GradientView.swift */,
+				202D0CF421EB4D71002B2181 /* HelpView.swift */,
+				DAADDD6721D8E8D60038F85F /* ItemView.swift */,
+				DAD7B78821D660E6003396B1 /* NewView.swift */,
+				20B40EA021E8951F00286E92 /* PictureCellView.swift */,
+				20B40E9E21E88E7D00286E92 /* PicturesView.swift */,
+				DAD7B78221D65683003396B1 /* ProgressView.swift */,
+				20959D5B2206058A002FE165 /* SearchView.swift */,
+				205A65A221FB133D00F59461 /* SettingsView.swift */,
+				205A65A021FB081100F59461 /* Skin.swift */,
+				DA0A146F21D77A6A00CF4BDD /* TextLayout.swift */,
+				DA0A147121D77A7700CF4BDD /* TextStorage.swift */,
+				DA0A146D21D77A2A00CF4BDD /* TextView.swift */,
+				DAD7B78421D65712003396B1 /* UIColor.swift */,
+				DAD7B78621D65BFE003396B1 /* UIFont.swift */,
+				DAD7B78021D654E3003396B1 /* View.swift */,
+				20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */,
+				20186D37221157D600995194 /* Brand.xcassets */,
+				20186D332211578100995194 /* iOS.xcassets */,
+				20186D352211579D00995194 /* Widget.xcassets */,
+				DAB2707E21C3CA7C008F184E /* Localizable.strings */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -882,7 +887,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20BFF18C21FEEC0E00DA249A /* Assets.xcassets in Resources */,
+				20186D362211579D00995194 /* Widget.xcassets in Resources */,
 				20889151220748F400E8ABD6 /* Config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -913,10 +918,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA7C743A21C3DE9800B1F931 /* SFMono-Bold.otf in Resources */,
+				20186D38221157D600995194 /* Brand.xcassets in Resources */,
 				20889150220748F400E8ABD6 /* Config.json in Resources */,
 				DAB2708421C3CA7C008F184E /* Localizable.strings in Resources */,
-				DAB2708621C3CA7C008F184E /* Assets.xcassets in Resources */,
 				DA7C743821C3DE9800B1F931 /* SFMono-Light.otf in Resources */,
+				20186D342211578100995194 /* iOS.xcassets in Resources */,
 				DAB2708521C3CA7C008F184E /* iOS.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
