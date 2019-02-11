@@ -53,7 +53,6 @@ class Search:NSView, NSTextViewDelegate {
         done.widthAnchor.constraint(equalToConstant:24).isActive = true
         done.heightAnchor.constraint(equalToConstant:24).isActive = true
         
-        updateSkin()
         Skin.add(self, selector:#selector(updateSkin))
     }
     

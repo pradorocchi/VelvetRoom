@@ -14,6 +14,7 @@ import VelvetRoom
     override func awakeFromNib() {
         super.awakeFromNib()
         contentView!.wantsLayer = true
+        contentView!.layer!.backgroundColor = NSColor.clear.cgColor
         Window.shared = self
         NSApp.delegate = self
         
@@ -30,9 +31,14 @@ import VelvetRoom
         Skin.add(self, selector:#selector(updateSkin))
         DispatchQueue.global(qos:.background).async {
             Repository.shared.load()
-            Skin.update()
             DispatchQueue.main.async {
                 self.outlets()
+                DispatchQueue.global(qos:.background).async {
+                    Skin.update()
+                    DispatchQueue.main.async {
+                        List.shared.toggle()
+                    }
+                }
             }
         }
     }
@@ -86,15 +92,6 @@ import VelvetRoom
         search.bottom = search.bottomAnchor.constraint(equalTo:contentView!.topAnchor)
         
         contentView!.layoutSubtreeIfNeeded()
-        
-        NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 1
-            context.allowsImplicitAnimation = true
-            gradientTop.alphaValue = 1
-            gradientLeft.alphaValue = 1
-        }) {
-            List.shared.toggle()
-        }
     }
     
     @objc private func updateSkin() {

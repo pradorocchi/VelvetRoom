@@ -20,7 +20,6 @@ class Canvas:NSScrollView {
         horizontalScroller!.controlSize = .mini
         documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:bottomAnchor).isActive = true
         documentView!.rightAnchor.constraint(greaterThanOrEqualTo:rightAnchor).isActive = true
-        updateSkin()
         Skin.add(self, selector:#selector(updateSkin))
     }
     
