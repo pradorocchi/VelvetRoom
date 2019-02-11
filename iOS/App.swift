@@ -185,40 +185,6 @@ import VelvetRoom
         present(NewView(), animated:true)
     }
     
-    @objc private func load(_ button:UIButton) {
-        UIApplication.shared.keyWindow!.endEditing(true)
-        let alert = UIAlertController(title:.local("View.loadTitle"), message:.local("View.loadMessage"),
-                                      preferredStyle:.actionSheet)
-        alert.view.tintColor = .black
-        alert.addAction(UIAlertAction(title:.local("View.loadCamera"), style:.default) { _ in
-            self.present(CameraView(), animated:true)
-        })
-        alert.addAction(UIAlertAction(title:.local("View.loadLibrary"), style:.default) { _ in
-            self.present(PicturesView(), animated:true)
-        })
-        alert.addAction(UIAlertAction(title:.local("View.loadCancel"), style:.cancel))
-        if let popover = alert.popoverPresentationController {
-            popover.sourceView = button
-            popover.sourceRect = button.bounds
-            popover.permittedArrowDirections = .up
-        }
-        present(alert, animated:true)
-    }
-    
-    @objc private func showList() {
-        UIApplication.shared.keyWindow!.endEditing(true)
-        progress.chart = []
-        loadLeft.constant = 0
-        chartLeft.constant = 0
-        boardsRight.constant = 0
-        UIView.animate(withDuration:0.4, animations: {
-            self.view.layoutIfNeeded()
-            self.titleLabel.alpha = 0
-        }) { _ in
-            self.canvas.subviews.forEach { $0.removeFromSuperview() }
-        }
-    }
-    
     @objc private func beginSearch() {
         UIApplication.shared.keyWindow!.endEditing(true)
         search.active()

@@ -67,4 +67,23 @@ class Bar:UIView {
     }
     
     required init?(coder:NSCoder) { return nil }
+    
+    @objc private func load() {
+        UIApplication.shared.keyWindow!.endEditing(true)
+        App.shared.present({
+            $0.view.tintColor = .black
+            $0.addAction(UIAlertAction(title:.local("View.loadCamera"), style:.default) { _ in
+                self.present(CameraView(), animated:true)
+            })
+            $0.addAction(UIAlertAction(title:.local("View.loadLibrary"), style:.default) { _ in
+                self.present(PicturesView(), animated:true)
+            })
+            $0.addAction(UIAlertAction(title:.local("View.loadCancel"), style:.cancel))
+            
+            $0.popoverPresentationController?.sourceView = button
+            $0.popoverPresentationController?.sourceRect = button.bounds
+            $0.popoverPresentationController?.permittedArrowDirections = .up
+        } (UIAlertController(title:.local("View.loadTitle"), message:.local("View.loadMessage"),
+                             preferredStyle:.actionSheet)), animated:true)
+    }
 }

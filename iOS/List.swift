@@ -55,6 +55,20 @@ class List:UIScrollView {
         bottom.isActive = true
     }
     
+    @objc private func showList() {
+        UIApplication.shared.keyWindow!.endEditing(true)
+        progress.chart = []
+        loadLeft.constant = 0
+        chartLeft.constant = 0
+        boardsRight.constant = 0
+        UIView.animate(withDuration:0.4, animations: {
+            self.view.layoutIfNeeded()
+            self.titleLabel.alpha = 0
+        }) { _ in
+            self.canvas.subviews.forEach { $0.removeFromSuperview() }
+        }
+    }
+    
     private func render(_ boards:[Board]) {
         self.boards.subviews.forEach { $0.removeFromSuperview() }
         (self.boards.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:true)
