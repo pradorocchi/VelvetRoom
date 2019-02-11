@@ -228,37 +228,4 @@ import VelvetRoom
         UIApplication.shared.keyWindow!.endEditing(true)
         present(ChartView(selected!), animated:true)
     }
-    
-    @objc private func newColumn(_ view:CreateView) {
-        let column = ColumnView(Repository.shared.newColumn(selected!))
-        column.sibling = view
-        if root === view {
-            root = column
-        } else {
-            var left = root
-            while left!.sibling !== view {
-                left = left!.sibling
-            }
-            left!.sibling = column
-        }
-        canvas.addSubview(column)
-        column.top.constant = view.top.constant
-        column.left.constant = view.left.constant
-        canvasChanged()
-        column.beginEditing()
-        scheduleUpdate()
-    }
-    
-    @objc private func newCard(_ view:CreateView) {
-        let card = CardView(try! Repository.shared.newCard(selected!))
-        card.child = view.child
-        view.child = card
-        canvas.addSubview(card)
-        card.top.constant = view.top.constant
-        card.left.constant = view.left.constant
-        canvasChanged()
-        card.beginEditing()
-        scheduleUpdate()
-        progress.chart = selected!.chart
-    }
 }
