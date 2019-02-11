@@ -2,14 +2,23 @@ import UIKit
 import VelvetRoom
 
 class Alert {
+    static let shared = Alert()
     private weak var view:UIView?
-    private weak var viewBottom:NSLayoutConstraint?
-    private var alert = [Error]()
+    private weak var bottom:NSLayoutConstraint?
+    private var alert = [String]()
+    private let messages:[Exception?:String] = [
+        Exception.noIcloudToken: .local("Alert.noIcloudToken"),
+        Exception.errorWhileLoadingFromIcloud: .local("Alert.errorWhileLoadingFromIcloud"),
+        Exception.failedLoadingFromIcloud: .local("Alert.failedLoadingFromIcloud"),
+        Exception.unableToSaveToIcloud: .local("Alert.unableToSaveToIcloud"),
+        Exception.imageNotValid: .local("Alert.imageNotValid")]
+    
+    private init() { }
     
     func add(_ error:Error) {
-        alert.append(error)
+        alert.append(messages[error as? Exception] ?? .local("Alert.unknown"))
         if view == nil {
-            pop()
+            DispatchQueue.main.async { self.pop() }
         }
     }
     
@@ -21,7 +30,7 @@ class Alert {
         view.backgroundColor = UIColor(red:0.76, green:0.77, blue:0.78, alpha:0.94)
         view.layer.cornerRadius = 6
         view.alpha = 0
-        Application.view.view.addSubview(view)
+        App.shared.view.addSubview(view)
         self.view = view
         
         let message = UILabel()
@@ -29,32 +38,24 @@ class Alert {
         message.font = .systemFont(ofSize:14, weight:.regular)
         message.textColor = .black
         message.numberOfLines = 0
+        message.text = alert.removeFirst()
         view.addSubview(message)
         
-        viewBottom = view.bottomAnchor.constraint(equalTo:Application.view.view.topAnchor)
-        view.leftAnchor.constraint(equalTo:Application.view.view.leftAnchor, constant:10).isActive = true
-        view.rightAnchor.constraint(equalTo:Application.view.view.rightAnchor, constant:-10).isActive = true
+        view.leftAnchor.constraint(equalTo:App.shared.view.leftAnchor, constant:10).isActive = true
+        view.rightAnchor.constraint(equalTo:App.shared.view.rightAnchor, constant:-10).isActive = true
         view.heightAnchor.constraint(equalToConstant:70).isActive = true
-        viewBottom!.isActive = true
+        bottom = view.bottomAnchor.constraint(equalTo:App.shared.view.topAnchor)
+        bottom!.isActive = true
         
         message.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
         message.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
         message.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
         
-        switch alert.removeFirst() {
-        case Exception.noIcloudToken: message.text = .local("Alert.noIcloudToken")
-        case Exception.errorWhileLoadingFromIcloud: message.text = .local("Alert.errorWhileLoadingFromIcloud")
-        case Exception.failedLoadingFromIcloud: message.text = .local("Alert.failedLoadingFromIcloud")
-        case Exception.unableToSaveToIcloud: message.text = .local("Alert.unableToSaveToIcloud")
-        case Exception.imageNotValid: message.text = .local("Alert.imageNotValid")
-        default: message.text = .local("Alert.unknown")
-        }
-        
-        Application.view.view.layoutIfNeeded()
-        viewBottom!.constant = 100
+        App.shared.view.layoutIfNeeded()
+        bottom!.constant = 100
         UIView.animate(withDuration:0.4, animations: {
             view.alpha = 1
-            Application.view.view.layoutIfNeeded()
+            App.shared.view.layoutIfNeeded()
         }) { _ in
             DispatchQueue.main.asyncAfter(deadline:.now() + 8) { [weak view] in
                 if view != nil && view === self.view {
@@ -65,10 +66,10 @@ class Alert {
     }
     
     @objc private func remove() {
-        viewBottom?.constant = 0
+        bottom?.constant = 0
         UIView.animate(withDuration:0.4, animations: {
             self.view?.alpha = 0
-            Application.view.view.layoutIfNeeded()
+            App.shared.view.layoutIfNeeded()
         }) { _ in
             self.view?.removeFromSuperview()
             self.pop()

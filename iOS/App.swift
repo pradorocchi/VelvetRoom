@@ -1,8 +1,8 @@
 import UIKit
 import VelvetRoom
 
-@UIApplicationMain class View:UIViewController, UIApplicationDelegate {
-    static private(set) weak var shared:View!
+@UIApplicationMain class App:UIViewController, UIApplicationDelegate {
+    static private(set) weak var shared:App!
     var window:UIWindow?
     private var margin = UIEdgeInsets.zero
     
@@ -10,7 +10,7 @@ import VelvetRoom
         window = UIWindow(frame:UIScreen.main.bounds)
         window!.makeKeyAndVisible()
         window!.rootViewController = self
-        View.shared = self
+        App.shared = self
         return true
     }
     

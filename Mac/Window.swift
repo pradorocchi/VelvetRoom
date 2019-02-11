@@ -14,8 +14,8 @@ import VelvetRoom
         super.awakeFromNib()
         contentView!.wantsLayer = true
         contentView!.layer!.backgroundColor = NSColor.clear.cgColor
-        Window.shared = self
         NSApp.delegate = self
+        Window.shared = self
         
         let splash = Splash()
         contentView!.addSubview(splash)
@@ -97,6 +97,7 @@ import VelvetRoom
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 1
             context.allowsImplicitAnimation = true
+            backgroundColor = NSColor.clear
             contentView!.layer!.backgroundColor = Skin.shared.background.cgColor
         }, completionHandler:nil)
     }

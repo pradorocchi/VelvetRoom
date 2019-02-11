@@ -4,16 +4,20 @@ import VelvetRoom
 class Alert {
     static let shared = Alert()
     private weak var view:NSView?
-    private weak var viewBottom:NSLayoutConstraint?
-    private var alert = [Error]()
+    private weak var bottom:NSLayoutConstraint?
+    private var alert = [String]()
+    private let messages:[Exception?:String] = [
+        Exception.noIcloudToken: .local("Alert.noIcloudToken"),
+        Exception.errorWhileLoadingFromIcloud: .local("Alert.errorWhileLoadingFromIcloud"),
+        Exception.failedLoadingFromIcloud: .local("Alert.failedLoadingFromIcloud"),
+        Exception.unableToSaveToIcloud: .local("Alert.unableToSaveToIcloud"),
+        Exception.imageNotValid: .local("Alert.imageNotValid")]
     
     private init() { }
     
     func add(_ error:Error) {
-        alert.append(error)
-        if view == nil {
-            DispatchQueue.main.async { self.pop() }
-        }
+        alert.append(messages[error as? Exception] ?? .local("Alert.unknown"))
+        DispatchQueue.main.async { if self.view === nil { self.pop() } }
     }
     
     private func pop() {
@@ -31,30 +35,21 @@ class Alert {
         Window.shared.contentView!.addSubview(view)
         self.view = view
         
-        let message = Label(color:.black, font:.systemFont(ofSize:16, weight:.regular))
+        let message = Label(alert.removeFirst(), color:.black, font:.systemFont(ofSize:16, weight:.regular))
         view.addSubview(message)
         
         view.heightAnchor.constraint(equalToConstant:60).isActive = true
         view.leftAnchor.constraint(equalTo:Window.shared.contentView!.leftAnchor, constant:10).isActive = true
         view.rightAnchor.constraint(equalTo:Window.shared.contentView!.rightAnchor, constant:-10).isActive = true
-        viewBottom = view.bottomAnchor.constraint(equalTo:Window.shared.contentView!.topAnchor)
-        viewBottom!.isActive = true
+        bottom = view.bottomAnchor.constraint(equalTo:Window.shared.contentView!.topAnchor)
+        bottom!.isActive = true
         
         message.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
         message.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
         message.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
         
-        switch alert.removeFirst() {
-        case Exception.noIcloudToken: message.stringValue = .local("Alert.noIcloudToken")
-        case Exception.errorWhileLoadingFromIcloud: message.stringValue = .local("Alert.errorWhileLoadingFromIcloud")
-        case Exception.failedLoadingFromIcloud: message.stringValue = .local("Alert.failedLoadingFromIcloud")
-        case Exception.unableToSaveToIcloud: message.stringValue = .local("Alert.unableToSaveToIcloud")
-        case Exception.imageNotValid: message.stringValue = .local("Alert.imageNotValid")
-        default: message.stringValue = .local("Alert.unknown")
-        }
-        
         Window.shared.contentView!.layoutSubtreeIfNeeded()
-        viewBottom!.constant = 100
+        bottom!.constant = 100
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.6
             context.allowsImplicitAnimation = true
@@ -70,7 +65,7 @@ class Alert {
     }
     
     @objc private func remove() {
-        viewBottom?.constant = 0
+        bottom?.constant = 0
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.6
             context.allowsImplicitAnimation = true
