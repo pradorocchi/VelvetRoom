@@ -67,7 +67,7 @@ class BoardView:NSView, NSTextViewDelegate {
         } else {
             text.string = board.name
         }
-        List.shared.scheduleUpdate(board)
+        Repository.shared.scheduleUpdate(board)
         DispatchQueue.main.async { [weak self] in self?.updateSkin() }
     }
     

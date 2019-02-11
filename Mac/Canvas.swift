@@ -191,7 +191,7 @@ class Canvas:NSScrollView {
         column.left.constant = view.left.constant
         update()
         column.beginEditing()
-        List.shared.scheduleUpdate()
+        Repository.shared.scheduleUpdate(List.shared.current!.board)
         DispatchQueue.main.async {
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0.7
@@ -211,7 +211,7 @@ class Canvas:NSScrollView {
         card.left.constant = view.left.constant
         update()
         card.beginEditing()
-        List.shared.scheduleUpdate()
+        Repository.shared.scheduleUpdate(List.shared.current!.board)
         DispatchQueue.main.async {
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0.7

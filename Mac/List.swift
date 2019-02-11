@@ -25,16 +25,6 @@ class List:NSScrollView {
     
     required init?(coder:NSCoder) { return nil }
     
-    func scheduleUpdate(_ board:Board? = nil) {
-        DispatchQueue.main.async {
-            if let board = board ?? self.current?.board {
-                DispatchQueue.global(qos:.background).async {
-                    Repository.shared.scheduleUpdate(board)
-                }
-            }
-        }
-    }
-    
     @objc func toggle() {
         visible.toggle()
         if visible {

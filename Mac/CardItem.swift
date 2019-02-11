@@ -30,7 +30,6 @@ class CardItem:Edit {
     }
     
     override func endDrag(_ event:NSEvent) {
-        super.endDrag(event)
         var column = Canvas.shared.root
         while column!.sibling is ColumnItem {
             guard
@@ -49,11 +48,9 @@ class CardItem:Edit {
         }
         child = after!.child
         after!.child = self
-        Canvas.shared.update()
         Repository.shared.move(card, board:List.shared.current!.board, column:(column as! ColumnItem).column,
                                after:(after as? CardItem)?.card)
-        List.shared.scheduleUpdate()
-        Progress.shared.update()
+        super.endDrag(event)
     }
     
     override func updateSkin() {
@@ -69,7 +66,7 @@ class CardItem:Edit {
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let card = self?.card else { return }
             Repository.shared.delete(card, board:board)
-            List.shared.scheduleUpdate()
+            Repository.shared.scheduleUpdate(board)
             DispatchQueue.main.async { [weak self] in
                 Progress.shared.update()
                 self?.removeFromSuperview()

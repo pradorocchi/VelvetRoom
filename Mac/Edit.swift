@@ -1,4 +1,5 @@
 import AppKit
+import VelvetRoom
 
 class Edit:Item, NSTextViewDelegate {
     private(set) weak var text:Text!
@@ -30,7 +31,7 @@ class Edit:Item, NSTextViewDelegate {
     
     func textDidEndEditing(_:Notification) {
         Canvas.shared.update()
-        List.shared.scheduleUpdate()
+        Repository.shared.scheduleUpdate(List.shared.current!.board)
     }
     
     func beginEditing() {
@@ -47,6 +48,9 @@ class Edit:Item, NSTextViewDelegate {
     func endDrag(_ event:NSEvent) {
         layer!.backgroundColor = NSColor.clear.cgColor
         NSCursor.arrow.set()
+        Canvas.shared.update()
+        Repository.shared.scheduleUpdate(List.shared.current!.board)
+        Progress.shared.update()
     }
     
     func drag(deltaX:CGFloat, deltaY:CGFloat) {

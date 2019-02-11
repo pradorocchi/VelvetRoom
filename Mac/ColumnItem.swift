@@ -43,7 +43,6 @@ class ColumnItem:Edit {
     }
     
     override func endDrag(_ event:NSEvent) {
-        super.endDrag(event)
         var after = Canvas.shared.root
         if after is Create || after!.frame.maxX > frame.midX {
             sibling = after
@@ -61,10 +60,8 @@ class ColumnItem:Edit {
             sibling = after!.sibling
             after!.sibling = self
         }
-        Canvas.shared.update()
         Repository.shared.move(column, board:List.shared.current!.board, after:(after as? ColumnItem)?.column)
-        List.shared.scheduleUpdate()
-        Progress.shared.update()
+        super.endDrag(event)
     }
     
     override func drag(deltaX:CGFloat, deltaY:CGFloat) {
@@ -104,7 +101,7 @@ class ColumnItem:Edit {
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let column = self?.column else { return }
             Repository.shared.delete(column, board:board)
-            List.shared.scheduleUpdate()
+            Repository.shared.scheduleUpdate(board)
             DispatchQueue.main.async { [weak self] in
                 Progress.shared.update()
                 self?.removeFromSuperview()
