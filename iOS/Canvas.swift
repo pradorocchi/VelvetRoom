@@ -10,6 +10,24 @@ class Canvas:UIScrollView {
     
     private init() {
         super.init(frame:.zero)
+        translatesAutoresizingMaskIntoConstraints = false
+        alwaysBounceVertical = true
+        alwaysBounceHorizontal = true
+        showsVerticalScrollIndicator = false
+        
+        let content = UIView()
+        content.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(content)
+        self.content = content
+        
+        content.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
+        content.topAnchor.constraint(equalTo:topAnchor).isActive = true
+        content.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
+        content.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
+        content.heightAnchor.constraint(greaterThanOrEqualTo:heightAnchor).isActive = true
+//        content.widthAnchor.constraint(greaterThanOrEqualTo:view.widthAnchor).isActive = true
+        
+        if #available(iOS 11.0, *) { contentInsetAdjustmentBehavior = .never }
     }
     
     required init?(coder:NSCoder) { return nil }

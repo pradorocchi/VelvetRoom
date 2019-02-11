@@ -46,7 +46,7 @@ import VelvetRoom
     
     private func outlets() {
         Toolbar.shared.enabled = true
-        
+        splash?.button.isHidden = false
         let canvas = Canvas.shared
         let list = List.shared
         let progress = Progress.shared
@@ -54,7 +54,6 @@ import VelvetRoom
         let gradientLeft = GradientLeft()
         let gradientTop = GradientTop()
         
-        splash?.button.isHidden = false
         contentView!.addSubview(canvas, positioned:.below, relativeTo:splash)
         contentView!.addSubview(gradientLeft)
         contentView!.addSubview(list)

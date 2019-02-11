@@ -1,13 +1,29 @@
 import UIKit
 import VelvetRoom
 
-class List:UIView {
+class List:UIScrollView {
     static let shared = List()
-    private(set) weak var right:NSLayoutConstraint! { willSet { newValue.isActive = true } }
-    private weak var bottom:NSLayoutConstraint! { willSet { newValue.isActive = true } }
+    private(set) weak var right:NSLayoutConstraint!
+    private weak var content:UIView!
+    private weak var bottom:NSLayoutConstraint!
     
     private init() {
         super.init(frame:.zero)
+        translatesAutoresizingMaskIntoConstraints = false
+        alwaysBounceVertical = true
+        showsVerticalScrollIndicator = false
+        showsHorizontalScrollIndicator = false
+        
+        let content = UIView()
+        content.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(content)
+        self.content = content
+        
+        content.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
+        content.topAnchor.constraint(equalTo:topAnchor).isActive = true
+        content.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
+        content.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
+//        content.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
         
         Repository.shared.select = { board in DispatchQueue.main.async { self.open(board) } }
         Repository.shared.list = { boards in DispatchQueue.main.async {
@@ -25,11 +41,43 @@ class List:UIView {
                 self.layoutIfNeeded()
             }
         }
+        
+        if #available(iOS 11.0, *) { contentInsetAdjustmentBehavior = .never }
     }
     
     required init?(coder:NSCoder) { return nil }
     
-    func select(_ board:Board) {
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        right = rightAnchor.constraint(equalTo:superview!.rightAnchor)
+        bottom = bottomAnchor.constraint(equalTo:superview!.bottomAnchor)
+        right.isActive = true
+        bottom.isActive = true
+    }
+    
+    private func render(_ boards:[Board]) {
+        self.boards.subviews.forEach { $0.removeFromSuperview() }
+        (self.boards.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:true)
+        var top = self.boards.topAnchor
+        boards.enumerated().forEach { board in
+            let view = BoardView(board.element)
+            self.boards.addSubview(view)
+            
+            view.topAnchor.constraint(equalTo:top, constant:board.offset == 0 ? 60 + safeTop : 10).isActive = true
+            view.leftAnchor.constraint(equalTo:self.boards.leftAnchor, constant:20).isActive = true
+            view.rightAnchor.constraint(equalTo:self.boards.rightAnchor, constant:20).isActive = true
+            top = view.bottomAnchor
+        }
+        if boards.isEmpty {
+            emptyButton.isHidden = false
+        } else {
+            emptyButton.isHidden = true
+            self.boards.bottomAnchor.constraint(equalTo:top, constant:10 + safeBottom).isActive = true
+        }
+        self.boards.layoutIfNeeded()
+    }
+    
+    @objc private func select(_ board:Board) {
         selected = board
         progress.chart = board.chart
         titleLabel.text = board.name
