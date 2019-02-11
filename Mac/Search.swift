@@ -62,8 +62,8 @@ class Search:NSView, NSTextViewDelegate {
         unactive()
     }
     
-    func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
-        if (command == #selector(NSResponder.insertNewline(_:))) {
+    func textView(_:NSTextView, doCommandBy:Selector) -> Bool {
+        if (doCommandBy == #selector(NSResponder.insertNewline(_:))) {
             Window.shared.makeFirstResponder(nil)
             return true
         }

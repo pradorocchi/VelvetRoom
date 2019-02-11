@@ -2,10 +2,9 @@ import AppKit
 import VelvetRoom
 
 @NSApplicationMain class Window:NSWindow, NSApplicationDelegate {
-    static private(set) var shared:Window!
+    static private(set) weak var shared:Window!
     private(set) weak var splash:Splash?
     
-    deinit { NotificationCenter.default.removeObserver(self) }
     func applicationShouldTerminateAfterLastWindowClosed(_:NSApplication) -> Bool { return true }
     func applicationWillTerminate(_:Notification) { Repository.shared.fireSchedule() }
     override func cancelOperation(_:Any?) { makeFirstResponder(nil) }
@@ -102,7 +101,7 @@ import VelvetRoom
         }, completionHandler:nil)
     }
     
-    @IBAction private func showHelp(_ sender:Any?) {
+    @IBAction private func showHelp(_:Any?) {
         Help().makeKeyAndOrderFront(nil)
     }
 }

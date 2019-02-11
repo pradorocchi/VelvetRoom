@@ -41,11 +41,11 @@ class Sheet:NSView {
     override func mouseDragged(with:NSEvent) { }
     override func mouseUp(with:NSEvent) { }
     
-    override func keyDown(with event:NSEvent) {
-        if event.keyCode == 53 {
+    override func keyDown(with:NSEvent) {
+        if with.keyCode == 53 {
             close()
         } else {
-            super.keyDown(with:event)
+            super.keyDown(with:with)
         }
     }
     

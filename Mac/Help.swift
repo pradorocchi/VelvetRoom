@@ -21,5 +21,5 @@ class Help:NSWindow {
         center()
     }
     
-    @IBAction private func showHelp(_ sender:Any?) { }
+    @IBAction private func showHelp(_:Any?) { }
 }

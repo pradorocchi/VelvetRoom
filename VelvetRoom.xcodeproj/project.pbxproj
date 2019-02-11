@@ -10,6 +10,10 @@
 		20186D342211578100995194 /* iOS.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20186D332211578100995194 /* iOS.xcassets */; };
 		20186D362211579D00995194 /* Widget.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20186D352211579D00995194 /* Widget.xcassets */; };
 		20186D38221157D600995194 /* Brand.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20186D37221157D600995194 /* Brand.xcassets */; };
+		20186D3A22115FB200995194 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20186D3922115FB200995194 /* Canvas.swift */; };
+		20186D3C221160E600995194 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20186D3B221160E600995194 /* List.swift */; };
+		20186D402211655800995194 /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20186D3F2211655800995194 /* Bar.swift */; };
+		20186D422211672E00995194 /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20186D412211672E00995194 /* Splash.swift */; };
 		202D0CF321EB3ED2002B2181 /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D0CF221EB3ED2002B2181 /* Help.swift */; };
 		202D0CF521EB4D71002B2181 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D0CF421EB4D71002B2181 /* HelpView.swift */; };
 		202D692921E231EF009398AB /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D692821E231EF009398AB /* Export.swift */; };
@@ -62,7 +66,7 @@
 		20B40EA121E8951F00286E92 /* PictureCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B40EA021E8951F00286E92 /* PictureCellView.swift */; };
 		20B4C470220C3AFA00103F8A /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B4C46F220C3AFA00103F8A /* Splash.swift */; };
 		20B4C472220C44F700103F8A /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B4C471220C44F700103F8A /* Button.swift */; };
-		20BFF18D21FEF3C200DA249A /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78421D65712003396B1 /* UIColor.swift */; };
+		20BFF18D21FEF3C200DA249A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78421D65712003396B1 /* Extensions.swift */; };
 		20C6F94421EA120E0069176F /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C6F94321EA120E0069176F /* Export.swift */; };
 		20CADF9E21F99B8A005DC344 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9D21F99B8A005DC344 /* Settings.swift */; };
 		20CADFA021F9B1F1005DC344 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CADF9F21F9B1F1005DC344 /* Appearance.swift */; };
@@ -118,7 +122,6 @@
 		DAADDD7021D8EA680038F85F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADDD6F21D8EA680038F85F /* CardView.swift */; };
 		DAB2708421C3CA7C008F184E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAB2707E21C3CA7C008F184E /* Localizable.strings */; };
 		DAB2708521C3CA7C008F184E /* iOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708021C3CA7C008F184E /* iOS.storyboard */; };
-		DAB2708721C3CA7C008F184E /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2708221C3CA7C008F184E /* Application.swift */; };
 		DAB2709121C3CA87008F184E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708A21C3CA87008F184E /* Localizable.strings */; };
 		DAB2709321C3CA87008F184E /* Mac.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB2708D21C3CA87008F184E /* Mac.storyboard */; };
 		DAB2709D21C3CA99008F184E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2709C21C3CA99008F184E /* Repository.swift */; };
@@ -160,9 +163,8 @@
 		DAD0C20221C5310D00E6D1C7 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C20121C5310D00E6D1C7 /* Exception.swift */; };
 		DAD0C20321C5310D00E6D1C7 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0C20121C5310D00E6D1C7 /* Exception.swift */; };
 		DAD7B78121D654E3003396B1 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78021D654E3003396B1 /* View.swift */; };
-		DAD7B78321D65683003396B1 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78221D65683003396B1 /* ProgressView.swift */; };
-		DAD7B78521D65712003396B1 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78421D65712003396B1 /* UIColor.swift */; };
-		DAD7B78721D65BFE003396B1 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78621D65BFE003396B1 /* UIFont.swift */; };
+		DAD7B78321D65683003396B1 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78221D65683003396B1 /* Progress.swift */; };
+		DAD7B78521D65712003396B1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78421D65712003396B1 /* Extensions.swift */; };
 		DAD7B78921D660E6003396B1 /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7B78821D660E6003396B1 /* NewView.swift */; };
 		DAFA95FD21CBDAAD00BA265C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFA95FC21CBDAAD00BA265C /* Item.swift */; };
 		DAFA95FF21CBDC2C00BA265C /* Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFA95FE21CBDC2C00BA265C /* Create.swift */; };
@@ -244,6 +246,10 @@
 		20186D332211578100995194 /* iOS.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = iOS.xcassets; sourceTree = "<group>"; };
 		20186D352211579D00995194 /* Widget.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Widget.xcassets; sourceTree = "<group>"; };
 		20186D37221157D600995194 /* Brand.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Brand.xcassets; sourceTree = "<group>"; };
+		20186D3922115FB200995194 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
+		20186D3B221160E600995194 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		20186D3F2211655800995194 /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
+		20186D412211672E00995194 /* Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
 		202D0CF221EB3ED2002B2181 /* Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help.swift; sourceTree = "<group>"; };
 		202D0CF421EB4D71002B2181 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		202D692821E231EF009398AB /* Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Export.swift; sourceTree = "<group>"; };
@@ -339,7 +345,6 @@
 		DAADDD6F21D8EA680038F85F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		DAB2707F21C3CA7C008F184E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DAB2708021C3CA7C008F184E /* iOS.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iOS.storyboard; sourceTree = "<group>"; };
-		DAB2708221C3CA7C008F184E /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		DAB2708321C3CA7C008F184E /* iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iOS.plist; sourceTree = "<group>"; };
 		DAB2708B21C3CA87008F184E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DAB2708D21C3CA87008F184E /* Mac.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Mac.storyboard; sourceTree = "<group>"; };
@@ -377,9 +382,8 @@
 		DAD0C1FF21C52C8500E6D1C7 /* TestStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStorage.swift; sourceTree = "<group>"; };
 		DAD0C20121C5310D00E6D1C7 /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
 		DAD7B78021D654E3003396B1 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		DAD7B78221D65683003396B1 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
-		DAD7B78421D65712003396B1 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
-		DAD7B78621D65BFE003396B1 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
+		DAD7B78221D65683003396B1 /* Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
+		DAD7B78421D65712003396B1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DAD7B78821D660E6003396B1 /* NewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewView.swift; sourceTree = "<group>"; };
 		DAFA95FC21CBDAAD00BA265C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		DAFA95FE21CBDC2C00BA265C /* Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.swift; sourceTree = "<group>"; };
@@ -499,12 +503,14 @@
 				20DBB0B921EB5D7F009B9AAA /* iOSWidget.plist */,
 				DAB2708021C3CA7C008F184E /* iOS.storyboard */,
 				20804BBA21E5E6360035535D /* Alert.swift */,
-				DAB2708221C3CA7C008F184E /* Application.swift */,
 				DA0A146B21D779B600CF4BDD /* BoardView.swift */,
+				20186D3F2211655800995194 /* Bar.swift */,
 				20B40E9C21E8756A00286E92 /* CameraView.swift */,
 				DAADDD6F21D8EA680038F85F /* CardView.swift */,
 				DA00F0D121DA3C92002FD057 /* ChartView.swift */,
 				DAADDD6D21D8EA1C0038F85F /* ColumnView.swift */,
+				20186D3922115FB200995194 /* Canvas.swift */,
+				20186D3B221160E600995194 /* List.swift */,
 				DAADDD6921D8E91D0038F85F /* CreateView.swift */,
 				DA88A21C21D8DB6000144E39 /* DeleteView.swift */,
 				DAADDD6B21D8E96B0038F85F /* EditView.swift */,
@@ -515,15 +521,15 @@
 				DAD7B78821D660E6003396B1 /* NewView.swift */,
 				20B40EA021E8951F00286E92 /* PictureCellView.swift */,
 				20B40E9E21E88E7D00286E92 /* PicturesView.swift */,
-				DAD7B78221D65683003396B1 /* ProgressView.swift */,
+				DAD7B78221D65683003396B1 /* Progress.swift */,
 				20959D5B2206058A002FE165 /* SearchView.swift */,
 				205A65A221FB133D00F59461 /* SettingsView.swift */,
 				205A65A021FB081100F59461 /* Skin.swift */,
 				DA0A146F21D77A6A00CF4BDD /* TextLayout.swift */,
+				20186D412211672E00995194 /* Splash.swift */,
 				DA0A147121D77A7700CF4BDD /* TextStorage.swift */,
 				DA0A146D21D77A2A00CF4BDD /* TextView.swift */,
-				DAD7B78421D65712003396B1 /* UIColor.swift */,
-				DAD7B78621D65BFE003396B1 /* UIFont.swift */,
+				DAD7B78421D65712003396B1 /* Extensions.swift */,
 				DAD7B78021D654E3003396B1 /* View.swift */,
 				20DBB0BA21EB5DB3009B9AAA /* WidgetView.swift */,
 				20186D37221157D600995194 /* Brand.xcassets */,
@@ -947,7 +953,7 @@
 			files = (
 				205BE6102206EBCE0020817A /* WidgetItem.swift in Sources */,
 				20DBB0BB21EB5DB3009B9AAA /* WidgetView.swift in Sources */,
-				20BFF18D21FEF3C200DA249A /* UIColor.swift in Sources */,
+				20BFF18D21FEF3C200DA249A /* Extensions.swift in Sources */,
 				205BE6082206E5DD0020817A /* Widget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1079,14 +1085,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20186D402211655800995194 /* Bar.swift in Sources */,
+				20186D3A22115FB200995194 /* Canvas.swift in Sources */,
 				20B40EA121E8951F00286E92 /* PictureCellView.swift in Sources */,
 				20EC12DB21E4F63A00375670 /* GradientView.swift in Sources */,
+				20186D422211672E00995194 /* Splash.swift in Sources */,
 				DAC2CDC421C8EDA700AD927B /* String.swift in Sources */,
 				20959D5C2206058A002FE165 /* SearchView.swift in Sources */,
-				DAD7B78321D65683003396B1 /* ProgressView.swift in Sources */,
+				DAD7B78321D65683003396B1 /* Progress.swift in Sources */,
 				20B40E9F21E88E7D00286E92 /* PicturesView.swift in Sources */,
-				DAD7B78721D65BFE003396B1 /* UIFont.swift in Sources */,
-				DAB2708721C3CA7C008F184E /* Application.swift in Sources */,
 				DAADDD6E21D8EA1C0038F85F /* ColumnView.swift in Sources */,
 				20C6F94421EA120E0069176F /* Export.swift in Sources */,
 				DA00F0D221DA3C92002FD057 /* ChartView.swift in Sources */,
@@ -1101,11 +1108,12 @@
 				DAADDD6C21D8E96B0038F85F /* EditView.swift in Sources */,
 				202D0CF521EB4D71002B2181 /* HelpView.swift in Sources */,
 				20B40E9D21E8756A00286E92 /* CameraView.swift in Sources */,
+				20186D3C221160E600995194 /* List.swift in Sources */,
 				205A65A321FB133D00F59461 /* SettingsView.swift in Sources */,
 				DA88A21D21D8DB6000144E39 /* DeleteView.swift in Sources */,
 				DA0A147021D77A6A00CF4BDD /* TextLayout.swift in Sources */,
 				DAADDD7021D8EA680038F85F /* CardView.swift in Sources */,
-				DAD7B78521D65712003396B1 /* UIColor.swift in Sources */,
+				DAD7B78521D65712003396B1 /* Extensions.swift in Sources */,
 				20804BBB21E5E6360035535D /* Alert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

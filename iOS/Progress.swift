@@ -1,6 +1,7 @@
 import UIKit
 
-class ProgressView:UIView {
+class Progress:UIView {
+    static let shared = Progress()
     private weak var marker:NSLayoutXAxisAnchor!
     private var views = [UIView]()
     private var widths = [NSLayoutConstraint]()
@@ -28,7 +29,7 @@ class ProgressView:UIView {
         UIView.animate(withDuration:1) { [weak self] in self?.layoutIfNeeded() }
     } }
     
-    init() {
+    private init() {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         isUserInteractionEnabled = false

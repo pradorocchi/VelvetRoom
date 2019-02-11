@@ -14,7 +14,7 @@ class Link:NSButton {
     
     required init?(coder:NSCoder) { return nil }
     
-    override func mouseDown(with event:NSEvent) {
+    override func mouseDown(with:NSEvent) {
         sendAction(action, to:target)
     }
 }

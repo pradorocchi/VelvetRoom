@@ -43,11 +43,11 @@ class Text:NSTextView {
         super.drawInsertionPoint(in:rect, color:color, turnedOn:turnedOn)
     }
     
-    override func mouseDown(with event:NSEvent) {
+    override func mouseDown(with:NSEvent) {
         if !isEditable {
-            superview?.mouseDown(with:event)
+            superview?.mouseDown(with:with)
         } else {
-            super.mouseDown(with:event)
+            super.mouseDown(with:with)
         }
     }
     

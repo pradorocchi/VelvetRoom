@@ -1,48 +1,33 @@
 import UIKit
 import VelvetRoom
 
-class View:UIViewController {
-    let alert = Alert()
-    weak var root:ItemView?
-    private var safeTop = CGFloat()
-    private var safeBottom = CGFloat()
-    private(set) weak var selected:Board? { didSet { fireSchedule() } }
-    private(set) weak var progress:ProgressView!
-    private(set) weak var canvas:UIView!
-    private weak var search:SearchView!
-    private weak var emptyButton:UIButton!
-    private weak var titleLabel:UILabel!
-    private weak var boards:UIView!
-    private weak var canvasScroll:UIScrollView!
-    private weak var boardsBottom:NSLayoutConstraint! { willSet { newValue.isActive = true } }
-    private weak var boardsRight:NSLayoutConstraint! { willSet { newValue.isActive = true } }
-    private weak var loadLeft:NSLayoutConstraint! { willSet { newValue.isActive = true } }
-    private weak var chartLeft:NSLayoutConstraint! { willSet { newValue.isActive = true } }
-    private weak var canvasWidth:NSLayoutConstraint? { didSet {
-        oldValue?.isActive = false; canvasWidth!.isActive = true } }
-    private weak var canvasHeight:NSLayoutConstraint? { didSet {
-        oldValue?.isActive = false; canvasHeight!.isActive = true } }
+@UIApplicationMain class View:UIViewController, UIApplicationDelegate {
+    static private(set) weak var shared:View!
+    var window:UIWindow?
+    private var margin = UIEdgeInsets.zero
     
-    deinit { NotificationCenter.default.removeObserver(self) }
+    func application(_:UIApplication, didFinishLaunchingWithOptions:[UIApplication.LaunchOptionsKey:Any]?) -> Bool {
+        window = UIWindow(frame:UIScreen.main.bounds)
+        window!.makeKeyAndVisible()
+        window!.rootViewController = self
+        View.shared = self
+        return true
+    }
     
     override func viewSafeAreaInsetsDidChange() {
         if #available(iOS 11.0, *) {
             super.viewSafeAreaInsetsDidChange()
-            safeTop = view.safeAreaInsets.top
-            safeBottom = view.safeAreaInsets.bottom
+            margin = view.safeAreaInsets
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 11.0, *) { margin = view.safeAreaInsets }
         makeOutlets()
-        Repository.shared.select = { board in DispatchQueue.main.async { self.open(board) } }
+        
         Repository.shared.error = { error in DispatchQueue.main.async { self.alert.add(error) } }
-        Repository.shared.list = { boards in DispatchQueue.main.async {
-            self.list(boards)
-            self.showList()
-        } }
-        updateSkin()
+        
         Skin.add(self, selector:#selector(updateSkin))
         listenKeyboard()
         DispatchQueue.global(qos:.background).async {
@@ -51,8 +36,8 @@ class View:UIViewController {
         }
     }
     
-    override func viewWillTransition(to size:CGSize, with coordinator:UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to:size, with:coordinator)
+    override func viewWillTransition(to:CGSize, with:UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to:to, with:with)
         if boardsRight.constant > 0 {
             boardsRight.constant = size.width
         }
@@ -207,7 +192,7 @@ class View:UIViewController {
         view.addSubview(emptyButton)
         self.emptyButton = emptyButton
         
-        let progress = ProgressView()
+        let progress = Progress()
         view.addSubview(progress)
         self.progress = progress
         

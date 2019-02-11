@@ -10,9 +10,9 @@ class Storage:NSTextStorage {
         return storage.attributes(at:location, effectiveRange:range)
     }
     
-    override func replaceCharacters(in range:NSRange, with str:String) {
-        storage.replaceCharacters(in:range, with:str)
-        edited(.editedCharacters, range:range, changeInLength:(str as NSString).length - range.length)
+    override func replaceCharacters(in range:NSRange, with:String) {
+        storage.replaceCharacters(in:range, with:with)
+        edited(.editedCharacters, range:range, changeInLength:(with as NSString).length - range.length)
     }
     
     override func setAttributes(_ attrs:[NSAttributedString.Key:Any]?, range:NSRange) {

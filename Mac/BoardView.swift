@@ -43,8 +43,8 @@ class BoardView:NSView, NSTextViewDelegate {
     
     deinit { NotificationCenter.default.removeObserver(self) }
     
-    override func mouseDown(with event:NSEvent) {
-        if event.clickCount == 2 {
+    override func mouseDown(with:NSEvent) {
+        if with.clickCount == 2 {
             text.isEditable = true
             Window.shared.makeFirstResponder(text)
             updateSkin()
@@ -71,8 +71,8 @@ class BoardView:NSView, NSTextViewDelegate {
         DispatchQueue.main.async { [weak self] in self?.updateSkin() }
     }
     
-    func textView(_:NSTextView, doCommandBy command:Selector) -> Bool {
-        if (command == #selector(NSResponder.insertNewline(_:))) {
+    func textView(_:NSTextView, doCommandBy:Selector) -> Bool {
+        if (doCommandBy == #selector(NSResponder.insertNewline(_:))) {
             Window.shared.makeFirstResponder(nil)
             return true
         }
