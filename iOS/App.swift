@@ -61,7 +61,7 @@ import VelvetRoom
         let gradientTop = Gradient([0, 1])
         let gradientBottom = Gradient([1, 0])
         let progress = Progress.shared
-        let search = SearchView.shared
+        let search = Search.shared
         
         view.addSubview(list)
         view.addSubview(canvas)
@@ -102,17 +102,17 @@ import VelvetRoom
     
     @objc private func help() {
         UIApplication.shared.keyWindow!.endEditing(true)
-        present(HelpView(), animated:true)
+        present(Help(), animated:true)
     }
     
     @objc private func settings() {
         UIApplication.shared.keyWindow!.endEditing(true)
-        present(SettingsView(), animated:true)
+        present(Settings(), animated:true)
     }
     
     @objc private func new() {
         UIApplication.shared.keyWindow!.endEditing(true)
-        present(NewView(), animated:true)
+        present(Boarder(), animated:true)
     }
     
 //    @objc private func chart() {

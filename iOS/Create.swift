@@ -1,6 +1,6 @@
 import UIKit
 
-class CreateView:ItemView {
+class Create:Item {
     override var isSelected:Bool { didSet { update() } }
     override var isHighlighted:Bool { didSet { update() } }
     

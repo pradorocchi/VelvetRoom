@@ -2,7 +2,7 @@ import UIKit
 import VelvetRoom
 import Photos
 
-class PicturesView:UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,
+class Pictures:UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout {
     private var caching:PHCachingImageManager?
     private var items:PHFetchResult<PHAsset>?
@@ -34,7 +34,7 @@ UICollectionViewDelegateFlowLayout {
     func collectionView(_:UICollectionView, numberOfItemsInSection:Int) -> Int { return items?.count ?? 0 }
     
     func collectionView(_:UICollectionView, cellForItemAt index:IndexPath) -> UICollectionViewCell {
-        let cell = collection.dequeueReusableCell(withReuseIdentifier:"picture", for:index) as! PictureViewCell
+        let cell = collection.dequeueReusableCell(withReuseIdentifier:"picture", for:index) as! PicturesItem
         if let request = cell.request { caching?.cancelImageRequest(request) }
         cell.request = caching?.requestImage(for:items![(items!.count - 1) - index.item], targetSize:size,
                                              contentMode:.aspectFill, options:request) { image, _ in
@@ -88,7 +88,7 @@ UICollectionViewDelegateFlowLayout {
         collection.alwaysBounceVertical = true
         collection.delegate = self
         collection.dataSource = self
-        collection.register(PictureViewCell.self, forCellWithReuseIdentifier:"picture")
+        collection.register(PicturesItem.self, forCellWithReuseIdentifier:"picture")
         view.addSubview(collection)
         self.collection = collection
         

@@ -24,7 +24,7 @@ class Bar:UIView {
         let chart = Button(#imageLiteral(resourceName: "chart.pdf"), target:self, selector:#selector(self.chart))
         addSubview(chart)
         
-        let search = Button(#imageLiteral(resourceName: "search.pdf"), target:SearchView.shared, selector:#selector(SearchView.shared.active))
+        let search = Button(#imageLiteral(resourceName: "search.pdf"), target:Search.shared, selector:#selector(Search.shared.active))
         addSubview(search)
         
         let list = Button(#imageLiteral(resourceName: "list.pdf"), target:self, selector:#selector(self.list))
@@ -73,10 +73,10 @@ class Bar:UIView {
         App.shared.present({
             $0.view.tintColor = .black
             $0.addAction(UIAlertAction(title:.local("View.loadCamera"), style:.default) { _ in
-                App.shared.present(CameraView(), animated:true)
+                App.shared.present(Camera(), animated:true)
             })
             $0.addAction(UIAlertAction(title:.local("View.loadLibrary"), style:.default) { _ in
-                App.shared.present(PicturesView(), animated:true)
+                App.shared.present(Pictures(), animated:true)
             })
             $0.addAction(UIAlertAction(title:.local("View.loadCancel"), style:.cancel))
             

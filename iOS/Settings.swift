@@ -1,7 +1,7 @@
 import UIKit
 import VelvetRoom
 
-class SettingsView:UIViewController {
+class Settings:UIViewController {
     private weak var dark:UIButton!
     private weak var light:UIButton!
     private weak var labelTitle:UILabel!

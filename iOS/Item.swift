@@ -1,8 +1,8 @@
 import UIKit
 
-class ItemView:UIControl {
-    weak var sibling:ItemView?
-    weak var child:ItemView?
+class Item:UIControl {
+    weak var sibling:Item?
+    weak var child:Item?
     private(set) weak var left:NSLayoutConstraint!
     private(set) weak var top:NSLayoutConstraint!
     

@@ -1,9 +1,9 @@
 import UIKit
 import VelvetRoom
 
-class BoardView:UIControl, UITextViewDelegate {
+class BoardItem:UIControl, UITextViewDelegate {
     private(set) weak var board:Board!
-    private weak var text:TextView!
+    private weak var text:Text!
     private weak var date:UILabel!
     private weak var delete:UIButton!
     private weak var export:UIButton!
@@ -18,7 +18,7 @@ class BoardView:UIControl, UITextViewDelegate {
         addGestureRecognizer(gesture)
         self.board = board
         
-        let text = TextView()
+        let text = Text()
         text.font = .systemFont(ofSize:CGFloat(Repository.shared.account.font), weight:.bold)
         text.delegate = self
         text.text = board.name

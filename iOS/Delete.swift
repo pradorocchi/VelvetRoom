@@ -1,6 +1,6 @@
 import UIKit
 
-class DeleteView:UIViewController {
+class Delete:UIViewController {
     private let onConfirm:(() -> Void)
     
     init(_ onConfirm:@escaping(() -> Void)) {

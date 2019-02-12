@@ -1,11 +1,11 @@
 import UIKit
 
-class TextView:UITextView {
+class Text:UITextView {
     var onDelete:(() -> Void)!
     private(set) weak var deleteButton:UIButton!
     override var font:UIFont? {
         didSet {
-            let storage = textStorage as! TextStorage
+            let storage = textStorage as! Storage
             storage.text = font
             storage.header = .bold(font!.pointSize)
         }
@@ -13,8 +13,8 @@ class TextView:UITextView {
     
     init() {
         let container = NSTextContainer()
-        let storage = TextStorage()
-        let layout = TextLayout()
+        let storage = Storage()
+        let layout = Layout()
         storage.addLayoutManager(layout)
         layout.addTextContainer(container)
         container.lineBreakMode = .byTruncatingHead

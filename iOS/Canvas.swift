@@ -3,7 +3,7 @@ import VelvetRoom
 
 class Canvas:UIScrollView {
     static let shared = Canvas()
-    weak var root:ItemView?
+    weak var root:Item?
     private(set) weak var content:UIView!
     private weak var width:NSLayoutConstraint? { didSet { oldValue?.isActive = false; width!.isActive = true } }
     private weak var height:NSLayoutConstraint? { didSet { oldValue?.isActive = false; height!.isActive = true } }
@@ -42,34 +42,34 @@ class Canvas:UIScrollView {
         }
     }
     
-    func parent(_ of:CardView) -> ItemView? {
-        return content.subviews.first(where:{ ($0 as? ItemView)?.child === of } ) as? ItemView
+    func parent(_ of:CardItem) -> Item? {
+        return content.subviews.first(where:{ ($0 as? Item)?.child === of } ) as? Item
     }
     
     private func render(_ board:Board) {
         content.subviews.forEach { $0.removeFromSuperview() }
         root = nil
-        var sibling:ItemView?
+        var sibling:Item?
         board.columns.enumerated().forEach { (index, item) in
-            let column = ColumnView(item)
+            let column = ColumnItem(item)
             if sibling == nil {
                 root = column
             } else {
                 sibling!.sibling = column
             }
             content.addSubview(column)
-            var child:ItemView = column
+            var child:Item = column
             sibling = column
             
             board.cards.filter( { $0.column == index } ).sorted(by: { $0.index < $1.index } ).forEach {
-                let card = CardView($0)
+                let card = CardItem($0)
                 content.addSubview(card)
                 child.child = card
                 child = card
             }
         }
         
-        let buttonColumn = CreateView(#selector(newColumn(_:)))
+        let buttonColumn = Create(#selector(newColumn(_:)))
         content.addSubview(buttonColumn)
         
         if root == nil {
@@ -106,16 +106,16 @@ class Canvas:UIScrollView {
     }
     
     private func addCarder() {
-        if root != nil, !(root is CreateView), !(root!.child is CreateView) {
-            let carder = CreateView(#selector(newCard(_:)))
+        if root != nil, !(root is Create), !(root!.child is Create) {
+            let carder = Create(#selector(newCard(_:)))
             carder.child = root!.child
             root!.child = carder
             content.addSubview(carder)
         }
     }
     
-    @objc private func newColumn(_ view:CreateView) {
-        let column = ColumnView(Repository.shared.newColumn(List.shared.selected.board))
+    @objc private func newColumn(_ view:Create) {
+        let column = ColumnItem(Repository.shared.newColumn(List.shared.selected.board))
         column.sibling = view
         if root === view {
             root = column
@@ -134,8 +134,8 @@ class Canvas:UIScrollView {
         Repository.shared.scheduleUpdate(List.shared.selected.board)
     }
     
-    @objc private func newCard(_ view:CreateView) {
-        let card = CardView(try! Repository.shared.newCard(List.shared.selected.board))
+    @objc private func newCard(_ view:Create) {
+        let card = CardItem(try! Repository.shared.newCard(List.shared.selected.board))
         card.child = view.child
         view.child = card
         content.addSubview(card)

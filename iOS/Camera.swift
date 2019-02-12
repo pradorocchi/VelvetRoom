@@ -2,7 +2,7 @@ import UIKit
 import VelvetRoom
 import AVFoundation
 
-class CameraView:UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class Camera:UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     private weak var display:UIView!
     private var session:AVCaptureSession!
     override var supportedInterfaceOrientations:UIInterfaceOrientationMask { return .portrait }

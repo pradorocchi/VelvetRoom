@@ -1,7 +1,7 @@
 import UIKit
 import VelvetRoom
 
-class ChartView:UIViewController {
+class Chart:UIViewController {
     private weak var board:Board!
     private weak var chart:UIView!
     

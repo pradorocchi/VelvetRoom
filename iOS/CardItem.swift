@@ -1,7 +1,7 @@
 import UIKit
 import VelvetRoom
 
-class CardView:EditView {
+class CardItem:Edit {
     private(set) weak var card:Card!
     
     init(_ card:Card) {
@@ -35,7 +35,7 @@ class CardView:EditView {
     
     override func endDrag() {
         var column = Canvas.shared.root
-        while column!.sibling is ColumnView {
+        while column!.sibling is ColumnItem {
             guard column!.sibling!.left.constant < dragGesture.location(in:superview!).x else { break }
             column = column!.sibling
         }
@@ -44,13 +44,13 @@ class CardView:EditView {
             guard after!.child!.top.constant < top.constant else { break }
             after = after!.child
         }
-        if after!.child is CreateView {
+        if after!.child is Create {
             after = after?.child
         }
         child = after!.child
         after!.child = self
-        Repository.shared.move(card, board:List.shared.selected.board, column:(column as! ColumnView).column,
-                               after:(after as? CardView)?.card)
+        Repository.shared.move(card, board:List.shared.selected.board, column:(column as! ColumnItem).column,
+                               after:(after as? CardItem)?.card)
         super.endDrag()
     }
     

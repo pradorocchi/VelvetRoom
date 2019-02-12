@@ -1,8 +1,8 @@
 import UIKit
 
-class SearchView:UIView, UITextViewDelegate {
-    static let shared = SearchView()
-    private(set) weak var text:TextView!
+class Search:UIView, UITextViewDelegate {
+    static let shared = Search()
+    private(set) weak var text:Text!
     private(set) weak var highlighter:UIView?
     private weak var bottom:NSLayoutConstraint!
     
@@ -18,7 +18,7 @@ class SearchView:UIView, UITextViewDelegate {
         image.clipsToBounds = true
         addSubview(image)
         
-        let text = TextView()
+        let text = Text()
         text.font = .light(22)
         text.delegate = self
         text.deleteButton.isHidden = true
@@ -89,12 +89,12 @@ class SearchView:UIView, UITextViewDelegate {
         var range:Range<String.Index>!
         guard let view = Canvas.shared.content.subviews.first (where: {
             guard
-                let view = $0 as? EditView,
+                let view = $0 as? Edit,
                 let textRange = view.text.text.range(of:text.text, options:.caseInsensitive)
             else { return false }
             range = textRange
             return true
-        }) as? EditView else { return highlighter!.frame = .zero }
+        }) as? Edit else { return highlighter!.frame = .zero }
         var frame = Canvas.shared.content.convert(view.text.layoutManager.boundingRect(forGlyphRange:
             NSRange(range, in:view.text.text), in:view.text.textContainer), from:view.text)
         frame.origin.x -= 10

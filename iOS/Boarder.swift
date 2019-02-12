@@ -2,7 +2,7 @@ import UIKit
 import VelvetRoom
 import StoreKit
 
-class NewView:UIViewController, UITextFieldDelegate {
+class Boarder:UIViewController, UITextFieldDelegate {
     private weak var field:UITextField!
     private weak var none:UIButton!
     private weak var single:UIButton!

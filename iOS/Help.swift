@@ -1,7 +1,7 @@
 import UIKit
 import VelvetRoom
 
-class HelpView:UIViewController {
+class Help:UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        view.backgroundColor = Application.skin.over
@@ -39,7 +39,7 @@ class HelpView:UIViewController {
         imageView.clipsToBounds = true
         view.addSubview(imageView)
         
-        let text = TextView()
+        let text = Text()
         text.font = .light(CGFloat(Repository.shared.account.font))
         text.text = .local("HelpView.content")
         view.addSubview(text)

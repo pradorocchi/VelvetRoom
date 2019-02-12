@@ -1,7 +1,7 @@
 import UIKit
 import Photos
 
-class PictureViewCell:UICollectionViewCell {
+class PicturesItem:UICollectionViewCell {
     private(set) weak var image:UIImageView!
     var request:PHImageRequestID?
     

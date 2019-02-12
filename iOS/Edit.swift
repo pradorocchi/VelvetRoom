@@ -1,8 +1,8 @@
 import UIKit
 import VelvetRoom
 
-class EditView:ItemView, UITextViewDelegate {
-    private(set) weak var text:TextView!
+class Edit:Item, UITextViewDelegate {
+    private(set) weak var text:Text!
     private(set) weak var dragGesture:UIPanGestureRecognizer!
     private weak var longGesture:UILongPressGestureRecognizer!
     private var dragX:CGFloat!
@@ -20,7 +20,7 @@ class EditView:ItemView, UITextViewDelegate {
         addGestureRecognizer(longGesture)
         self.longGesture = longGesture
         
-        let text = TextView()
+        let text = Text()
         text.delegate = self
         addSubview(text)
         self.text = text
