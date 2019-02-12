@@ -1,8 +1,7 @@
 import AppKit
 import VelvetRoom
 
-class BoardView:NSView, NSTextViewDelegate {
-    var selected = false { didSet { updateSkin() } }
+class BoardItem:NSView, NSTextViewDelegate {
     var selector:Selector!
     private(set) weak var board:Board!
     private weak var date:Label!
@@ -48,7 +47,7 @@ class BoardView:NSView, NSTextViewDelegate {
             text.isEditable = true
             Window.shared.makeFirstResponder(text)
             updateSkin()
-        } else if !selected {
+        } else if List.shared.selected !== self {
             List.shared.perform(selector, with:self)
         }
     }
@@ -79,7 +78,7 @@ class BoardView:NSView, NSTextViewDelegate {
         return false
     }
     
-    @objc private func updateSkin() {
+    @objc func updateSkin() {
         guard let board = self.board else { return }
         text.textColor = Skin.shared.text
         date.textColor = Skin.shared.text
@@ -91,7 +90,7 @@ class BoardView:NSView, NSTextViewDelegate {
             text.textColor = .white
             text.alphaValue = 1
             date.alphaValue = 0
-        } else if selected {
+        } else if List.shared.selected === self {
             layer!.backgroundColor = Skin.shared.text.withAlphaComponent(0.2).cgColor
             text.alphaValue = 0.9
             date.alphaValue = 0.9

@@ -31,7 +31,7 @@ class Edit:Item, NSTextViewDelegate {
     
     func textDidEndEditing(_:Notification) {
         Canvas.shared.update()
-        Repository.shared.scheduleUpdate(List.shared.current!.board)
+        Repository.shared.scheduleUpdate(List.shared.selected.board)
     }
     
     func beginEditing() {
@@ -49,7 +49,7 @@ class Edit:Item, NSTextViewDelegate {
         layer!.backgroundColor = NSColor.clear.cgColor
         NSCursor.arrow.set()
         Canvas.shared.update()
-        Repository.shared.scheduleUpdate(List.shared.current!.board)
+        Repository.shared.scheduleUpdate(List.shared.selected.board)
         Progress.shared.update()
     }
     

@@ -48,7 +48,7 @@ class CardItem:Edit {
         }
         child = after!.child
         after!.child = self
-        Repository.shared.move(card, board:List.shared.current!.board, column:(column as! ColumnItem).column,
+        Repository.shared.move(card, board:List.shared.selected.board, column:(column as! ColumnItem).column,
                                after:(after as? CardItem)?.card)
         super.endDrag(event)
     }
@@ -62,11 +62,10 @@ class CardItem:Edit {
     
     private func confirmDelete() {
         detach()
-        guard let board = List.shared.current!.board else { return }
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let card = self?.card else { return }
-            Repository.shared.delete(card, board:board)
-            Repository.shared.scheduleUpdate(board)
+            Repository.shared.delete(card, board:List.shared.selected.board)
+            Repository.shared.scheduleUpdate(List.shared.selected.board)
             DispatchQueue.main.async { [weak self] in
                 Progress.shared.update()
                 self?.removeFromSuperview()

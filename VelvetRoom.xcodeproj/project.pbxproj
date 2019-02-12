@@ -110,7 +110,7 @@
 		DA7C743921C3DE9800B1F931 /* SFMono-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743221C3DE9800B1F931 /* SFMono-Bold.otf */; };
 		DA7C743A21C3DE9800B1F931 /* SFMono-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7C743221C3DE9800B1F931 /* SFMono-Bold.otf */; };
 		DA7C744421C3E1C000B1F931 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C744321C3E1C000B1F931 /* Window.swift */; };
-		DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FD2CF21C40AB500F366B9 /* BoardView.swift */; };
+		DA7FD2D021C40AB500F366B9 /* BoardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FD2CF21C40AB500F366B9 /* BoardItem.swift */; };
 		DA86474521C3FDE500E4957B /* ColumnItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86474421C3FDE500E4957B /* ColumnItem.swift */; };
 		DA86474721C401DF00E4957B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86474621C401DF00E4957B /* Extensions.swift */; };
 		DA86AB3F21D0F884007DFFEE /* Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA86AB3E21D0F884007DFFEE /* Edit.swift */; };
@@ -334,7 +334,7 @@
 		DA7C743121C3DE9800B1F931 /* SFMono-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-Light.otf"; sourceTree = "<group>"; };
 		DA7C743221C3DE9800B1F931 /* SFMono-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFMono-Bold.otf"; sourceTree = "<group>"; };
 		DA7C744321C3E1C000B1F931 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
-		DA7FD2CF21C40AB500F366B9 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		DA7FD2CF21C40AB500F366B9 /* BoardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardItem.swift; sourceTree = "<group>"; };
 		DA86474421C3FDE500E4957B /* ColumnItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnItem.swift; sourceTree = "<group>"; };
 		DA86474621C401DF00E4957B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DA86AB3E21D0F884007DFFEE /* Edit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit.swift; sourceTree = "<group>"; };
@@ -554,7 +554,7 @@
 				DAB2708D21C3CA87008F184E /* Mac.storyboard */,
 				20804BBC21E5E6470035535D /* Alert.swift */,
 				DAC2CDBF21C8E2F000AD927B /* Boarder.swift */,
-				DA7FD2CF21C40AB500F366B9 /* BoardView.swift */,
+				DA7FD2CF21C40AB500F366B9 /* BoardItem.swift */,
 				20B4C471220C44F700103F8A /* Button.swift */,
 				205BE61222072B820020817A /* Canvas.swift */,
 				DA982ED821CD10540085480B /* CardItem.swift */,
@@ -1059,7 +1059,7 @@
 				20754D1622104F82002DCF0F /* Label.swift in Sources */,
 				DA4C2AC721D5098A004988B4 /* Chart.swift in Sources */,
 				204B690021E347200025261E /* Drop.swift in Sources */,
-				DA7FD2D021C40AB500F366B9 /* BoardView.swift in Sources */,
+				DA7FD2D021C40AB500F366B9 /* BoardItem.swift in Sources */,
 				20531BFD2202ED1A00D6551C /* Search.swift in Sources */,
 				20CC4E71220AD951002A4AA0 /* GradientTop.swift in Sources */,
 				20754D1422104E30002DCF0F /* Link.swift in Sources */,

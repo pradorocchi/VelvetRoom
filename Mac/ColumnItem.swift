@@ -22,9 +22,8 @@ class ColumnItem:Edit {
         text.textColor = Skin.shared.text.withAlphaComponent(0.4)
         if column.name.isEmpty {
             Window.shared.makeFirstResponder(nil)
-            let board = List.shared.current!.board!
-            let index = board.columns.firstIndex(where: { $0 === column })!
-            if board.cards.first(where: { $0.column == index }) != nil {
+            let index = List.shared.selected.board.columns.firstIndex(where: { $0 === column })!
+            if List.shared.selected.board.cards.first(where: { $0.column == index }) != nil {
                 Delete(.local("ColumnView.delete")) { [weak self] in
                     self?.confirmDelete()
                 }
@@ -60,7 +59,7 @@ class ColumnItem:Edit {
             sibling = after!.sibling
             after!.sibling = self
         }
-        Repository.shared.move(column, board:List.shared.current!.board, after:(after as? ColumnItem)?.column)
+        Repository.shared.move(column, board:List.shared.selected.board, after:(after as? ColumnItem)?.column)
         super.endDrag(event)
     }
     
@@ -97,11 +96,10 @@ class ColumnItem:Edit {
             child!.removeFromSuperview()
             child = child!.child
         }
-        guard let board = List.shared.current?.board else { return }
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let column = self?.column else { return }
-            Repository.shared.delete(column, board:board)
-            Repository.shared.scheduleUpdate(board)
+            Repository.shared.delete(column, board:List.shared.selected.board)
+            Repository.shared.scheduleUpdate(List.shared.selected.board)
             DispatchQueue.main.async { [weak self] in
                 Progress.shared.update()
                 self?.removeFromSuperview()

@@ -24,7 +24,7 @@ class Progress:NSView {
     required init?(coder:NSCoder) { return nil }
     
     func update() {
-        guard let items = List.shared.current?.board.chart.compactMap({ $0.1 > 0 ? $0.1 : nil }) else { return }
+        guard let items = List.shared.selected?.board.chart.compactMap({ $0.1 > 0 ? $0.1 : nil }) else { return }
         while items.count < views.count { views.removeLast().removeFromSuperview() }
         while items.count > views.count {
             let view = NSView()

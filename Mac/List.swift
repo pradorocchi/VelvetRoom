@@ -4,7 +4,7 @@ import VelvetRoom
 class List:NSScrollView {
     static let shared = List()
     weak var left:NSLayoutConstraint! { didSet { left.isActive = true } }
-    var current:BoardView? { return documentView!.subviews.first(where:{ ($0 as! BoardView).selected }) as? BoardView }
+    weak var selected:BoardItem! { didSet { oldValue?.updateSkin(); selected?.updateSkin() } }
     private weak var bottom:NSLayoutConstraint? { willSet { bottom?.isActive = false; newValue?.isActive = true } }
     private(set) var visible = false
     
@@ -19,7 +19,7 @@ class List:NSScrollView {
         documentView!.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
         Repository.shared.list = { boards in DispatchQueue.main.async { self.render(boards) } }
         Repository.shared.select = { board in DispatchQueue.main.async {
-            self.select(self.documentView!.subviews.first(where:{ ($0 as! BoardView).board === board }) as! BoardView) }
+            self.select(self.documentView!.subviews.first(where:{ ($0 as! BoardItem).board === board }) as! BoardItem) }
         }
     }
     
@@ -47,7 +47,7 @@ class List:NSScrollView {
         if !boards.isEmpty {
             Window.shared.splash?.remove()
         }
-        current?.selected = false
+        selected = nil
         Toolbar.shared.extended = false
         Menu.shared.extended = false
         Repository.shared.fireSchedule()
@@ -56,7 +56,7 @@ class List:NSScrollView {
         documentView!.subviews.forEach { $0.removeFromSuperview() }
         var top = documentView!.topAnchor
         boards.enumerated().forEach {
-            let view = BoardView($0.element)
+            let view = BoardItem($0.element)
             view.selector = #selector(select(_:))
             documentView!.addSubview(view)
             view.topAnchor.constraint(equalTo:top, constant:$0.offset == 0 ? 36 : 0).isActive = true
@@ -67,11 +67,10 @@ class List:NSScrollView {
         bottom = documentView!.bottomAnchor.constraint(equalTo:top, constant:20)
     }
     
-    @objc private func select(_ view:BoardView) {
+    @objc private func select(_ view:BoardItem) {
         Window.shared.makeFirstResponder(nil)
         Repository.shared.fireSchedule()
-        current?.selected = false
-        view.selected = true
+        selected = view
         Toolbar.shared.extended = true
         Menu.shared.extended = true
         Canvas.shared.display(view.board)

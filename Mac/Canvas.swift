@@ -175,7 +175,7 @@ class Canvas:NSScrollView {
     }
     
     @objc private func newColumn(_ view:Create) {
-        let column = ColumnItem(Repository.shared.newColumn(List.shared.current!.board))
+        let column = ColumnItem(Repository.shared.newColumn(List.shared.selected.board))
         column.sibling = view
         if root === view {
             root = column
@@ -191,7 +191,7 @@ class Canvas:NSScrollView {
         column.left.constant = view.left.constant
         update()
         column.beginEditing()
-        Repository.shared.scheduleUpdate(List.shared.current!.board)
+        Repository.shared.scheduleUpdate(List.shared.selected.board)
         DispatchQueue.main.async {
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0.7
@@ -203,7 +203,7 @@ class Canvas:NSScrollView {
     }
     
     @objc private func newCard(_ view:Create) {
-        let card = CardItem(try! Repository.shared.newCard(List.shared.current!.board))
+        let card = CardItem(try! Repository.shared.newCard(List.shared.selected.board))
         card.child = view.child
         view.child = card
         documentView!.addSubview(card)
@@ -211,7 +211,7 @@ class Canvas:NSScrollView {
         card.left.constant = view.left.constant
         update()
         card.beginEditing()
-        Repository.shared.scheduleUpdate(List.shared.current!.board)
+        Repository.shared.scheduleUpdate(List.shared.selected.board)
         DispatchQueue.main.async {
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0.7

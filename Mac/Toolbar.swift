@@ -46,8 +46,8 @@ class Toolbar:NSToolbar {
     }
     
     @objc private func openSettings() { Settings() }
-    @objc private func deleteBoard() { List.shared.current?.delete() }
-    @objc private func openChart() { Chart(List.shared.current!.board) }
-    @objc private func exportBoard() { Export(List.shared.current!.board) }
+    @objc private func deleteBoard() { List.shared.selected.delete() }
+    @objc private func openChart() { Chart(List.shared.selected.board) }
+    @objc private func exportBoard() { Export(List.shared.selected.board) }
     @objc private func importBoard() { Import() }
 }
