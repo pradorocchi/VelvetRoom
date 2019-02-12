@@ -3,7 +3,7 @@ import AppKit
 class Sheet:NSView {
     override var acceptsFirstResponder:Bool { return true }
     
-    @discardableResult init() {
+    init() {
         Toolbar.shared.enabled = false
         Menu.shared.enabled = false
         Window.shared.makeFirstResponder(nil)

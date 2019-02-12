@@ -2,17 +2,18 @@ import UIKit
 
 class Bar:UIView {
     static let shared = Bar()
+    private weak var title:UILabel!
     private weak var loadLeft:NSLayoutConstraint!
     private weak var chartLeft:NSLayoutConstraint!
-    private weak var title:UILabel!
     
     private init() {
         super.init(frame:.zero)
+        translatesAutoresizingMaskIntoConstraints = false
         
         let load = Button(#imageLiteral(resourceName: "import.pdf"), target:self, selector:#selector(self.load))
         addSubview(load)
         
-        let new = Button(#imageLiteral(resourceName: "new.pdf"), target:self, selector:#selector(self.new))
+        let new = Button(#imageLiteral(resourceName: "new.pdf"), target:App.shared, selector:#selector(App.shared.newBoard))
         addSubview(new)
         
         let settings = Button(#imageLiteral(resourceName: "settings.pdf"), target:self, selector:#selector(self.settings))
@@ -68,43 +69,45 @@ class Bar:UIView {
     
     required init?(coder:NSCoder) { return nil }
     
+    func canvas(_ completion:@escaping((Bool) -> Void)) {
+        title.text = List.shared.selected.board.name
+        loadLeft.constant = -256
+        chartLeft.constant = -192
+        UIView.animate(withDuration:0.5, animations: {
+            App.shared.rootViewController!.view.layoutIfNeeded()
+            self.title.alpha = 1
+        }, completion:completion)
+    }
+    
+    @objc func list() {
+        App.shared.endEditing(true)
+        loadLeft.constant = 0
+        chartLeft.constant = 0
+        List.shared.right.constant = 0
+        UIView.animate(withDuration:0.4, animations: {
+            App.shared.rootViewController!.view.layoutIfNeeded()
+            self.title.alpha = 0
+        }) { _ in
+            Canvas.shared.content.subviews.forEach { $0.removeFromSuperview() }
+        }
+    }
+    
     @objc private func load() {
         UIApplication.shared.keyWindow!.endEditing(true)
-//        App.shared.present({
-//            $0.view.tintColor = .black
-//            $0.addAction(UIAlertAction(title:.local("View.loadCamera"), style:.default) { _ in
-//                App.shared.present(Camera(), animated:true)
-//            })
-//            $0.addAction(UIAlertAction(title:.local("View.loadLibrary"), style:.default) { _ in
-//                App.shared.present(Pictures(), animated:true)
-//            })
-//            $0.addAction(UIAlertAction(title:.local("View.loadCancel"), style:.cancel))
-//            
-//            $0.popoverPresentationController?.sourceView = self
-//            $0.popoverPresentationController?.sourceRect = .zero
-//            $0.popoverPresentationController?.permittedArrowDirections = .any
-//            return $0
-//        } (UIAlertController(title:.local("View.loadTitle"), message:.local("View.loadMessage"),
-//                             preferredStyle:.actionSheet)), animated:true)
+        App.shared.rootViewController!.present({
+            $0.view.tintColor = .black
+            $0.addAction(UIAlertAction(title:.local("View.loadCamera"), style:.default) { _ in Camera() })
+            $0.addAction(UIAlertAction(title:.local("View.loadLibrary"), style:.default) { _ in Pictures() })
+            $0.addAction(UIAlertAction(title:.local("View.loadCancel"), style:.cancel))
+            $0.popoverPresentationController?.sourceView = self
+            $0.popoverPresentationController?.sourceRect = .zero
+            $0.popoverPresentationController?.permittedArrowDirections = .any
+            return $0
+        } (UIAlertController(title:.local("View.loadTitle"), message:.local("View.loadMessage"),
+                             preferredStyle:.actionSheet)), animated:true)
     }
     
-    @objc private func new() {
-        
-    }
-    
-    @objc private func settings() {
-        
-    }
-    
-    @objc private func help() {
-        
-    }
-    
-    @objc private func chart() {
-        
-    }
-    
-    @objc private func list() {
-        
-    }
+    @objc private func settings() { Settings() }
+    @objc private func help() { Help() }
+    @objc private func chart() { Chart() }
 }

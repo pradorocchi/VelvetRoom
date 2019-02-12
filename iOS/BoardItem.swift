@@ -88,13 +88,11 @@ class BoardItem:UIControl, UITextViewDelegate {
         delete.isHidden = false
         export.isHidden = false
         Repository.shared.scheduleUpdate(board)
-        DispatchQueue.main.async { [weak self] in
-            self?.updateSkin()
-        }
+        updateSkin()
     }
     
-    func textView(_:UITextView, shouldChangeTextIn:NSRange, replacementText string:String) -> Bool {
-        if string == "\n" {
+    func textView(_:UITextView, shouldChangeTextIn:NSRange, replacementText:String) -> Bool {
+        if replacementText == "\n" {
             text.resignFirstResponder()
             return false
         }
@@ -121,17 +119,17 @@ class BoardItem:UIControl, UITextViewDelegate {
     
     @objc private func remove() {
         UIApplication.shared.keyWindow!.endEditing(true)
-//        Application.view.present(DeleteView {
-//            DispatchQueue.global(qos:.background).async { [weak self] in
-//                guard let board = self?.board else { return }
-//                Repository.shared.delete(board)
-//            }
-//        }, animated:true)
+        Delete {
+            DispatchQueue.global(qos:.background).async { [weak self] in
+                guard let board = self?.board else { return }
+                Repository.shared.delete(board)
+            }
+        }
     }
     
     @objc private func send() {
         UIApplication.shared.keyWindow!.endEditing(true)
-//        Application.view.present(Export(board), animated:true)
+        Export(board)
     }
     
     @objc private func longpressed(_ gesture:UILongPressGestureRecognizer) {

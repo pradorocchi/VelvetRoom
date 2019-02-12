@@ -78,10 +78,6 @@ class Canvas:NSScrollView {
         }
     }
     
-    func parent(_ of:CardItem) -> Item? {
-        return documentView!.subviews.first(where:{ ($0 as? Item)?.child === self } ) as? Item
-    }
-    
     @objc func newColumn() {
         var view = root
         while view?.sibling != nil {

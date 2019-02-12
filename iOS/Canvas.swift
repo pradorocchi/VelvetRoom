@@ -25,6 +25,7 @@ class Canvas:UIScrollView {
         content.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         content.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
         content.heightAnchor.constraint(greaterThanOrEqualTo:heightAnchor).isActive = true
+        #warning("here")
 //        content.widthAnchor.constraint(greaterThanOrEqualTo:view.widthAnchor).isActive = true
         
         if #available(iOS 11.0, *) { contentInsetAdjustmentBehavior = .never }
@@ -42,8 +43,15 @@ class Canvas:UIScrollView {
         }
     }
     
-    func parent(_ of:CardItem) -> Item? {
-        return content.subviews.first(where:{ ($0 as? Item)?.child === of } ) as? Item
+    func display(_ board:Board) {
+        alpha = 0
+        Bar.shared.canvas { _ in
+            self.render(board)
+            self.update(0)
+            UIView.animate(withDuration:0.5) {
+                self.alpha = 1
+            }
+        }
     }
     
     private func render(_ board:Board) {

@@ -28,7 +28,7 @@ class Alert {
         view.backgroundColor = UIColor(red:0.76, green:0.77, blue:0.78, alpha:0.94)
         view.layer.cornerRadius = 6
         view.alpha = 0
-//        App.shared.view.addSubview(view)
+        App.shared.rootViewController!.view.addSubview(view)
         self.view = view
         
         let message = UILabel()
@@ -39,35 +39,36 @@ class Alert {
         message.text = alert.removeFirst()
         view.addSubview(message)
         
-//        view.leftAnchor.constraint(equalTo:App.shared.view.leftAnchor, constant:10).isActive = true
-//        view.rightAnchor.constraint(equalTo:App.shared.view.rightAnchor, constant:-10).isActive = true
-//        view.heightAnchor.constraint(equalToConstant:70).isActive = true
-//        bottom = view.bottomAnchor.constraint(equalTo:App.shared.view.topAnchor)
-//        bottom!.isActive = true
-//
-//        message.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
-//        message.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
-//        message.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
-//
-//        App.shared.view.layoutIfNeeded()
-//        bottom!.constant = 100
-//        UIView.animate(withDuration:0.4, animations: {
-//            view.alpha = 1
-//            App.shared.view.layoutIfNeeded()
-//        }) { _ in
-//            DispatchQueue.main.asyncAfter(deadline:.now() + 8) { [weak view] in
-//                if view != nil && view === self.view {
-//                    self.remove()
-//                }
-//            }
-//        }
+        view.leftAnchor.constraint(equalTo:App.shared.rootViewController!.view.leftAnchor, constant:10).isActive = true
+        view.rightAnchor.constraint(
+            equalTo:App.shared.rootViewController!.view.rightAnchor, constant:-10).isActive = true
+        view.heightAnchor.constraint(equalToConstant:70).isActive = true
+        bottom = view.bottomAnchor.constraint(equalTo:App.shared.rootViewController!.view.topAnchor)
+        bottom!.isActive = true
+
+        message.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
+        message.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
+        message.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
+
+        App.shared.rootViewController!.view.layoutIfNeeded()
+        bottom!.constant = 100
+        UIView.animate(withDuration:0.4, animations: {
+            view.alpha = 1
+            App.shared.rootViewController!.view.layoutIfNeeded()
+        }) { _ in
+            DispatchQueue.main.asyncAfter(deadline:.now() + 8) { [weak view] in
+                if view != nil && view === self.view {
+                    self.remove()
+                }
+            }
+        }
     }
     
     @objc private func remove() {
         bottom?.constant = 0
         UIView.animate(withDuration:0.4, animations: {
             self.view?.alpha = 0
-//            App.shared.view.layoutIfNeeded()
+            App.shared.rootViewController!.view.layoutIfNeeded()
         }) { _ in
             self.view?.removeFromSuperview()
             self.pop()

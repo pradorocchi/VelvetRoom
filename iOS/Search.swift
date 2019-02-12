@@ -2,9 +2,9 @@ import UIKit
 
 class Search:UIView, UITextViewDelegate {
     static let shared = Search()
-    private(set) weak var text:Text!
-    private(set) weak var highlighter:UIView?
-    private weak var bottom:NSLayoutConstraint!
+    weak var bottom:NSLayoutConstraint! { didSet { bottom.isActive = true } }
+    private weak var text:Text!
+    private weak var highlighter:UIView?
     
     private init() {
         super.init(frame:.zero)
@@ -25,14 +25,6 @@ class Search:UIView, UITextViewDelegate {
         self.text = text
         addSubview(text)
         
-        let done = UIButton()
-        done.translatesAutoresizingMaskIntoConstraints = false
-        done.addTarget(self, action:#selector(self.done), for:.touchUpInside)
-        done.setImage(#imageLiteral(resourceName: "delete.pdf"), for:.normal)
-        done.imageView!.contentMode = .center
-        done.imageView!.clipsToBounds = true
-        addSubview(done)
-        
         heightAnchor.constraint(equalToConstant:64).isActive = true
         
         image.topAnchor.constraint(equalTo:topAnchor).isActive = true
@@ -42,27 +34,13 @@ class Search:UIView, UITextViewDelegate {
         
         text.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         text.leftAnchor.constraint(equalTo:image.rightAnchor).isActive = true
-        text.rightAnchor.constraint(equalTo:done.leftAnchor).isActive = true
+        text.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
         text.heightAnchor.constraint(equalToConstant:34).isActive = true
         
-        done.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
-        done.widthAnchor.constraint(equalToConstant:50).isActive = true
-        done.topAnchor.constraint(equalTo:topAnchor).isActive = true
-        done.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
-        
-        updateSkin()
         Skin.add(self)
     }
     
     required init?(coder:NSCoder) { return nil }
-    
-    deinit { NotificationCenter.default.removeObserver(self) }
-    
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        bottom = bottomAnchor.constraint(equalTo:superview!.topAnchor)
-        bottom.isActive = true
-    }
     
     func textViewDidEndEditing(_:UITextView) {
         unactive()
@@ -85,27 +63,22 @@ class Search:UIView, UITextViewDelegate {
             Canvas.shared.sendSubviewToBack(highlighter)
             self.highlighter = highlighter
         }
-        
-        var range:Range<String.Index>!
-        guard let view = Canvas.shared.content.subviews.first (where: {
-            guard
-                let view = $0 as? Edit,
-                let textRange = view.text.text.range(of:text.text, options:.caseInsensitive)
-            else { return false }
-            range = textRange
-            return true
-        }) as? Edit else { return highlighter!.frame = .zero }
-        var frame = Canvas.shared.content.convert(view.text.layoutManager.boundingRect(forGlyphRange:
-            NSRange(range, in:view.text.text), in:view.text.textContainer), from:view.text)
-        frame.origin.x -= 10
-        frame.size.width += 20
-        highlighter!.frame = frame
-        
-//        frame.origin.x -= (App.shared.view.bounds.width - frame.size.width) / 2
-//        frame.origin.y -= (Canvas.shared.bounds.height - 20) / 2
-//        frame.size.width = App.shared.view.bounds.width
-//        frame.size.height = Canvas.shared.bounds.height - 20
-//        Canvas.shared.scrollRectToVisible(frame, animated:true)
+        highlighter!.frame = .zero
+        for v in Canvas.shared.content.subviews.compactMap( { $0 as? Edit } )  {
+            if let range = v.text.text.range(of:text.text, options:.caseInsensitive) {
+                var frame = Canvas.shared.content.convert(v.text.layoutManager.boundingRect(
+                    forGlyphRange:NSRange(range, in:v.text.text), in:v.text.textContainer), from:v.text)
+                frame.origin.x -= 10
+                frame.size.width += 20
+                highlighter!.frame = frame
+                frame.origin.x -= (App.shared.frame.width - frame.size.width) / 2
+                frame.origin.y -= App.shared.frame.midY
+                frame.size.width = App.shared.frame.width
+                frame.size.height = App.shared.frame.height
+                Canvas.shared.scrollRectToVisible(frame, animated:true)
+                break
+            }
+        }
     }
     
     @objc func active() {
@@ -139,9 +112,5 @@ class Search:UIView, UITextViewDelegate {
         backgroundColor = Skin.shared.background.withAlphaComponent(0.85)
         layer.borderColor = Skin.shared.text.withAlphaComponent(0.4).cgColor
         text.textColor = Skin.shared.text
-    }
-    
-    @objc private func done() {
-        text.resignFirstResponder()
     }
 }

@@ -2,13 +2,11 @@ import UIKit
 import VelvetRoom
 
 class Chart:UIViewController {
-    private weak var board:Board!
     private weak var chart:UIView!
     
-    init(_ board:Board) {
+    init() {
         super.init(nibName:nil, bundle:nil)
         modalTransitionStyle = .crossDissolve
-        self.board = board
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -17,7 +15,6 @@ class Chart:UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         makeOutlets()
-        display(board.chart)
     }
     
     private func makeOutlets() {
@@ -30,7 +27,7 @@ class Chart:UIViewController {
         title.translatesAutoresizingMaskIntoConstraints = false
         title.textColor = .white
         title.font = .bold(20)
-        title.text = board.name
+        title.text = List.shared.selected.board.name
         view.addSubview(title)
         
         let chart = UIView()
@@ -76,7 +73,7 @@ class Chart:UIViewController {
         }
     }
     
-    private func display(_ chart:[(String, Float)]) {
+    private func display() {/*
         var angle = CGFloat()
         chart.enumerated().forEach {
             let delta = .pi * 2 * CGFloat($0.element.1)
@@ -112,7 +109,7 @@ class Chart:UIViewController {
 //        layer.frame = App.shared.view.bounds
         layer.path = path
         layer.fillColor = UIColor.black.cgColor
-        self.chart.layer.addSublayer(layer)
+        self.chart.layer.addSublayer(layer)*/
     }
     
     private func caption(_ name:String, percent:Float, point:CGPoint) {

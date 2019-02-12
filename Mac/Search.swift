@@ -79,30 +79,26 @@ class Search:NSView, NSTextViewDelegate {
             Canvas.shared.contentView.addSubview(highlighter, positioned:.below, relativeTo:nil)
             self.highlighter = highlighter
         }
-        
-        var range:Range<String.Index>!
-        guard let view = Canvas.shared.documentView!.subviews.first (where: {
-            guard
-                let view = $0 as? Edit,
-                let textRange = view.text.string.range(of:text.string, options:.caseInsensitive)
-            else { return false }
-            range = textRange
-            return true
-        }) as? Edit else { return highlighter!.frame = .zero }
-        var frame = Canvas.shared.contentView.convert(view.text.layoutManager!.boundingRect(forGlyphRange:
-            NSRange(range, in:view.text.string), in:view.text.textContainer!), from:view.text)
-        frame.origin.x -= 10
-        frame.size.width += 20
-        highlighter!.frame = frame
-        frame.origin.x -= (Window.shared.contentView!.bounds.width - frame.size.width) / 2
-        frame.origin.y -= Window.shared.contentView!.bounds.midY
-        frame.size.width = Window.shared.contentView!.bounds.width
-        frame.size.height = Window.shared.contentView!.bounds.height
-        NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.4
-            context.allowsImplicitAnimation = true
-            Canvas.shared.contentView.scrollToVisible(frame)
-        }, completionHandler:nil)
+        highlighter!.frame = .zero
+        for v in Canvas.shared.documentView!.subviews.compactMap( { $0 as? Edit } )  {
+            if let range = v.text.string.range(of:text.string, options:.caseInsensitive) {
+                var frame = Canvas.shared.contentView.convert(v.text.layoutManager!.boundingRect(
+                    forGlyphRange:NSRange(range, in:v.text.string), in:v.text.textContainer!), from:v.text)
+                frame.origin.x -= 10
+                frame.size.width += 20
+                highlighter!.frame = frame
+                frame.origin.x -= (Window.shared.contentView!.bounds.width - frame.size.width) / 2
+                frame.origin.y -= Window.shared.contentView!.bounds.midY
+                frame.size.width = Window.shared.contentView!.bounds.width
+                frame.size.height = Window.shared.contentView!.bounds.height
+                NSAnimationContext.runAnimationGroup({ context in
+                    context.duration = 0.4
+                    context.allowsImplicitAnimation = true
+                    Canvas.shared.contentView.scrollToVisible(frame)
+                }, completionHandler:nil)
+                break
+            }
+        }
     }
     
     @objc func active() {

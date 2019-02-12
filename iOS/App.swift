@@ -43,12 +43,7 @@ import VelvetRoom
         }
     }
     
-//    override func viewWillTransition(to:CGSize, with:UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to:to, with:with)
-//        if List.shared.right.constant > 0 {
-//            List.shared.right.constant = to.width
-//        }
-//    }
+    @objc func newBoard() { Boarder() }
     
     private func outlets() {
         let list = List.shared
@@ -77,6 +72,8 @@ import VelvetRoom
         
         list.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
         list.widthAnchor.constraint(equalTo:rootViewController!.view.widthAnchor).isActive = true
+        list.right = rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor)
+        list.bottom = bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor)
         
         canvas.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
         canvas.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor).isActive = true
@@ -89,6 +86,7 @@ import VelvetRoom
         
         search.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor, constant:10).isActive = true
         search.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor, constant:-10).isActive = true
+        search.bottom = bottomAnchor.constraint(equalTo:rootViewController!.view.topAnchor)
     }
     
     @objc private func updateSkin() {

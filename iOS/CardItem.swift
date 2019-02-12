@@ -17,7 +17,7 @@ class CardItem:Edit {
     
     required init?(coder:NSCoder) { return nil }
     
-    override func textViewDidEndEditing(_ textView:UITextView) {
+    override func textViewDidEndEditing(_:UITextView) {
         if text.text.isEmpty {
             UIApplication.shared.keyWindow!.endEditing(true)
             confirmDelete()
@@ -25,7 +25,7 @@ class CardItem:Edit {
             card.content = text.text
             text.text = card.content
         }
-        super.textViewDidEndEditing(textView)
+        super.textViewDidEndEditing(text)
     }
     
     override func beginDrag() {
@@ -68,7 +68,7 @@ class CardItem:Edit {
     }
     
     private func detach() {
-        Canvas.shared.parent(self)?.child = child
+        (Canvas.shared.content.subviews.first(where:{ ($0 as? Item)?.child === self } ) as? Item)?.child = child
         Canvas.shared.update()
     }
 }

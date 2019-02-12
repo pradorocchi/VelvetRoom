@@ -24,16 +24,16 @@ class ColumnItem:Edit {
         text.alpha = 1
     }
     
-    override func textViewDidEndEditing(_ textView:UITextView) {
+    override func textViewDidEndEditing(_:UITextView) {
         column.name = text.text
         if column.name.isEmpty {
-            UIApplication.shared.keyWindow!.endEditing(true)
+            App.shared.endEditing(true)
             askDelete()
         } else {
             text.text = column.name
             text.alpha = 0.4
         }
-        super.textViewDidEndEditing(textView)
+        super.textViewDidEndEditing(text)
     }
     
     override func beginDrag() {
@@ -73,8 +73,8 @@ class ColumnItem:Edit {
         }
     }
     
-    func textView(_:UITextView, shouldChangeTextIn:NSRange, replacementText string:String) -> Bool {
-        if string == "\n" {
+    func textView(_:UITextView, shouldChangeTextIn:NSRange, replacementText:String) -> Bool {
+        if replacementText == "\n" {
             text.resignFirstResponder()
             return false
         }
@@ -82,7 +82,7 @@ class ColumnItem:Edit {
     }
     
     private func askDelete() {
-//        Application.view.present(DeleteView { [weak self] in self?.confirmDelete() }, animated:true)
+        Delete { [weak self] in self?.confirmDelete() }
     }
     
     private func confirmDelete() {
