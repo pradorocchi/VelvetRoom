@@ -170,14 +170,14 @@ class SettingsView:UIViewController {
     }
     
     @objc private func updateSkin() {
-        UIView.animate(withDuration:0.6) { [weak self] in
-            self?.view.backgroundColor = Application.skin.background
-            self?.labelTitle.textColor = Application.skin.text
-            self?.labelAppearance.textColor = Application.skin.text
-            self?.labelDark.textColor = Application.skin.text
-            self?.labelLight.textColor = Application.skin.text
-            self?.labelFont.textColor = Application.skin.text
-            self?.font.textColor = Application.skin.text
+        UIView.animate(withDuration:0.5) { [weak self] in
+            self?.view.backgroundColor = Skin.shared.background
+            self?.labelTitle.textColor = Skin.shared.text
+            self?.labelAppearance.textColor = Skin.shared.text
+            self?.labelDark.textColor = Skin.shared.text
+            self?.labelLight.textColor = Skin.shared.text
+            self?.labelFont.textColor = Skin.shared.text
+            self?.font.textColor = Skin.shared.text
         }
     }
     
@@ -197,12 +197,12 @@ class SettingsView:UIViewController {
     @objc private func makeDark() {
         changeDark()
         Repository.shared.change(.dark)
-        Application.skin = .appearance(.dark, font:Int(slider.value))
+        Skin.update(.dark, font:Int(slider.value))
     }
     
     @objc private func makeLight() {
         changeLight()
         Repository.shared.change(.light)
-        Application.skin = .appearance(.light, font:Int(slider.value))
+        Skin.update(.light, font:Int(slider.value))
     }
 }

@@ -25,11 +25,11 @@ class List:UIScrollView {
         content.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
 //        content.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
         
-        Repository.shared.select = { board in DispatchQueue.main.async { self.open(board) } }
+        Repository.shared.select = { board in DispatchQueue.main.async { /* self.selecta(board) */} }
         Repository.shared.list = { boards in DispatchQueue.main.async {
-            self.list(boards)
+            self.render(boards)
             self.showList()
-            } }
+        } }
         
         NotificationCenter.default.addObserver(
         forName:UIResponder.keyboardWillChangeFrameNotification, object:nil, queue:.main) {
@@ -91,8 +91,8 @@ class List:UIScrollView {
         self.boards.layoutIfNeeded()
     }
     
-    @objc private func select(_ board:Board) {
-        selected = board
+    @objc private func selecta(_ item:BoardView) {
+        /*selected = board
         progress.chart = board.chart
         titleLabel.text = board.name
         loadLeft.constant = -256
@@ -109,6 +109,6 @@ class List:UIScrollView {
             UIView.animate(withDuration:0.35) {
                 self.canvas.alpha = 1
             }
-        }
+        }*/
     }
 }

@@ -10,7 +10,7 @@ class CardView:EditView {
         text.text = card.content
         text.onDelete = { [weak self] in
             guard self?.text.text.isEmpty == false else { return }
-            Application.view.present(DeleteView { [weak self] in self?.confirmDelete() }, animated:true)
+//            Application.view.present(DeleteView { [weak self] in self?.confirmDelete() }, animated:true)
         }
         self.card = card
     }

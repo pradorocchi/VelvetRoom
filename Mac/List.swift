@@ -67,19 +67,19 @@ class List:NSScrollView {
         bottom = documentView!.bottomAnchor.constraint(equalTo:top, constant:20)
     }
     
-    @objc private func select(_ view:BoardItem) {
+    @objc private func select(_ item:BoardItem) {
         Window.shared.makeFirstResponder(nil)
         Repository.shared.fireSchedule()
-        selected = view
+        selected = item
         Toolbar.shared.extended = true
         Menu.shared.extended = true
-        Canvas.shared.display(view.board)
+        Canvas.shared.display(item.board)
         Progress.shared.update()
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.5
             context.allowsImplicitAnimation = true
             contentView.scrollToVisible(CGRect(x:0, y:
-                -documentView!.frame.height + view.frame.midY + (frame.height / 2), width:1, height:frame.height))
+                -documentView!.frame.height + item.frame.midY + (frame.height / 2), width:1, height:frame.height))
         }, completionHandler:nil)
     }
 }

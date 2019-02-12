@@ -40,6 +40,7 @@ class Progress:NSView {
         updateSkin()
         layoutSubtreeIfNeeded()
         widths.forEach({ $0.isActive = false })
+        widths = []
         items.enumerated().forEach {
             widths.append(views[$0.offset].widthAnchor.constraint(equalTo:widthAnchor, multiplier:CGFloat($0.element)))
             widths.last!.isActive = true
@@ -52,8 +53,6 @@ class Progress:NSView {
     }
     
     @objc private func updateSkin() {
-        views.forEach {
-            $0.layer!.backgroundColor = Skin.shared.text.withAlphaComponent(0.2).cgColor
-        }
+        views.forEach { $0.layer!.backgroundColor = Skin.shared.text.withAlphaComponent(0.2).cgColor }
     }
 }
