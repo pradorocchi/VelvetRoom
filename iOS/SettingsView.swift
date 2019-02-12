@@ -18,7 +18,7 @@ class SettingsView:UIViewController {
         super.viewDidLoad()
         makeOutlets()
         updateSkin()
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
     }
     
     private func makeOutlets() {

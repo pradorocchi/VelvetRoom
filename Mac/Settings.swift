@@ -154,7 +154,7 @@ class Settings:Sheet {
         slider.integerValue = Int(Skin.shared.font)
         font.stringValue = "\(slider.integerValue)"
         updateSkin()
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
     }
     
     required init?(coder:NSCoder) { return nil }

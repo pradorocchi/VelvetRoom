@@ -18,7 +18,7 @@ class Progress:NSView {
         marker.leftAnchor.constraint(equalTo:leftAnchor, constant:-2).isActive = true
         self.marker = marker.leftAnchor
         
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
     }
     
     required init?(coder:NSCoder) { return nil }

@@ -11,7 +11,7 @@ class Gradient:UIView {
         (layer as! CAGradientLayer).endPoint = CGPoint(x:0.5, y:1)
         (layer as! CAGradientLayer).locations = locations
         (layer as! CAGradientLayer).colors = [UIColor.clear.cgColor, UIColor.clear.cgColor]
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
     }
     
     required init?(coder:NSCoder) { return nil }

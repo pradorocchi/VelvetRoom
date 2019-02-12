@@ -35,7 +35,7 @@ class BoardItem:NSView, NSTextViewDelegate {
         date.leftAnchor.constraint(equalTo:text.leftAnchor, constant:4).isActive = true
         
         updateSkin()
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
     }
     
     required init?(coder:NSCoder) { return nil }

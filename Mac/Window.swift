@@ -27,7 +27,7 @@ import VelvetRoom
         splash.rightAnchor.constraint(equalTo:contentView!.rightAnchor).isActive = true
         
         Repository.shared.error = { Alert.shared.add($0) }
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
         DispatchQueue.global(qos:.background).async {
             Repository.shared.load()
             DispatchQueue.main.async {

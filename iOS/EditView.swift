@@ -1,4 +1,5 @@
 import UIKit
+import VelvetRoom
 
 class EditView:ItemView, UITextViewDelegate {
     private(set) weak var text:TextView!
@@ -29,20 +30,20 @@ class EditView:ItemView, UITextViewDelegate {
         text.rightAnchor.constraint(equalTo:rightAnchor, constant:-16).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:16).isActive = true
         text.widthAnchor.constraint(lessThanOrEqualToConstant:
-            Application.view.view.frame.width < 600 ? 220 : 420).isActive = true
+            App.shared.view.frame.width < 600 ? 220 : 420).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }
     
     func textViewDidChange(_:UITextView) {
-        Application.view.canvasChanged(0)
+        Canvas.shared.update()
     }
     
     func textViewDidEndEditing(_ textView:UITextView) {
         dragGesture.isEnabled = true
         text.isUserInteractionEnabled = false
-        Application.view.canvasChanged()
-        Application.view.scheduleUpdate()
+        Canvas.shared.update()
+        Repository.shared.scheduleUpdate(List.shared.selected.board)
     }
     
     func beginEditing() {
@@ -57,12 +58,15 @@ class EditView:ItemView, UITextViewDelegate {
         dragY = 0
         longGesture.isEnabled = false
         superview!.bringSubviewToFront(self)
-        backgroundColor = Application.skin.over
+        backgroundColor = Skin.shared.over
     }
     
     func endDrag() {
         longGesture.isEnabled = true
         backgroundColor = .clear
+        Canvas.shared.update()
+        Repository.shared.scheduleUpdate(List.shared.selected.board)
+        Progress.shared.update()
     }
     
     func drag(deltaX:CGFloat, deltaY:CGFloat) {

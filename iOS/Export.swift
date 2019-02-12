@@ -123,7 +123,7 @@ class Export:UIViewController {
             popover.permittedArrowDirections = .any
         }
         presentingViewController!.dismiss(animated:true) {
-            Application.view.present(view, animated:true)
+//            Application.view.present(view, animated:true)
         }
     }
     

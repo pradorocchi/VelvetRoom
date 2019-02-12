@@ -3,8 +3,8 @@ import UIKit
 class ItemView:UIControl {
     weak var sibling:ItemView?
     weak var child:ItemView?
-    private(set) weak var left:NSLayoutConstraint! { didSet { left.isActive = true } }
-    private(set) weak var top:NSLayoutConstraint! { didSet { top.isActive = true } }
+    private(set) weak var left:NSLayoutConstraint!
+    private(set) weak var top:NSLayoutConstraint!
     
     init() {
         super.init(frame:.zero)
@@ -18,6 +18,8 @@ class ItemView:UIControl {
         if let superview = superview {
             left = leftAnchor.constraint(equalTo:superview.leftAnchor)
             top = topAnchor.constraint(equalTo:superview.topAnchor)
+            left.isActive = true
+            top.isActive = true
         }
     }
 }

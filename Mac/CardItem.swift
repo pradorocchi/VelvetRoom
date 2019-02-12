@@ -74,8 +74,7 @@ class CardItem:Edit {
     }
     
     private func detach() {
-        (Canvas.shared.documentView!.subviews.first(
-            where:{($0 as? Item)?.child === self }) as? Item)?.child = child
+        Canvas.shared.parent(self)?.child = child
         Canvas.shared.update()
     }
 }

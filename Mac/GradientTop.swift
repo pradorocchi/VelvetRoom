@@ -10,7 +10,7 @@ class GradientTop:NSView {
         (layer as! CAGradientLayer).locations = [0, 1]
         (layer as! CAGradientLayer).colors = [NSColor.clear.cgColor, NSColor.clear.cgColor]
         wantsLayer = true
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
     }
     
     required init?(coder:NSCoder) { return nil }

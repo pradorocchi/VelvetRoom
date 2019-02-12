@@ -42,11 +42,10 @@ class ColumnView:EditView {
     }
     
     override func endDrag() {
-        super.endDrag()
-        var after = Application.view.root
-        if Application.view.root! is CreateView || Application.view.root!.frame.maxX > frame.midX {
-            sibling = Application.view.root
-            Application.view.root = self
+        var after = Canvas.shared.root
+        if after is CreateView || after!.frame.maxX > frame.midX {
+            sibling = after
+            Canvas.shared.root = self
             after = nil
             if sibling?.child is CreateView {
                 sibling?.child?.removeFromSuperview()
@@ -60,10 +59,8 @@ class ColumnView:EditView {
             sibling = after!.sibling
             after!.sibling = self
         }
-        Application.view.canvasChanged()
-        Repository.shared.move(column, board:Application.view.selected!, after:(after as? ColumnView)?.column)
-        Application.view.scheduleUpdate()
-        Application.view.progress.chart = Application.view.selected!.chart
+        Repository.shared.move(column, board:List.shared.selected.board, after:(after as? ColumnView)?.column)
+        super.endDrag()
     }
     
     override func drag(deltaX:CGFloat, deltaY:CGFloat) {
@@ -85,7 +82,7 @@ class ColumnView:EditView {
     }
     
     private func askDelete() {
-        Application.view.present(DeleteView { [weak self] in self?.confirmDelete() }, animated:true)
+//        Application.view.present(DeleteView { [weak self] in self?.confirmDelete() }, animated:true)
     }
     
     private func confirmDelete() {
@@ -97,27 +94,27 @@ class ColumnView:EditView {
         }
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let column = self?.column else { return }
-            Repository.shared.delete(column, board:Application.view.selected!)
-            Application.view.scheduleUpdate()
+            Repository.shared.delete(column, board:List.shared.selected.board)
+            Repository.shared.scheduleUpdate(List.shared.selected.board)
             DispatchQueue.main.async { [weak self] in
-                Application.view.progress.chart = Application.view.selected!.chart
+                Progress.shared.update()
                 self?.removeFromSuperview()
             }
         }
     }
     
     private func detach() {
-        if self === Application.view.root {
+        if self === Canvas.shared.root {
             child!.removeFromSuperview()
             child = child!.child
-            Application.view.root = sibling
+            Canvas.shared.root = sibling
         } else {
-            var sibling = Application.view.root
+            var sibling = Canvas.shared.root
             while sibling != nil && sibling!.sibling !== self {
                 sibling = sibling!.sibling
             }
             sibling?.sibling = self.sibling
         }
-        Application.view.canvasChanged()
+        Canvas.shared.update()
     }
 }

@@ -117,7 +117,7 @@ UICollectionViewDelegateFlowLayout {
             let id = try? Sharer.load(image) {
             Repository.shared.load(id)
         } else {
-            Application.view.alert.add(Exception.imageNotValid)
+            Alert.shared.add(Exception.imageNotValid)
         }
     }
     

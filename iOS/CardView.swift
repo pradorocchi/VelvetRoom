@@ -34,8 +34,7 @@ class CardView:EditView {
     }
     
     override func endDrag() {
-        super.endDrag()
-        var column = Application.view.root
+        var column = Canvas.shared.root
         while column!.sibling is ColumnView {
             guard column!.sibling!.left.constant < dragGesture.location(in:superview!).x else { break }
             column = column!.sibling
@@ -50,31 +49,26 @@ class CardView:EditView {
         }
         child = after!.child
         after!.child = self
-        Application.view.canvasChanged()
-        Repository.shared.move(card, board:Application.view.selected!, column:(column as! ColumnView).column,
-                                         after:(after as? CardView)?.card)
-        Application.view.scheduleUpdate()
-        Application.view.progress.chart = Application.view.selected!.chart
+        Repository.shared.move(card, board:List.shared.selected.board, column:(column as! ColumnView).column,
+                               after:(after as? CardView)?.card)
+        super.endDrag()
     }
     
     private func confirmDelete() {
         detach()
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let card = self?.card else { return }
-            Repository.shared.delete(card, board:Application.view.selected!)
-            Application.view.scheduleUpdate()
+            Repository.shared.delete(card, board:List.shared.selected.board)
+            Repository.shared.scheduleUpdate(List.shared.selected.board)
             DispatchQueue.main.async { [weak self] in
-                Application.view.progress.chart = Application.view.selected!.chart
+                Progress.shared.update()
                 self?.removeFromSuperview()
             }
         }
     }
     
     private func detach() {
-        if let parent = Application.view.canvas.subviews.first(where:
-            { ($0 as? ItemView)?.child === self } ) as? ItemView {
-            parent.child = child
-            Application.view.canvasChanged()
-        }
+        Canvas.shared.parent(self)?.child = child
+        Canvas.shared.update()
     }
 }

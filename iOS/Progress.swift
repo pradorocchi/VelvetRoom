@@ -20,7 +20,7 @@ class Progress:UIView {
         self.marker = marker.leftAnchor
         
         heightAnchor.constraint(equalToConstant:10).isActive = true
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
     }
     
     required init?(coder:NSCoder) { return nil }

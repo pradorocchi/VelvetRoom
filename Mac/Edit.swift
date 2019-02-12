@@ -18,7 +18,7 @@ class Edit:Item, NSTextViewDelegate {
         text.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-10).isActive = true
         text.rightAnchor.constraint(equalTo:rightAnchor, constant:-10).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:14).isActive = true
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
     }
     
     required init?(coder:NSCoder) { return nil }

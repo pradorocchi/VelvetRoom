@@ -3,6 +3,7 @@ import VelvetRoom
 
 class List:UIScrollView {
     static let shared = List()
+    weak var selected:BoardView! { didSet { oldValue?.updateSkin(); selected?.updateSkin() } }
     private(set) weak var right:NSLayoutConstraint!
     private weak var content:UIView!
     private weak var bottom:NSLayoutConstraint!
@@ -57,7 +58,7 @@ class List:UIScrollView {
     
     @objc private func showList() {
         UIApplication.shared.keyWindow!.endEditing(true)
-        progress.chart = []
+        /*progress.chart = []
         loadLeft.constant = 0
         chartLeft.constant = 0
         boardsRight.constant = 0
@@ -66,32 +67,31 @@ class List:UIScrollView {
             self.titleLabel.alpha = 0
         }) { _ in
             self.canvas.subviews.forEach { $0.removeFromSuperview() }
-        }
+        }*/
     }
     
     private func render(_ boards:[Board]) {
-        self.boards.subviews.forEach { $0.removeFromSuperview() }
-        (self.boards.superview as! UIScrollView).scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:true)
-        var top = self.boards.topAnchor
-        boards.enumerated().forEach { board in
-            let view = BoardView(board.element)
-            self.boards.addSubview(view)
+        content.subviews.forEach { $0.removeFromSuperview() }
+        scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:true)
+        var top = content.topAnchor
+        boards.enumerated().forEach {
+            let item = BoardView($0.element)
+            content.addSubview(item)
             
-            view.topAnchor.constraint(equalTo:top, constant:board.offset == 0 ? 60 + safeTop : 10).isActive = true
-            view.leftAnchor.constraint(equalTo:self.boards.leftAnchor, constant:20).isActive = true
-            view.rightAnchor.constraint(equalTo:self.boards.rightAnchor, constant:20).isActive = true
-            top = view.bottomAnchor
+            item.topAnchor.constraint(equalTo:top,
+                                      constant:$0.offset == 0 ? 60 + App.shared.margin.top : 10).isActive = true
+            item.leftAnchor.constraint(equalTo:content.leftAnchor, constant:20).isActive = true
+            item.rightAnchor.constraint(equalTo:content.rightAnchor, constant:20).isActive = true
+            top = item.bottomAnchor
         }
-        if boards.isEmpty {
-            emptyButton.isHidden = false
-        } else {
-            emptyButton.isHidden = true
-            self.boards.bottomAnchor.constraint(equalTo:top, constant:10 + safeBottom).isActive = true
+        if !boards.isEmpty {
+            content.bottomAnchor.constraint(equalTo:top, constant:10 + App.shared.margin.top).isActive = true
         }
-        self.boards.layoutIfNeeded()
+        content.layoutIfNeeded()
     }
     
     @objc private func selecta(_ item:BoardView) {
+        UIApplication.shared.keyWindow!.endEditing(true)
         /*selected = board
         progress.chart = board.chart
         titleLabel.text = board.name

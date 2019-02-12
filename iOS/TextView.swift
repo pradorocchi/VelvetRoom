@@ -25,9 +25,9 @@ class TextView:UITextView {
         isUserInteractionEnabled = false
         backgroundColor = .clear
         tintColor = .velvetBlue
-        textColor = Application.skin.text
+        textColor = Skin.shared.text
         returnKeyType = .default
-        keyboardAppearance = Application.skin.keyboard
+        keyboardAppearance = Skin.shared.keyboard
         autocorrectionType = .yes
         spellCheckingType = .yes
         autocapitalizationType = .sentences
@@ -35,7 +35,7 @@ class TextView:UITextView {
         contentInset = .zero
         textContainerInset = .zero
         inputAccessoryView = UIView(frame:CGRect(x:0, y:0, width:0, height:54))
-        inputAccessoryView!.backgroundColor = Application.skin.over
+        inputAccessoryView!.backgroundColor = Skin.shared.over
         
         let doneButton = UIButton()
         doneButton.layer.cornerRadius = 4
@@ -76,7 +76,7 @@ class TextView:UITextView {
         let border = UIView()
         border.isUserInteractionEnabled = false
         border.translatesAutoresizingMaskIntoConstraints = false
-        border.backgroundColor = Application.skin.background
+        border.backgroundColor = Skin.shared.background
         inputAccessoryView!.addSubview(border)
         
         doneButton.rightAnchor.constraint(equalTo:inputAccessoryView!.rightAnchor, constant:-20).isActive = true

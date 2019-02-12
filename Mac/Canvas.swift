@@ -20,7 +20,7 @@ class Canvas:NSScrollView {
         horizontalScroller!.controlSize = .mini
         documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:bottomAnchor).isActive = true
         documentView!.rightAnchor.constraint(greaterThanOrEqualTo:rightAnchor).isActive = true
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -76,6 +76,10 @@ class Canvas:NSScrollView {
                 self.alphaValue = 1
             }, completionHandler:nil)
         }
+    }
+    
+    func parent(_ of:CardItem) -> Item? {
+        return documentView!.subviews.first(where:{ ($0 as? Item)?.child === self } ) as? Item
     }
     
     @objc func newColumn() {
@@ -153,10 +157,10 @@ class Canvas:NSScrollView {
     
     private func addCarder() {
         if root != nil, !(root is Create), !(root!.child is Create) {
-            let columner = Create(#selector(newCard(_:)), key:"n")
-            columner.child = root!.child
-            root!.child = columner
-            documentView!.addSubview(columner)
+            let carder = Create(#selector(newCard(_:)), key:"n")
+            carder.child = root!.child
+            root!.child = carder
+            documentView!.addSubview(carder)
         }
     }
     

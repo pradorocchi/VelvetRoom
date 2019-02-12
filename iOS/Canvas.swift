@@ -4,7 +4,7 @@ import VelvetRoom
 class Canvas:UIScrollView {
     static let shared = Canvas()
     weak var root:ItemView?
-    private weak var content:UIView!
+    private(set) weak var content:UIView!
     private weak var width:NSLayoutConstraint? { didSet { oldValue?.isActive = false; width!.isActive = true } }
     private weak var height:NSLayoutConstraint? { didSet { oldValue?.isActive = false; height!.isActive = true } }
     
@@ -42,8 +42,80 @@ class Canvas:UIScrollView {
         }
     }
     
+    func parent(_ of:CardView) -> ItemView? {
+        return content.subviews.first(where:{ ($0 as? ItemView)?.child === of } ) as? ItemView
+    }
+    
+    private func render(_ board:Board) {
+        content.subviews.forEach { $0.removeFromSuperview() }
+        root = nil
+        var sibling:ItemView?
+        board.columns.enumerated().forEach { (index, item) in
+            let column = ColumnView(item)
+            if sibling == nil {
+                root = column
+            } else {
+                sibling!.sibling = column
+            }
+            content.addSubview(column)
+            var child:ItemView = column
+            sibling = column
+            
+            board.cards.filter( { $0.column == index } ).sorted(by: { $0.index < $1.index } ).forEach {
+                let card = CardView($0)
+                content.addSubview(card)
+                child.child = card
+                child = card
+            }
+        }
+        
+        let buttonColumn = CreateView(#selector(newColumn(_:)))
+        content.addSubview(buttonColumn)
+        
+        if root == nil {
+            root = buttonColumn
+        } else {
+            sibling!.sibling = buttonColumn
+        }
+    }
+    
+    private func align() {
+        var maxRight = CGFloat(10)
+        var maxBottom = CGFloat()
+        var sibling = root
+        while sibling != nil {
+            let right = maxRight
+            var bottom = CGFloat(60 + App.shared.margin.top)
+            
+            var child = sibling
+            sibling = sibling!.sibling
+            while child != nil {
+                child!.left.constant = right
+                child!.top.constant = bottom
+                
+                bottom += child!.bounds.height + 30
+                maxRight = max(maxRight, right + child!.bounds.width + 45)
+                
+                child = child!.child
+            }
+            
+            maxBottom = max(bottom, maxBottom)
+        }
+        width = content.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight - 40)
+        height = content.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 20 + App.shared.margin.bottom)
+    }
+    
+    private func addCarder() {
+        if root != nil, !(root is CreateView), !(root!.child is CreateView) {
+            let carder = CreateView(#selector(newCard(_:)))
+            carder.child = root!.child
+            root!.child = carder
+            content.addSubview(carder)
+        }
+    }
+    
     @objc private func newColumn(_ view:CreateView) {
-        let column = ColumnView(Repository.shared.newColumn(selected!))
+        let column = ColumnView(Repository.shared.newColumn(List.shared.selected.board))
         column.sibling = view
         if root === view {
             root = column
@@ -54,24 +126,27 @@ class Canvas:UIScrollView {
             }
             left!.sibling = column
         }
-        canvas.addSubview(column)
+        content.addSubview(column)
         column.top.constant = view.top.constant
         column.left.constant = view.left.constant
-        canvasChanged()
+        update()
         column.beginEditing()
-        scheduleUpdate()
+        Repository.shared.scheduleUpdate(List.shared.selected.board)
     }
     
     @objc private func newCard(_ view:CreateView) {
-        let card = CardView(try! Repository.shared.newCard(selected!))
+        let card = CardView(try! Repository.shared.newCard(List.shared.selected.board))
         card.child = view.child
         view.child = card
-        canvas.addSubview(card)
+        content.addSubview(card)
         card.top.constant = view.top.constant
         card.left.constant = view.left.constant
-        canvasChanged()
+        update()
         card.beginEditing()
-        scheduleUpdate()
-        progress.chart = selected!.chart
+        Repository.shared.scheduleUpdate(List.shared.selected.board)
+    }
+    
+    @objc private func updateSkin() {
+        indicatorStyle = Skin.shared.scroll
     }
 }

@@ -4,8 +4,8 @@ import VelvetRoom
 @UIApplicationMain class App:UIViewController, UIApplicationDelegate {
     static private(set) weak var shared:App!
     var window:UIWindow?
+    var margin = UIEdgeInsets.zero
     private weak var splash:Splash?
-    private var margin = UIEdgeInsets.zero
     
     func application(_:UIApplication, didFinishLaunchingWithOptions:[UIApplication.LaunchOptionsKey:Any]?) -> Bool {
         window = UIWindow(frame:UIScreen.main.bounds)
@@ -36,7 +36,7 @@ import VelvetRoom
         splash.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
         
         Repository.shared.error = { Alert.shared.add($0) }
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
         DispatchQueue.global(qos:.background).async {
             Repository.shared.load()
             DispatchQueue.main.async {
@@ -61,7 +61,7 @@ import VelvetRoom
         let gradientTop = Gradient([0, 1])
         let gradientBottom = Gradient([1, 0])
         let progress = Progress.shared
-        let search = Search.shared
+        let search = SearchView.shared
         
         view.addSubview(list)
         view.addSubview(canvas)
@@ -96,78 +96,8 @@ import VelvetRoom
         search.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-10).isActive = true
     }
     
-    private func render(_ board:Board) {
-        canvas.subviews.forEach { $0.removeFromSuperview() }
-        root = nil
-        var sibling:ItemView?
-        board.columns.enumerated().forEach { (index, item) in
-            let column = ColumnView(item)
-            if sibling == nil {
-                root = column
-            } else {
-                sibling!.sibling = column
-            }
-            canvas.addSubview(column)
-            var child:ItemView = column
-            sibling = column
-            
-            board.cards.filter( { $0.column == index } ).sorted(by: { $0.index < $1.index } ).forEach {
-                let card = CardView($0)
-                canvas.addSubview(card)
-                child.child = card
-                child = card
-            }
-        }
-        
-        let buttonColumn = CreateView(#selector(newColumn(_:)))
-        canvas.addSubview(buttonColumn)
-        
-        if root == nil {
-            root = buttonColumn
-        } else {
-            sibling!.sibling = buttonColumn
-        }
-    }
-    
-    private func align() {
-        var maxRight = CGFloat(10)
-        var maxBottom = CGFloat()
-        var sibling = root
-        while sibling != nil {
-            let right = maxRight
-            var bottom = CGFloat(60 + safeTop)
-            
-            var child = sibling
-            sibling = sibling!.sibling
-            while child != nil {
-                child!.left.constant = right
-                child!.top.constant = bottom
-                
-                bottom += child!.bounds.height + 30
-                maxRight = max(maxRight, right + child!.bounds.width + 45)
-                
-                child = child!.child
-            }
-            
-            maxBottom = max(bottom, maxBottom)
-        }
-        canvasWidth = canvas.widthAnchor.constraint(greaterThanOrEqualToConstant:maxRight - 40)
-        canvasHeight = canvas.heightAnchor.constraint(greaterThanOrEqualToConstant:maxBottom + 20 + safeBottom)
-    }
-    
-    private func createCard() {
-        guard !(root is CreateView), !(root!.child is CreateView) else { return }
-        let create = CreateView(#selector(newCard(_:)))
-        create.child = root!.child
-        root!.child = create
-        canvas.addSubview(create)
-        create.top.constant = root!.top.constant
-        create.left.constant = root!.left.constant
-    }
-    
     @objc private func updateSkin() {
-        view.backgroundColor = Application.skin.background
-        canvasScroll.indicatorStyle = Application.skin.scroll
+        view.backgroundColor = Skin.shared.background
     }
     
     @objc private func help() {
@@ -185,13 +115,8 @@ import VelvetRoom
         present(NewView(), animated:true)
     }
     
-    @objc private func beginSearch() {
-        UIApplication.shared.keyWindow!.endEditing(true)
-        search.active()
-    }
-    
-    @objc private func chart() {
-        UIApplication.shared.keyWindow!.endEditing(true)
-        present(ChartView(selected!), animated:true)
-    }
+//    @objc private func chart() {
+//        UIApplication.shared.keyWindow!.endEditing(true)
+//        present(ChartView(selected!), animated:true)
+//    }
 }

@@ -6,8 +6,9 @@ struct Skin {
         DispatchQueue.main.async { NotificationCenter.default.post(name:name, object:nil) } } }
     private static let name = Notification.Name("skin")
     
-    static func add(_ observer:Any, selector:Selector) {
-        NotificationCenter.default.addObserver(observer, selector:selector, name:Skin.name, object:nil)
+    static func add(_ observer:AnyObject) {
+        NotificationCenter.default.addObserver(observer, selector:
+            #selector(observer.updateSkin), name:Skin.name, object:nil)
     }
     
     static func update() {

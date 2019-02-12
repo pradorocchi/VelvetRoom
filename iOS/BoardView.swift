@@ -2,8 +2,6 @@ import UIKit
 import VelvetRoom
 
 class BoardView:UIControl, UITextViewDelegate {
-    override var isSelected:Bool { didSet { updateSkin() } }
-    override var isHighlighted:Bool { didSet { updateSkin() } }
     private(set) weak var board:Board!
     private weak var text:TextView!
     private weak var date:UILabel!
@@ -15,7 +13,6 @@ class BoardView:UIControl, UITextViewDelegate {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 4
-        addTarget(self, action:#selector(selectBoard), for:.touchUpInside)
         let gesture = UILongPressGestureRecognizer(target:self, action:#selector(longpressed(_:)))
         gesture.minimumPressDuration = 1
         addGestureRecognizer(gesture)
@@ -77,7 +74,7 @@ class BoardView:UIControl, UITextViewDelegate {
         export.widthAnchor.constraint(equalToConstant:54).isActive = true
         
         updateSkin()
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -90,7 +87,7 @@ class BoardView:UIControl, UITextViewDelegate {
         text.text = board.name
         delete.isHidden = false
         export.isHidden = false
-        Application.view.scheduleUpdate(board)
+        Repository.shared.scheduleUpdate(board)
         DispatchQueue.main.async { [weak self] in
             self?.updateSkin()
         }
@@ -104,10 +101,10 @@ class BoardView:UIControl, UITextViewDelegate {
         return true
     }
     
-    @objc private func updateSkin() {
+    @objc func updateSkin() {
         if text.isFirstResponder {
             backgroundColor = .clear
-            text.textColor = Application.skin.text
+            text.textColor = Skin.shared.text
             date.isHidden = true
         } else if isHighlighted || isSelected {
             backgroundColor = .velvetBlue
@@ -115,37 +112,26 @@ class BoardView:UIControl, UITextViewDelegate {
             date.textColor = .black
             date.isHidden = false
         } else {
-            backgroundColor = Application.skin.over
-            text.textColor = Application.skin.text
-            date.textColor = Application.skin.text
+            backgroundColor = Skin.shared.over
+            text.textColor = Skin.shared.text
+            date.textColor = Skin.shared.text
             date.isHidden = false
         }
     }
     
     @objc private func remove() {
         UIApplication.shared.keyWindow!.endEditing(true)
-        Application.view.present(DeleteView {
-            DispatchQueue.global(qos:.background).async { [weak self] in
-                guard let board = self?.board else { return }
-                Repository.shared.delete(board)
-            }
-        }, animated:true)
+//        Application.view.present(DeleteView {
+//            DispatchQueue.global(qos:.background).async { [weak self] in
+//                guard let board = self?.board else { return }
+//                Repository.shared.delete(board)
+//            }
+//        }, animated:true)
     }
     
     @objc private func send() {
         UIApplication.shared.keyWindow!.endEditing(true)
-        Application.view.present(Export(board), animated:true)
-    }
-    
-    @objc private func selectBoard() {
-        guard !text.isFirstResponder else { return }
-        UIApplication.shared.keyWindow!.endEditing(true)
-        isHighlighted = true
-        isSelected = true
-        Application.view.open(board)
-        DispatchQueue.main.asyncAfter(deadline:.now() + 1) { [weak self] in
-            self?.isSelected = false
-        }
+//        Application.view.present(Export(board), animated:true)
     }
     
     @objc private func longpressed(_ gesture:UILongPressGestureRecognizer) {

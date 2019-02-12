@@ -56,13 +56,13 @@ class List:NSScrollView {
         documentView!.subviews.forEach { $0.removeFromSuperview() }
         var top = documentView!.topAnchor
         boards.enumerated().forEach {
-            let view = BoardItem($0.element)
-            view.selector = #selector(select(_:))
-            documentView!.addSubview(view)
-            view.topAnchor.constraint(equalTo:top, constant:$0.offset == 0 ? 36 : 0).isActive = true
-            view.leftAnchor.constraint(equalTo:leftAnchor, constant:-8).isActive = true
-            view.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
-            top = view.bottomAnchor
+            let item = BoardItem($0.element)
+            item.selector = #selector(select(_:))
+            documentView!.addSubview(item)
+            item.topAnchor.constraint(equalTo:top, constant:$0.offset == 0 ? 36 : 0).isActive = true
+            item.leftAnchor.constraint(equalTo:leftAnchor, constant:-8).isActive = true
+            item.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
+            top = item.bottomAnchor
         }
         bottom = documentView!.bottomAnchor.constraint(equalTo:top, constant:20)
     }

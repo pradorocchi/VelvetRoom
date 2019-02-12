@@ -1,11 +1,12 @@
 import UIKit
 
 class SearchView:UIView, UITextViewDelegate {
+    static let shared = SearchView()
     private(set) weak var text:TextView!
     private(set) weak var highlighter:UIView?
     private weak var bottom:NSLayoutConstraint!
     
-    init() {
+    private init() {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 4
@@ -50,7 +51,7 @@ class SearchView:UIView, UITextViewDelegate {
         done.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
         
         updateSkin()
-        Skin.add(self, selector:#selector(updateSkin))
+        Skin.add(self)
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -80,13 +81,13 @@ class SearchView:UIView, UITextViewDelegate {
             let highlighter = UIView()
             highlighter.backgroundColor = .velvetBlue
             highlighter.layer.cornerRadius = 4
-            Application.view.canvas.addSubview(highlighter)
-            Application.view.canvas.sendSubviewToBack(highlighter)
+            Canvas.shared.addSubview(highlighter)
+            Canvas.shared.sendSubviewToBack(highlighter)
             self.highlighter = highlighter
         }
         
         var range:Range<String.Index>!
-        guard let view = Application.view.canvas.subviews.first (where: {
+        guard let view = Canvas.shared.content.subviews.first (where: {
             guard
                 let view = $0 as? EditView,
                 let textRange = view.text.text.range(of:text.text, options:.caseInsensitive)
@@ -94,20 +95,21 @@ class SearchView:UIView, UITextViewDelegate {
             range = textRange
             return true
         }) as? EditView else { return highlighter!.frame = .zero }
-        var frame = Application.view.canvas.convert(view.text.layoutManager.boundingRect(forGlyphRange:
+        var frame = Canvas.shared.content.convert(view.text.layoutManager.boundingRect(forGlyphRange:
             NSRange(range, in:view.text.text), in:view.text.textContainer), from:view.text)
         frame.origin.x -= 10
         frame.size.width += 20
         highlighter!.frame = frame
         
-        frame.origin.x -= (Application.view.view.bounds.width - frame.size.width) / 2
-        frame.origin.y -= (Application.view.canvas.superview!.bounds.height - 20) / 2
-        frame.size.width = Application.view.view.bounds.width
-        frame.size.height = Application.view.canvas.superview!.bounds.height - 20
-        (Application.view.canvas.superview as! UIScrollView).scrollRectToVisible(frame, animated:true)
+        frame.origin.x -= (App.shared.view.bounds.width - frame.size.width) / 2
+        frame.origin.y -= (Canvas.shared.bounds.height - 20) / 2
+        frame.size.width = App.shared.view.bounds.width
+        frame.size.height = Canvas.shared.bounds.height - 20
+        Canvas.shared.scrollRectToVisible(frame, animated:true)
     }
     
-    func active() {
+    @objc func active() {
+        UIApplication.shared.keyWindow!.endEditing(true)
         if #available(iOS 11.0, *) {
             bottom.constant = 120 + superview!.safeAreaInsets.top
         } else {
@@ -121,7 +123,7 @@ class SearchView:UIView, UITextViewDelegate {
         }
     }
     
-    func unactive() {
+    private func unactive() {
         bottom.constant = 0
         text.isEditable = false
         UIView.animate(withDuration:0.6, animations: {
@@ -134,9 +136,9 @@ class SearchView:UIView, UITextViewDelegate {
     }
     
     @objc private func updateSkin() {
-        backgroundColor = Application.skin.background.withAlphaComponent(0.85)
-        layer.borderColor = Application.skin.text.withAlphaComponent(0.4).cgColor
-        text.textColor = Application.skin.text
+        backgroundColor = Skin.shared.background.withAlphaComponent(0.85)
+        layer.borderColor = Skin.shared.text.withAlphaComponent(0.4).cgColor
+        text.textColor = Skin.shared.text
     }
     
     @objc private func done() {

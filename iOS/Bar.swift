@@ -18,13 +18,13 @@ class Bar:UIView {
         let settings = Button(#imageLiteral(resourceName: "settings.pdf"), target:self, selector:#selector(self.settings))
         addSubview(settings)
         
-        let help = Button(#imageLiteral(resourceName: "help.pdf"), target:self, #selector(self.help))
+        let help = Button(#imageLiteral(resourceName: "help.pdf"), target:self, selector:#selector(self.help))
         addSubview(help)
         
-        let chart = Button(#imageLiteral(resourceName: "chart.pdf"), target:self, #selector(self.chart))
+        let chart = Button(#imageLiteral(resourceName: "chart.pdf"), target:self, selector:#selector(self.chart))
         addSubview(chart)
         
-        let search = Button(#imageLiteral(resourceName: "search.pdf"), target:Search.shared, selector:#selector(active))
+        let search = Button(#imageLiteral(resourceName: "search.pdf"), target:SearchView.shared, selector:#selector(SearchView.shared.active))
         addSubview(search)
         
         let list = Button(#imageLiteral(resourceName: "list.pdf"), target:self, selector:#selector(self.list))
@@ -73,17 +73,38 @@ class Bar:UIView {
         App.shared.present({
             $0.view.tintColor = .black
             $0.addAction(UIAlertAction(title:.local("View.loadCamera"), style:.default) { _ in
-                self.present(CameraView(), animated:true)
+                App.shared.present(CameraView(), animated:true)
             })
             $0.addAction(UIAlertAction(title:.local("View.loadLibrary"), style:.default) { _ in
-                self.present(PicturesView(), animated:true)
+                App.shared.present(PicturesView(), animated:true)
             })
             $0.addAction(UIAlertAction(title:.local("View.loadCancel"), style:.cancel))
             
-            $0.popoverPresentationController?.sourceView = button
-            $0.popoverPresentationController?.sourceRect = button.bounds
-            $0.popoverPresentationController?.permittedArrowDirections = .up
+            $0.popoverPresentationController?.sourceView = self
+            $0.popoverPresentationController?.sourceRect = .zero
+            $0.popoverPresentationController?.permittedArrowDirections = .any
+            return $0
         } (UIAlertController(title:.local("View.loadTitle"), message:.local("View.loadMessage"),
                              preferredStyle:.actionSheet)), animated:true)
+    }
+    
+    @objc private func new() {
+        
+    }
+    
+    @objc private func settings() {
+        
+    }
+    
+    @objc private func help() {
+        
+    }
+    
+    @objc private func chart() {
+        
+    }
+    
+    @objc private func list() {
+        
     }
 }

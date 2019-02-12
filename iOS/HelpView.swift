@@ -4,7 +4,7 @@ import VelvetRoom
 class HelpView:UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Application.skin.over
+//        view.backgroundColor = Application.skin.over
         makeOutlets()
     }
     
@@ -18,7 +18,7 @@ class HelpView:UIViewController {
         
         let labelVersion = UILabel()
         labelVersion.translatesAutoresizingMaskIntoConstraints = false
-        labelVersion.textColor = Application.skin.text
+//        labelVersion.textColor = Application.skin.text
         labelVersion.font = .light(12)
         labelVersion.text = .local("HelpView.version") +
             (Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)
