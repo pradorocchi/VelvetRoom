@@ -1,24 +1,30 @@
 import UIKit
 import VelvetRoom
 
-@UIApplicationMain class App:UIViewController, UIApplicationDelegate {
+@UIApplicationMain class App:UIWindow, UIApplicationDelegate {
     static private(set) weak var shared:App!
-    var window:UIWindow?
     var margin = UIEdgeInsets.zero
     private weak var splash:Splash?
     
     func application(_:UIApplication, didFinishLaunchingWithOptions:[UIApplication.LaunchOptionsKey:Any]?) -> Bool {
-        window = UIWindow(frame:UIScreen.main.bounds)
+        
         window!.makeKeyAndVisible()
-        window!.rootViewController = self
+//        window!.rootViewController = self
         App.shared = self
         return true
-    }
+    }/*
     
     override func viewSafeAreaInsetsDidChange() {
         if #available(iOS 11.0, *) {
             super.viewSafeAreaInsetsDidChange()
             margin = view.safeAreaInsets
+        }
+    }
+    
+    override func viewWillTransition(to:CGSize, with:UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to:to, with:with)
+        if List.shared.right.constant > 0 {
+            List.shared.right.constant = to.width
         }
     }
     
@@ -45,13 +51,6 @@ import VelvetRoom
                     Skin.update()
                 }
             }
-        }
-    }
-    
-    override func viewWillTransition(to:CGSize, with:UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to:to, with:with)
-        if List.shared.right.constant > 0 {
-            List.shared.right.constant = to.width
         }
     }
     
@@ -97,26 +96,6 @@ import VelvetRoom
     }
     
     @objc private func updateSkin() {
-        view.backgroundColor = Skin.shared.background
-    }
-    
-    @objc private func help() {
-        UIApplication.shared.keyWindow!.endEditing(true)
-        present(Help(), animated:true)
-    }
-    
-    @objc private func settings() {
-        UIApplication.shared.keyWindow!.endEditing(true)
-        present(Settings(), animated:true)
-    }
-    
-    @objc private func new() {
-        UIApplication.shared.keyWindow!.endEditing(true)
-        present(Boarder(), animated:true)
-    }
-    
-//    @objc private func chart() {
-//        UIApplication.shared.keyWindow!.endEditing(true)
-//        present(ChartView(selected!), animated:true)
-//    }
+        UIView.animate(withDuration:0.5) { self.view.backgroundColor = Skin.shared.background }
+    }*/
 }
