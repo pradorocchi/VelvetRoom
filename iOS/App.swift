@@ -7,39 +7,20 @@ import VelvetRoom
     private weak var splash:Splash?
     
     func application(_:UIApplication, didFinishLaunchingWithOptions:[UIApplication.LaunchOptionsKey:Any]?) -> Bool {
-        
-        window!.makeKeyAndVisible()
-//        window!.rootViewController = self
         App.shared = self
-        return true
-    }/*
-    
-    override func viewSafeAreaInsetsDidChange() {
-        if #available(iOS 11.0, *) {
-            super.viewSafeAreaInsetsDidChange()
-            margin = view.safeAreaInsets
-        }
-    }
-    
-    override func viewWillTransition(to:CGSize, with:UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to:to, with:with)
-        if List.shared.right.constant > 0 {
-            List.shared.right.constant = to.width
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if #available(iOS 11.0, *) { margin = view.safeAreaInsets }
+        makeKeyAndVisible()
+        rootViewController = UIViewController()
+        
+        if #available(iOS 11.0, *) { margin = rootViewController!.view.safeAreaInsets }
         
         let splash = Splash()
-        view.addSubview(splash)
+        rootViewController!.view.addSubview(splash)
         self.splash = splash
         
-        splash.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        splash.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
-        splash.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        splash.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        splash.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
+        splash.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor).isActive = true
+        splash.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor).isActive = true
+        splash.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor).isActive = true
         
         Repository.shared.error = { Alert.shared.add($0) }
         Skin.add(self)
@@ -52,7 +33,22 @@ import VelvetRoom
                 }
             }
         }
+        return true
     }
+    
+    override func safeAreaInsetsDidChange() {
+        if #available(iOS 11.0, *) {
+            super.safeAreaInsetsDidChange()
+            margin = rootViewController!.view.safeAreaInsets
+        }
+    }
+    
+//    override func viewWillTransition(to:CGSize, with:UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to:to, with:with)
+//        if List.shared.right.constant > 0 {
+//            List.shared.right.constant = to.width
+//        }
+//    }
     
     private func outlets() {
         let list = List.shared
@@ -62,40 +58,40 @@ import VelvetRoom
         let progress = Progress.shared
         let search = Search.shared
         
-        view.addSubview(list)
-        view.addSubview(canvas)
-        view.addSubview(gradientTop)
-        view.addSubview(gradientBottom)
-        view.addSubview(progress)
-        view.addSubview(search)
+        rootViewController!.view.addSubview(list)
+        rootViewController!.view.addSubview(canvas)
+        rootViewController!.view.addSubview(gradientTop)
+        rootViewController!.view.addSubview(gradientBottom)
+        rootViewController!.view.addSubview(progress)
+        rootViewController!.view.addSubview(search)
         
-        gradientTop.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        gradientTop.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        gradientTop.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        gradientTop.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
+        gradientTop.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor).isActive = true
+        gradientTop.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor).isActive = true
         gradientTop.heightAnchor.constraint(equalToConstant:60).isActive = true
         
-        gradientBottom.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
-        gradientBottom.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        gradientBottom.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        gradientBottom.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor).isActive = true
+        gradientBottom.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor).isActive = true
+        gradientBottom.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor).isActive = true
         gradientBottom.heightAnchor.constraint(equalToConstant:20).isActive = true
         
-        list.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        list.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
+        list.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
+        list.widthAnchor.constraint(equalTo:rootViewController!.view.widthAnchor).isActive = true
         
-        canvas.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        canvas.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
-        canvas.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
+        canvas.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
+        canvas.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor).isActive = true
+        canvas.widthAnchor.constraint(equalTo:rootViewController!.view.widthAnchor).isActive = true
         canvas.rightAnchor.constraint(equalTo:list.leftAnchor).isActive = true
         
-        progress.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-10).isActive = true
-        progress.leftAnchor.constraint(equalTo:view.leftAnchor, constant:5).isActive = true
-        progress.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-5).isActive = true
+        progress.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor, constant:-10).isActive = true
+        progress.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor, constant:5).isActive = true
+        progress.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor, constant:-5).isActive = true
         
-        search.leftAnchor.constraint(equalTo:view.leftAnchor, constant:10).isActive = true
-        search.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-10).isActive = true
+        search.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor, constant:10).isActive = true
+        search.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor, constant:-10).isActive = true
     }
     
     @objc private func updateSkin() {
-        UIView.animate(withDuration:0.5) { self.view.backgroundColor = Skin.shared.background }
-    }*/
+        UIView.animate(withDuration:0.5) { self.rootViewController!.view.backgroundColor = Skin.shared.background }
+    }
 }

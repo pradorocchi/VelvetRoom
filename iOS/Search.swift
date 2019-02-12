@@ -101,11 +101,11 @@ class Search:UIView, UITextViewDelegate {
         frame.size.width += 20
         highlighter!.frame = frame
         
-        frame.origin.x -= (App.shared.view.bounds.width - frame.size.width) / 2
-        frame.origin.y -= (Canvas.shared.bounds.height - 20) / 2
-        frame.size.width = App.shared.view.bounds.width
-        frame.size.height = Canvas.shared.bounds.height - 20
-        Canvas.shared.scrollRectToVisible(frame, animated:true)
+//        frame.origin.x -= (App.shared.view.bounds.width - frame.size.width) / 2
+//        frame.origin.y -= (Canvas.shared.bounds.height - 20) / 2
+//        frame.size.width = App.shared.view.bounds.width
+//        frame.size.height = Canvas.shared.bounds.height - 20
+//        Canvas.shared.scrollRectToVisible(frame, animated:true)
     }
     
     @objc func active() {

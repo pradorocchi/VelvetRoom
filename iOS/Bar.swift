@@ -70,22 +70,22 @@ class Bar:UIView {
     
     @objc private func load() {
         UIApplication.shared.keyWindow!.endEditing(true)
-        App.shared.present({
-            $0.view.tintColor = .black
-            $0.addAction(UIAlertAction(title:.local("View.loadCamera"), style:.default) { _ in
-                App.shared.present(Camera(), animated:true)
-            })
-            $0.addAction(UIAlertAction(title:.local("View.loadLibrary"), style:.default) { _ in
-                App.shared.present(Pictures(), animated:true)
-            })
-            $0.addAction(UIAlertAction(title:.local("View.loadCancel"), style:.cancel))
-            
-            $0.popoverPresentationController?.sourceView = self
-            $0.popoverPresentationController?.sourceRect = .zero
-            $0.popoverPresentationController?.permittedArrowDirections = .any
-            return $0
-        } (UIAlertController(title:.local("View.loadTitle"), message:.local("View.loadMessage"),
-                             preferredStyle:.actionSheet)), animated:true)
+//        App.shared.present({
+//            $0.view.tintColor = .black
+//            $0.addAction(UIAlertAction(title:.local("View.loadCamera"), style:.default) { _ in
+//                App.shared.present(Camera(), animated:true)
+//            })
+//            $0.addAction(UIAlertAction(title:.local("View.loadLibrary"), style:.default) { _ in
+//                App.shared.present(Pictures(), animated:true)
+//            })
+//            $0.addAction(UIAlertAction(title:.local("View.loadCancel"), style:.cancel))
+//            
+//            $0.popoverPresentationController?.sourceView = self
+//            $0.popoverPresentationController?.sourceRect = .zero
+//            $0.popoverPresentationController?.permittedArrowDirections = .any
+//            return $0
+//        } (UIAlertController(title:.local("View.loadTitle"), message:.local("View.loadMessage"),
+//                             preferredStyle:.actionSheet)), animated:true)
     }
     
     @objc private func new() {

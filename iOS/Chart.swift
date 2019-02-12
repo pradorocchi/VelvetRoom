@@ -109,7 +109,7 @@ class Chart:UIViewController {
         let path = CGMutablePath()
         path.addArc(center:CGPoint(x:150, y:150), radius:40, startAngle:0.0001, endAngle:0, clockwise:false)
         let layer = CAShapeLayer()
-        layer.frame = App.shared.view.bounds
+//        layer.frame = App.shared.view.bounds
         layer.path = path
         layer.fillColor = UIColor.black.cgColor
         self.chart.layer.addSublayer(layer)
