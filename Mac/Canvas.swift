@@ -16,8 +16,6 @@ class Canvas:NSScrollView {
         documentView!.translatesAutoresizingMaskIntoConstraints = false
         documentView!.topAnchor.constraint(equalTo:topAnchor).isActive = true
         documentView!.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
-        hasHorizontalScroller = true
-        horizontalScroller!.controlSize = .mini
         documentView!.bottomAnchor.constraint(greaterThanOrEqualTo:bottomAnchor).isActive = true
         documentView!.rightAnchor.constraint(greaterThanOrEqualTo:rightAnchor).isActive = true
         Skin.add(self)
@@ -170,7 +168,6 @@ class Canvas:NSScrollView {
     }
     
     @objc private func updateSkin() {
-        horizontalScroller!.knobStyle = Skin.shared.scroller
         DispatchQueue.main.async { self.update(0) }
     }
     

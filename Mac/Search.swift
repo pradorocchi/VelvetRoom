@@ -131,7 +131,7 @@ class Search:NSView, NSTextViewDelegate {
     }
     
     @objc private func updateSkin() {
-        layer!.backgroundColor = Skin.shared.text.withAlphaComponent(0.9).cgColor
+        layer!.backgroundColor = Skin.shared.text.withAlphaComponent(0.96).cgColor
         text.textColor = Skin.shared.background
     }
     
