@@ -22,17 +22,13 @@ class Storage:NSTextStorage {
     override func processEditing() {
         super.processEditing()
         storage.removeAttribute(.font, range:NSMakeRange(0, storage.length))
-        var start = string.startIndex
-        while let index = string[start...].firstIndex(of:"#") {
-            storage.addAttribute(.font, value:text, range:NSRange(start ..< index, in:string))
-            if let endHeading = string[index...].firstIndex(of:"\n") {
-                storage.addAttribute(.font, value:header, range:NSRange(index ... endHeading, in:string))
-                start = endHeading
-            } else {
-                storage.addAttribute(.font, value:header, range:NSRange(index..., in:string))
-                start = string.endIndex
-            }
-        }
-        storage.addAttribute(.font, value:text, range:NSRange(start..., in:string))
+        string.indices.reduce(into: (string.startIndex, text!, [(NSFont, Range)]()) ) {
+            if string.index(after:$1) == string.endIndex {
+                $0.2.append((string[$1] == "#" ? header : $0.1, $0.0 ..< string.index(after:$1)))
+            } else if string[$1] == "#" || string[$1] == "\n" {
+                $0.2.append(($0.1, $0.0 ..< $1))
+                $0.0 = $1
+                $0.1 = string[$1] == "#" ? header : text
+            } }.2.forEach { storage.addAttribute(.font, value:$0.0, range:NSRange($0.1, in:string)) }
     }
 }
