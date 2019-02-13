@@ -24,14 +24,10 @@ import VelvetRoom
         
         Repository.shared.error = { Alert.shared.add($0) }
         Skin.add(self)
+        outlets()
         DispatchQueue.global(qos:.background).async {
             Repository.shared.load()
-            DispatchQueue.main.async {
-                self.outlets()
-                DispatchQueue.global(qos:.background).async {
-                    Skin.update()
-                }
-            }
+            Skin.update()
         }
         return true
     }
@@ -46,6 +42,7 @@ import VelvetRoom
     @objc func newBoard() { Boarder() }
     
     private func outlets() {
+        let bar = Bar.shared
         let list = List.shared
         let canvas = Canvas.shared
         let gradientTop = Gradient([0, 1])
@@ -59,6 +56,7 @@ import VelvetRoom
         rootViewController!.view.addSubview(gradientBottom)
         rootViewController!.view.addSubview(progress)
         rootViewController!.view.addSubview(search)
+        rootViewController!.view.addSubview(bar)
         
         gradientTop.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
         gradientTop.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor).isActive = true
@@ -72,8 +70,9 @@ import VelvetRoom
         
         list.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
         list.widthAnchor.constraint(equalTo:rootViewController!.view.widthAnchor).isActive = true
-        list.right = rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor)
-        list.bottom = bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor)
+        list.heightAnchor.constraint(equalTo:rootViewController!.view.heightAnchor).isActive = true
+        list.right = list.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor)
+        list.bottom = list.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor)
         
         canvas.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
         canvas.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor).isActive = true
@@ -86,10 +85,19 @@ import VelvetRoom
         
         search.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor, constant:10).isActive = true
         search.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor, constant:-10).isActive = true
-        search.bottom = bottomAnchor.constraint(equalTo:rootViewController!.view.topAnchor)
+        search.bottom = search.bottomAnchor.constraint(equalTo:rootViewController!.view.topAnchor)
+        
+        bar.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor).isActive = true
+        bar.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor).isActive = true
+        
+        if #available(iOS 11.0, *) {
+            bar.topAnchor.constraint(equalTo:rootViewController!.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        } else {
+            bar.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
+        }
     }
     
     @objc private func updateSkin() {
-        UIView.animate(withDuration:0.5) { self.rootViewController!.view.backgroundColor = Skin.shared.background }
+        UIView.animate(withDuration:0.5) { self.rootViewController!.view.backgroundColor = .red }
     }
 }

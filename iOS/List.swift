@@ -14,6 +14,7 @@ class List:UIScrollView {
         alwaysBounceVertical = true
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
+        backgroundColor = .red
         
         let content = UIView()
         content.translatesAutoresizingMaskIntoConstraints = false
@@ -24,8 +25,7 @@ class List:UIScrollView {
         content.topAnchor.constraint(equalTo:topAnchor).isActive = true
         content.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         content.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
-        #warning("here")
-//        content.widthAnchor.constraint(equalTo:view.widthAnchor).isActive = true
+        content.widthAnchor.constraint(equalTo:widthAnchor).isActive = true
         
         Repository.shared.list = { boards in DispatchQueue.main.async { self.render(boards) } }
         Repository.shared.select = { board in DispatchQueue.main.async {
@@ -64,7 +64,7 @@ class List:UIScrollView {
             top = item.bottomAnchor
         }
         if !boards.isEmpty {
-            content.bottomAnchor.constraint(equalTo:top, constant:10 + App.shared.margin.top).isActive = true
+            content.bottomAnchor.constraint(equalTo:top, constant:10 + App.shared.margin.bottom).isActive = true
         }
         content.layoutIfNeeded()
     }
