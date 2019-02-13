@@ -9,8 +9,7 @@ class Search:UIView, UITextViewDelegate {
     private init() {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
-        layer.cornerRadius = 4
-        layer.borderWidth = 1
+        layer.cornerRadius = 12
         
         let image = UIImageView(image:#imageLiteral(resourceName: "searchIcon.pdf"))
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +24,7 @@ class Search:UIView, UITextViewDelegate {
         self.text = text
         addSubview(text)
         
-        heightAnchor.constraint(equalToConstant:64).isActive = true
+        heightAnchor.constraint(equalToConstant:60).isActive = true
         
         image.topAnchor.constraint(equalTo:topAnchor).isActive = true
         image.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
@@ -46,9 +45,9 @@ class Search:UIView, UITextViewDelegate {
         unactive()
     }
     
-    func textView(_:UITextView, shouldChangeTextIn:NSRange, replacementText text:String) -> Bool {
-        if text == "\n" {
-            self.text.resignFirstResponder()
+    func textView(_:UITextView, shouldChangeTextIn:NSRange, replacementText:String) -> Bool {
+        if replacementText == "\n" {
+            text.resignFirstResponder()
             return false
         }
         return true
@@ -83,11 +82,7 @@ class Search:UIView, UITextViewDelegate {
     
     @objc func active() {
         UIApplication.shared.keyWindow!.endEditing(true)
-        if #available(iOS 11.0, *) {
-            bottom.constant = 120 + superview!.safeAreaInsets.top
-        } else {
-            bottom.constant = 120
-        }
+        bottom.constant = 120 + App.shared.margin.top
         text.isEditable = true
         UIView.animate(withDuration:0.4, animations: {
             self.superview!.layoutIfNeeded()
@@ -109,8 +104,7 @@ class Search:UIView, UITextViewDelegate {
     }
     
     @objc private func updateSkin() {
-        backgroundColor = Skin.shared.background.withAlphaComponent(0.85)
-        layer.borderColor = Skin.shared.text.withAlphaComponent(0.4).cgColor
-        text.textColor = Skin.shared.text
+        backgroundColor = Skin.shared.text.withAlphaComponent(0.96)
+        text.textColor = Skin.shared.background
     }
 }

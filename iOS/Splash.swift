@@ -5,6 +5,7 @@ class Splash:UIView {
     
     init() {
         super.init(frame:.zero)
+        translatesAutoresizingMaskIntoConstraints = false
         let emptyButton = UIButton()
         emptyButton.layer.cornerRadius = 4
         emptyButton.backgroundColor = .velvetBlue

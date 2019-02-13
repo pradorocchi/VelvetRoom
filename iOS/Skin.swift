@@ -30,7 +30,6 @@ struct Skin {
         skin.background = .white
         skin.over = .velvetLight
         skin.text = .black
-        skin.scroll = .black
         skin.keyboard = .light
         return skin
     }
@@ -38,7 +37,6 @@ struct Skin {
     private(set) var background = UIColor.black
     private(set) var over = UIColor.velvetShade
     private(set) var text = UIColor.white
-    private(set) var scroll = UIScrollView.IndicatorStyle.white
     private(set) var keyboard = UIKeyboardAppearance.dark
     var font = CGFloat(14)
 }

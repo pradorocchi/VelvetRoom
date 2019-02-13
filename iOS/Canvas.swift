@@ -14,6 +14,7 @@ class Canvas:UIScrollView {
         alwaysBounceVertical = true
         alwaysBounceHorizontal = true
         showsVerticalScrollIndicator = false
+        showsHorizontalScrollIndicator = false
         
         let content = UIView()
         content.translatesAutoresizingMaskIntoConstraints = false
@@ -152,9 +153,5 @@ class Canvas:UIScrollView {
         update()
         card.beginEditing()
         Repository.shared.scheduleUpdate(List.shared.selected.board)
-    }
-    
-    @objc private func updateSkin() {
-        indicatorStyle = Skin.shared.scroll
     }
 }
