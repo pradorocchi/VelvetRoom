@@ -38,6 +38,8 @@ class Bar:UIView {
         addSubview(title)
         self.title = title
         
+        heightAnchor.constraint(equalToConstant:50).isActive = true
+        
         load.topAnchor.constraint(equalTo:topAnchor).isActive = true
         loadLeft = load.leftAnchor.constraint(equalTo:leftAnchor)
         loadLeft.isActive = true
@@ -65,6 +67,8 @@ class Bar:UIView {
         title.centerYAnchor.constraint(equalTo:new.centerYAnchor).isActive = true
         title.leftAnchor.constraint(equalTo:help.rightAnchor, constant:30).isActive = true
         title.rightAnchor.constraint(equalTo:chart.leftAnchor).isActive = true
+        
+        Skin.add(self)
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -110,4 +114,5 @@ class Bar:UIView {
     @objc private func settings() { Settings() }
     @objc private func help() { Help() }
     @objc private func chart() { Chart() }
+    @objc private func updateSkin() { title.textColor = Skin.shared.text }
 }

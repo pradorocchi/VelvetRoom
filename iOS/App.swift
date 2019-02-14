@@ -61,12 +61,10 @@ import VelvetRoom
         gradientTop.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
         gradientTop.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor).isActive = true
         gradientTop.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor).isActive = true
-        gradientTop.heightAnchor.constraint(equalToConstant:60).isActive = true
         
         gradientBottom.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor).isActive = true
         gradientBottom.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor).isActive = true
         gradientBottom.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor).isActive = true
-        gradientBottom.heightAnchor.constraint(equalToConstant:20).isActive = true
         
         list.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
         list.widthAnchor.constraint(equalTo:rootViewController!.view.widthAnchor).isActive = true
@@ -98,6 +96,6 @@ import VelvetRoom
     }
     
     @objc private func updateSkin() {
-        UIView.animate(withDuration:0.5) { self.rootViewController!.view.backgroundColor = .red }
+        UIView.animate(withDuration:0.5) { self.rootViewController!.view.backgroundColor = Skin.shared.background }
     }
 }

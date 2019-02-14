@@ -2,17 +2,19 @@ import UIKit
 import VelvetRoom
 
 class BoardItem:UIControl, UITextViewDelegate {
+    override var isSelected:Bool { didSet { updateSkin() } }
+    override var isHighlighted:Bool { didSet { updateSkin() } }
     private(set) weak var board:Board!
     private weak var text:Text!
     private weak var date:UILabel!
     private weak var delete:UIButton!
     private weak var export:UIButton!
-    override var intrinsicContentSize:CGSize { return CGSize(width:UIView.noIntrinsicMetric, height:60) }
     
     init(_ board:Board) {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 4
+        
         let gesture = UILongPressGestureRecognizer(target:self, action:#selector(longpressed(_:)))
         gesture.minimumPressDuration = 1
         addGestureRecognizer(gesture)
@@ -55,6 +57,8 @@ class BoardItem:UIControl, UITextViewDelegate {
         export.imageView!.contentMode = .center
         addSubview(export)
         self.export = export
+        
+        heightAnchor.constraint(equalToConstant:62).isActive = true
         
         text.centerYAnchor.constraint(equalTo:centerYAnchor, constant:-6).isActive = true
         text.leftAnchor.constraint(equalTo:leftAnchor, constant:12).isActive = true
@@ -104,7 +108,7 @@ class BoardItem:UIControl, UITextViewDelegate {
             backgroundColor = .clear
             text.textColor = Skin.shared.text
             date.isHidden = true
-        } else if isHighlighted || isSelected {
+        } else if isHighlighted || isSelected || List.shared.selected === self {
             backgroundColor = .velvetBlue
             text.textColor = .black
             date.textColor = .black

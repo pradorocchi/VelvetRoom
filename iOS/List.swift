@@ -23,9 +23,7 @@ class List:UIScrollView {
         content.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
         content.topAnchor.constraint(equalTo:topAnchor).isActive = true
         content.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
-        content.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
         content.widthAnchor.constraint(equalTo:widthAnchor).isActive = true
-        content.heightAnchor.constraint(greaterThanOrEqualTo:heightAnchor).isActive = true
         
         Repository.shared.list = { boards in DispatchQueue.main.async { self.render(boards) } }
         Repository.shared.select = { board in DispatchQueue.main.async {
@@ -55,16 +53,17 @@ class List:UIScrollView {
         var top = content.topAnchor
         boards.enumerated().forEach {
             let item = BoardItem($0.element)
+            item.addTarget(self, action:#selector(select(item:)), for:.touchUpInside)
             content.addSubview(item)
             
             item.topAnchor.constraint(equalTo:top,
-                                      constant:$0.offset == 0 ? 60 + App.shared.margin.top : 10).isActive = true
+                                      constant:$0.offset == 0 ? 70 + App.shared.margin.top : 10).isActive = true
             item.leftAnchor.constraint(equalTo:content.leftAnchor, constant:20).isActive = true
             item.rightAnchor.constraint(equalTo:content.rightAnchor, constant:20).isActive = true
             top = item.bottomAnchor
         }
         if !boards.isEmpty {
-            content.bottomAnchor.constraint(equalTo:top, constant:10 + App.shared.margin.bottom).isActive = true
+            content.bottomAnchor.constraint(equalTo:top, constant:50 + App.shared.margin.bottom).isActive = true
         }
         content.layoutIfNeeded()
     }

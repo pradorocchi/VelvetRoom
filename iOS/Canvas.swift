@@ -45,6 +45,7 @@ class Canvas:UIScrollView {
     
     func display(_ board:Board) {
         alpha = 0
+        scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:false)
         Bar.shared.canvas { _ in
             self.render(board)
             self.update(0)

@@ -5,7 +5,7 @@ class Button:UIButton {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         addTarget(target, action:selector, for:.touchUpInside)
-        setImage(#imageLiteral(resourceName: "import.pdf"), for:.normal)
+        setImage(image, for:.normal)
         imageView!.clipsToBounds = true
         imageView!.contentMode = .center
         heightAnchor.constraint(equalToConstant:50).isActive = true
