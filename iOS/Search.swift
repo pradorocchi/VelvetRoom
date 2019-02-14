@@ -9,6 +9,7 @@ class Search:UIView, UITextViewDelegate {
     private init() {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
+        alpha = 0
         layer.cornerRadius = 12
         
         let image = UIImageView(image:#imageLiteral(resourceName: "searchIcon.pdf"))

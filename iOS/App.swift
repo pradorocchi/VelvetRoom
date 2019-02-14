@@ -42,10 +42,7 @@ import VelvetRoom
         }
     }
     
-    @objc func newBoard() {
-        Boarder()
-        
-    }
+    @objc func newBoard() { Boarder() }
     
     private func outlets() {
         let bar = Bar.shared
@@ -68,7 +65,6 @@ import VelvetRoom
         rootViewController!.view.addSubview(search)
         rootViewController!.view.addSubview(bar)
         
-        
         gradientTop.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
         gradientTop.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor).isActive = true
         gradientTop.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor).isActive = true
@@ -80,8 +76,10 @@ import VelvetRoom
         list.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
         list.widthAnchor.constraint(equalTo:rootViewController!.view.widthAnchor).isActive = true
         list.heightAnchor.constraint(equalTo:rootViewController!.view.heightAnchor).isActive = true
-        list.right = list.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor)
         list.bottom = list.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor)
+        list.open = list.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor)
+        list.closed = list.leftAnchor.constraint(equalTo:rootViewController!.view.rightAnchor)
+        list.open.isActive = true
 
         canvas.topAnchor.constraint(equalTo:list.topAnchor).isActive = true
         canvas.bottomAnchor.constraint(equalTo:list.bottomAnchor).isActive = true

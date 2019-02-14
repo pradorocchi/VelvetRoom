@@ -87,7 +87,8 @@ class Bar:UIView {
         App.shared.endEditing(true)
         loadLeft.constant = 0
         chartLeft.constant = 0
-        List.shared.right.constant = 0
+        List.shared.closed.isActive = false
+        List.shared.open.isActive = true
         UIView.animate(withDuration:0.4, animations: {
             App.shared.rootViewController!.view.layoutIfNeeded()
             self.title.alpha = 0

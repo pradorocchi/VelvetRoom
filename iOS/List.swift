@@ -4,8 +4,9 @@ import VelvetRoom
 class List:UIScrollView {
     static let shared = List()
     weak var selected:BoardItem! { didSet { oldValue?.updateSkin(); selected?.updateSkin() } }
-    weak var right:NSLayoutConstraint! { didSet { right.isActive = true } }
     weak var bottom:NSLayoutConstraint! { didSet { bottom.isActive = true } }
+    var open:NSLayoutConstraint!
+    var closed:NSLayoutConstraint!
     private weak var content:UIView!
     
     private init() {
@@ -25,7 +26,7 @@ class List:UIScrollView {
         content.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         content.widthAnchor.constraint(equalTo:widthAnchor).isActive = true
         
-        Repository.shared.list = { boards in DispatchQueue.main.async { self.render([]) } }
+        Repository.shared.list = { boards in DispatchQueue.main.async { self.render(boards) } }
         Repository.shared.select = { board in DispatchQueue.main.async {
             self.select(item:self.content.subviews.first(where:{ ($0 as! BoardItem).board === board }) as! BoardItem) }
         }
@@ -74,7 +75,8 @@ class List:UIScrollView {
     @objc private func select(item:BoardItem) {
         UIApplication.shared.keyWindow!.endEditing(true)
         selected = item
-        right.constant = App.shared.rootViewController!.view.bounds.width
+        open.isActive = false
+        closed.isActive = true
         Progress.shared.update()
         Canvas.shared.display(item.board)
     }
