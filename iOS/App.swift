@@ -45,8 +45,8 @@ import VelvetRoom
         let bar = Bar.shared
         let list = List.shared
         let canvas = Canvas.shared
-        let gradientTop = Gradient([0, 1])
-        let gradientBottom = Gradient([1, 0])
+        let gradientTop = GradientTop()
+        let gradientBottom = GradientBottom()
         let progress = Progress.shared
         let search = Search.shared
         
@@ -73,9 +73,9 @@ import VelvetRoom
         list.heightAnchor.constraint(equalTo:rootViewController!.view.heightAnchor).isActive = true
         list.right = list.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor)
         list.bottom = list.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor)
-        
-        canvas.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
-        canvas.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor).isActive = true
+
+        canvas.topAnchor.constraint(equalTo:list.topAnchor).isActive = true
+        canvas.bottomAnchor.constraint(equalTo:list.bottomAnchor).isActive = true
         canvas.widthAnchor.constraint(equalTo:rootViewController!.view.widthAnchor).isActive = true
         canvas.rightAnchor.constraint(equalTo:list.leftAnchor).isActive = true
         

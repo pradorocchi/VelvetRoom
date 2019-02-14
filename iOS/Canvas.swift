@@ -25,9 +25,8 @@ class Canvas:UIScrollView {
         content.topAnchor.constraint(equalTo:topAnchor).isActive = true
         content.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         content.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
-//        content.heightAnchor.constraint(greaterThanOrEqualTo:heightAnchor).isActive = true
-        #warning("here")
-//        content.widthAnchor.constraint(greaterThanOrEqualTo:view.widthAnchor).isActive = true
+        content.heightAnchor.constraint(greaterThanOrEqualTo:heightAnchor).isActive = true
+        content.widthAnchor.constraint(greaterThanOrEqualTo:widthAnchor).isActive = true
         
         if #available(iOS 11.0, *) { contentInsetAdjustmentBehavior = .never }
     }
