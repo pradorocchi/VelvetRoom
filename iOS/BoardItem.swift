@@ -77,7 +77,6 @@ class BoardItem:UIControl, UITextViewDelegate {
         export.rightAnchor.constraint(equalTo:delete.leftAnchor).isActive = true
         export.widthAnchor.constraint(equalToConstant:54).isActive = true
         
-        updateSkin()
         Skin.add(self)
     }
     
