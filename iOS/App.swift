@@ -4,7 +4,7 @@ import VelvetRoom
 @UIApplicationMain class App:UIWindow, UIApplicationDelegate {
     static private(set) weak var shared:App!
     var margin = UIEdgeInsets.zero
-    private weak var splash:Splash?
+    private(set) weak var splash:Splash?
     
     func application(_:UIApplication, didFinishLaunchingWithOptions:[UIApplication.LaunchOptionsKey:Any]?) -> Bool {
         App.shared = self
@@ -28,6 +28,9 @@ import VelvetRoom
         DispatchQueue.global(qos:.background).async {
             Repository.shared.load()
             Skin.update()
+            DispatchQueue.main.async {
+                self.splash?.button.isHidden = false
+            }
         }
         return true
     }
@@ -39,7 +42,10 @@ import VelvetRoom
         }
     }
     
-    @objc func newBoard() { Boarder() }
+    @objc func newBoard() {
+        Boarder()
+        
+    }
     
     private func outlets() {
         let bar = Bar.shared
@@ -50,13 +56,18 @@ import VelvetRoom
         let progress = Progress.shared
         let search = Search.shared
         
-        rootViewController!.view.addSubview(list)
+        if splash == nil {
+            rootViewController!.view.addSubview(list)
+        } else {
+            rootViewController!.view.insertSubview(list, belowSubview:splash!)
+        }
         rootViewController!.view.addSubview(canvas)
         rootViewController!.view.addSubview(gradientTop)
         rootViewController!.view.addSubview(gradientBottom)
         rootViewController!.view.addSubview(progress)
         rootViewController!.view.addSubview(search)
         rootViewController!.view.addSubview(bar)
+        
         
         gradientTop.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
         gradientTop.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor).isActive = true

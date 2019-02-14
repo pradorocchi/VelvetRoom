@@ -2,15 +2,18 @@ import AppKit
 
 class Splash:NSView {
     private(set) weak var button:Button!
-    private weak var emitter:CAEmitterLayer!
     
     init() {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
-        wantsLayer = true
+        
+        let over = NSView()
+        over.translatesAutoresizingMaskIntoConstraints = false
+        over.wantsLayer = true
+        addSubview(over)
         
         let cell = CAEmitterCell()
-        cell.birthRate = 5
+        cell.birthRate = 10
         cell.lifetime = 500
         cell.velocity = 6
         cell.velocityRange = 6
@@ -23,9 +26,9 @@ class Splash:NSView {
         let emitter = CAEmitterLayer()
         emitter.emitterShape = .sphere
         emitter.emitterCells = [cell]
-        emitter.emitterPosition = CGPoint(x:Window.shared.frame.width / 2, y:Window.shared.frame.height / 2)
-        layer!.addSublayer(emitter)
-        self.emitter = emitter
+        emitter.emitterPosition = {
+            NSPoint(x:$0, y:$0) } (max(NSScreen.main!.frame.width, NSScreen.main!.frame.height) / 2)
+        over.layer!.addSublayer(emitter)
         
         let image = NSImageView()
         image.image = NSImage(named:"splash")
@@ -40,6 +43,13 @@ class Splash:NSView {
         addSubview(button)
         self.button = button
         
+        over.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        over.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
+        over.widthAnchor.constraint(
+            equalToConstant:max(NSScreen.main!.frame.width, NSScreen.main!.frame.height)).isActive = true
+        over.heightAnchor.constraint(
+            equalToConstant:max(NSScreen.main!.frame.width, NSScreen.main!.frame.height)).isActive = true
+        
         image.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         image.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         
@@ -48,11 +58,6 @@ class Splash:NSView {
     }
     
     required init?(coder:NSCoder) { return nil }
-    
-    override func viewDidEndLiveResize() {
-        super.viewDidEndLiveResize()
-        emitter.emitterPosition = CGPoint(x:Window.shared.frame.width / 2, y:Window.shared.frame.height / 2)
-    }
     
     func remove() {
         button.alphaValue = 0

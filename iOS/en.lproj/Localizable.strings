@@ -1,4 +1,5 @@
-View.emptyButton="Start";
+Splash.button="Start";
+
 View.loadTitle="Load board";
 View.loadMessage="Scan a Velvet Room QR Code";
 View.loadCamera="Camera";

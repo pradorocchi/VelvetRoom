@@ -25,7 +25,7 @@ class List:UIScrollView {
         content.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         content.widthAnchor.constraint(equalTo:widthAnchor).isActive = true
         
-        Repository.shared.list = { boards in DispatchQueue.main.async { self.render(boards) } }
+        Repository.shared.list = { boards in DispatchQueue.main.async { self.render([]) } }
         Repository.shared.select = { board in DispatchQueue.main.async {
             self.select(item:self.content.subviews.first(where:{ ($0 as! BoardItem).board === board }) as! BoardItem) }
         }
@@ -47,6 +47,9 @@ class List:UIScrollView {
     required init?(coder:NSCoder) { return nil }
     
     private func render(_ boards:[Board]) {
+        if !boards.isEmpty {
+            App.shared.splash?.remove()
+        }
         Bar.shared.list()
         content.subviews.forEach { $0.removeFromSuperview() }
         scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:true)

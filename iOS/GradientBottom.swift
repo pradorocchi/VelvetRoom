@@ -12,6 +12,7 @@ class GradientBottom:UIView {
         (layer as! CAGradientLayer).locations = [0, 0.3, 1]
         (layer as! CAGradientLayer).colors = [UIColor.clear.cgColor, UIColor.clear.cgColor, UIColor.clear.cgColor]
         heightAnchor.constraint(equalToConstant:50).isActive = true
+        alpha = 0
         Skin.add(self)
     }
     
@@ -19,6 +20,7 @@ class GradientBottom:UIView {
     
     @objc private func updateSkin() {
         UIView.animate(withDuration:1) {
+            self.alpha = 1
             (self.layer as! CAGradientLayer).colors = [Skin.shared.background.withAlphaComponent(0).cgColor,
                                                        Skin.shared.background.withAlphaComponent(0.5).cgColor,
                                                        Skin.shared.background.withAlphaComponent(0.95).cgColor]
