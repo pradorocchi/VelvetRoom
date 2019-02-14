@@ -149,7 +149,7 @@ class Settings:UIViewController {
             done.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-20).isActive = true
         }
         
-        slider.value = Float(Repository.shared.account.font)
+        slider.value = Float(Skin.shared.font)
         font.text = "\(Int(slider.value))"
         
         if Repository.shared.account.appearance == .light {

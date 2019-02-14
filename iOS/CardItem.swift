@@ -6,7 +6,7 @@ class CardItem:Edit {
     
     init(_ card:Card) {
         super.init()
-        text.font = .light(CGFloat(Repository.shared.account.font))
+        text.font = .light(Skin.shared.font)
         text.text = card.content
         text.onDelete = { [weak self] in
             guard self?.text.text.isEmpty == false else { return }

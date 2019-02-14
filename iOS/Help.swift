@@ -40,7 +40,7 @@ class Help:UIViewController {
         view.addSubview(imageView)
         
         let text = Text()
-        text.font = .light(CGFloat(Repository.shared.account.font))
+        text.font = .light(Skin.shared.font)
         text.text = .local("HelpView.content")
         view.addSubview(text)
         

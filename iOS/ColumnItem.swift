@@ -6,7 +6,7 @@ class ColumnItem:Edit {
     
     init(_ column:Column) {
         super.init()
-        text.font = .bold(CGFloat(Repository.shared.account.font + 6))
+        text.font = .bold(Skin.shared.font + 6)
         text.alpha = 0.4
         text.text = column.name
         text.textContainer.maximumNumberOfLines = 1

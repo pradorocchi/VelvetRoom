@@ -21,7 +21,7 @@ class BoardItem:UIControl, UITextViewDelegate {
         self.board = board
         
         let text = Text()
-        text.font = .systemFont(ofSize:CGFloat(Repository.shared.account.font), weight:.bold)
+        text.font = .systemFont(ofSize:Skin.shared.font, weight:.bold)
         text.delegate = self
         text.text = board.name
         text.textContainer.maximumNumberOfLines = 1

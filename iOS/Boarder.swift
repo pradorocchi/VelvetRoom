@@ -13,7 +13,7 @@ class Boarder:Sheet, UITextViewDelegate {
     private weak var centric:NSLayoutConstraint? { willSet { centric?.isActive = false; newValue?.isActive = true } }
     private var template = Template.none
     
-    override init() {
+    @discardableResult override init() {
         super.init()
         let labelTitle = UILabel()
         labelTitle.translatesAutoresizingMaskIntoConstraints = false
