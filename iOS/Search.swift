@@ -21,7 +21,6 @@ class Search:UIView, UITextViewDelegate {
         let text = Text()
         text.font = .light(22)
         text.delegate = self
-        text.deleteButton.isHidden = true
         self.text = text
         addSubview(text)
         

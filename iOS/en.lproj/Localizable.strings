@@ -1,4 +1,14 @@
 Splash.button="Start";
+Boarder.placeholder="New";
+Boarder.create="Create";
+Boarder.cancel="Cancel";
+Boarder.title="Board";
+Boarder.none="No initial columns";
+Boarder.single="1 initial column";
+Boarder.double="2 initial columns";
+Boarder.triple="3 initial columns";
+Text.done="Done";
+
 
 View.loadTitle="Load board";
 View.loadMessage="Scan a Velvet Room QR Code";
@@ -9,14 +19,8 @@ NewView.title="New board";
 NewView.placeholder="Name";
 NewView.cancel="Cancel";
 NewView.create="Create";
-NewView.none="No columns";
-NewView.single="1 column";
-NewView.double="2 columns";
-NewView.triple="3 columns";
 DeleteView.delete="Delete";
 DeleteView.cancel="Cancel";
-TextView.done="Done";
-TextView.delete="Delete";
 ChartView.done="Close";
 CameraView.title="Scan Velvet Room QR Code";
 PicturesView.title="Select a Velvet Room QR Code";

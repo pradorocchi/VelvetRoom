@@ -1,8 +1,8 @@
 import UIKit
 
 class Text:UITextView {
-    var onDelete:(() -> Void)!
-    private(set) weak var deleteButton:UIButton!
+    var onDelete:(() -> Void)! { didSet { deleteButton.isHidden = false } }
+    private weak var deleteButton:UIButton!
     override var font:UIFont? {
         didSet {
             let storage = textStorage as! Storage
@@ -37,15 +37,7 @@ class Text:UITextView {
         inputAccessoryView = UIView(frame:CGRect(x:0, y:0, width:0, height:54))
         inputAccessoryView!.backgroundColor = Skin.shared.over
         
-        let doneButton = UIButton()
-        doneButton.layer.cornerRadius = 4
-        doneButton.backgroundColor = .velvetBlue
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
-        doneButton.addTarget(self, action:#selector(resignFirstResponder), for:.touchUpInside)
-        doneButton.setTitle(.local("TextView.done"), for:[])
-        doneButton.setTitleColor(.black, for:.normal)
-        doneButton.setTitleColor(UIColor(white:0, alpha:0.2), for:.highlighted)
-        doneButton.titleLabel!.font = .systemFont(ofSize:12, weight:.medium)
+        let doneButton = Link(.local("Text.done"), target:self, selector:#selector(resignFirstResponder))
         inputAccessoryView!.addSubview(doneButton)
         
         let deleteButton = UIButton()
@@ -54,6 +46,7 @@ class Text:UITextView {
         deleteButton.setImage(#imageLiteral(resourceName: "delete.pdf"), for:.normal)
         deleteButton.imageView!.clipsToBounds = true
         deleteButton.imageView!.contentMode = .center
+        deleteButton.isHidden = true
         inputAccessoryView!.addSubview(deleteButton)
         self.deleteButton = deleteButton
         
@@ -81,8 +74,7 @@ class Text:UITextView {
         
         doneButton.rightAnchor.constraint(equalTo:inputAccessoryView!.rightAnchor, constant:-20).isActive = true
         doneButton.centerYAnchor.constraint(equalTo:inputAccessoryView!.centerYAnchor).isActive = true
-        doneButton.widthAnchor.constraint(equalToConstant:60).isActive = true
-        doneButton.heightAnchor.constraint(equalToConstant:30).isActive = true
+        doneButton.width.constant = 60
         
         deleteButton.topAnchor.constraint(equalTo:inputAccessoryView!.topAnchor, constant:2).isActive = true
         deleteButton.bottomAnchor.constraint(equalTo:inputAccessoryView!.bottomAnchor).isActive = true

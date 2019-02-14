@@ -1,6 +1,8 @@
 import UIKit
 
 class Link:UIButton {
+    private(set) weak var width:NSLayoutConstraint!
+    
     init(_ title:String, target:Any, selector:Selector) {
         super.init(frame:.zero)
         layer.cornerRadius = 4
@@ -12,8 +14,9 @@ class Link:UIButton {
         setTitleColor(UIColor(white:0, alpha:0.2), for:.highlighted)
         titleLabel!.font = .systemFont(ofSize:15, weight:.medium)
         
-        widthAnchor.constraint(equalToConstant:88).isActive = true
         heightAnchor.constraint(equalToConstant:30).isActive = true
+        width = widthAnchor.constraint(equalToConstant:88)
+        width.isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }

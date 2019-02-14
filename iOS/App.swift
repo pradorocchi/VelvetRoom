@@ -73,9 +73,8 @@ import VelvetRoom
         gradientBottom.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor).isActive = true
         gradientBottom.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor).isActive = true
         
-        list.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
         list.widthAnchor.constraint(equalTo:rootViewController!.view.widthAnchor).isActive = true
-        list.heightAnchor.constraint(equalTo:rootViewController!.view.heightAnchor).isActive = true
+        list.topAnchor.constraint(equalTo:rootViewController!.view.topAnchor).isActive = true
         list.bottom = list.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor)
         list.open = list.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor)
         list.closed = list.leftAnchor.constraint(equalTo:rootViewController!.view.rightAnchor)
@@ -83,8 +82,8 @@ import VelvetRoom
 
         canvas.topAnchor.constraint(equalTo:list.topAnchor).isActive = true
         canvas.bottomAnchor.constraint(equalTo:list.bottomAnchor).isActive = true
-        canvas.widthAnchor.constraint(equalTo:rootViewController!.view.widthAnchor).isActive = true
         canvas.rightAnchor.constraint(equalTo:list.leftAnchor).isActive = true
+        canvas.widthAnchor.constraint(equalTo:rootViewController!.view.widthAnchor).isActive = true
         
         progress.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor, constant:-10).isActive = true
         progress.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor, constant:5).isActive = true

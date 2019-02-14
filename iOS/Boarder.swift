@@ -2,94 +2,56 @@ import UIKit
 import VelvetRoom
 import StoreKit
 
-class Boarder:UIViewController, UITextFieldDelegate {
-    private weak var field:UITextField!
+class Boarder:Sheet, UITextViewDelegate {
+    private weak var text:Text!
     private weak var none:UIButton!
     private weak var single:UIButton!
     private weak var double:UIButton!
     private weak var triple:UIButton!
     private weak var columns:UILabel!
     private weak var selector:UIView!
-    private weak var selectorX:NSLayoutConstraint?
+    private weak var centric:NSLayoutConstraint? { willSet { centric?.isActive = false; newValue?.isActive = true } }
     private var template = Template.none
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .velvetShade
-        makeOutlets()
-    }
-    
-    override func viewDidAppear(_ animated:Bool) {
-        super.viewDidAppear(animated)
-        field.becomeFirstResponder()
-        selectTriple()
-    }
-    
-    func textFieldShouldReturn(_:UITextField) -> Bool {
-        field.resignFirstResponder()
-        return true
-    }
-    
-    private func makeOutlets() {
+    override init() {
+        super.init()
         let labelTitle = UILabel()
         labelTitle.translatesAutoresizingMaskIntoConstraints = false
-        labelTitle.textColor = .white
+        labelTitle.textColor = Skin.shared.text
         labelTitle.font = .systemFont(ofSize:18, weight:.bold)
-        labelTitle.text = .local("NewView.title")
+        labelTitle.text = .local("Boarder.title")
         labelTitle.textAlignment = .center
-        view.addSubview(labelTitle)
+        addSubview(labelTitle)
         
-        let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
-        field.borderStyle = .none
-        field.tintColor = .velvetBlue
-        field.autocorrectionType = .yes
-        field.autocapitalizationType = .sentences
-        field.spellCheckingType = .yes
-        field.keyboardType = .asciiCapable
-        field.keyboardAppearance = .dark
-        field.font = .systemFont(ofSize:20, weight:.medium)
-        field.textColor = .white
-        field.delegate = self
-        field.attributedPlaceholder = NSAttributedString(string:.local("NewView.placeholder"),
-                                                         attributes:[.foregroundColor:UIColor(white:1, alpha:0.2)])
-        view.addSubview(field)
-        self.field = field
+        let text = Text()
+        text.font = .systemFont(ofSize:Skin.shared.font + 10, weight:.bold)
+        text.delegate = self
+        text.textContainer.maximumNumberOfLines = 1
+        text.isUserInteractionEnabled = true
+        addSubview(text)
+        self.text = text
         
         let border = UIView()
         border.translatesAutoresizingMaskIntoConstraints = false
         border.isUserInteractionEnabled = false
-        border.backgroundColor = UIColor(white:1, alpha:0.2)
-        view.addSubview(border)
+        border.backgroundColor = Skin.shared.text.withAlphaComponent(0.2)
+        addSubview(border)
         
-        let cancel = UIButton()
-        cancel.layer.cornerRadius = 4
-        cancel.backgroundColor = UIColor(white:1, alpha:0.1)
-        cancel.addTarget(self, action:#selector(self.cancel), for:.touchUpInside)
-        cancel.translatesAutoresizingMaskIntoConstraints = false
-        cancel.setTitle(.local("NewView.cancel"), for:[])
-        cancel.setTitleColor(UIColor(white:1, alpha:0.6), for:.normal)
-        cancel.setTitleColor(UIColor(white:1, alpha:0.15), for:.highlighted)
-        cancel.titleLabel!.font = .systemFont(ofSize:13, weight:.medium)
-        view.addSubview(cancel)
+        let cancel = Link(.local("Boarder.cancel"), target:self, selector:#selector(close))
+        cancel.backgroundColor = Skin.shared.text.withAlphaComponent(0.1)
+        cancel.setTitleColor(Skin.shared.text.withAlphaComponent(0.6), for:.normal)
+        cancel.setTitleColor(Skin.shared.text.withAlphaComponent(0.15), for:.highlighted)
+        addSubview(cancel)
         
-        let create = UIButton()
-        create.layer.cornerRadius = 4
-        create.backgroundColor = .velvetBlue
-        create.addTarget(self, action:#selector(self.create), for:.touchUpInside)
-        create.translatesAutoresizingMaskIntoConstraints = false
-        create.setTitle(.local("NewView.create"), for:[])
-        create.setTitleColor(.black, for:.normal)
-        create.setTitleColor(UIColor(white:0, alpha:0.2), for:.highlighted)
-        create.titleLabel!.font = .systemFont(ofSize:13, weight:.medium)
-        view.addSubview(create)
+        let create = Link(.local("Boarder.create"), target:self, selector:#selector(self.create))
+        addSubview(create)
         
         let selector = UIView()
         selector.isUserInteractionEnabled = false
         selector.backgroundColor = .velvetBlue
         selector.translatesAutoresizingMaskIntoConstraints = false
         selector.layer.cornerRadius = 4
-        view.addSubview(selector)
+        addSubview(selector)
         self.selector = selector
         
         let none = UIButton()
@@ -99,7 +61,7 @@ class Boarder:UIViewController, UITextFieldDelegate {
         none.imageView!.clipsToBounds = true
         none.imageView!.contentMode = .center
         none.imageView!.tintColor = UIColor(white:1, alpha:0.2)
-        view.addSubview(none)
+        addSubview(none)
         self.none = none
         
         let single = UIButton()
@@ -109,7 +71,7 @@ class Boarder:UIViewController, UITextFieldDelegate {
         single.imageView!.clipsToBounds = true
         single.imageView!.contentMode = .center
         single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
-        view.addSubview(single)
+        addSubview(single)
         self.single = single
         
         let double = UIButton()
@@ -119,7 +81,7 @@ class Boarder:UIViewController, UITextFieldDelegate {
         double.imageView!.clipsToBounds = true
         double.imageView!.contentMode = .center
         double.imageView!.tintColor = UIColor(white:1, alpha:0.2)
-        view.addSubview(double)
+        addSubview(double)
         self.double = double
         
         let triple = UIButton()
@@ -129,101 +91,113 @@ class Boarder:UIViewController, UITextFieldDelegate {
         triple.imageView!.clipsToBounds = true
         triple.imageView!.contentMode = .center
         triple.imageView!.tintColor = UIColor(white:1, alpha:0.2)
-        view.addSubview(triple)
+        addSubview(triple)
         self.triple = triple
         
         let columns = UILabel()
         columns.translatesAutoresizingMaskIntoConstraints = false
         columns.font = .systemFont(ofSize:12, weight:.light)
-        columns.textColor = UIColor(white:1, alpha:0.6)
+        columns.textColor = Skin.shared.text
         columns.text = " "
-        view.addSubview(columns)
+        addSubview(columns)
         self.columns = columns
         
-        labelTitle.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
+        labelTitle.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         
-        field.topAnchor.constraint(equalTo:labelTitle.bottomAnchor, constant:30).isActive = true
-        field.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
-        field.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
-        field.heightAnchor.constraint(equalToConstant:44).isActive = true
+        text.topAnchor.constraint(equalTo:labelTitle.bottomAnchor, constant:30).isActive = true
+        text.leftAnchor.constraint(equalTo:leftAnchor, constant:20).isActive = true
+        text.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
+        text.heightAnchor.constraint(equalToConstant:50).isActive = true
         
-        border.leftAnchor.constraint(equalTo:field.leftAnchor).isActive = true
-        border.rightAnchor.constraint(equalTo:field.rightAnchor).isActive = true
-        border.topAnchor.constraint(equalTo:field.bottomAnchor).isActive = true
+        border.leftAnchor.constraint(equalTo:text.leftAnchor).isActive = true
+        border.rightAnchor.constraint(equalTo:text.rightAnchor).isActive = true
+        border.topAnchor.constraint(equalTo:text.bottomAnchor).isActive = true
         border.heightAnchor.constraint(equalToConstant:1).isActive = true
         
-        cancel.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
+        cancel.leftAnchor.constraint(equalTo:leftAnchor, constant:20).isActive = true
         cancel.centerYAnchor.constraint(equalTo:labelTitle.centerYAnchor).isActive  = true
-        cancel.widthAnchor.constraint(equalToConstant:70).isActive = true
-        cancel.heightAnchor.constraint(equalToConstant:30).isActive = true
         
-        create.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
+        create.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
         create.centerYAnchor.constraint(equalTo:labelTitle.centerYAnchor).isActive = true
-        create.widthAnchor.constraint(equalToConstant:70).isActive = true
-        create.heightAnchor.constraint(equalToConstant:30).isActive = true
         
         selector.widthAnchor.constraint(equalToConstant:44).isActive = true
         selector.heightAnchor.constraint(equalToConstant:44).isActive = true
         selector.centerYAnchor.constraint(equalTo:none.centerYAnchor).isActive = true
-        selectorX = selector.centerXAnchor.constraint(equalTo:triple.centerXAnchor)
-        selectorX!.isActive = true
+        centric = selector.centerXAnchor.constraint(equalTo:triple.centerXAnchor)
+        centric!.isActive = true
         
         none.topAnchor.constraint(equalTo:border.bottomAnchor, constant:30).isActive = true
-        none.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+        none.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         none.heightAnchor.constraint(equalToConstant:44).isActive = true
-        none.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.25).isActive = true
+        none.widthAnchor.constraint(equalTo:widthAnchor, multiplier:0.25).isActive = true
         
         single.topAnchor.constraint(equalTo:none.topAnchor).isActive = true
         single.leftAnchor.constraint(equalTo:none.rightAnchor).isActive = true
         single.heightAnchor.constraint(equalToConstant:44).isActive = true
-        single.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.25).isActive = true
+        single.widthAnchor.constraint(equalTo:widthAnchor, multiplier:0.25).isActive = true
         
         double.topAnchor.constraint(equalTo:none.topAnchor).isActive = true
         double.leftAnchor.constraint(equalTo:single.rightAnchor).isActive = true
         double.heightAnchor.constraint(equalToConstant:44).isActive = true
-        double.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.25).isActive = true
+        double.widthAnchor.constraint(equalTo:widthAnchor, multiplier:0.25).isActive = true
         
         triple.topAnchor.constraint(equalTo:none.topAnchor).isActive = true
         triple.leftAnchor.constraint(equalTo:double.rightAnchor).isActive = true
         triple.heightAnchor.constraint(equalToConstant:44).isActive = true
-        triple.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier:0.25).isActive = true
+        triple.widthAnchor.constraint(equalTo:widthAnchor, multiplier:0.25).isActive = true
         
         columns.topAnchor.constraint(equalTo:none.bottomAnchor, constant:20).isActive = true
         columns.leftAnchor.constraint(equalTo:border.leftAnchor).isActive = true
+        columns.widthAnchor.constraint(equalToConstant:200).isActive = true
+        columns.heightAnchor.constraint(equalToConstant:30).isActive = true
         
         if #available(iOS 11.0, *) {
-            labelTitle.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant:20).isActive = true
+            labelTitle.topAnchor.constraint(equalTo:safeAreaLayoutGuide.topAnchor, constant:20).isActive = true
         } else {
-            labelTitle.topAnchor.constraint(equalTo:view.topAnchor, constant:20).isActive = true
+            labelTitle.topAnchor.constraint(equalTo:topAnchor, constant:20).isActive = true
         }
     }
     
-    private func moveSelector(_ view:UIView) {
-        selectorX?.isActive = false
-        selectorX = selector.centerXAnchor.constraint(equalTo:view.centerXAnchor)
-        selectorX!.isActive = true
-        UIView.animate(withDuration:0.3) { [weak self] in self?.view.layoutIfNeeded() }
+    required init?(coder:NSCoder) { return nil }
+    
+    func textView(_:UITextView, shouldChangeTextIn:NSRange, replacementText:String) -> Bool {
+        if replacementText == "\n" {
+            text.resignFirstResponder()
+            return false
+        }
+        return true
     }
     
-    @objc private func cancel() {
-        field.resignFirstResponder()
-        presentingViewController!.dismiss(animated:true)
+    func textViewDidEndEditing(_:UITextView) {
+        if text.text.isEmpty {
+            text.text = .local("Boarder.placeholder")
+        }
+    }
+    
+    override func ready() {
+        selectTriple()
+        text.becomeFirstResponder()
+    }
+    
+    private func moveSelector(_ view:UIView) {
+        centric = selector.centerXAnchor.constraint(equalTo:view.centerXAnchor)
+        UIView.animate(withDuration:0.3) { [weak self] in self?.layoutIfNeeded() }
     }
     
     @objc private func create() {
-        field.resignFirstResponder()
-        let name = field.text!
+        text.resignFirstResponder()
+        let name = text.text!
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let template = self?.template else { return }
             Repository.shared.newBoard(name, template:template)
         }
-        presentingViewController!.dismiss(animated:true)
         if Repository.shared.rate() { if #available(iOS 10.3, *) { SKStoreReviewController.requestReview() } }
+        close()
     }
     
     @objc private func selectNone() {
         template = .none
-        columns.text = .local("NewView.none")
+        columns.text = .local("Boarder.none")
         none.imageView!.tintColor = .black
         single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         double.imageView!.tintColor = UIColor(white:1, alpha:0.2)
@@ -233,7 +207,7 @@ class Boarder:UIViewController, UITextFieldDelegate {
     
     @objc private func selectSingle() {
         template = .single
-        columns.text = .local("NewView.single")
+        columns.text = .local("Boarder.single")
         none.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         single.imageView!.tintColor = .black
         double.imageView!.tintColor = UIColor(white:1, alpha:0.2)
@@ -243,7 +217,7 @@ class Boarder:UIViewController, UITextFieldDelegate {
     
     @objc private func selectDouble() {
         template = .double
-        columns.text = .local("NewView.double")
+        columns.text = .local("Boarder.double")
         none.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         double.imageView!.tintColor = .black
@@ -253,7 +227,7 @@ class Boarder:UIViewController, UITextFieldDelegate {
     
     @objc private func selectTriple() {
         template = .triple
-        columns.text = .local("NewView.triple")
+        columns.text = .local("Boarder.triple")
         none.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
         double.imageView!.tintColor = UIColor(white:1, alpha:0.2)

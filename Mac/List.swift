@@ -17,7 +17,7 @@ class List:NSScrollView {
         documentView!.topAnchor.constraint(equalTo:topAnchor).isActive = true
         documentView!.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         documentView!.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
-        Repository.shared.list = { boards in DispatchQueue.main.async { self.render([boards]) } }
+        Repository.shared.list = { boards in DispatchQueue.main.async { self.render(boards) } }
         Repository.shared.select = { board in DispatchQueue.main.async {
             self.select(self.documentView!.subviews.first(where:{ ($0 as! BoardItem).board === board }) as! BoardItem) }
         }
