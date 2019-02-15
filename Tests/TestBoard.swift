@@ -72,7 +72,7 @@ class TestBoard:XCTestCase {
         board.cards = [cardA, cardB]
         XCTAssertEqual(0.5, board.chart[0].1)
         XCTAssertEqual(0.5, board.chart[1].1)
-        XCTAssertEqual(0, board.chart[2].1)
+        XCTAssertEqual(2, board.chart.count)
     }
     
     func testChartThreeColumnsWithCardsCompleted() {
@@ -83,9 +83,8 @@ class TestBoard:XCTestCase {
         cardB.column = 2
         board.columns = [Column(), Column(), Column()]
         board.cards = [cardA, cardB]
-        XCTAssertEqual(0, board.chart[0].1)
-        XCTAssertEqual(0, board.chart[1].1)
-        XCTAssertEqual(1, board.chart[2].1)
+        XCTAssertEqual(1, board.chart[0].1)
+        XCTAssertEqual(1, board.chart.count)
     }
     
     func testNameEndingWhiteSpace() {

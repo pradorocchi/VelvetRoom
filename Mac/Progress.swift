@@ -24,7 +24,7 @@ class Progress:NSView {
     required init?(coder:NSCoder) { return nil }
     
     func update() {
-        guard let items = List.shared.selected?.board.chart.compactMap({ $0.1 > 0 ? $0.1 : nil }) else { return }
+        guard let items = List.shared.selected?.board.chart else { return }
         while items.count < views.count { views.removeLast().removeFromSuperview() }
         while items.count > views.count {
             let view = NSView()
@@ -42,7 +42,8 @@ class Progress:NSView {
         widths.forEach({ $0.isActive = false })
         widths = []
         items.enumerated().forEach {
-            widths.append(views[$0.offset].widthAnchor.constraint(equalTo:widthAnchor, multiplier:CGFloat($0.element)))
+            widths.append(views[$0.offset].widthAnchor.constraint(equalTo:widthAnchor, multiplier:
+                CGFloat($0.element.1)))
             widths.last!.isActive = true
         }
         NSAnimationContext.runAnimationGroup({ context in
