@@ -15,12 +15,10 @@ class Camera:Sheet, AVCaptureMetadataOutputObjectsDelegate {
         labelTitle.text = .local("Camera.title")
         addSubview(labelTitle)
         
-        let close = UIButton()
-        close.translatesAutoresizingMaskIntoConstraints = false
-        close.setImage(#imageLiteral(resourceName: "delete.pdf"), for:[])
-        close.imageView!.contentMode = .center
-        close.imageView!.clipsToBounds = true
-        close.addTarget(self, action:#selector(self.close), for:.touchUpInside)
+        let close = Link(.local("Camera.close"), target:self, selector:#selector(self.close))
+        close.backgroundColor = .clear
+        close.setTitleColor(Skin.shared.text.withAlphaComponent(0.6), for:.normal)
+        close.setTitleColor(Skin.shared.text.withAlphaComponent(0.15), for:.highlighted)
         addSubview(close)
         
         let display = UIView()
@@ -37,7 +35,7 @@ class Camera:Sheet, AVCaptureMetadataOutputObjectsDelegate {
         finder.layer.cornerRadius = 4
         addSubview(finder)
         
-        display.topAnchor.constraint(equalTo:close.bottomAnchor).isActive = true
+        display.topAnchor.constraint(equalTo:close.bottomAnchor, constant:20).isActive = true
         display.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         display.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
         display.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
@@ -51,13 +49,11 @@ class Camera:Sheet, AVCaptureMetadataOutputObjectsDelegate {
         labelTitle.leftAnchor.constraint(equalTo:close.rightAnchor).isActive = true
         
         close.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
-        close.widthAnchor.constraint(equalToConstant:50).isActive = true
-        close.heightAnchor.constraint(equalToConstant:50).isActive = true
         
         if #available(iOS 11.0, *) {
-            close.topAnchor.constraint(equalTo:safeAreaLayoutGuide.topAnchor).isActive = true
+            close.topAnchor.constraint(equalTo:safeAreaLayoutGuide.topAnchor, constant:20).isActive = true
         } else {
-            close.topAnchor.constraint(equalTo:topAnchor).isActive = true
+            close.topAnchor.constraint(equalTo:topAnchor, constant:20).isActive = true
         }
     }
     

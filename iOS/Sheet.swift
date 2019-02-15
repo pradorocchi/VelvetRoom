@@ -6,7 +6,7 @@ class Sheet:UIView {
         super.init(frame:.zero)
         translatesAutoresizingMaskIntoConstraints = false
         alpha = 0
-        backgroundColor = Skin.shared.background.withAlphaComponent(0.95)
+        backgroundColor = Skin.shared.background
         App.shared.rootViewController!.view.addSubview(self)
         
         topAnchor.constraint(equalTo:App.shared.rootViewController!.view.topAnchor).isActive = true
@@ -14,7 +14,7 @@ class Sheet:UIView {
         leftAnchor.constraint(equalTo:App.shared.rootViewController!.view.leftAnchor).isActive = true
         rightAnchor.constraint(equalTo:App.shared.rootViewController!.view.rightAnchor).isActive = true
         
-        UIView.animate(withDuration:0.3, animations: { [weak self] in
+        UIView.animate(withDuration:0.4, animations: { [weak self] in
             self?.alpha = 1
         }) { [weak self] _ in
             self?.ready()

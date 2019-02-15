@@ -10,7 +10,7 @@ class ColumnItem:Edit {
         text.alpha = 0.4
         text.text = column.name
         text.textContainer.maximumNumberOfLines = 1
-        text.onDelete = { [weak self] in
+        text.delete = { [weak self] in
             guard self?.text.text.isEmpty == false else { return }
             self?.askDelete()
         }

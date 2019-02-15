@@ -60,7 +60,7 @@ class Boarder:Sheet, UITextViewDelegate {
         none.setImage(#imageLiteral(resourceName: "none.pdf").withRenderingMode(.alwaysTemplate), for:.normal)
         none.imageView!.clipsToBounds = true
         none.imageView!.contentMode = .center
-        none.imageView!.tintColor = UIColor(white:1, alpha:0.2)
+        none.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
         addSubview(none)
         self.none = none
         
@@ -70,7 +70,7 @@ class Boarder:Sheet, UITextViewDelegate {
         single.setImage(#imageLiteral(resourceName: "single.pdf").withRenderingMode(.alwaysTemplate), for:.normal)
         single.imageView!.clipsToBounds = true
         single.imageView!.contentMode = .center
-        single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
+        single.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
         addSubview(single)
         self.single = single
         
@@ -80,7 +80,7 @@ class Boarder:Sheet, UITextViewDelegate {
         double.setImage(#imageLiteral(resourceName: "double.pdf").withRenderingMode(.alwaysTemplate), for:.normal)
         double.imageView!.clipsToBounds = true
         double.imageView!.contentMode = .center
-        double.imageView!.tintColor = UIColor(white:1, alpha:0.2)
+        double.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
         addSubview(double)
         self.double = double
         
@@ -90,7 +90,7 @@ class Boarder:Sheet, UITextViewDelegate {
         triple.setImage(#imageLiteral(resourceName: "triple.pdf").withRenderingMode(.alwaysTemplate), for:.normal)
         triple.imageView!.clipsToBounds = true
         triple.imageView!.contentMode = .center
-        triple.imageView!.tintColor = UIColor(white:1, alpha:0.2)
+        triple.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
         addSubview(triple)
         self.triple = triple
         
@@ -208,29 +208,29 @@ class Boarder:Sheet, UITextViewDelegate {
     @objc private func selectSingle() {
         template = .single
         columns.text = .local("Boarder.single")
-        none.imageView!.tintColor = UIColor(white:1, alpha:0.2)
+        none.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
         single.imageView!.tintColor = .black
-        double.imageView!.tintColor = UIColor(white:1, alpha:0.2)
-        triple.imageView!.tintColor = UIColor(white:1, alpha:0.2)
+        double.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
+        triple.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
         moveSelector(single)
     }
     
     @objc private func selectDouble() {
         template = .double
         columns.text = .local("Boarder.double")
-        none.imageView!.tintColor = UIColor(white:1, alpha:0.2)
-        single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
+        none.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
+        single.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
         double.imageView!.tintColor = .black
-        triple.imageView!.tintColor = UIColor(white:1, alpha:0.2)
+        triple.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
         moveSelector(double)
     }
     
     @objc private func selectTriple() {
         template = .triple
         columns.text = .local("Boarder.triple")
-        none.imageView!.tintColor = UIColor(white:1, alpha:0.2)
-        single.imageView!.tintColor = UIColor(white:1, alpha:0.2)
-        double.imageView!.tintColor = UIColor(white:1, alpha:0.2)
+        none.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
+        single.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
+        double.imageView!.tintColor = Skin.shared.text.withAlphaComponent(0.2)
         triple.imageView!.tintColor = .black
         moveSelector(triple)
     }

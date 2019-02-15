@@ -25,7 +25,7 @@ class BoardItem:UIControl, UITextViewDelegate {
         text.delegate = self
         text.text = board.name
         text.textContainer.maximumNumberOfLines = 1
-        text.onDelete = { [weak self] in self?.remove() }
+        text.delete = { [weak self] in self?.remove() }
         addSubview(text)
         self.text = text
         

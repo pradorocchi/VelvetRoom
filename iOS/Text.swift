@@ -1,7 +1,8 @@
 import UIKit
 
 class Text:UITextView {
-    var onDelete:(() -> Void)! { didSet { deleteButton.isHidden = false } }
+    var delete:(() -> Void)! { didSet { deleteButton.isHidden = false } }
+    private(set) weak var border:UIView!
     private weak var deleteButton:UIButton!
     override var font:UIFont? {
         didSet {
@@ -71,6 +72,7 @@ class Text:UITextView {
         border.translatesAutoresizingMaskIntoConstraints = false
         border.backgroundColor = Skin.shared.background
         inputAccessoryView!.addSubview(border)
+        self.border = border
         
         doneButton.rightAnchor.constraint(equalTo:inputAccessoryView!.rightAnchor, constant:-20).isActive = true
         doneButton.centerYAnchor.constraint(equalTo:inputAccessoryView!.centerYAnchor).isActive = true
@@ -111,7 +113,7 @@ class Text:UITextView {
     
     @objc private func remove() {
         resignFirstResponder()
-        onDelete()
+        delete()
     }
     
     @objc private func header() { insertText("#") }

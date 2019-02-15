@@ -108,5 +108,7 @@ class Search:UIView, UITextViewDelegate {
     @objc private func updateSkin() {
         backgroundColor = Skin.shared.text.withAlphaComponent(0.96)
         text.textColor = Skin.shared.background
+        text.inputAccessoryView!.backgroundColor = Skin.shared.over
+        text.border.backgroundColor = Skin.shared.background
     }
 }

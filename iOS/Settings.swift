@@ -1,7 +1,7 @@
 import UIKit
 import VelvetRoom
 
-class Settings:UIViewController {
+class Settings:Sheet {
     private weak var dark:UIButton!
     private weak var light:UIButton!
     private weak var labelTitle:UILabel!
@@ -14,26 +14,20 @@ class Settings:UIViewController {
     
     deinit { NotificationCenter.default.removeObserver(self) }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        makeOutlets()
-        updateSkin()
-        Skin.add(self)
-    }
-    
-    private func makeOutlets() {
+    @discardableResult override init() {
+        super.init()
         let labelTitle = UILabel()
         labelTitle.translatesAutoresizingMaskIntoConstraints = false
         labelTitle.font = .systemFont(ofSize:18, weight:.bold)
-        labelTitle.text = .local("SettingsView.title")
-        view.addSubview(labelTitle)
+        labelTitle.text = .local("Settings.title")
+        addSubview(labelTitle)
         self.labelTitle = labelTitle
         
         let labelAppearance = UILabel()
         labelAppearance.translatesAutoresizingMaskIntoConstraints = false
         labelAppearance.font = .systemFont(ofSize:16, weight:.medium)
-        labelAppearance.text = .local("SettingsView.appearance")
-        view.addSubview(labelAppearance)
+        labelAppearance.text = .local("Settings.appearance")
+        addSubview(labelAppearance)
         self.labelAppearance = labelAppearance
         
         let dark = UIButton()
@@ -42,7 +36,7 @@ class Settings:UIViewController {
         dark.setImage(#imageLiteral(resourceName: "dark.pdf"), for:[])
         dark.imageView!.clipsToBounds = true
         dark.imageView!.contentMode = .center
-        view.addSubview(dark)
+        addSubview(dark)
         self.dark = dark
         
         let light = UIButton()
@@ -51,37 +45,37 @@ class Settings:UIViewController {
         light.setImage(#imageLiteral(resourceName: "light.pdf"), for:[])
         light.imageView!.clipsToBounds = true
         light.imageView!.contentMode = .center
-        view.addSubview(light)
+        addSubview(light)
         self.light = light
         
         let labelDark = UILabel()
         labelDark.translatesAutoresizingMaskIntoConstraints = false
         labelDark.font = .systemFont(ofSize:12, weight:.light)
-        labelDark.text = .local("SettingsView.dark")
+        labelDark.text = .local("Settings.dark")
         labelDark.textAlignment = .center
-        view.addSubview(labelDark)
+        addSubview(labelDark)
         self.labelDark = labelDark
         
         let labelLight = UILabel()
         labelLight.translatesAutoresizingMaskIntoConstraints = false
         labelLight.font = .systemFont(ofSize:12, weight:.light)
-        labelLight.text = .local("SettingsView.light")
+        labelLight.text = .local("Settings.light")
         labelLight.textAlignment = .center
-        view.addSubview(labelLight)
+        addSubview(labelLight)
         self.labelLight = labelLight
         
         let labelFont = UILabel()
         labelFont.translatesAutoresizingMaskIntoConstraints = false
         labelFont.font = .systemFont(ofSize:16, weight:.medium)
-        labelFont.text = .local("SettingsView.font")
-        view.addSubview(labelFont)
+        labelFont.text = .local("Settings.font")
+        addSubview(labelFont)
         self.labelFont = labelFont
         
         let font = UILabel()
         font.translatesAutoresizingMaskIntoConstraints = false
         font.font = .systemFont(ofSize:16, weight:.light)
         font.textAlignment = .right
-        view.addSubview(font)
+        addSubview(font)
         self.font = font
         
         let slider = UISlider()
@@ -92,32 +86,24 @@ class Settings:UIViewController {
         slider.maximumValue = 32
         slider.minimumTrackTintColor = .velvetBlue
         slider.maximumTrackTintColor = UIColor(white:0.6, alpha:0.3)
-        view.addSubview(slider)
+        addSubview(slider)
         self.slider = slider
         
-        let done = UIButton()
-        done.layer.cornerRadius = 4
-        done.backgroundColor = .velvetBlue
-        done.translatesAutoresizingMaskIntoConstraints = false
-        done.addTarget(self, action:#selector(close), for:.touchUpInside)
-        done.setTitle(.local("SettingsView.done"), for:[])
-        done.setTitleColor(.black, for:.normal)
-        done.setTitleColor(UIColor(white:0, alpha:0.2), for:.highlighted)
-        done.titleLabel!.font = .systemFont(ofSize:15, weight:.medium)
-        view.addSubview(done)
+        let done = Link(.local("Settings.done"), target:self, selector:#selector(close))
+        addSubview(done)
         
-        labelTitle.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
+        labelTitle.leftAnchor.constraint(equalTo:leftAnchor, constant:20).isActive = true
         
-        labelAppearance.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
+        labelAppearance.leftAnchor.constraint(equalTo:leftAnchor, constant:20).isActive = true
         labelAppearance.topAnchor.constraint(equalTo:labelTitle.bottomAnchor, constant:50).isActive = true
         
         dark.topAnchor.constraint(equalTo:labelAppearance.bottomAnchor, constant:20).isActive = true
-        dark.rightAnchor.constraint(equalTo:view.centerXAnchor, constant:-30).isActive = true
+        dark.rightAnchor.constraint(equalTo:centerXAnchor, constant:-30).isActive = true
         dark.widthAnchor.constraint(equalToConstant:50).isActive = true
         dark.heightAnchor.constraint(equalToConstant:50).isActive = true
         
         light.topAnchor.constraint(equalTo:labelAppearance.bottomAnchor, constant:20).isActive = true
-        light.leftAnchor.constraint(equalTo:view.centerXAnchor, constant:30).isActive = true
+        light.leftAnchor.constraint(equalTo:centerXAnchor, constant:30).isActive = true
         light.widthAnchor.constraint(equalToConstant:50).isActive = true
         light.heightAnchor.constraint(equalToConstant:50).isActive = true
         
@@ -128,25 +114,25 @@ class Settings:UIViewController {
         labelLight.topAnchor.constraint(equalTo:light.bottomAnchor, constant:5).isActive = true
         
         labelFont.topAnchor.constraint(equalTo:labelLight.bottomAnchor, constant:50).isActive = true
-        labelFont.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
+        labelFont.leftAnchor.constraint(equalTo:leftAnchor, constant:20).isActive = true
         
         font.topAnchor.constraint(equalTo:labelDark.bottomAnchor, constant:50).isActive = true
-        font.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
+        font.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
         
         slider.topAnchor.constraint(equalTo:labelFont.bottomAnchor, constant:20).isActive = true
-        slider.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
-        slider.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
+        slider.leftAnchor.constraint(equalTo:leftAnchor, constant:20).isActive = true
+        slider.rightAnchor.constraint(equalTo:rightAnchor, constant:-20).isActive = true
         
-        done.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
+        done.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         done.widthAnchor.constraint(equalToConstant:88).isActive = true
         done.heightAnchor.constraint(equalToConstant:30).isActive = true
         
         if #available(iOS 11.0, *) {
-            labelTitle.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant:20).isActive = true
-            done.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor, constant:-20).isActive = true
+            labelTitle.topAnchor.constraint(equalTo:safeAreaLayoutGuide.topAnchor, constant:20).isActive = true
+            done.bottomAnchor.constraint(equalTo:safeAreaLayoutGuide.bottomAnchor, constant:-20).isActive = true
         } else {
-            labelTitle.topAnchor.constraint(equalTo:view.topAnchor, constant:20).isActive = true
-            done.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-20).isActive = true
+            labelTitle.topAnchor.constraint(equalTo:topAnchor, constant:20).isActive = true
+            done.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-20).isActive = true
         }
         
         slider.value = Float(Skin.shared.font)
@@ -157,7 +143,12 @@ class Settings:UIViewController {
         } else {
             changeDark()
         }
+        
+        updateSkin()
+        Skin.add(self)
     }
+    
+    required init?(coder:NSCoder) { return nil }
     
     private func changeDark() {
         dark.alpha = 1
@@ -171,7 +162,7 @@ class Settings:UIViewController {
     
     @objc private func updateSkin() {
         UIView.animate(withDuration:0.5) { [weak self] in
-            self?.view.backgroundColor = Skin.shared.background
+            self?.backgroundColor = Skin.shared.background
             self?.labelTitle.textColor = Skin.shared.text
             self?.labelAppearance.textColor = Skin.shared.text
             self?.labelDark.textColor = Skin.shared.text
@@ -179,11 +170,6 @@ class Settings:UIViewController {
             self?.labelFont.textColor = Skin.shared.text
             self?.font.textColor = Skin.shared.text
         }
-    }
-    
-    @objc private func close() {
-        view.isUserInteractionEnabled = false
-        presentingViewController!.dismiss(animated:true)
     }
     
     @objc private func changeFont() {

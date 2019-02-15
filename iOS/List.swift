@@ -25,6 +25,7 @@ class List:UIScrollView {
         content.topAnchor.constraint(equalTo:topAnchor).isActive = true
         content.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         content.widthAnchor.constraint(equalTo:widthAnchor).isActive = true
+        content.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
         
         Repository.shared.list = { boards in DispatchQueue.main.async { self.render(boards) } }
         Repository.shared.select = { board in DispatchQueue.main.async {

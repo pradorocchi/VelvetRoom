@@ -94,6 +94,8 @@ class Bar:UIView {
             self.title.alpha = 0
         }) { _ in
             Canvas.shared.content.subviews.forEach { $0.removeFromSuperview() }
+            List.shared.selected = nil
+            Progress.shared.update()
         }
     }
     
@@ -101,14 +103,14 @@ class Bar:UIView {
         UIApplication.shared.keyWindow!.endEditing(true)
         App.shared.rootViewController!.present({
             $0.view.tintColor = .black
-            $0.addAction(UIAlertAction(title:.local("View.loadCamera"), style:.default) { _ in Camera() })
-            $0.addAction(UIAlertAction(title:.local("View.loadLibrary"), style:.default) { _ in Pictures() })
-            $0.addAction(UIAlertAction(title:.local("View.loadCancel"), style:.cancel))
+            $0.addAction(UIAlertAction(title:.local("Bar.loadCamera"), style:.default) { _ in Camera() })
+            $0.addAction(UIAlertAction(title:.local("Bar.loadLibrary"), style:.default) { _ in Pictures() })
+            $0.addAction(UIAlertAction(title:.local("Bar.loadCancel"), style:.cancel))
             $0.popoverPresentationController?.sourceView = self
             $0.popoverPresentationController?.sourceRect = .zero
             $0.popoverPresentationController?.permittedArrowDirections = .any
             return $0
-        } (UIAlertController(title:.local("View.loadTitle"), message:.local("View.loadMessage"),
+        } (UIAlertController(title:.local("Bar.loadTitle"), message:.local("Bar.loadMessage"),
                              preferredStyle:.actionSheet)), animated:true)
     }
     

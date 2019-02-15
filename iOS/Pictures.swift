@@ -33,7 +33,7 @@ class Pictures:Sheet, UICollectionViewDelegate, UICollectionViewDataSource, UICo
         flow.minimumInteritemSpacing = 1
         flow.sectionInset = UIEdgeInsets(top:1, left:1, bottom:40, right:1)
         let collection = UICollectionView(frame:.zero, collectionViewLayout:flow)
-        collection.backgroundColor = .black
+        collection.backgroundColor = Skin.shared.text.withAlphaComponent(0.1)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.alwaysBounceVertical = true
         collection.delegate = self

@@ -26,7 +26,7 @@ class Progress:UIView {
     required init?(coder:NSCoder) { return nil }
     
     func update() {
-        guard let items = List.shared.selected?.board.chart else { return }
+        let items = List.shared.selected?.board.chart ?? []
         while items.count < views.count { views.removeLast().removeFromSuperview() }
         while items.count > views.count {
             let view = UIView()

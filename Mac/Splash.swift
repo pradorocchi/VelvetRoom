@@ -13,10 +13,10 @@ class Splash:NSView {
         addSubview(over)
         
         let cell = CAEmitterCell()
-        cell.birthRate = 10
-        cell.lifetime = 500
-        cell.velocity = 6
-        cell.velocityRange = 6
+        cell.birthRate = 20
+        cell.lifetime = 1000
+        cell.velocity = 4
+        cell.velocityRange = 4
         cell.scaleRange = 1
         cell.alphaRange = 0.1
         cell.alphaSpeed = -0.005

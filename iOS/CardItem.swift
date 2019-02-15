@@ -8,7 +8,7 @@ class CardItem:Edit {
         super.init()
         text.font = .light(Skin.shared.font)
         text.text = card.content
-        text.onDelete = { [weak self] in
+        text.delete = { [weak self] in
             guard self?.text.text.isEmpty == false else { return }
             Delete { [weak self] in self?.confirmDelete() }
         }
