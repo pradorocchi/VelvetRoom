@@ -37,6 +37,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Scan Velvet Room QR Codes</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save Velvet Room QR Code Images</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Load Velvet Room QR Code images</string>
 	<key>UIAppFonts</key>

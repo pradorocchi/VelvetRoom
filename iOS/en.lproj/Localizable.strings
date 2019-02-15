@@ -17,7 +17,8 @@ Export.cancel="Cancel";
 Help.close="Done";
 Help.version="Velvet Room\n";
 Help.content="You can create headers and emphasise adding a #\n\n\nExample\n\n# Important\nGrab some milk on the way home.";
-
+Pictures.close="Cancel";
+Pictures.title="Select a Velvet Room QR Code";
 
 View.loadTitle="Load board";
 View.loadMessage="Scan a Velvet Room QR Code";
@@ -29,7 +30,7 @@ NewView.placeholder="Name";
 NewView.cancel="Cancel";
 NewView.create="Create";
 
-PicturesView.title="Select a Velvet Room QR Code";
+
 
 SettingsView.title="Settings";
 SettingsView.appearance="Appearance";

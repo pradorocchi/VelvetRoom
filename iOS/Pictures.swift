@@ -2,81 +2,31 @@ import UIKit
 import VelvetRoom
 import Photos
 
-class Pictures:UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,
-UICollectionViewDelegateFlowLayout {
+class Pictures:Sheet, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     private var caching:PHCachingImageManager?
     private var items:PHFetchResult<PHAsset>?
     private var size = CGSize.zero
     private let request = PHImageRequestOptions()
     private weak var collection:UICollectionView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .velvetShade
+    @discardableResult override init() {
+        super.init()
         request.resizeMode = .fast
         request.isSynchronous = false
         request.deliveryMode = .fastFormat
-        makeOutlets()
-    }
-    
-    override func viewDidAppear(_ animated:Bool) {
-        super.viewDidAppear(animated)
-        updateSize(view.bounds.width)
-        checkAuth()
-    }
-    
-    override func viewWillTransition(to size:CGSize, with coordinator:UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to:size, with:coordinator)
-        updateSize(size.width)
-        collection.collectionViewLayout.invalidateLayout()
-    }
-    
-    func collectionView(_:UICollectionView, numberOfItemsInSection:Int) -> Int { return items?.count ?? 0 }
-    
-    func collectionView(_:UICollectionView, cellForItemAt index:IndexPath) -> UICollectionViewCell {
-        let cell = collection.dequeueReusableCell(withReuseIdentifier:"picture", for:index) as! PicturesItem
-        if let request = cell.request { caching?.cancelImageRequest(request) }
-        cell.request = caching?.requestImage(for:items![(items!.count - 1) - index.item], targetSize:size,
-                                             contentMode:.aspectFill, options:request) { image, _ in
-            cell.request = nil
-            cell.image.image = image
-        }
-        return cell
-    }
-    
-    func collectionView(_:UICollectionView, didSelectItemAt index:IndexPath) {
-        view.isUserInteractionEnabled = false
-        caching?.requestImageData(for:items![(items!.count - 1) - index.item], options:request)
-        { [weak self] data, _, _, _ in
-            guard
-                let data = data,
-                let image = UIImage(data:data)
-            else { return }
-            self?.read(image)
-        }
-    }
-    
-    private func updateSize(_ width:CGFloat) {
-        let itemSize = ((width + 1) / floor((width + 1) / 100)) - 2
-        size = CGSize(width:itemSize, height:itemSize)
-        (collection.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = size
-    }
-    
-    private func makeOutlets() {
+        
         let labelTitle = UILabel()
         labelTitle.translatesAutoresizingMaskIntoConstraints = false
-        labelTitle.textColor = .white
+        labelTitle.textColor = Skin.shared.text
         labelTitle.font = .systemFont(ofSize:14, weight:.regular)
-        labelTitle.text = .local("PicturesView.title")
-        view.addSubview(labelTitle)
+        labelTitle.text = .local("Pictures.title")
+        addSubview(labelTitle)
         
-        let close = UIButton()
-        close.translatesAutoresizingMaskIntoConstraints = false
-        close.setImage(#imageLiteral(resourceName: "delete.pdf"), for:[])
-        close.imageView!.contentMode = .center
-        close.imageView!.clipsToBounds = true
-        close.addTarget(self, action:#selector(self.close), for:.touchUpInside)
-        view.addSubview(close)
+        let close = Link(.local("Pictures.close"), target:self, selector:#selector(self.close))
+        close.backgroundColor = .clear
+        close.setTitleColor(Skin.shared.text.withAlphaComponent(0.6), for:.normal)
+        close.setTitleColor(Skin.shared.text.withAlphaComponent(0.15), for:.highlighted)
+        addSubview(close)
         
         let flow = UICollectionViewFlowLayout()
         flow.minimumLineSpacing = 1
@@ -89,26 +39,70 @@ UICollectionViewDelegateFlowLayout {
         collection.delegate = self
         collection.dataSource = self
         collection.register(PicturesItem.self, forCellWithReuseIdentifier:"picture")
-        view.addSubview(collection)
+        addSubview(collection)
         self.collection = collection
         
         labelTitle.centerYAnchor.constraint(equalTo:close.centerYAnchor).isActive = true
         labelTitle.leftAnchor.constraint(equalTo:close.rightAnchor).isActive = true
         
-        close.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        close.widthAnchor.constraint(equalToConstant:50).isActive = true
-        close.heightAnchor.constraint(equalToConstant:50).isActive = true
+        close.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         
-        collection.topAnchor.constraint(equalTo:close.bottomAnchor).isActive = true
-        collection.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        collection.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
-        collection.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
+        collection.topAnchor.constraint(equalTo:close.bottomAnchor, constant:20).isActive = true
+        collection.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
+        collection.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
+        collection.bottomAnchor.constraint(equalTo:bottomAnchor).isActive = true
         
         if #available(iOS 11.0, *) {
-            close.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor).isActive = true
+            close.topAnchor.constraint(equalTo:safeAreaLayoutGuide.topAnchor, constant:20).isActive = true
         } else {
-            close.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
+            close.topAnchor.constraint(equalTo:topAnchor, constant:20).isActive = true
         }
+    }
+    
+    required init?(coder:NSCoder) { return nil }
+    
+    override func layoutSubviews() {
+        DispatchQueue.main.async {
+            self.updateSize()
+            self.collection.collectionViewLayout.invalidateLayout()
+        }
+        super.layoutSubviews()
+    }
+    
+    override func ready() {
+        updateSize()
+        checkAuth()
+    }
+    
+    func collectionView(_:UICollectionView, numberOfItemsInSection:Int) -> Int { return items?.count ?? 0 }
+    
+    func collectionView(_:UICollectionView, cellForItemAt:IndexPath) -> UICollectionViewCell {
+        let cell = collection.dequeueReusableCell(withReuseIdentifier:"picture", for:cellForItemAt) as! PicturesItem
+        if let request = cell.request { caching?.cancelImageRequest(request) }
+        cell.request = caching?.requestImage(for:items![(items!.count - 1) - cellForItemAt.item], targetSize:size,
+                                             contentMode:.aspectFill, options:request) { image, _ in
+            cell.request = nil
+            cell.image.image = image
+        }
+        return cell
+    }
+    
+    func collectionView(_:UICollectionView, didSelectItemAt:IndexPath) {
+        isUserInteractionEnabled = false
+        caching?.requestImageData(for:items![(items!.count - 1) - didSelectItemAt.item], options:request)
+        { [weak self] data, _, _, _ in
+            guard
+                let data = data,
+                let image = UIImage(data:data)
+            else { return }
+            self?.read(image)
+        }
+    }
+    
+    private func updateSize() {
+        let itemSize = ((bounds.width + 1) / floor((bounds.width + 1) / 100)) - 2
+        size = CGSize(width:itemSize, height:itemSize)
+        (collection.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = size
     }
     
     private func read(_ image:UIImage) {
@@ -146,9 +140,8 @@ UICollectionViewDelegateFlowLayout {
         DispatchQueue.main.async { [weak self] in self?.collection.reloadData() }
     }
     
-    @objc private func close() {
+    override func close() {
         caching?.stopCachingImagesForAllAssets()
-        view.isUserInteractionEnabled = false
-        presentingViewController!.dismiss(animated:true)
+        super.close()
     }
 }
