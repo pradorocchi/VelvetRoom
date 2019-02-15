@@ -71,9 +71,9 @@ class Search:UIView, UITextViewDelegate {
                 frame.size.width += 20
                 highlighter!.frame = frame
                 frame.origin.x -= (App.shared.frame.width - frame.size.width) / 2
-                frame.origin.y -= App.shared.frame.midY
+                frame.origin.y -= (Canvas.shared.bounds.height - 20) / 2
                 frame.size.width = App.shared.frame.width
-                frame.size.height = App.shared.frame.height
+                frame.size.height = Canvas.shared.bounds.height - 20
                 Canvas.shared.scrollRectToVisible(frame, animated:true)
                 break
             }
@@ -85,6 +85,7 @@ class Search:UIView, UITextViewDelegate {
         bottom.constant = 120 + App.shared.margin.top
         text.isEditable = true
         UIView.animate(withDuration:0.4, animations: {
+            self.alpha = 1
             self.superview!.layoutIfNeeded()
         }) { _ in
             self.text.becomeFirstResponder()
@@ -96,6 +97,7 @@ class Search:UIView, UITextViewDelegate {
         text.isEditable = false
         UIView.animate(withDuration:0.6, animations: {
             self.highlighter?.alpha = 0
+            self.alpha = 0
             self.superview!.layoutIfNeeded()
         }) { _ in
             self.highlighter?.removeFromSuperview()
