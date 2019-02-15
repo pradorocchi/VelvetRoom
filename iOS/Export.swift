@@ -1,28 +1,60 @@
 import UIKit
 import VelvetRoom
 
-class Export:UIViewController {
-    private weak var board:Board!
+class Export:Sheet {
     private weak var imageView:UIImageView!
+    private let board:Board
     
-    init(_ board:Board) {
-        super.init(nibName:nil, bundle:nil)
+    @discardableResult init(_ board:Board) {
         self.board = board
+        super.init()
+        let labelTitle = UILabel()
+        labelTitle.translatesAutoresizingMaskIntoConstraints = false
+        labelTitle.numberOfLines = 2
+        labelTitle.text = board.name
+        labelTitle.textColor = Skin.shared.text
+        labelTitle.textAlignment = .center
+        labelTitle.font = .bold(18)
+        addSubview(labelTitle)
+        
+        let cancel = Link(.local("Export.cancel"), target:self, selector:#selector(close))
+        cancel.backgroundColor = .clear
+        cancel.setTitleColor(Skin.shared.text.withAlphaComponent(0.6), for:.normal)
+        cancel.setTitleColor(Skin.shared.text.withAlphaComponent(0.15), for:.highlighted)
+        addSubview(cancel)
+        
+        let share = Link(.local("Export.share"), target:self, selector:#selector(self.share))
+        addSubview(share)
+        
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 4
+        imageView.clipsToBounds = true
+        imageView.alpha = 0
+        addSubview(imageView)
+        self.imageView = imageView
+        
+        share.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        share.topAnchor.constraint(equalTo:imageView.bottomAnchor, constant:20).isActive = true
+        
+        labelTitle.bottomAnchor.constraint(equalTo:imageView.topAnchor, constant:-20).isActive = true
+        labelTitle.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        
+        imageView.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        imageView.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant:180).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant:180).isActive = true
+        
+        cancel.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        cancel.topAnchor.constraint(equalTo:share.bottomAnchor, constant:20).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .black
-        makeOutlets()
-    }
-    
-    override func viewDidAppear(_ animated:Bool) {
-        super.viewDidAppear(animated)
-        DispatchQueue.global(qos:.background).async { [weak self] in
-            guard let board = self?.board else { return }
-            let cgImage = Sharer.export(board)
+    override func ready() {
+        DispatchQueue.global(qos:.background).async {
+            let cgImage = Sharer.export(self.board)
             let image = UIImage(cgImage:cgImage)
             DispatchQueue.main.async { [weak self] in
                 self?.imageView.image = image
@@ -33,98 +65,15 @@ class Export:UIViewController {
         }
     }
     
-    private func makeOutlets() {
-        let mutable = NSMutableAttributedString()
-        mutable.append(NSAttributedString(string:.local("ExportView.title"), attributes:
-            [.font:UIFont.systemFont(ofSize:18, weight:.medium), .foregroundColor:UIColor.velvetBlue]))
-        mutable.append(NSAttributedString(string:board.name, attributes:
-            [.font:UIFont.systemFont(ofSize:18, weight:.medium), .foregroundColor:UIColor.white]))
-        
-        let labelTitle = UILabel()
-        labelTitle.translatesAutoresizingMaskIntoConstraints = false
-        labelTitle.numberOfLines = 2
-        labelTitle.attributedText = mutable
-        view.addSubview(labelTitle)
-        
-        let close = UIButton()
-        close.translatesAutoresizingMaskIntoConstraints = false
-        close.setImage(#imageLiteral(resourceName: "delete.pdf"), for:[])
-        close.imageView!.contentMode = .center
-        close.imageView!.clipsToBounds = true
-        close.addTarget(self, action:#selector(self.close), for:.touchUpInside)
-        view.addSubview(close)
-        
-        let back = UIControl()
-        back.translatesAutoresizingMaskIntoConstraints = false
-        back.addTarget(self, action:#selector(self.close), for:.touchUpInside)
-        view.addSubview(back)
-        
-        let share = UIButton()
-        share.layer.cornerRadius = 4
-        share.backgroundColor = .velvetBlue
-        share.translatesAutoresizingMaskIntoConstraints = false
-        share.addTarget(self, action:#selector(self.share(_:)), for:.touchUpInside)
-        share.setTitle(.local("ExportView.share"), for:[])
-        share.setTitleColor(.black, for:.normal)
-        share.setTitleColor(UIColor(white:0, alpha:0.2), for:.highlighted)
-        share.titleLabel!.font = .systemFont(ofSize:15, weight:.medium)
-        view.addSubview(share)
-        
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 4
-        imageView.clipsToBounds = true
-        imageView.alpha = 0
-        view.addSubview(imageView)
-        self.imageView = imageView
-        
-        back.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        back.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
-        back.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        back.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
-        
-        share.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
-        share.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-60).isActive = true
-        share.widthAnchor.constraint(equalToConstant:88).isActive = true
-        share.heightAnchor.constraint(equalToConstant:30).isActive = true
-        
-        labelTitle.topAnchor.constraint(equalTo:close.topAnchor, constant:12).isActive = true
-        labelTitle.leftAnchor.constraint(equalTo:close.rightAnchor).isActive = true
-        
-        imageView.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
-        imageView.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant:180).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant:180).isActive = true
-        
-        close.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        close.widthAnchor.constraint(equalToConstant:50).isActive = true
-        close.heightAnchor.constraint(equalToConstant:50).isActive = true
-        
-        if #available(iOS 11.0, *) {
-            close.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor).isActive = true
-        } else {
-            close.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        }
-    }
-    
-    @objc private func close() {
-        view.isUserInteractionEnabled = false
-        presentingViewController!.dismiss(animated:true)
-    }
-    
-    @objc private func share(_ button:UIButton) {
+    @objc private func share() {
         let url = URL(fileURLWithPath:NSTemporaryDirectory()).appendingPathComponent("\(board.name).png")
         saveTo(url)
         let view = UIActivityViewController(activityItems:[url], applicationActivities:nil)
-        if let popover = view.popoverPresentationController {
-            popover.sourceView = button
-            popover.sourceRect = .zero
-            popover.permittedArrowDirections = .any
-        }
-        presentingViewController!.dismiss(animated:true) {
-//            Application.view.present(view, animated:true)
-        }
+        view.popoverPresentationController?.sourceView = self
+        view.popoverPresentationController?.sourceRect = .zero
+        view.popoverPresentationController?.permittedArrowDirections = .any
+        App.shared.rootViewController!.present(view, animated:true)
+        close()
     }
     
     private func saveTo(_ url:URL) {

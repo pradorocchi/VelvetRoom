@@ -77,6 +77,7 @@ class BoardItem:UIControl, UITextViewDelegate {
         export.rightAnchor.constraint(equalTo:delete.leftAnchor).isActive = true
         export.widthAnchor.constraint(equalToConstant:54).isActive = true
         
+        updateSkin()
         Skin.add(self)
     }
     
@@ -121,7 +122,6 @@ class BoardItem:UIControl, UITextViewDelegate {
     }
     
     @objc private func remove() {
-        UIApplication.shared.keyWindow!.endEditing(true)
         Delete {
             DispatchQueue.global(qos:.background).async { [weak self] in
                 guard let board = self?.board else { return }
@@ -130,10 +130,7 @@ class BoardItem:UIControl, UITextViewDelegate {
         }
     }
     
-    @objc private func send() {
-        UIApplication.shared.keyWindow!.endEditing(true)
-        Export(board)
-    }
+    @objc private func send() { Export(board) }
     
     @objc private func longpressed(_ gesture:UILongPressGestureRecognizer) {
         guard

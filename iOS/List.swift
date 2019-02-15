@@ -53,7 +53,6 @@ class List:UIScrollView {
         }
         Bar.shared.list()
         content.subviews.forEach { $0.removeFromSuperview() }
-        scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:true)
         var top = content.topAnchor
         boards.enumerated().forEach {
             let item = BoardItem($0.element)
@@ -70,6 +69,7 @@ class List:UIScrollView {
             content.bottomAnchor.constraint(equalTo:top, constant:50 + App.shared.margin.bottom).isActive = true
         }
         content.layoutIfNeeded()
+        scrollRectToVisible(CGRect(x:0, y:0, width:1, height:1), animated:true)
     }
     
     @objc private func select(item:BoardItem) {

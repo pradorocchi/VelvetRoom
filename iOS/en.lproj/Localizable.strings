@@ -10,6 +10,13 @@ Boarder.triple="3 initial columns";
 Text.done="Done";
 Camera.title="Scan a Velvet Room QR Code";
 Chart.done="Close";
+Delete.delete="Delete";
+Delete.cancel="Cancel";
+Export.share="Share";
+Export.cancel="Cancel";
+Help.close="Done";
+Help.version="Velvet Room\n";
+Help.content="You can create headers and emphasise adding a #\n\n\nExample\n\n# Important\nGrab some milk on the way home.";
 
 
 View.loadTitle="Load board";
@@ -21,20 +28,16 @@ NewView.title="New board";
 NewView.placeholder="Name";
 NewView.cancel="Cancel";
 NewView.create="Create";
-DeleteView.delete="Delete";
-DeleteView.cancel="Cancel";
+
 PicturesView.title="Select a Velvet Room QR Code";
-ExportView.share="Share";
-ExportView.title="Export\n";
+
 SettingsView.title="Settings";
 SettingsView.appearance="Appearance";
 SettingsView.dark="Dark";
 SettingsView.light="Light";
 SettingsView.font="Font";
 SettingsView.done="Done";
-HelpView.title="Velvet Room";
-HelpView.version="Version ";
-HelpView.content="You can create headers and emphasise adding a #\n\n\nExample\n\n# Important\nGrab some milk on the way home.";
+
 Alert.unknown="An unknown error ocurred.";
 Alert.noIcloudToken="Unable to connect to iCloud.\nMake sure your iCloud account is setup and iCloud Drive is enabled.";
 Alert.unableToSaveToIcloud="Unable to save to iCloud.\nMake sure your iCloud account is setup and iCloud Drive is enabled.";
