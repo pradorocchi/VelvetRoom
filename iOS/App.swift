@@ -85,7 +85,7 @@ import VelvetRoom
         canvas.rightAnchor.constraint(equalTo:list.leftAnchor).isActive = true
         canvas.widthAnchor.constraint(equalTo:rootViewController!.view.widthAnchor).isActive = true
         
-        progress.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor, constant:-10).isActive = true
+        progress.bottomAnchor.constraint(equalTo:rootViewController!.view.bottomAnchor, constant:-15).isActive = true
         progress.leftAnchor.constraint(equalTo:rootViewController!.view.leftAnchor, constant:5).isActive = true
         progress.rightAnchor.constraint(equalTo:rootViewController!.view.rightAnchor, constant:-5).isActive = true
         
