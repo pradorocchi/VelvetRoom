@@ -26,7 +26,6 @@ class Camera:Sheet, AVCaptureMetadataOutputObjectsDelegate {
         let display = UIView()
         display.isUserInteractionEnabled = false
         display.translatesAutoresizingMaskIntoConstraints = false
-        display.backgroundColor = .black
         addSubview(display)
         self.display = display
         

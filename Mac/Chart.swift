@@ -7,14 +7,14 @@ class Chart:Sheet {
     private var chartAngle = CGFloat(0)
     private var namesRadius = CGFloat(0)
     
-    @discardableResult init(_ board:Board) {
+    @discardableResult override init() {
         super.init()
-        let title = Label(board.name, font:.systemFont(ofSize:20, weight:.bold))
+        let title = Label(List.shared.selected.board.name, font:.systemFont(ofSize:20, weight:.bold))
         title.alignment = .center
         title.alphaValue = 0
         addSubview(title)
         
-        display(board.chart)
+        render()
         
         let done = Button(.local("Chart.done"))
         done.target = self
@@ -42,7 +42,7 @@ class Chart:Sheet {
     
     required init?(coder:NSCoder) { return nil }
     
-    private func display(_ items:[(String, Float)]) {
+    private func render() {
         let names = NSView()
         names.translatesAutoresizingMaskIntoConstraints = false
         names.wantsLayer = true
@@ -67,6 +67,7 @@ class Chart:Sheet {
         } (CAShapeLayer())
         addSubview(chart)
         
+        let items = List.shared.selected.board.chart
         var angle = CGFloat()
         items.enumerated().forEach {
             let delta = .pi * -2 * CGFloat($0.element.1)

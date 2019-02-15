@@ -8,6 +8,7 @@ Boarder.single="1 initial column";
 Boarder.double="2 initial columns";
 Boarder.triple="3 initial columns";
 Text.done="Done";
+Camera.title="Scan a Velvet Room QR Code";
 
 
 View.loadTitle="Load board";
@@ -22,7 +23,6 @@ NewView.create="Create";
 DeleteView.delete="Delete";
 DeleteView.cancel="Cancel";
 ChartView.done="Close";
-CameraView.title="Scan Velvet Room QR Code";
 PicturesView.title="Select a Velvet Room QR Code";
 ExportView.share="Share";
 ExportView.title="Export\n";

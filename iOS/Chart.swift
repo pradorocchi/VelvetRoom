@@ -1,77 +1,44 @@
 import UIKit
 import VelvetRoom
 
-class Chart:UIViewController {
-    private weak var chart:UIView!
-    
-    init() {
-        super.init(nibName:nil, bundle:nil)
-        modalTransitionStyle = .crossDissolve
-    }
-    
-    required init?(coder:NSCoder) { return nil }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .black
-        makeOutlets()
-    }
-    
-    private func makeOutlets() {
-        let back = UIControl()
-        back.translatesAutoresizingMaskIntoConstraints = false
-        back.addTarget(self, action:#selector(self.done), for:.touchUpInside)
-        view.addSubview(back)
-        
+class Chart:Sheet {
+    @discardableResult override init() {
+        super.init()
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.textColor = .white
+        title.textColor = Skin.shared.text
         title.font = .bold(20)
         title.text = List.shared.selected.board.name
-        view.addSubview(title)
+        addSubview(title)
         
         let chart = UIView()
         chart.translatesAutoresizingMaskIntoConstraints = false
         chart.isUserInteractionEnabled = false
-        view.addSubview(chart)
-        self.chart = chart
+        addSubview(chart)
         
-        let done = UIButton()
-        done.layer.cornerRadius = 4
-        done.backgroundColor = .velvetBlue
-        done.addTarget(self, action:#selector(self.done), for:.touchUpInside)
-        done.translatesAutoresizingMaskIntoConstraints = false
-        done.setTitle(.local("ChartView.done"), for:[])
-        done.setTitleColor(.black, for:.normal)
-        done.setTitleColor(UIColor(white:0, alpha:0.2), for:.highlighted)
-        done.titleLabel!.font = .systemFont(ofSize:15, weight:.medium)
-        view.addSubview(done)
+        let done = Link(.local("Chart.done"), target:self, selector:#selector(close))
+        addSubview(done)
         
-        title.leftAnchor.constraint(equalTo:view.leftAnchor, constant:30).isActive = true
+        title.leftAnchor.constraint(equalTo:leftAnchor, constant:30).isActive = true
         title.heightAnchor.constraint(equalToConstant:30).isActive = true
         
-        back.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        back.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
-        back.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        back.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
-        
-        chart.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
-        chart.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
+        chart.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        chart.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         chart.widthAnchor.constraint(equalToConstant:300).isActive = true
         chart.heightAnchor.constraint(equalToConstant:300).isActive = true
         
-        done.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
-        done.widthAnchor.constraint(equalToConstant:88).isActive = true
-        done.heightAnchor.constraint(equalToConstant:30).isActive = true
+        done.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         
         if #available(iOS 11.0, *) {
-            title.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant:10).isActive = true
-            done.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor, constant:-20).isActive = true
+            title.topAnchor.constraint(equalTo:safeAreaLayoutGuide.topAnchor, constant:10).isActive = true
+            done.bottomAnchor.constraint(equalTo:safeAreaLayoutGuide.bottomAnchor, constant:-20).isActive = true
         } else {
-            title.topAnchor.constraint(equalTo:view.topAnchor, constant:10).isActive = true
-            done.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant:-20).isActive = true
+            title.topAnchor.constraint(equalTo:topAnchor, constant:10).isActive = true
+            done.bottomAnchor.constraint(equalTo:bottomAnchor, constant:-20).isActive = true
         }
     }
+    
+    required init?(coder:NSCoder) { return nil }
     
     private func display() {/*
         var angle = CGFloat()
@@ -113,7 +80,7 @@ class Chart:UIViewController {
     }
     
     private func caption(_ name:String, percent:Float, point:CGPoint) {
-        let mutable = NSMutableAttributedString()
+        /*let mutable = NSMutableAttributedString()
         mutable.append(NSAttributedString(
             string:name, attributes:[.font:UIFont.systemFont(ofSize:12, weight:.medium)]))
         mutable.append(NSAttributedString(
@@ -137,8 +104,6 @@ class Chart:UIViewController {
             label.leftAnchor.constraint(equalTo:chart.leftAnchor, constant:point.x).isActive = true
         } else {
             label.rightAnchor.constraint(equalTo:chart.leftAnchor, constant:point.x).isActive = true
-        }
+        }*/
     }
-    
-    @objc private func done() { presentingViewController!.dismiss(animated:true) }
 }
