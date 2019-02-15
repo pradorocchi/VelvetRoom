@@ -2,7 +2,7 @@ import AppKit
 import VelvetRoom
 
 class Chart:Sheet {
-    private weak var chart:CAShapeLayer!
+    private weak var masking:CAShapeLayer!
     private var angle = CGFloat()
     
     @discardableResult override init() {
@@ -49,7 +49,7 @@ class Chart:Sheet {
             $0.lineWidth = 35
             $0.strokeColor = NSColor.black.cgColor
             $0.fillColor = NSColor.clear.cgColor
-            self.chart = $0
+            masking = $0
             return $0
         } (CAShapeLayer())
         addSubview(chart)
@@ -61,7 +61,8 @@ class Chart:Sheet {
                 $2.frame = chart.layer!.frame
                 $2.path = {
                     $1.move(to:CGPoint(x:450, y:450))
-                    $1.addArc(center:CGPoint(x:450, y:450), radius:130, startAngle:$0.1, endAngle:radius, clockwise:true)
+                    $1.addArc(
+                        center:CGPoint(x:450, y:450), radius:126, startAngle:$0.1, endAngle:radius, clockwise:true)
                     $1.closeSubpath()
                     return $1
                 } ($0, CGMutablePath())
@@ -75,7 +76,7 @@ class Chart:Sheet {
                 $3.path = {
                     $1.move(to:CGPoint(x:450, y:450))
                     $2.move(to:CGPoint(x:450, y:450))
-                    $1.addArc(center:CGPoint(x:450, y:450), radius:130, startAngle:$0.1 + (delta / 2),
+                    $1.addArc(center:CGPoint(x:450, y:450), radius:126, startAngle:$0.1 + (delta / 2),
                               endAngle:$0.1 + (delta / 2), clockwise:true)
                     $2.addArc(center:CGPoint(x:450, y:450), radius:170, startAngle:$0.1 + (delta / 2),
                               endAngle:$0.1 + (delta / 2), clockwise:true)
@@ -119,27 +120,27 @@ class Chart:Sheet {
         
         chart.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
         chart.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
-        chart.widthAnchor.constraint(equalToConstant:900).isActive = true
-        chart.heightAnchor.constraint(equalToConstant:900).isActive = true
+        chart.widthAnchor.constraint(equalToConstant:masking.frame.width).isActive = true
+        chart.heightAnchor.constraint(equalToConstant:masking.frame.height).isActive = true
     }
     
     @objc private func animate(_ timer:Timer) {
         angle = max(angle - 0.05, .pi * -2)
-        chart.path = { $0.addArc(center:CGPoint(x:450, y:450), radius:109, startAngle:0,
+        masking.path = { $0.addArc(center:CGPoint(x:450, y:450), radius:109, startAngle:0,
                                  endAngle:angle, clockwise:true); return $0 } (CGMutablePath())
         if angle == .pi * -2 {
             timer.invalidate()
-            chart.add({
+            masking.add({
                 $0.animations = [{
-                    $0.fromValue = chart.path
-                    chart.path = { $0.addArc(center:CGPoint(x:450, y:450), radius:450, startAngle:0, endAngle:.pi * -2,
-                                             clockwise:true); return $0 } (CGMutablePath())
-                    $0.toValue = chart.path
+                    $0.fromValue = masking.path
+                    masking.path = { $0.addArc(center:CGPoint(x:450, y:450), radius:450, startAngle:0,
+                                               endAngle:.pi * -2, clockwise:true); return $0 } (CGMutablePath())
+                    $0.toValue = masking.path
                     return $0
                 } (CABasicAnimation(keyPath:"path")), {
-                    $0.fromValue = chart.lineWidth
-                    chart.lineWidth = 716
-                    $0.toValue = chart.lineWidth
+                    $0.fromValue = masking.lineWidth
+                    masking.lineWidth = 716
+                    $0.toValue = masking.lineWidth
                     return $0
                 } (CABasicAnimation(keyPath:"lineWidth"))]
                 $0.duration = 3
