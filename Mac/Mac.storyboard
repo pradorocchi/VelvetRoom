@@ -284,7 +284,6 @@
                         </connections>
                     </menu>
                 </application>
-                <customObject id="Voe-Tx-rLC"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
@@ -447,7 +446,7 @@
     </scenes>
     <resources>
         <image name="chart" width="24" height="18"/>
-        <image name="delete" width="24" height="24"/>
+        <image name="delete" width="24" height="18"/>
         <image name="export" width="24" height="18"/>
         <image name="import" width="24" height="18"/>
         <image name="listOff" width="24" height="18"/>
