@@ -10,14 +10,7 @@ class PicturesItem:UICollectionViewCell {
         backgroundColor = .white
         clipsToBounds = true
         makeOutlets()
-    }
-    
-    required init?(coder:NSCoder) { return nil }
-    override var isSelected:Bool { didSet { update() } }
-    override var isHighlighted:Bool { didSet { update() } }
-    private func update() { image.alpha = isSelected || isHighlighted ? 0.15 : 1 }
-    
-    private func makeOutlets() {
+        
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.clipsToBounds = true
@@ -30,4 +23,9 @@ class PicturesItem:UICollectionViewCell {
         image.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
         image.rightAnchor.constraint(equalTo:rightAnchor).isActive = true
     }
+    
+    required init?(coder:NSCoder) { return nil }
+    override var isSelected:Bool { didSet { update() } }
+    override var isHighlighted:Bool { didSet { update() } }
+    private func update() { image.alpha = isSelected || isHighlighted ? 0.15 : 1 }
 }
