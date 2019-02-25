@@ -61,11 +61,12 @@ class CardItem:Edit {
     }
     
     private func confirmDelete() {
+        guard let board = List.shared.selected.board else { return }
         detach()
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let card = self?.card else { return }
-            Repository.shared.delete(card, board:List.shared.selected.board)
-            Repository.shared.scheduleUpdate(List.shared.selected.board)
+            Repository.shared.delete(card, board:board)
+            Repository.shared.scheduleUpdate(board)
             DispatchQueue.main.async { [weak self] in
                 Progress.shared.update()
                 self?.removeFromSuperview()

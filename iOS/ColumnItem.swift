@@ -86,6 +86,7 @@ class ColumnItem:Edit {
     }
     
     private func confirmDelete() {
+        guard let board = List.shared.selected.board else { return }
         detach()
         var child = self.child
         while child != nil {
@@ -94,8 +95,8 @@ class ColumnItem:Edit {
         }
         DispatchQueue.global(qos:.background).async { [weak self] in
             guard let column = self?.column else { return }
-            Repository.shared.delete(column, board:List.shared.selected.board)
-            Repository.shared.scheduleUpdate(List.shared.selected.board)
+            Repository.shared.delete(column, board:board)
+            Repository.shared.scheduleUpdate(board)
             DispatchQueue.main.async { [weak self] in
                 Progress.shared.update()
                 self?.removeFromSuperview()
