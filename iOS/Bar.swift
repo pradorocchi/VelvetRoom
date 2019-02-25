@@ -89,12 +89,12 @@ class Bar:UIView {
         chartLeft.constant = 0
         List.shared.closed.isActive = false
         List.shared.open.isActive = true
+        List.shared.selected = nil
         UIView.animate(withDuration:0.4, animations: {
             App.shared.rootViewController!.view.layoutIfNeeded()
             self.title.alpha = 0
         }) { _ in
             Canvas.shared.content.subviews.forEach { $0.removeFromSuperview() }
-            List.shared.selected = nil
             Progress.shared.update()
         }
     }
