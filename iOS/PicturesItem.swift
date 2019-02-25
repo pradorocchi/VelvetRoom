@@ -9,7 +9,6 @@ class PicturesItem:UICollectionViewCell {
         super.init(frame:frame)
         backgroundColor = .white
         clipsToBounds = true
-        makeOutlets()
         
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
