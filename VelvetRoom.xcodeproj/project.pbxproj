@@ -872,7 +872,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
 			mainGroup = DAB2702421C3C394008F184E;
 			productRefGroup = DAB2702421C3C394008F184E;
