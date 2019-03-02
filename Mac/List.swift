@@ -74,8 +74,7 @@ class List:NSScrollView {
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.5
             context.allowsImplicitAnimation = true
-            contentView.scrollToVisible(CGRect(x:0, y:
-                -documentView!.frame.height + item.frame.midY + (frame.height / 2), width:1, height:frame.height))
+            contentView.scrollToVisible(CGRect(x: 0, y: item.frame.midY - (frame.height / 2), width: 1, height: frame.height))
         }, completionHandler:nil)
     }
 }
