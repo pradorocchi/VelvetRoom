@@ -6,7 +6,6 @@ class List:NSScrollView {
     weak var left:NSLayoutConstraint! { didSet { left.isActive = true } }
     weak var selected:BoardItem! { didSet { oldValue?.updateSkin(); selected?.updateSkin() } }
     private weak var bottom:NSLayoutConstraint? { willSet { bottom?.isActive = false; newValue?.isActive = true } }
-    private(set) var visible = false
     
     private init() {
         super.init(frame:.zero)
@@ -26,13 +25,10 @@ class List:NSScrollView {
     required init?(coder:NSCoder) { return nil }
     
     @objc func toggle() {
-        visible.toggle()
-        if visible {
-            Toolbar.shared.list.state = .on
+        if Toolbar.shared.list.state == .on {
             left.constant = 0
             Menu.shared.list.title = .local("List.hide")
         } else {
-            Toolbar.shared.list.state = .on
             left.constant = -280
             Menu.shared.list.title = .local("List.show")
         }

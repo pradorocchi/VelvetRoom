@@ -14,8 +14,8 @@ class Menu:NSMenu {
     override func awakeFromNib() {
         super.awakeFromNib()
         Menu.shared = self
-        list.target = List.shared
-        list.action = #selector(List.shared.toggle)
+        list.target = self
+        list.action = #selector(toggle)
         find.target = Search.shared
         find.action = #selector(Search.shared.active)
         board.target = Window.shared
@@ -31,5 +31,10 @@ class Menu:NSMenu {
         find.isEnabled = enabled && extended
         column.isEnabled = enabled && extended
         card.isEnabled = enabled && extended
+    }
+    
+    @objc private func toggle() {
+        Toolbar.shared.list.state = Toolbar.shared.list.state == .on ? .off : .on
+        List.shared.toggle()
     }
 }
