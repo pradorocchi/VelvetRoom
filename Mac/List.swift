@@ -11,7 +11,7 @@ class List:NSScrollView {
         super.init(frame:.zero)
         drawsBackground = false
         translatesAutoresizingMaskIntoConstraints = false
-        documentView = NSView()
+        documentView = Flipped()
         documentView!.translatesAutoresizingMaskIntoConstraints = false
         documentView!.topAnchor.constraint(equalTo:topAnchor).isActive = true
         documentView!.leftAnchor.constraint(equalTo:leftAnchor).isActive = true
@@ -79,3 +79,5 @@ class List:NSScrollView {
         }, completionHandler:nil)
     }
 }
+
+private class Flipped: NSView { override var isFlipped: Bool { return true } }
