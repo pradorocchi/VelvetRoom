@@ -3,6 +3,7 @@ import VelvetRoom
 
 class Export:Sheet {
     private weak var imageView:UIImageView!
+    private weak var buttonShare: Link!
     private let board:Board
     
     @discardableResult init(_ board:Board) {
@@ -23,8 +24,11 @@ class Export:Sheet {
         cancel.setTitleColor(Skin.shared.text.withAlphaComponent(0.15), for:.highlighted)
         addSubview(cancel)
         
-        let share = Link(.local("Export.share"), target:self, selector:#selector(self.share))
-        addSubview(share)
+        let buttonShare = Link(.local("Export.share"), target:self, selector:#selector(share))
+        buttonShare.isEnabled = false
+        buttonShare.alpha = 0.2
+        addSubview(buttonShare)
+        self.buttonShare = buttonShare
         
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -35,8 +39,8 @@ class Export:Sheet {
         addSubview(imageView)
         self.imageView = imageView
         
-        share.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
-        share.topAnchor.constraint(equalTo:imageView.bottomAnchor, constant:20).isActive = true
+        buttonShare.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
+        buttonShare.topAnchor.constraint(equalTo:imageView.bottomAnchor, constant:20).isActive = true
         
         labelTitle.bottomAnchor.constraint(equalTo:imageView.topAnchor, constant:-20).isActive = true
         labelTitle.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
@@ -47,7 +51,7 @@ class Export:Sheet {
         imageView.heightAnchor.constraint(equalToConstant:180).isActive = true
         
         cancel.centerXAnchor.constraint(equalTo:centerXAnchor).isActive = true
-        cancel.topAnchor.constraint(equalTo:share.bottomAnchor, constant:20).isActive = true
+        cancel.topAnchor.constraint(equalTo:buttonShare.bottomAnchor, constant:20).isActive = true
     }
     
     required init?(coder:NSCoder) { return nil }
@@ -58,8 +62,11 @@ class Export:Sheet {
             let image = UIImage(cgImage:cgImage)
             DispatchQueue.main.async { [weak self] in
                 self?.imageView.image = image
-                UIView.animate(withDuration:0.5) { [weak self] in
+                UIView.animate(withDuration: 0.5, animations: { [weak self] in
                     self?.imageView.alpha = 1
+                    self?.buttonShare.alpha = 1
+                }) { [weak self] _ in
+                    self?.buttonShare.isEnabled = true
                 }
             }
         }
