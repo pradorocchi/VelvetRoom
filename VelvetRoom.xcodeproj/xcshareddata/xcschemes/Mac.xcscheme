@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -17,34 +17,6 @@
                BlueprintIdentifier = "DAB2705621C3C45E008F184E"
                BuildableName = "Velvet Room.app"
                BlueprintName = "Mac"
-               ReferencedContainer = "container:VelvetRoom.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DAB2702E21C3C3B4008F184E"
-               BuildableName = "libVelvetRoom.a"
-               BlueprintName = "Macengine"
-               ReferencedContainer = "container:VelvetRoom.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "206116F321FC97D3007A2C84"
-               BuildableName = "Widget.appex"
-               BlueprintName = "MacWidget"
                ReferencedContainer = "container:VelvetRoom.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -68,17 +40,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DAB2705621C3C45E008F184E"
-            BuildableName = "Velvet Room.app"
-            BlueprintName = "Mac"
-            ReferencedContainer = "container:VelvetRoom.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -100,8 +61,6 @@
             ReferencedContainer = "container:VelvetRoom.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -125,7 +84,6 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
-      customArchiveName = "Velvet Room"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

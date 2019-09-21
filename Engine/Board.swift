@@ -9,8 +9,9 @@ public class Board:Clean, Codable {
     public internal(set) var cards = [Card]()
 
     public var chart:[(String, Float)] {
-        return cards.reduce(into:columns.map( { ($0.name, 0) } ), {
+        let reduced = cards.reduce(into: columns.map { ($0.name, 0) }, {
             $0[$1.column].1 += 1
-        }).compactMap { $0.1 > 0 ? ($0.0, Float($0.1) / Float(cards.count)) : nil }
+        })
+        return reduced.compactMap { $0.1 > 0 ? ($0.0, Float($0.1) / Float(cards.count)) : nil }
     }
 }

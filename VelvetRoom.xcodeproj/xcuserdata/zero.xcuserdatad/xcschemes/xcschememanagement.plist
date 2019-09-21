@@ -4,12 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>MacOS.xcscheme</key>
+		<key>Mac.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>iOS.xcscheme</key>
+		<key>iOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
@@ -17,6 +17,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>206116F321FC97D3007A2C84</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>20DBB0A721EB5CF8009B9AAA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>DAB2702E21C3C3B4008F184E</key>
 		<dict>
 			<key>primary</key>
