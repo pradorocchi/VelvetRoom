@@ -264,7 +264,7 @@
 		2044021821FC9DE800D191BA /* libVelvetRoom.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVelvetRoom.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2044021921FC9DE800D191BA /* libVelvetRoom.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVelvetRoom.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2044021A21FC9DE800D191BA /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2044021B21FC9DE800D191BA /* Velvet Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Velvet Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2044021B21FC9DE800D191BA /* Velvet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Velvet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2044021C21FC9DE800D191BA /* Velvet Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Velvet Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2044021D21FC9DE800D191BA /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2044022721FCA11A00D191BA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -476,7 +476,7 @@
 				2044021921FC9DE800D191BA /* libVelvetRoom.a */,
 				2044021821FC9DE800D191BA /* libVelvetRoom.a */,
 				2044021C21FC9DE800D191BA /* Velvet Room.app */,
-				2044021B21FC9DE800D191BA /* Velvet Room.app */,
+				2044021B21FC9DE800D191BA /* Velvet.app */,
 				209EDF7D21FC9C3900905989 /* Widget.appex */,
 				2044021D21FC9DE800D191BA /* Widget.appex */,
 				DAB270A221C3CAD6008F184E /* README.md */,
@@ -775,7 +775,7 @@
 			);
 			name = Mac;
 			productName = MacOS;
-			productReference = 2044021B21FC9DE800D191BA /* Velvet Room.app */;
+			productReference = 2044021B21FC9DE800D191BA /* Velvet.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DAB2706A21C3C473008F184E /* iOS */ = {
@@ -1899,7 +1899,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.MacOS;
-				PRODUCT_NAME = "Velvet Room";
+				PRODUCT_NAME = Velvet;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
@@ -1961,7 +1961,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = VelvetRoom.MacOS;
-				PRODUCT_NAME = "Velvet Room";
+				PRODUCT_NAME = Velvet;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
