@@ -38,7 +38,7 @@ import VelvetRoom
     override func safeAreaInsetsDidChange() {
         if #available(iOS 11.0, *) {
             super.safeAreaInsetsDidChange()
-            margin = rootViewController!.view.safeAreaInsets
+            margin = rootViewController?.view.safeAreaInsets ?? .zero
         }
     }
     

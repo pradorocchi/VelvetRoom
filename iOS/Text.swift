@@ -42,7 +42,7 @@ class Text:UITextView {
         inputAccessoryView!.addSubview(doneButton)
         
         let deleteButton = UIButton()
-        deleteButton.addTarget(self, action:#selector(remove), for:.touchUpInside)
+        deleteButton.addTarget(self, action:#selector(erase), for:.touchUpInside)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.setImage(#imageLiteral(resourceName: "delete.pdf"), for:.normal)
         deleteButton.imageView!.clipsToBounds = true
@@ -111,7 +111,7 @@ class Text:UITextView {
         return rect
     }
     
-    @objc private func remove() {
+    @objc private func erase() {
         resignFirstResponder()
         delete()
     }
