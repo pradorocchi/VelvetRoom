@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DAB2705621C3C45E008F184E"
-               BuildableName = "Velvet Room.app"
+               BuildableName = "Velvet.app"
                BlueprintName = "Mac"
                ReferencedContainer = "container:VelvetRoom.xcodeproj">
             </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DAB2705621C3C45E008F184E"
-            BuildableName = "Velvet Room.app"
+            BuildableName = "Velvet.app"
             BlueprintName = "Mac"
             ReferencedContainer = "container:VelvetRoom.xcodeproj">
          </BuildableReference>
@@ -73,7 +73,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DAB2705621C3C45E008F184E"
-            BuildableName = "Velvet Room.app"
+            BuildableName = "Velvet.app"
             BlueprintName = "Mac"
             ReferencedContainer = "container:VelvetRoom.xcodeproj">
          </BuildableReference>
